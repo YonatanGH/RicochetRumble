@@ -1,5 +1,6 @@
 ﻿import tkinter as tk
 import heapq
+from abc import ABC, abstractmethod
 
 DELAY_MS = 500  # Delay in milliseconds for NPC actions
 
@@ -196,7 +197,35 @@ class Board:
             func()
 
 
-class PlayerTank:
+class Tank(ABC):
+    def __init__(self, board, x, y, number):
+        """
+        Initialize a tank.
+        
+        :param board: Reference to the game board.
+        :param x: Initial X coordinate.
+        :param y: Initial Y coordinate.
+        :param number: Tank number (1 or 2).
+        """
+        self.board = board  # Reference to the board
+        self.x = x  # X coordinate
+        self.y = y  # Y coordinate
+        self.shots = 0  # Shot counter
+        self.number = number  # Tank number
+        board.place_tank(self, number)
+
+    @abstractmethod
+    def move(self, direction):
+        """Move the tank in a specified direction."""
+        pass
+
+    @abstractmethod
+    def shoot(self, direction):
+        """Shoot a bullet in a specified direction."""
+        pass
+
+
+class PlayerTank(Tank):
     def __init__(self, board, x, y, number):
         """
         Initialize a player-controlled tank.
@@ -206,12 +235,7 @@ class PlayerTank:
         :param y: Initial Y coordinate.
         :param number: Tank number (1 or 2).
         """
-        self.board = board  # Reference to the board
-        self.x = x  # X coordinate
-        self.y = y  # Y coordinate
-        self.shots = 0  # Shot counter
-        self.number = number  # Tank number
-        board.place_tank(self, number)
+        super().__init__(board, x, y, number)
 
     def move(self, direction):
         """
@@ -220,28 +244,21 @@ class PlayerTank:
         :param direction: Direction to move ('up', 'down', 'left', 'right', 'up_left', 'up_right', 'down_left', 'down_right').
         :return: True if move is valid, False otherwise.
         """
-        new_x, new_y = self.x, self.y
-        if direction == 'up' and self.y > 0:
-            new_y -= 1
-        elif direction == 'down' and self.y < self.board.size - 1:
-            new_y += 1
-        elif direction == 'left' and self.x > 0:
-            new_x -= 1
-        elif direction == 'right' and self.x < self.board.size - 1:
-            new_x += 1
-        elif direction == 'up_left' and self.y > 0 and self.x > 0:
-            new_x -= 1
-            new_y -= 1
-        elif direction == 'up_right' and self.y > 0 and self.x < self.board.size - 1:
-            new_x += 1
-            new_y -= 1
-        elif direction == 'down_left' and self.y < self.board.size - 1 and self.x > 0:
-            new_x -= 1
-            new_y += 1
-        elif direction == 'down_right' and self.y < self.board.size - 1 and self.x < self.board.size - 1:
-            new_x += 1
-            new_y += 1
-        return self.board.move_tank(self, new_x, new_y, self.number)
+        directions = {
+            'up': (0, -1),
+            'down': (0, 1),
+            'left': (-1, 0),
+            'right': (1, 0),
+            'up_left': (-1, -1),
+            'up_right': (1, -1),
+            'down_left': (-1, 1),
+            'down_right': (1, 1)
+        }
+        if direction in directions:
+            dx, dy = directions[direction]
+            new_x, new_y = self.x + dx, self.y + dy
+            return self.board.move_tank(self, new_x, new_y, self.number)
+        return False
 
     def shoot(self, direction):
         """
@@ -250,33 +267,26 @@ class PlayerTank:
         :param direction: Direction to shoot ('up', 'down', 'left', 'right', 'up_left', 'up_right', 'down_left', 'down_right').
         """
         if self.shots < 3:
-            bullet = None
-            if direction == 'up':
-                bullet = Bullet(self.board, self.x, self.y - 1, direction)
-            elif direction == 'down':
-                bullet = Bullet(self.board, self.x, self.y + 1, direction)
-            elif direction == 'left':
-                bullet = Bullet(self.board, self.x - 1, self.y, direction)
-            elif direction == 'right':
-                bullet = Bullet(self.board, self.x + 1, self.y, direction)
-            elif direction == 'up_left':
-                bullet = Bullet(self.board, self.x - 1, self.y - 1, direction)
-            elif direction == 'up_right':
-                bullet = Bullet(self.board, self.x + 1, self.y - 1, direction)
-            elif direction == 'down_left':
-                bullet = Bullet(self.board, self.x - 1, self.y + 1, direction)
-            elif direction == 'down_right':
-                bullet = Bullet(self.board, self.x + 1, self.y + 1, direction)
-            if bullet:
+            directions = {
+                'up': (0, -1),
+                'down': (0, 1),
+                'left': (-1, 0),
+                'right': (1, 0),
+                'up_left': (-1, -1),
+                'up_right': (1, -1),
+                'down_left': (-1, 1),
+                'down_right': (1, 1)
+            }
+            if direction in directions:
+                dx, dy = directions[direction]
+                bullet = Bullet(self.board, self.x + dx, self.y + dy, direction)
                 self.board.add_bullet(bullet)
                 self.shots += 1
         else:
-            # TODO: notice he won't be able to shoot anymore. Fix this, like getting a bullet every 3 turns
-            #       with a maximum of 3 bullets
             self.board.show_message("You can't shoot yet!")
 
 
-class AStarTank:
+class AStarTank(Tank):
     def __init__(self, board, x, y, number):
         """
         Initialize an AI-controlled tank using the A* algorithm.
@@ -286,12 +296,7 @@ class AStarTank:
         :param y: Initial Y coordinate.
         :param number: Tank number (1 or 2).
         """
-        self.board = board  # Reference to the board
-        self.x = x  # X coordinate
-        self.y = y  # Y coordinate
-        self.shots = 0  # Shot counter
-        self.number = number  # Tank number
-        board.place_tank(self, number)
+        super().__init__(board, x, y, number)
         self.turns = 0  # Turn counter
 
     def a_star_path(self, start, goal):
@@ -304,7 +309,7 @@ class AStarTank:
         """
 
         def heuristic(a, b):
-            # TODO: Manhattan distance? isn't it better to use infinity norm?
+            # Manhattan distance
             return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
         open_list = []
@@ -335,36 +340,30 @@ class AStarTank:
 
         return []
 
-    def move_towards_tank(self, tank):
+    def move(self, _):
         """
-        Move towards the target tank using the A* path.
+        Move the tank using A* algorithm to reach the goal.
         
-        :param tank: Target tank to move towards.
+        :param _: Unused parameter. Needed to match the parent class signature.
+        :return: True if move is valid, False otherwise.
         """
-        tank_position = (tank.x, tank.y)
+        if self.number == 1:
+            target_tank = self.board.tank2
+        else:
+            target_tank = self.board.tank1
+
+        tank_position = (target_tank.x, target_tank.y)
         path = self.a_star_path((self.x, self.y), tank_position)
         if path:
             next_step = path[0]
-            self.board.move_tank(self, next_step[0], next_step[1], self.number)
+            return self.board.move_tank(self, next_step[0], next_step[1], self.number)
+        return False
 
-    def act(self):
+    def shoot(self, _):
         """
-        Perform an action (move or shoot) based on the turn count.
-        """
-        # TODO: add more complex logic, e.g. move towards the tank if far away, shoot if close
-        #       like: if distance > 3: move towards, else: shoot
-        if self.turns % 2 == 0:
-            if self.number == 1:
-                self.move_towards_tank(self.board.tank2)
-            else:
-                self.move_towards_tank(self.board.tank1)
-        else:
-            self.shoot_at_tank()
-        self.turns += 1
-
-    def shoot_at_tank(self):
-        """
-        Shoot at the target tank if within range.
+        Shoot a bullet at the target tank if within range.
+        
+        :param _: Unused parameter. Needed to match the parent class signature.
         """
         if self.shots < 3:
             if self.number == 1:
@@ -373,53 +372,21 @@ class AStarTank:
                 target_tank = self.board.tank1
             tank_position = (target_tank.x, target_tank.y)
             if abs(self.x - tank_position[0]) <= 1 and abs(self.y - tank_position[1]) <= 1:
-                if self.x < tank_position[0]:
-                    if self.y < tank_position[1]:
-                        self.shoot('down_right')
-                    elif self.y > tank_position[1]:
-                        self.shoot('up_right')
-                    else:
-                        self.shoot('right')
-                elif self.x > tank_position[0]:
-                    if self.y < tank_position[1]:
-                        self.shoot('down_left')
-                    elif self.y > tank_position[1]:
-                        self.shoot('up_left')
-                    else:
-                        self.shoot('left')
-                else:
-                    if self.y < tank_position[1]:
-                        self.shoot('down')
-                    elif self.y > tank_position[1]:
-                        self.shoot('up')
-
-    def shoot(self, direction):
-        """
-        Shoot a bullet in a specified direction.
-        
-        :param direction: Direction to shoot ('up', 'down', 'left', 'right', 'up_left', 'up_right', 'down_left', 'down_right').
-        """
-        if direction in ['up', 'down', 'left', 'right', 'up_left', 'up_right', 'down_left', 'down_right']:
-            bullet = None
-            if direction == 'up':
-                bullet = Bullet(self.board, self.x, self.y - 1, direction)
-            elif direction == 'down':
-                bullet = Bullet(self.board, self.x, self.y + 1, direction)
-            elif direction == 'left':
-                bullet = Bullet(self.board, self.x - 1, self.y, direction)
-            elif direction == 'right':
-                bullet = Bullet(self.board, self.x + 1, self.y, direction)
-            elif direction == 'up_left':
-                bullet = Bullet(self.board, self.x - 1, self.y - 1, direction)
-            elif direction == 'up_right':
-                bullet = Bullet(self.board, self.x + 1, self.y - 1, direction)
-            elif direction == 'down_left':
-                bullet = Bullet(self.board, self.x - 1, self.y + 1, direction)
-            elif direction == 'down_right':
-                bullet = Bullet(self.board, self.x + 1, self.y + 1, direction)
-            if bullet:
-                self.board.add_bullet(bullet)
-                self.shots += 1
+                direction_map = {
+                    (0, -1): 'up',
+                    (0, 1): 'down',
+                    (-1, 0): 'left',
+                    (1, 0): 'right',
+                    (-1, -1): 'up_left',
+                    (1, -1): 'up_right',
+                    (-1, 1): 'down_left',
+                    (1, 1): 'down_right'
+                }
+                dx, dy = tank_position[0] - self.x, tank_position[1] - self.y
+                direction = direction_map.get((dx, dy))
+                if direction:
+                    self.board.add_bullet(Bullet(self.board, self.x + dx, self.y + dy, direction))
+                    self.shots += 1
 
 
 class Bullet:
@@ -443,46 +410,35 @@ class Bullet:
         """Move the bullet in its direction and handle bounces."""
         self.moves += 1
         self.board.update_position(self.x, self.y, 'white')
-        if self.direction == 'up':
-            self.y -= 1
-        elif self.direction == 'down':
-            self.y += 1
-        elif self.direction == 'left':
-            self.x -= 1
-        elif self.direction == 'right':
-            self.x += 1
-        elif self.direction == 'up_left':
-            self.y -= 1
-            self.x -= 1
-        elif self.direction == 'up_right':
-            self.y -= 1
-            self.x += 1
-        elif self.direction == 'down_left':
-            self.y += 1
-            self.x -= 1
-        elif self.direction == 'down_right':
-            self.y += 1
-            self.x += 1
+        directions = {
+            'up': (0, -1),
+            'down': (0, 1),
+            'left': (-1, 0),
+            'right': (1, 0),
+            'up_left': (-1, -1),
+            'up_right': (1, -1),
+            'down_left': (-1, 1),
+            'down_right': (1, 1)
+        }
+        if self.direction in directions:
+            dx, dy = directions[self.direction]
+            self.x += dx
+            self.y += dy
 
         if self.x < 0 or self.x >= self.board.size or self.y < 0 or self.y >= self.board.size:
             if self.bounces < 2:
                 self.bounces += 1
-                if self.direction == 'up':
-                    self.direction = 'down'
-                elif self.direction == 'down':
-                    self.direction = 'up'
-                elif self.direction == 'left':
-                    self.direction = 'right'
-                elif self.direction == 'right':
-                    self.direction = 'left'
-                elif self.direction == 'up_left':
-                    self.direction = 'down_right'
-                elif self.direction == 'up_right':
-                    self.direction = 'down_left'
-                elif self.direction == 'down_left':
-                    self.direction = 'up_right'
-                elif self.direction == 'down_right':
-                    self.direction = 'up_left'
+                bounce_map = {
+                    'up': 'down',
+                    'down': 'up',
+                    'left': 'right',
+                    'right': 'left',
+                    'up_left': 'down_right',
+                    'up_right': 'down_left',
+                    'down_left': 'up_right',
+                    'down_right': 'up_left'
+                }
+                self.direction = bounce_map[self.direction]
             else:
                 self.board.remove_bullet(self)
                 return
@@ -556,6 +512,7 @@ class Game:
         self.tank2 = self.create_tank(tank2_type, 9, 9, 2)  # Tank 2
 
         self.current_tank = self.tank1  # Current tank
+        self.turns = 0  # Turn counter
 
     def create_tank(self, tank_type, x, y, number):
         """
@@ -593,7 +550,7 @@ class Game:
             self.board.update_mode()
             return
 
-        if self.player_action_done or self.current_tank.__class__.__name__ != "PlayerTank":
+        if self.player_action_done or not isinstance(self.current_tank, PlayerTank):
             return
 
         direction_map = {
@@ -621,19 +578,21 @@ class Game:
 
     def switch_turn(self):
         """Switch turns between tanks."""
+        self.turns += 1
         if self.current_tank == self.tank1:
             self.current_tank = self.tank2
         else:
             self.current_tank = self.tank1
 
-        if self.current_tank.__class__.__name__ == "AStarTank":  # TODO: change to not player tank
+        if isinstance(self.current_tank, AStarTank):
             self.board.delay_action(self.npc_act)
         else:
             self.player_action_done = False
 
     def npc_act(self):
         """Perform action for NPC tank."""
-        self.current_tank.act()
+        self.current_tank.move(None)  # Move towards the target tank
+        self.current_tank.shoot(None)  # Shoot if possible
         self.board.update_bullets()
         if not self.board.check_bullet_collisions():
             self.switch_turn()
