@@ -1,9 +1,9 @@
 ﻿import tkinter as tk
 
 from tanks import PlayerTank, AStarTank
+from game_colors import GameColors
 
 DELAY_MS = 500  # Delay in milliseconds for NPC actions
-
 
 class Board:
     def __init__(self, size, main_window, delay=False):
@@ -15,7 +15,7 @@ class Board:
         :param delay: Boolean to enable/disable delay for NPC actions.
         """
         self.size = size  # Board size
-        self.grid = [[' ' for _ in range(size)] for _ in range(size)]  # Board grid
+        self.grid = [[GameColors.BOARD for _ in range(size)] for _ in range(size)]  # Board grid
         self.main_window = main_window  # Main window reference
         self.window = tk.Toplevel(self.main_window)  # Game window
         self.window.title("Ricochet Rumble")
@@ -36,13 +36,13 @@ class Board:
         self.delay = delay  # Delay flag
 
     def draw_grid(self):
-        """Draw the grid on the canvas."""
-        for i in range(self.size):
-            for j in range(self.size):
+        """Draw the grid on the canvas"""
+        for y in range(self.size):
+            for x in range(self.size):
                 self.canvas.create_rectangle(
-                    i * self.cell_size, j * self.cell_size,
-                    (i + 1) * self.cell_size, (j + 1) * self.cell_size,
-                    fill='white', outline='black'
+                    x * self.cell_size, y * self.cell_size,
+                    (x + 1) * self.cell_size, (y + 1) * self.cell_size,
+                    fill=self.grid[y][x], outline=GameColors.OUTLINE
                 )
 
     def place_tank(self, tank, number):
@@ -71,8 +71,10 @@ class Board:
         self.canvas.create_rectangle(
             x * self.cell_size, y * self.cell_size,
             (x + 1) * self.cell_size, (y + 1) * self.cell_size,
-            fill=color, outline='black'
+            fill=color, outline=GameColors.OUTLINE
         )
+        # Update the grid
+        self.grid[y][x] = color
 
     def move_tank(self, tank, new_x, new_y, number):
         """
@@ -85,8 +87,8 @@ class Board:
         :return: True if move is valid, False otherwise.
         """
         if self.is_valid_move(new_x, new_y):
-            color = 'blue' if number == 1 else 'red'
-            self.update_position(tank.x, tank.y, 'white')
+            color = GameColors.TANK1 if number == 1 else GameColors.TANK2
+            self.update_position(tank.x, tank.y, GameColors.BOARD)  # Repaint old position
             tank.x, tank.y = new_x, new_y
             self.update_position(new_x, new_y, color)
             return True
@@ -97,11 +99,11 @@ class Board:
     def add_bullet(self, bullet):
         """
         Add a bullet to the board.
-        
+
         :param bullet: Bullet object to add.
         """
         self.bullets.append(bullet)
-        self.update_position(bullet.x, bullet.y, 'black')
+        self.update_position(bullet.x, bullet.y, GameColors.BULLET)
 
     def move_bullet(self, bullet, new_x, new_y):
         """
@@ -111,10 +113,10 @@ class Board:
         :param new_x: New X coordinate.
         :param new_y: New Y coordinate.
         """
-        self.update_position(bullet.x, bullet.y, 'white')
+        self.update_position(bullet.x, bullet.y, GameColors.BOARD)  # Repaint old position
         bullet.x, bullet.y = new_x, new_y
         if 0 <= new_x < self.size and 0 <= new_y < self.size:
-            self.update_position(new_x, new_y, 'black')
+            self.update_position(new_x, new_y, GameColors.BULLET)
 
     def remove_bullet(self, bullet):
         """
@@ -122,13 +124,13 @@ class Board:
         
         :param bullet: Bullet object to remove.
         """
-        self.update_position(bullet.x, bullet.y, 'white')
+        self.update_position(bullet.x, bullet.y, GameColors.BOARD)  # Repaint old position with brown
         self.bullets.remove(bullet)
 
     def check_bullet_collisions(self):
         """
         Check for bullet collisions with tanks.
-        
+
         :return: True if a collision occurs, False otherwise.
         """
         for bullet in self.bullets:
@@ -145,17 +147,17 @@ class Board:
     def is_valid_move(self, x, y):
         """
         Check if a move is valid.
-        
+
         :param x: X coordinate.
         :param y: Y coordinate.
         :return: True if the move is valid, False otherwise.
         """
-        return 0 <= x < self.size and 0 <= y < self.size and self.grid[y][x] == ' '
+        return 0 <= x < self.size and 0 <= y < self.size and self.grid[y][x] == GameColors.BOARD
 
     def show_message(self, message):
         """
         Display a message.
-        
+
         :param message: Message to display.
         """
         self.message_label.config(text=message)
@@ -174,7 +176,7 @@ class Board:
     def end_game(self, result_message):
         """
         End the game and show the result.
-        
+
         :param result_message: Message to display.
         """
         self.window.destroy()
@@ -188,7 +190,7 @@ class Board:
     def delay_action(self, func):
         """
         Execute an action with an optional delay.
-        
+
         :param func: Function to execute.
         """
         if self.delay:
@@ -208,12 +210,14 @@ class MainMenu:
         self.window = tk.Frame(main_window)  # Menu window
         self.window.pack()
 
+        self.options = ["Player", "A*", "Turret"]  # Tank options
+
         self.tank1_var = tk.StringVar(value="Player")  # Tank 1 type
         self.tank2_var = tk.StringVar(value="A*")  # Tank 2 type
 
         tank1_label = tk.Label(self.window, text="Tank 1:")  # Tank 1 label
         tank1_label.pack(pady=10)
-        tank1_options = tk.OptionMenu(self.window, self.tank1_var, "Player", "A*")  # Tank 1 options
+        tank1_options = tk.OptionMenu(self.window, self.tank1_var, *self.options)  # Tank 1 options
         tank1_options.pack(pady=10)
 
         tank2_label = tk.Label(self.window, text="Tank 2:")  # Tank 2 label
@@ -280,6 +284,8 @@ class Game:
         elif tank_type == "A*":
             return AStarTank(self.board, x, y, number)
         # Future tank types can be added here
+        elif tank_type == "Turret":  # TODO: Implement a class...
+            return AStarTank(self.board, x, y, number)
 
     def handle_key_press(self, event):
         """
@@ -308,6 +314,7 @@ class Game:
             'w': 'up', 's': 'down', 'a': 'left', 'd': 'right',
             'q': 'up_left', 'e': 'up_right', 'z': 'down_left', 'c': 'down_right'
         }
+
         valid_action = False
         if self.board.mode == 'move':
             if event.keysym in direction_map:

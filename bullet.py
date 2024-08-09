@@ -1,4 +1,7 @@
-﻿class Bullet:
+﻿from game_colors import GameColors
+
+
+class Bullet:
     def __init__(self, board, x, y, direction):
         """
         Initialize a bullet.
@@ -18,7 +21,7 @@
     def move(self):
         """Move the bullet in its direction and handle bounces."""
         self.moves += 1
-        self.board.update_position(self.x, self.y, 'white')
+        self.board.update_position(self.x, self.y, GameColors.BOARD)
         directions = {
             'up': (0, -1),
             'down': (0, 1),
