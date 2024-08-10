@@ -2,6 +2,9 @@
 import heapq
 from bullet import Bullet
 
+BEGINNING_SHOTS = 3
+MAX_SHOTS = 5
+
 
 class Tank(ABC):
     def __init__(self, board, x, y, number):
@@ -16,13 +19,18 @@ class Tank(ABC):
         self.board = board  # Reference to the board
         self.x = x  # X coordinate
         self.y = y  # Y coordinate
-        self.shots = 0  # Shot counter
+        self.shots = BEGINNING_SHOTS  # Shot counter
         self.number = number  # Tank number
         board.place_tank(self, number)
+
+    def add_bullet(self):
+        """ Add a bullet to the tank's shot counter. """
+        self.shots += 1 if self.shots < MAX_SHOTS else 0
 
     @abstractmethod
     def move(self, direction):
         """Move the tank in a specified direction."""
+        self.add_bullet()  # add one bullet each time the tank moves
         pass
 
     @abstractmethod
@@ -72,7 +80,7 @@ class PlayerTank(Tank):
         
         :param direction: Direction to shoot ('up', 'down', 'left', 'right', 'up_left', 'up_right', 'down_left', 'down_right').
         """
-        if self.shots < 3:
+        if self.shots > 0:
             directions = {
                 'up': (0, -1),
                 'down': (0, 1),
@@ -87,7 +95,7 @@ class PlayerTank(Tank):
                 dx, dy = directions[direction]
                 bullet = Bullet(self.board, self.x + dx, self.y + dy, direction)
                 self.board.add_bullet(bullet)
-                self.shots += 1
+                self.shots -= 1
         else:
             self.board.show_message("You can't shoot yet!")
 
@@ -171,7 +179,7 @@ class AStarTank(Tank):
         
         :param _: Unused parameter. Needed to match the parent class signature.
         """
-        if self.shots < 3:
+        if self.shots > 0:
             if self.number == 1:
                 target_tank = self.board.tank2
             else:
@@ -192,4 +200,4 @@ class AStarTank(Tank):
                 direction = direction_map.get((dx, dy))
                 if direction:
                     self.board.add_bullet(Bullet(self.board, self.x + dx, self.y + dy, direction))
-                    self.shots += 1
+                    self.shots -= 1

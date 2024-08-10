@@ -5,6 +5,7 @@ from game_colors import GameColors
 
 DELAY_MS = 500  # Delay in milliseconds for NPC actions
 
+
 class Board:
     def __init__(self, size, main_window, delay=False):
         """
@@ -29,8 +30,18 @@ class Board:
         self.turns = 0  # Turn counter
         self.message_label = tk.Label(self.window, text="")  # Label for messages
         self.message_label.pack()
-        self.mode_label = tk.Label(self.window, text=f"Mode: {self.mode}")  # Label for mode
-        self.mode_label.pack()
+
+        # Bullet counts
+        self.bullet_label1 = tk.Label(self.window, text="Tank 1 Bullets: 0")  # Bullet count label for Tank 1
+        self.bullet_label1.pack(side="left")
+
+        self.bullet_label2 = tk.Label(self.window, text="Tank 2 Bullets: 0")  # Bullet count label for Tank 2
+        self.bullet_label2.pack(side="right")
+
+        # Mode indicators
+        self.mode_label1 = tk.Label(self.window, text="Mode: Move", fg=GameColors.TANK1)  # Mode label for Tank 1
+        self.mode_label2 = tk.Label(self.window, text="Mode: Move", fg=GameColors.TANK2)  # Mode label for Tank 2
+
         self.quit_button = tk.Button(self.window, text="Quit", command=self.quit_game)  # Quit button
         self.quit_button.pack()
         self.delay = delay  # Delay flag
@@ -162,9 +173,19 @@ class Board:
         """
         self.message_label.config(text=message)
 
-    def update_mode(self):
-        """Update the mode label."""
-        self.mode_label.config(text=f"Mode: {self.mode.capitalize()}")
+    def update_mode(self, current_tank):
+        """Update the mode label based on the current tank's type."""
+        if isinstance(self.tank1, PlayerTank):
+            self.mode_label1.config(text=f"Mode: {self.mode.capitalize()}")
+            self.mode_label1.pack(side="left", pady=(0, 10))
+        else:
+            self.mode_label1.pack_forget()
+
+        if isinstance(self.tank2, PlayerTank):
+            self.mode_label2.config(text=f"Mode: {self.mode.capitalize()}")
+            self.mode_label2.pack(side="right", pady=(0, 10))
+        else:
+            self.mode_label2.pack_forget()
 
     def update_bullets(self):
         """Update the positions of all bullets."""
@@ -197,6 +218,11 @@ class Board:
             self.window.after(DELAY_MS, func)
         else:
             func()
+
+    def update_bullet_count(self):
+        """Update the bullet count display for both tanks."""
+        self.bullet_label1.config(text=f"Tank 1 Bullets: {self.tank1.shots}")
+        self.bullet_label2.config(text=f"Tank 2 Bullets: {self.tank2.shots}")
 
 
 class MainMenu:
@@ -304,7 +330,7 @@ class Game:
         """
         if event.keysym == 'm':
             self.board.mode = 'shoot' if self.board.mode == 'move' else 'move'
-            self.board.update_mode()
+            self.board.update_mode(self.current_tank)
             return
 
         if self.player_action_done or not isinstance(self.current_tank, PlayerTank):
@@ -329,6 +355,7 @@ class Game:
                 self.board.show_message("Invalid key!")
 
         if valid_action:
+            self.board.update_bullet_count()  # Update bullet count after action
             self.player_action_done = True
             self.last_keys.clear()
             if not self.board.check_bullet_collisions():
@@ -342,7 +369,11 @@ class Game:
         else:
             self.current_tank = self.tank1
 
-        if isinstance(self.current_tank, AStarTank):
+        # if isinstance(self.current_tank, AStarTank):
+        #     self.board.delay_action(self.npc_act)
+        # else:
+        #     self.player_action_done = False
+        if not isinstance(self.current_tank, PlayerTank):
             self.board.delay_action(self.npc_act)
         else:
             self.player_action_done = False
