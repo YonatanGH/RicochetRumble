@@ -236,7 +236,7 @@ class MainMenu:
         self.window = tk.Frame(main_window)  # Menu window
         self.window.pack()
 
-        self.options = ["Player", "A*", "Turret"]  # Tank options
+        self.options = ["Player", "A*", "Turret"]  # Tank options TODO: add here instead of turret
 
         self.tank1_var = tk.StringVar(value="Player")  # Tank 1 type
         self.tank2_var = tk.StringVar(value="A*")  # Tank 2 type
@@ -248,7 +248,7 @@ class MainMenu:
 
         tank2_label = tk.Label(self.window, text="Tank 2:")  # Tank 2 label
         tank2_label.pack(pady=10)
-        tank2_options = tk.OptionMenu(self.window, self.tank2_var, "Player", "A*")  # Tank 2 options
+        tank2_options = tk.OptionMenu(self.window, self.tank2_var, *self.options)  # Tank 2 options
         tank2_options.pack(pady=10)
 
         start_button = tk.Button(self.window, text="Start Game", command=self.start_game)  # Start game button
@@ -310,7 +310,7 @@ class Game:
         elif tank_type == "A*":
             return AStarTank(self.board, x, y, number)
         # Future tank types can be added here
-        elif tank_type == "Turret":  # TODO: Implement a class...
+        elif tank_type == "Turret":  # TODO: Implement a class... and add here instead of turret
             return AStarTank(self.board, x, y, number)
 
     def handle_key_press(self, event):
