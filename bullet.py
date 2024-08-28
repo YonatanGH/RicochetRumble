@@ -21,7 +21,6 @@ class Bullet:
     def move(self):
         """Move the bullet in its direction and handle bounces."""
         self.moves += 1
-        self.board.update_position(self.x, self.y, GameColors.BOARD)
         directions = {
             'up': (0, -1),
             'down': (0, 1),
@@ -56,3 +55,4 @@ class Bullet:
                 return
         else:
             self.board.move_bullet(self, self.x, self.y)
+        self.board.update_position(self.x, self.y, GameColors.BOARD)

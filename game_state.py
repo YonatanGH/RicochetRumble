@@ -1,8 +1,11 @@
+import copy
+
 class GameState:
-    def __init__(self, tank1, tank2, bullets):
+    def __init__(self, tank1, tank2, board):
         self.tank1 = tank1
         self.tank2 = tank2
-        self.bullets = bullets
+        self.bullets = board.bullets
+        self.board = board
 
     def done(self):
         for bullet in self.bullets:
@@ -24,7 +27,7 @@ class GameState:
             self.tank1.move(action)
         # if action starts with 'shoot', shoot a bullet
         elif action.startswith('SHOOT'):
-            self.tank2.shoot(action)
+            self.tank1.shoot(action)
         for bullet in self.bullets:
             if bullet.moves > 0:
                 bullet.move()
@@ -47,7 +50,7 @@ class GameState:
                 self.bullets.remove(bullet)
 
     def generate_successor(self, agent, action):
-        successor = GameState(self.tank1, self.tank2, self.bullets)
+        successor = GameState(self.tank1, self.tank2, self.board)
         if agent == 1:
             successor.apply_action_1(action)
         elif agent == 2:

@@ -1,4 +1,5 @@
-﻿from abc import ABC, abstractmethod
+﻿import copy
+from abc import ABC, abstractmethod
 import heapq
 from bullet import Bullet
 from game_state import GameState
@@ -418,7 +419,7 @@ class MinimaxTank(Tank):
         :param number: Tank number (1 or 2).
         """
         super().__init__(board, x, y, number)
-        self.depth = 1 # TODO change to 3
+        self.depth = 2 # TODO change to 3
         self.best_action = None
 
     def evaluate_game_state(self, game_state):
@@ -553,7 +554,6 @@ class MinimaxTank(Tank):
                 normalized_distance_to_opponent * weights["distance_to_opponent"] +
                 normalized_board_control * weights["board_control"]
         )
-
         return score
 
     def minimax(self, game_state):
@@ -566,26 +566,34 @@ class MinimaxTank(Tank):
         :return: Best value for the current player.
         """
 
-        def max_value(game_state, depth):
+        def max_value(game_state, depth, alpha, beta):
             if depth == 0 or game_state.done():
                 return self.evaluate_game_state(game_state)
             v = float('-inf')
             for action in game_state.get_legal_actions(1):
-                v = max(v, min_value(game_state.generate_successor(1, action), depth))
+                v = max(v, min_value(game_state.generate_successor(1, action), depth, alpha, beta))
+                if v >= beta:
+                    return v
+                alpha = max(alpha, v)
             return v
 
-        def min_value(game_state, depth):
+        def min_value(game_state, depth, alpha, beta):
             if depth == 0 or game_state.done():
                 return self.evaluate_game_state(game_state)
             v = float('inf')
             for action in game_state.get_legal_actions(2):
-                v = min(v, max_value(game_state.generate_successor(2, action), depth - 1))
+                v = min(v, max_value(game_state.generate_successor(2, action), depth - 1, alpha, beta))
+                if v <= alpha:
+                    return v
+                beta = min(beta, v)
             return v
 
         best_action = None
         best_score = float('-inf')
+        alpha = float('-inf')
+        beta = float('inf')
         for action in ACTIONS:
-            score = min_value(game_state.generate_successor(1, action), self.depth)
+            score = min_value(game_state.generate_successor(1, action), self.depth, alpha, beta)
             if score > best_score:
                 best_score = score
                 best_action = action
@@ -669,8 +677,21 @@ class MinimaxTank(Tank):
             target_tank = self.board.tank2
         else:
             target_tank = self.board.tank1
-        game_state = GameState(self, target_tank, self.board.bullets)
+        game_state = GameState(self, target_tank, self.board)
+        self_saves = (self.x, self.y, copy.copy(self.bullets), self.shots)
+        target_saves = (target_tank.x, target_tank.y, copy.copy(target_tank.bullets), target_tank.shots)
         action = self.minimax(game_state)
+        self.x, self.y, self.bullets, self.shots = self_saves
+        target_tank.x, target_tank.y, target_tank.bullets, target_tank.shots = target_saves
+
+        # redraw the board TODO very inefficient, should be optimized
+        self.board.draw_grid()
+        self.board.place_tank(self, self.number)
+        self.board.place_tank(target_tank, target_tank.number)
+        self.board.bullets = []
+        for bullet in self.bullets:
+            self.board.add_bullet(bullet)
+
         if action.startswith('MOVE'):
             self.move(action)
         else:
