@@ -1,5 +1,5 @@
 ﻿import tkinter as tk
-from tanks import PlayerTank, AStarTank
+from tanks import PlayerTank, AStarTank, MinimaxTank
 from game_colors import GameColors
 
 DELAY_MS = 500  # Delay in milliseconds for NPC actions
@@ -17,7 +17,7 @@ class MainMenu:
         self.window = tk.Frame(main_window)  # Menu window
         self.window.pack()
 
-        self.options = ["Player", "A*", "Turret"]  # Tank options TODO: add here instead of turret
+        self.options = ["Player", "A*", "Turret", "Minimax"]  # Tank options TODO: add here instead of turret
 
         self.tank1_var = tk.StringVar(value="Player")  # Tank 1 type
         self.tank2_var = tk.StringVar(value="A*")  # Tank 2 type
@@ -404,6 +404,8 @@ class Game:
         # Future tank types can be added here
         elif tank_type == "Turret":  # TODO: Implement a class... and add here instead of turret
             return AStarTank(self.board, x, y, number)
+        elif tank_type == "Minimax":
+            return MinimaxTank(self.board, x, y, number)
 
     def handle_key_press(self, event):
         """
@@ -472,8 +474,12 @@ class Game:
 
     def npc_act(self):
         """Perform action for NPC tank."""
-        self.current_tank.move(None)  # Move towards the target tank
-        self.current_tank.shoot(None)  # Shoot if possible
+        # check if the current tank is minimax
+        if isinstance(self.current_tank, MinimaxTank):
+            self.current_tank.update()
+        else:
+            self.current_tank.move(None)  # Move towards the target tank
+            self.current_tank.shoot(None)  # Shoot if possible
         self.board.update_bullets()
         if not self.board.check_bullet_collisions():
             self.switch_turn()
