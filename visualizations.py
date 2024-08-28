@@ -242,8 +242,12 @@ class Board:
 
         :param bullet: Bullet object to add.
         """
-        self.bullets.append(bullet)
-        self.update_position(bullet.x, bullet.y, GameColors.BULLET)
+        if self.is_valid_move(bullet.x, bullet.y):
+            self.bullets.append(bullet)
+            self.update_position(bullet.x, bullet.y, GameColors.BULLET)
+            return True
+        self.show_message("Invalid move!")
+        return False
 
     def move_bullet(self, bullet, new_x, new_y):
         """
@@ -319,7 +323,10 @@ class Board:
     def update_bullets(self):
         """Update the positions of all bullets."""
         for bullet in self.bullets[:]:
-            bullet.move()
+            if bullet.moves > 0:
+                bullet.move()
+            else:
+                bullet.moves += 1
             if bullet.moves >= 10:
                 self.remove_bullet(bullet)
 
@@ -434,13 +441,13 @@ class Game:
                 self.board.show_message("Invalid key!")
         elif self.board.mode == 'shoot':
             if event.keysym in direction_map:
-                self.current_tank.shoot(direction_map[event.keysym])
-                valid_action = True
+                valid_action = self.current_tank.shoot(direction_map[event.keysym])
             else:
                 self.board.show_message("Invalid key!")
 
         if valid_action:
             self.board.update_bullet_count()  # Update bullet count after action
+            self.board.update_bullets()  # Update bullet positions
             self.player_action_done = True
             self.last_keys.clear()
             if not self.board.check_bullet_collisions():
