@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 import heapq
 from bullet import Bullet
 from game_state import GameState
+import numpy as np
 
 BEGINNING_SHOTS = 3
 MAX_SHOTS = 5
@@ -92,7 +93,7 @@ class Tank(ABC):
 
         :return: List of legal actions.
         """
-        legal_actions = [] #TODO always everything
+        legal_actions = []
         if self.shots > 0:
             legal_actions += self.__get_legal_actions_shoot()
         legal_actions += self.__get_legal_actions_move()
@@ -300,7 +301,57 @@ class QLearningTank(Tank):
             target_tank = self.board.tank2
         else:
             target_tank = self.board.tank1
-        return self.x, self.y, target_tank.x, target_tank.y
+        state = [self.x, self.y, target_tank.x, target_tank.y]
+        for bullet in self.board.bullets:
+            state.extend([bullet.x, bullet.y, bullet.direction, bullet.bounces, bullet.moves])
+        return state
+
+    def next_state(self, state, action):
+        """
+        Get the next state after taking an action.
+
+        :param state: Current state.
+        :param action: Action taken.
+        :return: Next state.
+        """
+        next_state = state.copy()
+        if action == 'MOVE_UP':
+            next_state[1] -= 1
+        elif action == 'MOVE_DOWN':
+            next_state[1] += 1
+        elif action == 'MOVE_LEFT':
+            next_state[0] -= 1
+        elif action == 'MOVE_RIGHT':
+            next_state[0] += 1
+        elif action == 'MOVE_UP_LEFT':
+            next_state[0] -= 1
+            next_state[1] -= 1
+        elif action == 'MOVE_UP_RIGHT':
+            next_state[0] += 1
+            next_state[1] -= 1
+        elif action == 'MOVE_DOWN_LEFT':
+            next_state[0] -= 1
+            next_state[1] += 1
+        elif action == 'MOVE_DOWN_RIGHT':
+            next_state[0] += 1
+            next_state[1] += 1
+        elif action == 'SHOOT_UP':
+            next_state.extend([next_state[0], next_state[1] - 1, 'up', 0, 0])
+        elif action == 'SHOOT_DOWN':
+            next_state.extend([next_state[0], next_state[1] + 1, 'down', 0, 0])
+        elif action == 'SHOOT_LEFT':
+            next_state.extend([next_state[0] - 1, next_state[1], 'left', 0, 0])
+        elif action == 'SHOOT_RIGHT':
+            next_state.extend([next_state[0] + 1, next_state[1], 'right', 0, 0])
+        elif action == 'SHOOT_UP_LEFT':
+            next_state.extend([next_state[0] - 1, next_state[1] - 1, 'up_left', 0, 0])
+        elif action == 'SHOOT_UP_RIGHT':
+            next_state.extend([next_state[0] + 1, next_state[1] - 1, 'up_right', 0, 0])
+        elif action == 'SHOOT_DOWN_LEFT':
+            next_state.extend([next_state[0] - 1, next_state[1] + 1, 'down_left', 0, 0])
+        elif action == 'SHOOT_DOWN_RIGHT':
+            next_state.extend([next_state[0] + 1, next_state[1] + 1, 'down_right', 0, 0])
+        return tuple(next_state)
 
     def get_q_value(self, state, action):
         """
@@ -320,9 +371,9 @@ class QLearningTank(Tank):
         :return: Best action for the state.
         """
         if np.random.rand() < self.exploration_rate:
-            return np.random.choice(self.board.actions)
-        q_values = [self.get_q_value(state, action) for action in ACTIONS]
-        self.best_action = ACTIONS[np.argmax(q_values)]
+            return np.random.choice(self.get_legal_actions())
+        q_values = [self.get_q_value(state, action) for action in self.get_legal_actions()]
+        self.best_action = self.get_legal_actions()[np.argmax(q_values)]
         return self.best_action
 
     def update_q_table(self, state, action, reward, next_state):
@@ -334,78 +385,252 @@ class QLearningTank(Tank):
         :param reward: Reward received.
         :param next_state: Next state.
         """
+        state = tuple(state)
         q_value = self.get_q_value(state, action)
         next_q_values = [self.get_q_value(next_state, next_action) for next_action in ACTIONS]
         max_q_value = np.max(next_q_values)
         new_q_value = q_value + self.learning_rate * (reward + self.discount_factor * max_q_value - q_value)
         self.q_table[(state, action)] = new_q_value
 
-    def move(self, _):
+    def calculate_shoot_reward(self, state, action):
+        def chebyshev_distance(pos1, pos2):
+            """Calculate the Chebyshev distance between two points."""
+            return max(abs(pos1[0] - pos2[0]), abs(pos1[1] - pos2[1]))
+
+        def count_bullets_in_area(opponent_pos):
+            """
+            Counts the number of bullets within a 4x4 area around the opponent.
+            """
+
+            bullet_positions = [(bullet.x, bullet.y) for bullet in self.board.bullets]
+
+            x_min = max(opponent_pos[0] - 2, 0)
+            x_max = min(opponent_pos[0] + 2, self.board.size - 1)
+            y_min = max(opponent_pos[1] - 2, 0)
+            y_max = min(opponent_pos[1] + 2, self.board.size - 1)
+
+            bullets_in_area = 0
+
+            for bullet_pos in bullet_positions:
+                if x_min <= bullet_pos[0] <= x_max and y_min <= bullet_pos[1] <= y_max:
+                    bullets_in_area += 1
+
+            return bullets_in_area
+
+        # Maximum possible distance (considering a maximum Manhattan distance with bounces)
+        max_possible_distance = 2 * (self.board.size - 1)
+
+        # Step through each position on the trajectory
+        x, y = state[0], state[1]
+        if action == 'SHOOT_UP':
+            dx, dy = 0, -1
+        elif action == 'SHOOT_DOWN':
+            dx, dy = 0, 1
+        elif action == 'SHOOT_LEFT':
+            dx, dy = -1, 0
+        elif action == 'SHOOT_RIGHT':
+            dx, dy = 1, 0
+        elif action == 'SHOOT_UP_LEFT':
+            dx, dy = -1, -1
+        elif action == 'SHOOT_UP_RIGHT':
+            dx, dy = 1, -1
+        elif action == 'SHOOT_DOWN_LEFT':
+            dx, dy = -1, 1
+        elif action == 'SHOOT_DOWN_RIGHT':
+            dx, dy = 1, 1
+        else:
+            return float('-inf')
+        min_distance_product = float('inf')
+
+        while 0 <= x < self.board.size and 0 <= y < self.board.size:
+            # Calculate Chebyshev distance from current position on trajectory to the opponent
+            distance_to_opponent = chebyshev_distance((x, y), (state[2], state[3]))
+            distance_from_shooter = chebyshev_distance((x, y), (state[0], state[1]))
+
+            # Calculate the product of the distances
+            distance_product = distance_to_opponent * distance_from_shooter
+            min_distance_product = min(min_distance_product, distance_product)
+
+            # Move to the next point on the trajectory
+            x += dx
+            y += dy
+
+            # Handle wall bounces
+            if x < 0 or x >= self.board.size:
+                dx = -dx  # Bounce off vertical walls
+                x += 2 * dx
+            if y < 0 or y >= self.board.size:
+                dy = -dy  # Bounce off horizontal walls
+                y += 2 * dy
+
+        # Proximity score for the best point (minimum product of distances)
+        proximity_score = np.exp(-min_distance_product / (max_possible_distance ** 2))
+
+        # Calculate escape difficulty based on the number of bullets in a 4x4 area around the opponent
+        bullets_in_area = count_bullets_in_area((state[2], state[3]))
+        escape_difficulty_score = 1 - np.exp(-bullets_in_area)  # Exponential increase in difficulty
+
+        # Linear penalty for ammo (less ammo results in a lower score)
+        max_ammo = 5
+        ammo_penalty_factor = (self.shots - 1) / (MAX_SHOTS - 1)  # Linearly scale from 0 (min ammo) to 1 (max ammo)
+
+        # Combine scores with weighted factors
+        score = (proximity_score * 0.6) + (escape_difficulty_score * 0.3) + (ammo_penalty_factor * 0.1)
+
+        return score
+
+    def calculate_move_reward(self, state, action):
+        def chebyshev_distance(pos1, pos2):
+            """Calculate the Chebyshev distance between two points."""
+            return max(abs(pos1[0] - pos2[0]), abs(pos1[1] - pos2[1]))
+
+        def bullet_avoidance_score(new_pos):
+            """
+            Calculate the bullet avoidance score based on bullets aimed at the new position
+            and their distances.
+            """
+            bullet_positions = [(bullet.x, bullet.y) for bullet in self.board.bullets]
+            bullet_directions = [bullet.direction for bullet in self.board.bullets]
+            for i in range(len(bullet_directions)):
+                if action == 'SHOOT_UP':
+                    dx, dy = 0, -1
+                elif action == 'SHOOT_DOWN':
+                    dx, dy = 0, 1
+                elif action == 'SHOOT_LEFT':
+                    dx, dy = -1, 0
+                elif action == 'SHOOT_RIGHT':
+                    dx, dy = 1, 0
+                elif action == 'SHOOT_UP_LEFT':
+                    dx, dy = -1, -1
+                elif action == 'SHOOT_UP_RIGHT':
+                    dx, dy = 1, -1
+                elif action == 'SHOOT_DOWN_LEFT':
+                    dx, dy = -1, 1
+                elif action == 'SHOOT_DOWN_RIGHT':
+                    dx, dy = 1, 1
+                else:
+                    return float('-inf')
+                bullet_directions[i] = (dx, dy)
+
+            avoidance_score = 0
+            for bullet_pos, bullet_dir in zip(bullet_positions, bullet_directions):
+                # Predict the next position of the bullet
+                next_bullet_pos = (bullet_pos[0] + bullet_dir[0], bullet_pos[1] + bullet_dir[1])
+
+                # Check if the bullet is aimed at the new position
+                if next_bullet_pos == new_pos:
+                    distance_to_bullet = chebyshev_distance(new_pos, bullet_pos)
+                    avoidance_score -= np.exp(-distance_to_bullet)  # Exponential penalty for proximity
+
+            return avoidance_score
+
+        # Ammo management score (higher reward for lower ammo count)=
+        ammo_reward_factor = 1 - (self.shots / MAX_SHOTS)  # Linearly scale from 1 (min ammo) to 0 (max ammo)
+
+        # Calculate proximity score to the opponent
+        distance_to_opponent = chebyshev_distance((state[0], state[1]), (state[2], state[3]))
+
+        # Reward for being at Chebyshev distance 3, penalize for less or more
+        if distance_to_opponent < 3:
+            proximity_score = -1  # Harsh penalty for being too close
+        else:
+            proximity_score = np.exp(-abs(distance_to_opponent - 3))  # Reward for being close to 3
+
+        # Bullet avoidance score
+        avoidance_score = bullet_avoidance_score((state[0], state[1]))
+
+        # Combine scores with weighted factors
+        score = (ammo_reward_factor * 0.3) + (proximity_score * 0.4) + (avoidance_score * 0.3)
+
+        return score
+
+    def reward(self, state, action):
+        """
+        Get the reward for a given state-action pair.
+
+        :param state: Current state.
+        :param action: Action taken.
+        :return: Reward for the state-action pair.
+        """
+        if action.startswith('SHOOT'):
+            return self.calculate_shoot_reward(state, action)
+        return self.calculate_move_reward(state, action)
+
+    def move(self, action):
         """
         Move the tank using the Q-learning algorithm to reach the goal.
 
         :param _: Unused parameter. Needed to match the parent class signature.
         :return: True if move is valid, False otherwise.
         """
-        super(QLearningTank, self).move()
-        if self.number == 1:
-            target_tank = self.board.tank2
-        else:
-            target_tank = self.board.tank1
+        super(QLearningTank, self).move(action)
 
-        tank_position = (target_tank.x, target_tank.y)
         state = self.get_state()
+        next_state = self.next_state(state, action)
+        self.update_q_table(self.get_state(), action, self.reward(self.get_state(), action), next_state)
+        return self.board.move_tank(self, next_state[0], next_state[1], self.number)
 
-        # check if best action starts with MOVE
-        if self.best_action.startswith('MOVE'):
-            action = self.best_action
-        else:
-            return False
-
-        next_state = self.board.get_next_state(state, action)
-        if self.board.is_valid_move(next_state):
-            self.update_q_table(state, action, -1, next_state)
-            self.x, self.y = next_state
-            return True
-        return False
-
-    def shoot(self, _):
+    def shoot(self, action):
         """
         Shoot a bullet at the target tank if within range.
 
         :param _: Unused parameter. Needed to match the parent class signature.
         """
-        if self.shots > 0:
-            if self.number == 1:
-                target_tank = self.board.tank2
-            else:
-                target_tank = self.board.tank1
-            tank_position = (target_tank.x, target_tank.y)
-            if abs(self.x - tank_position[0]) <= 1 and abs(self.y - tank_position[1]) <= 1:
-                # determine direction of bullet according to best action ((dx, dy))
-                if self.best_action.startswith('SHOOT'):
-                    if self.best_action == 'SHOOT_UP':
-                        dx, dy = 0, -1
-                    elif self.best_action == 'SHOOT_DOWN':
-                        dx, dy = 0, 1
-                    elif self.best_action == 'SHOOT_LEFT':
-                        dx, dy = -1, 0
-                    elif self.best_action == 'SHOOT_RIGHT':
-                        dx, dy = 1, 0
-                    elif self.best_action == 'SHOOT_UP_LEFT':
-                        dx, dy = -1, -1
-                    elif self.best_action == 'SHOOT_UP_RIGHT':
-                        dx, dy = 1, -1
-                    elif self.best_action == 'SHOOT_DOWN_LEFT':
-                        dx, dy = -1, 1
-                    elif self.best_action == 'SHOOT_DOWN_RIGHT':
-                        dx, dy = 1, 1
-                else:
-                    return
-                direction = direction_map.get((dx, dy))
-                if direction:
-                    self.board.add_bullet(Bullet(self.board, self.x + dx, self.y + dy, direction))
-                    self.shots -= 1
+        super(QLearningTank, self).shoot(action)
+
+        directions = {
+            'up': (0, -1),
+            'down': (0, 1),
+            'left': (-1, 0),
+            'right': (1, 0),
+            'up_left': (-1, -1),
+            'up_right': (1, -1),
+            'down_left': (-1, 1),
+            'down_right': (1, 1)
+        }
+
+        state = self.get_state()
+        next_state = self.next_state(state, action)
+        if action == 'SHOOT_UP':
+            dx, dy = 0, -1
+        elif action == 'SHOOT_DOWN':
+            dx, dy = 0, 1
+        elif action == 'SHOOT_LEFT':
+            dx, dy = -1, 0
+        elif action == 'SHOOT_RIGHT':
+            dx, dy = 1, 0
+        elif action == 'SHOOT_UP_LEFT':
+            dx, dy = -1, -1
+        elif action == 'SHOOT_UP_RIGHT':
+            dx, dy = 1, -1
+        elif action == 'SHOOT_DOWN_LEFT':
+            dx, dy = -1, 1
+        elif action == 'SHOOT_DOWN_RIGHT':
+            dx, dy = 1, 1
+        else:
+            return False
+        action = action[6:]
+        action = action.lower()
+        bullet = Bullet(self.board, self.x + dx, self.y + dy, action)
+        can_add = self.board.add_bullet(bullet)
+        self.bullets.append(bullet)
+        if can_add:
+            self.shots -= 1
+            self.update_q_table(self.get_state(), action, self.reward(self.get_state(), action), next_state)
+        return can_add
+
+    def update(self):
+        """
+        Update the tank's state.
+        """
+        action = self.choose_action(self.get_state())
+        if action.startswith('MOVE'):
+            self.move(action)
+        elif action.startswith('SHOOT'):
+            self.shoot(action)
+        print(f'Tank {self.number} action: {action}')
+        for bullet in self.board.bullets:
+            print(f'Bullet {bullet.direction} at ({bullet.x}, {bullet.y})')
 
 
 class MinimaxTank(Tank):
@@ -420,7 +645,6 @@ class MinimaxTank(Tank):
         """
         super().__init__(board, x, y, number)
         self.depth = 2 # TODO change to 3
-        self.best_action = None
 
     def evaluate_game_state(self, game_state):
         """
@@ -570,8 +794,18 @@ class MinimaxTank(Tank):
             if depth == 0 or game_state.done():
                 return self.evaluate_game_state(game_state)
             v = float('-inf')
-            for action in game_state.get_legal_actions(1):
-                v = max(v, min_value(game_state.generate_successor(1, action), depth, alpha, beta))
+            for action in game_state.get_legal_actions(self.number):
+                tank1_data = self.board.tank1.x, self.board.tank1.y, self.board.tank1.shots
+                tank2_data = self.board.tank2.x, self.board.tank2.y, self.board.tank2.shots
+                board_data = copy.deepcopy(self.board.grid)
+                bullets_data = [(bullet.x, bullet.y, bullet.direction, bullet.bounces, bullet.moves) for bullet in
+                                self.board.bullets]
+                v = max(v, min_value(game_state.generate_successor(self.number, action), depth, alpha, beta))
+                self.board.tank1.x, self.board.tank1.y, self.board.tank1.shots = tank1_data
+                self.board.tank2.x, self.board.tank2.y, self.board.tank2.shots = tank2_data
+                self.board.grid = board_data
+                for i, bullet in enumerate(self.board.bullets):
+                    bullet.x, bullet.y, bullet.direction, bullet.bounces, bullet.moves = bullets_data[i]
                 if v >= beta:
                     return v
                 alpha = max(alpha, v)
@@ -581,8 +815,19 @@ class MinimaxTank(Tank):
             if depth == 0 or game_state.done():
                 return self.evaluate_game_state(game_state)
             v = float('inf')
-            for action in game_state.get_legal_actions(2):
-                v = min(v, max_value(game_state.generate_successor(2, action), depth - 1, alpha, beta))
+            other_tank = 1 if self.number == 2 else 2
+            for action in game_state.get_legal_actions(other_tank):
+                tank1_data = self.board.tank1.x, self.board.tank1.y, self.board.tank1.shots
+                tank2_data = self.board.tank2.x, self.board.tank2.y, self.board.tank2.shots
+                board_data = copy.deepcopy(self.board.grid)
+                bullets_data = [(bullet.x, bullet.y, bullet.direction, bullet.bounces, bullet.moves) for bullet in
+                                self.board.bullets]
+                v = min(v, max_value(game_state.generate_successor(other_tank, action), depth - 1, alpha, beta))
+                self.board.tank1.x, self.board.tank1.y, self.board.tank1.shots = tank1_data
+                self.board.tank2.x, self.board.tank2.y, self.board.tank2.shots = tank2_data
+                self.board.grid = board_data
+                for i, bullet in enumerate(self.board.bullets):
+                    bullet.x, bullet.y, bullet.direction, bullet.bounces, bullet.moves = bullets_data[i]
                 if v <= alpha:
                     return v
                 beta = min(beta, v)
@@ -592,12 +837,31 @@ class MinimaxTank(Tank):
         best_score = float('-inf')
         alpha = float('-inf')
         beta = float('inf')
-        for action in ACTIONS:
-            score = min_value(game_state.generate_successor(1, action), self.depth, alpha, beta)
+        scores = {}
+        for action in game_state.get_legal_actions(self.number):
+            # save the data of each tank
+            tank1_data = self.board.tank1.x, self.board.tank1.y, self.board.tank1.shots
+            tank2_data = self.board.tank2.x, self.board.tank2.y, self.board.tank2.shots
+            board_data = copy.deepcopy(self.board.grid)
+            bullets_data = [(bullet.x, bullet.y, bullet.direction, bullet.bounces, bullet.moves) for bullet in
+                            self.board.bullets]
+            score = min_value(game_state.generate_successor(self.number, action), self.depth, alpha, beta)
+            # restore the data of each tank
+            self.board.tank1.x, self.board.tank1.y, self.board.tank1.shots = tank1_data
+            self.board.tank2.x, self.board.tank2.y, self.board.tank2.shots = tank2_data
+            self.board.grid = board_data
+            for i, bullet in enumerate(self.board.bullets):
+                bullet.x, bullet.y, bullet.direction, bullet.bounces, bullet.moves = bullets_data[i]
+            if self.number == 1:
+                self.x, self.y, self.shots = tank1_data
+            else:
+                self.x, self.y, self.shots = tank2_data
             if score > best_score:
                 best_score = score
                 best_action = action
-        self.best_action = best_action
+            scores[action] = score
+        for action, score in scores.items():
+            print(f"{action}: {score}")
         return best_action
 
     def move(self, action):
@@ -674,25 +938,17 @@ class MinimaxTank(Tank):
 
     def update(self):
         if self.number == 1:
-            target_tank = self.board.tank2
+            game_state = GameState(self, self.board.tank2, self.board)
         else:
-            target_tank = self.board.tank1
-        game_state = GameState(self, target_tank, self.board)
-        self_saves = (self.x, self.y, copy.copy(self.bullets), self.shots)
-        target_saves = (target_tank.x, target_tank.y, copy.copy(target_tank.bullets), target_tank.shots)
+            game_state = GameState(self.board.tank1, self, self.board)
         action = self.minimax(game_state)
-        self.x, self.y, self.bullets, self.shots = self_saves
-        target_tank.x, target_tank.y, target_tank.bullets, target_tank.shots = target_saves
-
-        # redraw the board TODO very inefficient, should be optimized
-        self.board.draw_grid()
-        self.board.place_tank(self, self.number)
-        self.board.place_tank(target_tank, target_tank.number)
-        self.board.bullets = []
-        for bullet in self.bullets:
-            self.board.add_bullet(bullet)
 
         if action.startswith('MOVE'):
             self.move(action)
         else:
             self.shoot(action)
+        print(self.x, self.y, self.shots, action)
+        # for i in range(10):
+        #     for j in range(10):
+        #         print(self.board.grid[i][j], end=' ')
+        #     print()

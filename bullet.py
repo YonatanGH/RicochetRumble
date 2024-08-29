@@ -33,6 +33,7 @@ class Bullet:
         }
         if self.direction in directions:
             dx, dy = directions[self.direction]
+            self.board.update_position(self.x, self.y, GameColors.BOARD)
             self.x += dx
             self.y += dy
 
@@ -55,4 +56,4 @@ class Bullet:
                 return
         else:
             self.board.move_bullet(self, self.x, self.y)
-        self.board.update_position(self.x, self.y, GameColors.BOARD)
+        self.board.update_position(self.x, self.y, GameColors.BULLET)
