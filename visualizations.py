@@ -366,6 +366,9 @@ class Board:
 
 # -------------------------------------- Game -------------------------------------- #
 
+BOARD_SIZE = 10  # Size of the game board
+
+
 class Game:
     def __init__(self, main_window, delay, tank1_type, tank2_type):
         """
@@ -385,10 +388,14 @@ class Game:
         self.player_action_done = False  # Flag to track player action
 
         self.tank1 = self.create_tank(tank1_type, 0, 0, 1)  # Tank 1
-        self.tank2 = self.create_tank(tank2_type, 9, 9, 2)  # Tank 2
+        self.tank2 = self.create_tank(tank2_type, BOARD_SIZE - 1, BOARD_SIZE - 1, 2)  # Tank 2
 
         self.current_tank = self.tank1  # Current tank
         self.turns = 0  # Turn counter
+
+        if not isinstance(self.current_tank, PlayerTank):
+            # make the first move for the NPC tank
+            self.board.delay_action(self.npc_act)
 
     def create_tank(self, tank_type, x, y, number):
         """
