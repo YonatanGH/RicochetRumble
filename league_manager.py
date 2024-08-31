@@ -1,186 +1,25 @@
-﻿import copy
-from abc import ABC, abstractmethod
-import heapq
+from visualizations import MainMenu, TankManual, EndScreen
+from tanks import Tank
 from bullet import Bullet
-from game_state import GameState
 import numpy as np
 import random
-
-BEGINNING_SHOTS = 3
-MAX_SHOTS = 5
+from game_colors import GameColors
+import heapq
 
 ACTIONS = ['MOVE_UP', 'MOVE_DOWN', 'MOVE_LEFT', 'MOVE_RIGHT', 'MOVE_UP_LEFT', 'MOVE_UP_RIGHT', 'MOVE_DOWN_LEFT',
            'MOVE_DOWN_RIGHT',
            'SHOOT_UP', 'SHOOT_DOWN', 'SHOOT_LEFT', 'SHOOT_RIGHT', 'SHOOT_UP_LEFT', 'SHOOT_UP_RIGHT', 'SHOOT_DOWN_LEFT',
            'SHOOT_DOWN_RIGHT']
 
+BEGINNING_SHOTS = 3
+MAX_SHOTS = 5
 
-class Tank(ABC):
-    def __init__(self, board, x, y, number):
-        """
-        Initialize a tank.
-        
-        :param board: Reference to the game board.
-        :param x: Initial X coordinate.
-        :param y: Initial Y coordinate.
-        :param number: Tank number (1 or 2).
-        """
-        self.board = board  # Reference to the board
-        self.x = x  # X coordinate
-        self.y = y  # Y coordinate
-        self.shots = BEGINNING_SHOTS  # Shot counter
-        self.number = number  # Tank number
-        self.bullets = []  # List of bullets
-        board.place_tank(self, number)
-
-    def add_bullet(self):
-        """ Add a bullet to the tank's shot counter. """
-        self.shots += 1 if self.shots < MAX_SHOTS else 0
-
-    @abstractmethod
-    def move(self, direction):
-        """Move the tank in a specified direction."""
-        self.add_bullet()  # add one bullet each time the tank moves
-        pass
-
-    @abstractmethod
-    def shoot(self, direction):
-        """Shoot a bullet in a specified direction."""
-        pass
-
-    def __get_legal_actions_shoot(self):
-        legal_actions = []
-        if self.y > 0:
-            legal_actions.append('SHOOT_UP')
-        if self.y < self.board.size - 1:
-            legal_actions.append('SHOOT_DOWN')
-        if self.x > 0:
-            legal_actions.append('SHOOT_LEFT')
-        if self.x < self.board.size - 1:
-            legal_actions.append('SHOOT_RIGHT')
-        if self.y > 0 and self.x > 0:
-            legal_actions.append('SHOOT_UP_LEFT')
-        if self.y > 0 and self.x < self.board.size - 1:
-            legal_actions.append('SHOOT_UP_RIGHT')
-        if self.y < self.board.size - 1 and self.x > 0:
-            legal_actions.append('SHOOT_DOWN_LEFT')
-        if self.y < self.board.size - 1 and self.x < self.board.size - 1:
-            legal_actions.append('SHOOT_DOWN_RIGHT')
-        return legal_actions
-
-    def __get_legal_actions_move(self):
-        legal_actions = []
-        if self.y > 0:
-            legal_actions.append('MOVE_UP')
-        if self.y < self.board.size - 1:
-            legal_actions.append('MOVE_DOWN')
-        if self.x > 0:
-            legal_actions.append('MOVE_LEFT')
-        if self.x < self.board.size - 1:
-            legal_actions.append('MOVE_RIGHT')
-        if self.y > 0 and self.x > 0:
-            legal_actions.append('MOVE_UP_LEFT')
-        if self.y > 0 and self.x < self.board.size - 1:
-            legal_actions.append('MOVE_UP_RIGHT')
-        if self.y < self.board.size - 1 and self.x > 0:
-            legal_actions.append('MOVE_DOWN_LEFT')
-        if self.y < self.board.size - 1 and self.x < self.board.size - 1:
-            legal_actions.append('MOVE_DOWN_RIGHT')
-        return legal_actions
-
-    def get_legal_actions(self):
-        """
-        Get the legal actions for the tank.
-
-        :return: List of legal actions.
-        """
-        legal_actions = []
-        if self.shots > 0:
-            legal_actions += self.__get_legal_actions_shoot()
-        legal_actions += self.__get_legal_actions_move()
-        return legal_actions
-
-    def state_to_move(self, state):
-        """
-        Get the move that corresponds to the given state.
-
-        :param state: The state to convert.
-        :return: The move that corresponds to the given state.
-        """
-        pass
-
-class PlayerTank(Tank):
-    def __init__(self, board, x, y, number):
-        """
-        Initialize a player-controlled tank.
-        
-        :param board: Reference to the game board.
-        :param x: Initial X coordinate.
-        :param y: Initial Y coordinate.
-        :param number: Tank number (1 or 2).
-        """
-        super().__init__(board, x, y, number)
-
-    def move(self, direction):
-        """
-        Move the tank in a specified direction.
-        
-        :param direction: Direction to move ('up', 'down', 'left', 'right', 'up_left', 'up_right', 'down_left', 'down_right').
-        :return: True if move is valid, False otherwise.
-        """
-        super().move(direction)
-        directions = {
-            'up': (0, -1),
-            'down': (0, 1),
-            'left': (-1, 0),
-            'right': (1, 0),
-            'up_left': (-1, -1),
-            'up_right': (1, -1),
-            'down_left': (-1, 1),
-            'down_right': (1, 1)
-        }
-        if direction in directions:
-            dx, dy = directions[direction]
-            new_x, new_y = self.x + dx, self.y + dy
-            return self.board.move_tank(self, new_x, new_y, self.number)
-        return False
-
-    def shoot(self, direction):
-        """
-        Shoot a bullet in a specified direction.
-        
-        :param direction: Direction to shoot ('up', 'down', 'left', 'right', 'up_left', 'up_right', 'down_left', 'down_right').
-        """
-        if self.shots > 0:
-            directions = {
-                'up': (0, -1),
-                'down': (0, 1),
-                'left': (-1, 0),
-                'right': (1, 0),
-                'up_left': (-1, -1),
-                'up_right': (1, -1),
-                'down_left': (-1, 1),
-                'down_right': (1, 1)
-            }
-            # convert direction to lowercase
-            # direction = direction.lower()
-            # direction = direction[6:]
-            if direction in directions:
-                dx, dy = directions[direction]
-                bullet = Bullet(self.board, self.x + dx, self.y + dy, direction)
-                can_add = self.board.add_bullet(bullet)
-                if can_add:
-                    self.shots -= 1
-                return can_add
-        else:
-            self.board.show_message("You can't shoot yet!")
-            return False
 
 class AStarTank(Tank):
     def __init__(self, board, x, y, number):
         """
         Initialize an AI-controlled tank using the A* algorithm.
-        
+
         :param board: Reference to the game board.
         :param x: Initial X coordinate.
         :param y: Initial Y coordinate.
@@ -189,10 +28,21 @@ class AStarTank(Tank):
         super().__init__(board, x, y, number)
         self.turns = 0  # Turn counter
 
+    def set_data(self, x, y, number):
+        """
+        Set the tank's position.
+
+        :param x: X coordinate.
+        :param y: Y coordinate.
+        """
+        self.x = x
+        self.y = y
+        self.number = number
+
     def a_star_path(self, start, goal):
         """
         Compute the A* path from start to goal.
-        
+
         :param start: Starting position (x, y).
         :param goal: Goal position (x, y).
         :return: List of positions (x, y) in the path.
@@ -233,7 +83,7 @@ class AStarTank(Tank):
     def move(self, _):
         """
         Move the tank using A* algorithm to reach the goal.
-        
+
         :param _: Unused parameter. Needed to match the parent class signature.
         :return: True if move is valid, False otherwise.
         """
@@ -253,7 +103,7 @@ class AStarTank(Tank):
     def shoot(self, _):
         """
         Shoot a bullet at the target tank if within range.
-        
+
         :param _: Unused parameter. Needed to match the parent class signature.
         """
         if self.shots > 0:
@@ -321,8 +171,9 @@ class AStarTank(Tank):
         else:
             self.move(None)
 
+
 class QLearningTank(Tank):
-    def __init__(self, board, x, y, number):
+    def __init__(self, board, x, y, number, lr=0.1, ds=0.9, er=0.1, ed=0.001, epochs=10000):
         """
         Initialize an AI-controlled tank using the Q-learning algorithm.
 
@@ -333,11 +184,11 @@ class QLearningTank(Tank):
         """
         super().__init__(board, x, y, number)
         self.q_table = {}
-        self.learning_rate = 0.1
-        self.discount_factor = 0.9
-        self.exploration_rate = 0.1
-        self.exploration_decay = 0.001
-        self.epochs = 10000
+        self.learning_rate = lr
+        self.discount_factor = ds
+        self.exploration_rate = er
+        self.exploration_decay = ed
+        self.epochs = epochs
 
         # self.fill_q_table()
 
@@ -686,7 +537,6 @@ class QLearningTank(Tank):
             if next_bullet_pos == (state[0], state[1]):
                 return -1000
 
-
         min_distance = float('inf')
 
         for _ in range(10):
@@ -707,7 +557,7 @@ class QLearningTank(Tank):
                 y += 2 * dy
 
         # Proximity score for the best point (minimum product of distances)
-        proximity_score = 1 / np.exp( min_distance / (self.board.size - 2)) -0.35 # Exponential decrease in score
+        proximity_score = 1 / np.exp(min_distance / (self.board.size - 2)) - 0.35  # Exponential decrease in score
 
         # Calculate escape difficulty based on the number of bullets in a 4x4 area around the opponent
         bullets_in_area = count_bullets_in_area((state[2], state[3]))
@@ -802,7 +652,7 @@ class QLearningTank(Tank):
             y += 1
 
         # Calculate proximity score to the opponent
-        distance_to_opponent_old= chebyshev_distance((state[0], state[1]), (state[2], state[3]))
+        distance_to_opponent_old = chebyshev_distance((state[0], state[1]), (state[2], state[3]))
         distance_to_opponent_new = chebyshev_distance((x, y), (state[2], state[3]))
 
         # Reward for being at Chebyshev distance 3, penalize for less or more
@@ -816,8 +666,9 @@ class QLearningTank(Tank):
 
         # Combine scores with weighted factors
         avoidance_coef = 0.3 * len(self.board.bullets)
-        other_coef = 0.3*MAX_SHOTS - len(self.board.bullets)
-        score = (ammo_reward_factor * (0.3 + other_coef))+ (proximity_score * (0.4 + other_coef)) + (avoidance_score *  avoidance_coef)
+        other_coef = 0.3 * MAX_SHOTS - len(self.board.bullets)
+        score = (ammo_reward_factor * (0.3 + other_coef)) + (proximity_score * (0.4 + other_coef)) + (
+                    avoidance_score * avoidance_coef)
 
         return score
 
@@ -905,329 +756,352 @@ class QLearningTank(Tank):
             self.move(action)
         elif action.startswith('SHOOT'):
             self.shoot(action)
-        for action_loop in self.state_legal_actions(self.get_state()):
-            print(action_loop, end=' ')
-            print(self.reward(self.get_state(), action_loop), end=' ')
-        print(action)
+        # for action_loop in self.state_legal_actions(self.get_state()):
+        #     print(action_loop, end=' ')
+        #     print(self.reward(self.get_state(), action_loop), end=' ')
+        # print(action)
 
-
-
-class MinimaxTank(Tank):
-    def __init__(self, board, x, y, number):
+class Board:
+    def __init__(self, size, main_window, delay=False):
         """
-        Initialize an AI-controlled tank using the Minimax algorithm.
+        Initialize the game board.
 
-        :param board: Reference to the game board.
-        :param x: Initial X coordinate.
-        :param y: Initial Y coordinate.
+        :param size: The size of the board (number of tiles in one dimension).
+        :param main_window: The main Tkinter window.
+        :param delay: Boolean to enable/disable delay for NPC actions.
+        """
+        self.size = size  # Board size
+        self.grid = [[GameColors.BOARD for _ in range(size)] for _ in range(size)]  # Board grid
+        self.main_window = main_window  # Main window reference
+        self.tank1 = None  # Reference to tank 1
+        self.tank2 = None  # Reference to tank 2
+        self.bullets = []  # List of bullets
+        self.mode = 'move'  # Current mode (move or shoot)
+        self.turns = 0  # Turn counter
+
+        self.delay = delay  # Delay flag
+
+    def place_tank(self, tank, number):
+        """
+        Place a tank on the board.
+
+        :param tank: Tank object to place.
         :param number: Tank number (1 or 2).
         """
-        super().__init__(board, x, y, number)
-        self.depth = 2 # TODO change to 3
-
-    def evaluate_game_state(self, game_state):
-        """
-        Evaluates the game state and returns a score estimating the situation for the player.
-
-        Args:
-        - player_position: Tuple (x, y) representing the player's current position.
-        - opponent_position: Tuple (x, y) representing the opponent's current position.
-        - player_bullets: Integer representing the number of bullets the player has.
-        - opponent_bullets: Integer representing the number of bullets the opponent has.
-        - bullet_positions: List of tuples [(x, y), ...] representing the positions of all bullets on the board.
-        - bullet_directions: List of tuples [(dx, dy), ...] representing the directions of each bullet.
-        - weights: Dictionary containing weights for each factor in the heuristic.
-        - board_size: Integer representing the size of the board (default is 10 for a 10x10 board).
-
-        Returns:
-        - score: A float representing the favorability of the game state for the player. Higher is better.
-        """
-        board_size = 10
-
-        player_position = (self.x, self.y)
-        player_bullets = self.shots
-        if self.number == 1:
-            opponent_position = (game_state.tank2.x, game_state.tank2.y)
-            opponent_bullets = game_state.tank2.shots
+        if number == 1:
+            self.tank1 = tank
+            color = GameColors.TANK1
         else:
-            opponent_position = (game_state.tank1.x, game_state.tank1.y)
-            opponent_bullets = game_state.tank1.shots
-        bullet_positions = [(bullet.x, bullet.y) for bullet in game_state.bullets]
-        bullet_directions = [bullet.direction for bullet in game_state.bullets]
+            self.tank2 = tank
+            color = GameColors.TANK2
+        self.update_position(tank.x, tank.y, color)
 
-        # TODO: find good weights
-        weights = {
-            "bullet_count": 10,
-            "player_threat": -20,
-            "opponent_threat": 20,
-            "safe_moves": 5,
-            "distance_to_opponent": -1,
-            "board_control": 2,
-        }
+    def update_position(self, x, y, color):
+        """
+        Update the position of an object on the board.
 
-        def manhattan_distance(pos1, pos2):
-            return abs(pos1[0] - pos2[0]) + abs(pos1[1] - pos2[1])
+        :param x: X coordinate.
+        :param y: Y coordinate.
+        :param color: Color of the object.
+        """
+        # Update the grid
+        self.grid[y][x] = color
 
-        def is_bullet_on_trajectory(position, bullet_pos, bullet_dir):
-            """
-            Checks if the given position is on the trajectory of a bullet considering bounces.
-            """
-            direction_map = {
-                'up': (0, -1),
-                'down': (0, 1),
-                'left': (-1, 0),
-                'right': (1, 0),
-                'up_left': (-1, -1),
-                'up_right': (1, -1),
-                'down_left': (-1, 1),
-                'down_right': (1, 1),
-            }
-            x, y = bullet_pos
-            dx, dy = direction_map[bullet_dir]
-            for _ in range(10): # TODO change how far we look?
-                if (x, y) == position:
-                    return True
-                # Move bullet and handle bounces
-                x += dx
-                y += dy
-                if x < 0 or x >= board_size:
-                    dx = -dx  # Bounce off vertical walls
-                    x += 2 * dx
-                if y < 0 or y >= board_size:
-                    dy = -dy  # Bounce off horizontal walls
-                    y += 2 * dy
+    def move_tank(self, tank, new_x, new_y, number):
+        """
+        Move a tank to a new position.
+
+        :param tank: Tank object to move.
+        :param new_x: New X coordinate.
+        :param new_y: New Y coordinate.
+        :param number: Tank number (1 or 2).
+        :return: True if move is valid, False otherwise.
+        """
+        if self.is_valid_move(new_x, new_y):
+            color = GameColors.TANK1 if number == 1 else GameColors.TANK2
+            self.update_position(tank.x, tank.y, GameColors.BOARD)  # Repaint old position
+            tank.x, tank.y = new_x, new_y
+            self.update_position(new_x, new_y, color)
+            return True
+        else:
             return False
 
-        # Initialize raw scores for each factor
-        bullet_count_diff = (player_bullets - opponent_bullets) / 5  # Normalize difference by max bullet count
-        distance_to_opponent = manhattan_distance(player_position, opponent_position) / (
-                    2 * board_size)  # Normalize distance
-        player_threat = 0
-        opponent_threat = 0
-
-        for i, bullet_pos in enumerate(bullet_positions):
-            bullet_dir = bullet_directions[i]
-
-            if is_bullet_on_trajectory(player_position, bullet_pos, bullet_dir):
-                player_threat += 1
-
-            if is_bullet_on_trajectory(opponent_position, bullet_pos, bullet_dir):
-                opponent_threat += 1
-
-        # Normalize threat levels
-        max_threats = len(bullet_positions)  # Maximum number of bullets that could threaten a player
-        player_threat_normalized = player_threat / max_threats if max_threats > 0 else 0
-        opponent_threat_normalized = opponent_threat / max_threats if max_threats > 0 else 0
-
-        def count_safe_moves(position):
-            safe_moves = 0
-            possible_moves = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, -1), (1, -1), (-1, 1)]
-            for move in possible_moves:
-                new_position = (position[0] + move[0], position[1] + move[1])
-                if 0 <= new_position[0] < board_size and 0 <= new_position[1] < board_size:
-                    if not any(
-                            is_bullet_on_trajectory(new_position, bullet_pos, bullet_dir) for bullet_pos, bullet_dir in
-                            zip(bullet_positions, bullet_directions)):
-                        safe_moves += 1
-            return safe_moves
-
-        max_moves = 8  # Maximum number of moves a player can have
-        player_safe_moves = count_safe_moves(player_position) / max_moves  # Normalize safe moves
-        opponent_safe_moves = count_safe_moves(opponent_position) / max_moves  # Normalize safe moves
-
-        def edge_distance(position):
-            return min(position[0], board_size - 1 - position[0], position[1], board_size - 1 - position[1])
-
-        max_edge_distance = board_size // 2
-        player_edge_distance = edge_distance(player_position) / max_edge_distance
-        opponent_edge_distance = edge_distance(opponent_position) / max_edge_distance
-
-        # Compute normalized score components
-        normalized_bullet_count = bullet_count_diff
-        normalized_threat_diff = opponent_threat_normalized - player_threat_normalized
-        normalized_safe_moves_diff = player_safe_moves - opponent_safe_moves
-        normalized_distance_to_opponent = -distance_to_opponent  # Closer is better
-        normalized_board_control = opponent_edge_distance - player_edge_distance
-
-        # Compute the final score
-        score = (
-                normalized_bullet_count * weights["bullet_count"] +
-                normalized_threat_diff * weights["player_threat"] +
-                normalized_safe_moves_diff * weights["safe_moves"] +
-                normalized_distance_to_opponent * weights["distance_to_opponent"] +
-                normalized_board_control * weights["board_control"]
-        )
-        return score
-
-    def minimax(self, game_state):
+    def add_bullet(self, bullet):
         """
-        Minimax algorithm to determine the best move.
+        Add a bullet to the board.
 
-        :param state: State of the tank (x, y).
-        :param depth: Depth of the search tree.
-        :param maximizing_player: Whether the current player is maximizing or minimizing.
-        :return: Best value for the current player.
+        :param bullet: Bullet object to add.
         """
-
-        def max_value(game_state, depth, alpha, beta):
-            if depth == 0 or game_state.done():
-                return self.evaluate_game_state(game_state)
-            v = float('-inf')
-            for action in game_state.get_legal_actions(self.number):
-                tank1_data = self.board.tank1.x, self.board.tank1.y, self.board.tank1.shots
-                tank2_data = self.board.tank2.x, self.board.tank2.y, self.board.tank2.shots
-                board_data = copy.deepcopy(self.board.grid)
-                bullets_data = [(bullet.x, bullet.y, bullet.direction, bullet.bounces, bullet.moves) for bullet in
-                                self.board.bullets]
-                v = max(v, min_value(game_state.generate_successor(self.number, action), depth, alpha, beta))
-                self.board.tank1.x, self.board.tank1.y, self.board.tank1.shots = tank1_data
-                self.board.tank2.x, self.board.tank2.y, self.board.tank2.shots = tank2_data
-                self.board.grid = board_data
-                for i, bullet in enumerate(self.board.bullets):
-                    bullet.x, bullet.y, bullet.direction, bullet.bounces, bullet.moves = bullets_data[i]
-                if v >= beta:
-                    return v
-                alpha = max(alpha, v)
-            return v
-
-        def min_value(game_state, depth, alpha, beta):
-            if depth == 0 or game_state.done():
-                return self.evaluate_game_state(game_state)
-            v = float('inf')
-            other_tank = 1 if self.number == 2 else 2
-            for action in game_state.get_legal_actions(other_tank):
-                tank1_data = self.board.tank1.x, self.board.tank1.y, self.board.tank1.shots
-                tank2_data = self.board.tank2.x, self.board.tank2.y, self.board.tank2.shots
-                board_data = copy.deepcopy(self.board.grid)
-                bullets_data = [(bullet.x, bullet.y, bullet.direction, bullet.bounces, bullet.moves) for bullet in
-                                self.board.bullets]
-                v = min(v, max_value(game_state.generate_successor(other_tank, action), depth - 1, alpha, beta))
-                self.board.tank1.x, self.board.tank1.y, self.board.tank1.shots = tank1_data
-                self.board.tank2.x, self.board.tank2.y, self.board.tank2.shots = tank2_data
-                self.board.grid = board_data
-                for i, bullet in enumerate(self.board.bullets):
-                    bullet.x, bullet.y, bullet.direction, bullet.bounces, bullet.moves = bullets_data[i]
-                if v <= alpha:
-                    return v
-                beta = min(beta, v)
-            return v
-
-        best_action = None
-        best_score = float('-inf')
-        alpha = float('-inf')
-        beta = float('inf')
-        scores = {}
-        for action in game_state.get_legal_actions(self.number):
-            # save the data of each tank
-            tank1_data = self.board.tank1.x, self.board.tank1.y, self.board.tank1.shots
-            tank2_data = self.board.tank2.x, self.board.tank2.y, self.board.tank2.shots
-            board_data = copy.deepcopy(self.board.grid)
-            bullets_data = [(bullet.x, bullet.y, bullet.direction, bullet.bounces, bullet.moves) for bullet in
-                            self.board.bullets]
-            score = min_value(game_state.generate_successor(self.number, action), self.depth, alpha, beta)
-            # restore the data of each tank
-            self.board.tank1.x, self.board.tank1.y, self.board.tank1.shots = tank1_data
-            self.board.tank2.x, self.board.tank2.y, self.board.tank2.shots = tank2_data
-            self.board.grid = board_data
-            for i, bullet in enumerate(self.board.bullets):
-                bullet.x, bullet.y, bullet.direction, bullet.bounces, bullet.moves = bullets_data[i]
-            if self.number == 1:
-                self.x, self.y, self.shots = tank1_data
-            else:
-                self.x, self.y, self.shots = tank2_data
-            if score > best_score:
-                best_score = score
-                best_action = action
-            scores[action] = score
-        for action, score in scores.items():
-            print(f"{action}: {score}")
-        return best_action
-
-    def move(self, action):
-        """
-        Move the tank using Minimax algorithm to reach the goal.
-        """
-        super(MinimaxTank, self).move(action)
-        next_state = (-1, -1)
-        if action == 'MOVE_UP':
-            next_state = (self.x, self.y - 1)
-        elif action == 'MOVE_DOWN':
-            next_state = (self.x, self.y + 1)
-        elif action == 'MOVE_LEFT':
-            next_state = (self.x - 1, self.y)
-        elif action == 'MOVE_RIGHT':
-            next_state = (self.x + 1, self.y)
-        elif action == 'MOVE_UP_LEFT':
-            next_state = (self.x - 1, self.y - 1)
-        elif action == 'MOVE_UP_RIGHT':
-            next_state = (self.x + 1, self.y - 1)
-        elif action == 'MOVE_DOWN_LEFT':
-            next_state = (self.x - 1, self.y + 1)
-        elif action == 'MOVE_DOWN_RIGHT':
-            next_state = (self.x + 1, self.y + 1)
-        moved = self.board.move_tank(self, next_state[0], next_state[1], self.number)
-        if moved:
-            self.x, self.y = next_state
+        if self.is_valid_move(bullet.x, bullet.y):
+            self.bullets.append(bullet)
+            self.update_position(bullet.x, bullet.y, GameColors.BULLET)
             return True
         return False
 
-    def shoot(self, action):
+    def move_bullet(self, bullet, new_x, new_y):
         """
-        Shoot a bullet at the target tank if within range.
+        Move a bullet to a new position.
+
+        :param bullet: Bullet object to move.
+        :param new_x: New X coordinate.
+        :param new_y: New Y coordinate.
         """
-        if self.number == 1:
-            target_tank = self.board.tank2
-        else:
-            target_tank = self.board.tank1
-        tank_position = (target_tank.x, target_tank.y)
-        if abs(self.x - tank_position[0]) <= 1 and abs(self.y - tank_position[1]) <= 1:
-            if action == 'SHOOT_UP':
-                dx, dy = 0, -1
-            elif action == 'SHOOT_DOWN':
-                dx, dy = 0, 1
-            elif action == 'SHOOT_LEFT':
-                dx, dy = -1, 0
-            elif action == 'SHOOT_RIGHT':
-                dx, dy = 1, 0
-            elif action == 'SHOOT_UP_LEFT':
-                dx, dy = -1, -1
-            elif action == 'SHOOT_UP_RIGHT':
-                dx, dy = 1, -1
-            elif action == 'SHOOT_DOWN_LEFT':
-                dx, dy = -1, 1
-            elif action == 'SHOOT_DOWN_RIGHT':
-                dx, dy = 1, 1
+        self.update_position(bullet.x, bullet.y, GameColors.BOARD)  # Repaint old position
+        bullet.x, bullet.y = new_x, new_y
+        if 0 <= new_x < self.size and 0 <= new_y < self.size:
+            self.update_position(new_x, new_y, GameColors.BULLET)
+
+    def remove_bullet(self, bullet):
+        """
+        Remove a bullet from the board.
+
+        :param bullet: Bullet object to remove.
+        """
+        try:
+            self.update_position(bullet.x, bullet.y, GameColors.BOARD)  # Repaint old position
+            self.bullets.remove(bullet)
+        except ValueError:
+            pass
+
+    def check_bullet_collisions(self):
+        """
+        Check for bullet collisions with tanks.
+
+        :return: True if a collision occurs, False otherwise.
+        """
+        for bullet in self.bullets:
+            if bullet.x == self.tank1.x and bullet.y == self.tank1.y:
+                return 2
+            elif bullet.x == self.tank2.x and bullet.y == self.tank2.y:
+                return 1
+        return 0
+
+    def is_valid_move(self, x, y):
+        """
+        Check if a move is valid.
+
+        :param x: X coordinate.
+        :param y: Y coordinate.
+        :return: True if the move is valid, False otherwise.
+        """
+        return 0 <= x < self.size and 0 <= y < self.size and (self.grid[y][x] == GameColors.BOARD or
+                                                              self.grid[y][x] == GameColors.TANK1 or
+                                                              self.grid[y][x] == GameColors.TANK2)
+
+    def update_bullets(self):
+        """Update the positions of all bullets."""
+
+        # check if there are any bullets in tank1 or tank2 and not here
+        for bullet in self.tank1.bullets:
+            if bullet not in self.bullets:
+                self.bullets.append(bullet)
+        for bullet in self.tank2.bullets:
+            if bullet not in self.bullets:
+                self.bullets.append(bullet)
+
+        for bullet in self.bullets:
+            if bullet.moves > 0:
+                bullet.move()
             else:
-                return False
-            direction_map = {
-                (0, -1): 'up',
-                (0, 1): 'down',
-                (-1, 0): 'left',
-                (1, 0): 'right',
-                (-1, -1): 'up_left',
-                (1, -1): 'up_right',
-                (-1, 1): 'down_left',
-                (1, 1): 'down_right'
-            }
-            direction = direction_map.get((dx, dy))
-            if direction:
-                self.board.add_bullet(Bullet(self.board, self.x + dx, self.y + dy, direction))
-                return True
-        return False
+                bullet.moves += 1
+            if bullet.moves >= 10:
+                self.remove_bullet(bullet)
 
-    def update(self):
-        if self.number == 1:
-            game_state = GameState(self, self.board.tank2, self.board)
-        else:
-            game_state = GameState(self.board.tank1, self, self.board)
-        action = self.minimax(game_state)
+    def quit_game(self):
+        """Quit the game."""
+        self.window.destroy()
+        self.main_window.quit()
 
-        if action.startswith('MOVE'):
-            self.move(action)
+    def delay_action(self, func):
+        """
+        Execute an action with an optional delay.
+
+        :param func: Function to execute.
+        """
+        if self.delay:
+            self.window.after(DELAY_MS, func)
         else:
-            self.shoot(action)
-        print(self.x, self.y, self.shots, action)
-        # for i in range(10):
-        #     for j in range(10):
-        #         print(self.board.grid[i][j], end=' ')
-        #     print()
+            func()
+
+    def update_bullet_count(self):
+        """Update the bullet count display for both tanks."""
+        self.bullet_label1.config(text=f"Tank 1 Bullets: {self.tank1.shots}")
+        self.bullet_label2.config(text=f"Tank 2 Bullets: {self.tank2.shots}")
+
+
+BOARD_SIZE = 10  # Size of the game board
+
+
+class Game:
+    def __init__(self, tank1, tank2, board):
+        """
+        Initialize the game.
+
+        :param main_window: Reference to the main Tkinter window.
+        :param delay: Boolean to enable/disable delay for NPC actions.
+        :param tank1_type: Type of tank 1 ('Player' or 'A*').
+        :param tank2_type: Type of tank 2 ('Player' or 'A*').
+        """
+
+        self.tank1 = tank1  # Tank 1
+        self.tank2 = tank2  # Tank 2
+
+        self.tank1.set_data(0, 0, 1)
+        self.tank2.set_data(board.size - 1, board.size - 1, 2)
+
+        self.board = board  # Game board
+        self.board.tank1 = self.tank1
+        self.board.tank2 = self.tank2
+
+        tank1.board.tank2 = tank2
+        tank2.board.tank1 = tank1
+
+        if isinstance(self.tank1, QLearningTank):
+            self.tank1.fill_q_table()
+
+        if isinstance(self.tank2, QLearningTank):
+            self.tank2.fill_q_table()
+
+        self.winner = 0
+
+        self.current_tank = self.tank1  # Current tank
+        self.turns = 0  # Turn counter
+
+        # self.npc_act()
+        self.conduct_game()
+
+    def switch_turn(self):
+        """Switch turns between tanks."""
+        self.turns += 1
+        if self.current_tank == self.tank1:
+            self.current_tank = self.tank2
+        else:
+            self.current_tank = self.tank1
+
+        # if isinstance(self.current_tank, AStarTank):
+        #     self.board.delay_action(self.npc_act)
+        # else:
+        #     self.player_action_done = False
+        self.npc_act()
+
+    def npc_act(self):
+        """Perform action for NPC tank."""
+        # check if the current tank is minimax or q-learning
+        self.current_tank.update()
+        self.board.update_bullets()
+        winner = self.board.check_bullet_collisions()
+        if winner == 0:
+            self.switch_turn()
+        else:
+            self.winner = winner
+        if winner == 0 and self.turns > 200:
+            self.winner = 3
+
+    def conduct_game(self):
+        """Conduct the game."""
+        while self.winner == 0:
+            self.current_tank.update()
+            self.board.update_bullets()
+            winner = self.board.check_bullet_collisions()
+            if winner == 0:
+                self.turns += 1
+                if self.current_tank == self.tank1:
+                    self.current_tank = self.tank2
+                else:
+                    self.current_tank = self.tank1
+            else:
+                self.winner = winner
+            if winner == 0 and self.turns > 200:
+                self.winner = 3
+
+def play_game(tank1, tank2, board):
+    """
+    Play a game between two tanks.
+
+    :param tank1: Tank 1.
+    :param tank2: Tank 2.
+    :return: The winner of the game (1 or 2).
+    """
+    game = Game(tank1, tank2, board)
+    return game.winner
+
+if __name__ == '__main__':
+    learning_rates = [0.1, 0.3, 0.5, 0.7, 0.9]
+    discount_factors = [0.5, 0.7, 0.9, 0.95, 0.99]
+    exploration_rates = [0.1, 0.2, 0.5, 0.7, 0.9, 1.0]
+    exploration_decay_rates = [0.001, 0.005, 0.01, 0.05, 0.1, 0.2]
+    epochs = [100, 500, 1000, 5000, 10000, 50000]
+
+    board = Board(10, None, False)
+
+    # create a tank for each combination of hyperparameters
+    tanks = []
+    for lr in learning_rates:
+        for df in discount_factors:
+            for er in exploration_rates:
+                for edr in exploration_decay_rates:
+                    for ep in epochs:
+                        q_tank = QLearningTank(board, 0, 0, 1, lr, df, er, edr, ep)
+                        tanks.append(q_tank)
+
+    scores = [[0, 0] for _ in range(len(tanks))]
+    a_scores = [0, 0, 0]
+    # play An A* tank against each Q-learning tank
+    for i in range(len(tanks)):
+        SIZE = 10
+        board_a = Board(SIZE, None, False)
+        tanks[i].board = board_a
+        a_star_tank = AStarTank(board, SIZE-1, SIZE-1, 2)
+        winner = play_game(tanks[i], a_star_tank, board_a)
+        if winner == 1:
+            a_scores[1] += 1
+        elif winner == 2:
+            a_scores[0] += 1
+        else:
+            a_scores[2] += 1
+        board = Board(10, None, False)
+        winner = play_game(a_star_tank, tanks[i], board_a)
+        if winner == 1:
+            a_scores[0] += 1
+        elif winner == 2:
+            a_scores[1] += 1
+        else:
+            a_scores[2] += 1
+        print(f"Playing A* vs tank {i + 1}: {a_scores[0]} wins, {a_scores[1]} losses, {a_scores[2]} draws")
+    print(f"Finished A*: {a_scores[0]} wins, {a_scores[1]} losses")
+    # play each tank against each other twice - once as t1 and once as t2
+    for i in range(len(tanks) - 1, -1, -1):
+        for j in range(i - 1, -1, -1):
+            winner = play_game(tanks[i], tanks[j], board)
+            if winner == 1:
+                scores[i][0] += 1
+                scores[j][1] += 1
+            else:
+                scores[i][1] += 1
+                scores[j][0] += 1
+            winner = play_game(tanks[j], tanks[i], board)
+            if winner == 1:
+                scores[j][0] += 1
+                scores[i][1] += 1
+            else:
+                scores[j][1] += 1
+                scores[i][0] += 1
+        print(f"Finished tank {i + 1}: {scores[i][0]} wins, {scores[i][1]} losses")
+
+    # print the scores - sorted by the number of wins and print the hyperparameters of each tank
+    # Get sorted list with original indices
+    sorted_with_indices = sorted(enumerate(scores), key=lambda x: x[1][0], reverse=True)
+
+    # Extract the new to old index mapping
+    new_to_old_index = {new_index: old_index for new_index, (old_index, _) in enumerate(sorted_with_indices)}
+
+    # Extract the sorted list (optional)
+    sorted_list = [element for _, element in sorted_with_indices]
+
+    for i, score in enumerate(sorted_list):
+        print(f"Tank {i + 1} wins: {score[0]} losses: {score[1]}")
+        print(f"Learning Rate: {learning_rates[new_to_old_index[i]]}", end=" ")
+        print(f"Discount Factor: {discount_factors[new_to_old_index[i]]}", end=" ")
+        print(f"Exploration Rate: {exploration_rates[new_to_old_index[i]]}", end=" ")
+        print(f"Exploration Decay Rate: {exploration_decay_rates[new_to_old_index[i]]}", end=" ")
+        print(f"Epochs: {epochs[new_to_old_index[i]]}")
