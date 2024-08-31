@@ -51,19 +51,19 @@ class Tank(ABC):
         legal_actions = []
         if self.y > 0:
             legal_actions.append('SHOOT_UP')
-        if self.y < self.board.size - 1:
+        if self.y < self.board.height - 1:
             legal_actions.append('SHOOT_DOWN')
         if self.x > 0:
             legal_actions.append('SHOOT_LEFT')
-        if self.x < self.board.size - 1:
+        if self.x < self.board.width - 1:
             legal_actions.append('SHOOT_RIGHT')
         if self.y > 0 and self.x > 0:
             legal_actions.append('SHOOT_UP_LEFT')
-        if self.y > 0 and self.x < self.board.size - 1:
+        if self.y > 0 and self.x < self.board.width - 1:
             legal_actions.append('SHOOT_UP_RIGHT')
-        if self.y < self.board.size - 1 and self.x > 0:
+        if self.y < self.board.height - 1 and self.x > 0:
             legal_actions.append('SHOOT_DOWN_LEFT')
-        if self.y < self.board.size - 1 and self.x < self.board.size - 1:
+        if self.y < self.board.height - 1 and self.x < self.board.width - 1:
             legal_actions.append('SHOOT_DOWN_RIGHT')
         return legal_actions
 
@@ -71,19 +71,19 @@ class Tank(ABC):
         legal_actions = []
         if self.y > 0:
             legal_actions.append('MOVE_UP')
-        if self.y < self.board.size - 1:
+        if self.y < self.board.height - 1:
             legal_actions.append('MOVE_DOWN')
         if self.x > 0:
             legal_actions.append('MOVE_LEFT')
-        if self.x < self.board.size - 1:
+        if self.x < self.board.width - 1:
             legal_actions.append('MOVE_RIGHT')
         if self.y > 0 and self.x > 0:
             legal_actions.append('MOVE_UP_LEFT')
-        if self.y > 0 and self.x < self.board.size - 1:
+        if self.y > 0 and self.x < self.board.width - 1:
             legal_actions.append('MOVE_UP_RIGHT')
-        if self.y < self.board.size - 1 and self.x > 0:
+        if self.y < self.board.height - 1 and self.x > 0:
             legal_actions.append('MOVE_DOWN_LEFT')
-        if self.y < self.board.size - 1 and self.x < self.board.size - 1:
+        if self.y < self.board.height - 1 and self.x < self.board.width - 1:
             legal_actions.append('MOVE_DOWN_RIGHT')
         return legal_actions
 
@@ -212,7 +212,7 @@ class AStarTank(Tank):
 
             for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, 1), (-1, 1), (1, -1)]:
                 neighbor = (current[0] + dx, current[1] + dy)
-                if 0 <= neighbor[0] < self.board.size and 0 <= neighbor[1] < self.board.size:
+                if 0 <= neighbor[0] < self.board.width and 0 <= neighbor[1] < self.board.height:
                     tentative_g_score = g_score[current] + 1
                     if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
                         came_from[neighbor] = current
@@ -405,9 +405,9 @@ class QLearningTank(Tank):
             bullet_positions = [(bullet.x, bullet.y) for bullet in self.board.bullets]
 
             x_min = max(opponent_pos[0] - 2, 0)
-            x_max = min(opponent_pos[0] + 2, self.board.size - 1)
+            x_max = min(opponent_pos[0] + 2, self.board.width - 1)
             y_min = max(opponent_pos[1] - 2, 0)
-            y_max = min(opponent_pos[1] + 2, self.board.size - 1)
+            y_max = min(opponent_pos[1] + 2, self.board.height - 1)
 
             bullets_in_area = 0
 
@@ -418,7 +418,7 @@ class QLearningTank(Tank):
             return bullets_in_area
 
         # Maximum possible distance (considering a maximum Manhattan distance with bounces)
-        max_possible_distance = 2 * (self.board.size - 1)
+        max_possible_distance = 2 * (max(self.board.height, self.board.width) - 1)
 
         # Step through each position on the trajectory
         x, y = state[0], state[1]
@@ -442,7 +442,7 @@ class QLearningTank(Tank):
             return float('-inf')
         min_distance_product = float('inf')
 
-        while 0 <= x < self.board.size and 0 <= y < self.board.size:
+        while 0 <= x < self.board.width and 0 <= y < self.board.height:
             # Calculate Chebyshev distance from current position on trajectory to the opponent
             distance_to_opponent = chebyshev_distance((x, y), (state[2], state[3]))
             distance_from_shooter = chebyshev_distance((x, y), (state[0], state[1]))
@@ -456,10 +456,10 @@ class QLearningTank(Tank):
             y += dy
 
             # Handle wall bounces
-            if x < 0 or x >= self.board.size:
+            if x < 0 or x >= self.board.width:
                 dx = -dx  # Bounce off vertical walls
                 x += 2 * dx
-            if y < 0 or y >= self.board.size:
+            if y < 0 or y >= self.board.height:
                 dy = -dy  # Bounce off horizontal walls
                 y += 2 * dy
 
@@ -644,7 +644,7 @@ class MinimaxTank(Tank):
         :param number: Tank number (1 or 2).
         """
         super().__init__(board, x, y, number)
-        self.depth = 2 # TODO change to 3
+        self.depth = 2  # TODO change to 3
 
     def evaluate_game_state(self, game_state):
         """
@@ -705,7 +705,7 @@ class MinimaxTank(Tank):
             }
             x, y = bullet_pos
             dx, dy = direction_map[bullet_dir]
-            for _ in range(10): # TODO change how far we look?
+            for _ in range(10):  # TODO change how far we look?
                 if (x, y) == position:
                     return True
                 # Move bullet and handle bounces
@@ -722,7 +722,7 @@ class MinimaxTank(Tank):
         # Initialize raw scores for each factor
         bullet_count_diff = (player_bullets - opponent_bullets) / 5  # Normalize difference by max bullet count
         distance_to_opponent = manhattan_distance(player_position, opponent_position) / (
-                    2 * board_size)  # Normalize distance
+                2 * board_size)  # Normalize distance
         player_threat = 0
         opponent_threat = 0
 

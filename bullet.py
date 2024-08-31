@@ -38,7 +38,8 @@ class Bullet:
 
         dx, dy = directions[self.direction]
 
-        if self.x + dx < 0 or self.x + dx >= self.board.size or self.y + dy < 0 or self.y + dy >= self.board.size:
+        if self.x + dx < 0 or self.x + dx >= self.board.width or self.y + dy < 0 or self.y + dy >= self.board.height \
+                or self.board.is_wall(self.x + dx, self.y + dy):
             if self.bounces < MAX_BOUNCES:
                 self.bounces += 1
                 bounce_map = {
