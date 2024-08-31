@@ -379,7 +379,7 @@ class Game:
         :param tank1_type: Type of tank 1 ('Player' or 'A*').
         :param tank2_type: Type of tank 2 ('Player' or 'A*').
         """
-        self.board = Board(10, main_window, delay)  # Game board
+        self.board = Board(BOARD_SIZE, main_window, delay)  # Game board
         self.board.draw_grid()
         self.main_window = main_window  # Main window reference
         self.main_window.bind('<KeyRelease>', self.handle_key_release)  # Key release handler
