@@ -17,7 +17,8 @@ class MainMenu:
         self.window = tk.Frame(main_window)  # Menu window
         self.window.pack()
 
-        self.options = ["Player", "A*", "Turret", "Minimax", "Q-Learning"]  # Tank options TODO: add here instead of turret
+        self.options = ["Player", "A*", "Turret", "Minimax",
+                        "Q-Learning"]  # Tank options TODO: add here instead of turret
 
         self.tank1_var = tk.StringVar(value="Player")  # Tank 1 type
         self.tank2_var = tk.StringVar(value="A*")  # Tank 2 type
@@ -194,10 +195,10 @@ class Board:
         """
         if number == 1:
             self.tank1 = tank
-            color = 'blue'
+            color = GameColors.TANK1
         else:
             self.tank2 = tank
-            color = 'red'
+            color = GameColors.TANK2
         self.update_position(tank.x, tank.y, color)
 
     def update_position(self, x, y, color):
@@ -296,7 +297,9 @@ class Board:
         :param y: Y coordinate.
         :return: True if the move is valid, False otherwise.
         """
-        return 0 <= x < self.size and 0 <= y < self.size and self.grid[y][x] == GameColors.BOARD
+        return 0 <= x < self.size and 0 <= y < self.size and (self.grid[y][x] == GameColors.BOARD or
+                                                              self.grid[y][x] == GameColors.TANK1 or
+                                                              self.grid[y][x] == GameColors.TANK2)
 
     def show_message(self, message):
         """

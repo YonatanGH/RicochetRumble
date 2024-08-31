@@ -1,5 +1,7 @@
 ﻿from game_colors import GameColors
 
+MAX_BOUNCES = 2  # Maximum number of bounces for a bullet
+
 
 class Bullet:
     def __init__(self, board, x, y, direction):
@@ -31,14 +33,13 @@ class Bullet:
             'down_left': (-1, 1),
             'down_right': (1, 1)
         }
-        if self.direction in directions:
-            dx, dy = directions[self.direction]
-            self.board.update_position(self.x, self.y, GameColors.BOARD)
-            self.x += dx
-            self.y += dy
+        if self.direction not in directions:
+            raise ValueError('Invalid direction')
 
-        if self.x < 0 or self.x >= self.board.size or self.y < 0 or self.y >= self.board.size:
-            if self.bounces < 2:
+        dx, dy = directions[self.direction]
+
+        if self.x + dx < 0 or self.x + dx >= self.board.size or self.y + dy < 0 or self.y + dy >= self.board.size:
+            if self.bounces < MAX_BOUNCES:
                 self.bounces += 1
                 bounce_map = {
                     'up': 'down',
@@ -51,9 +52,12 @@ class Bullet:
                     'down_right': 'up_left'
                 }
                 self.direction = bounce_map[self.direction]
+                self.board.update_position(self.x, self.y, GameColors.BOUNCED_BULLET)
             else:
                 self.board.remove_bullet(self)
-                return
         else:
+            self.board.update_position(self.x, self.y, GameColors.BOARD)
+            self.x += dx
+            self.y += dy
             self.board.move_bullet(self, self.x, self.y)
-        self.board.update_position(self.x, self.y, GameColors.BULLET)
+            self.board.update_position(self.x, self.y, GameColors.BULLET)
