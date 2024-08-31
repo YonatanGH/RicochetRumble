@@ -1,6 +1,8 @@
 ﻿import tkinter as tk
-from tanks import PlayerTank, AStarTank, MinimaxTank, QLearningTank
+
 from game_colors import GameColors
+from maze import generate_spacious_maze
+from tanks import PlayerTank, AStarTank, MinimaxTank, QLearningTank
 
 DELAY_MS = 500  # Delay in milliseconds for NPC actions
 
@@ -137,22 +139,29 @@ class EndScreen:
 # -------------------------------------- Board -------------------------------------- #
 
 class Board:
-    def __init__(self, size, main_window, delay=False):
+    def __init__(self, width, height, main_window, delay=False):
         """
         Initialize the game board.
         
-        :param size: The size of the board (number of tiles in one dimension).
+        :param width: Width of the board.
+        :param height: Height of the board.
         :param main_window: The main Tkinter window.
         :param delay: Boolean to enable/disable delay for NPC actions.
         """
-        self.size = size  # Board size
-        self.grid = [[GameColors.BOARD for _ in range(size)] for _ in range(size)]  # Board grid
+        self.width = width  # Width of the board
+        self.height = height  # Height of the board
+
+        self.grid = [[GameColors.BOARD for _ in range(width)] for _ in range(height)]  # Grid of colors
+        self.generate_maze()
+
         self.main_window = main_window  # Main window reference
         self.window = tk.Toplevel(self.main_window)  # Game window
         self.window.title("Ricochet Rumble")
         self.canvas = tk.Canvas(self.window, width=500, height=500)  # Canvas for drawing
         self.canvas.pack()
-        self.cell_size = 500 // size  # Size of each cell
+
+        self.cell_size = 500 // width  # Cell size
+
         self.tank1 = None  # Reference to tank 1
         self.tank2 = None  # Reference to tank 2
         self.bullets = []  # List of bullets
@@ -178,8 +187,8 @@ class Board:
 
     def draw_grid(self):
         """Draw the grid on the canvas"""
-        for y in range(self.size):
-            for x in range(self.size):
+        for y in range(self.height):
+            for x in range(self.width):
                 self.canvas.create_rectangle(
                     x * self.cell_size, y * self.cell_size,
                     (x + 1) * self.cell_size, (y + 1) * self.cell_size,
@@ -260,7 +269,7 @@ class Board:
         """
         self.update_position(bullet.x, bullet.y, GameColors.BOARD)  # Repaint old position
         bullet.x, bullet.y = new_x, new_y
-        if 0 <= new_x < self.size and 0 <= new_y < self.size:
+        if 0 <= new_x < self.width and 0 <= new_y < self.height:
             self.update_position(new_x, new_y, GameColors.BULLET)
 
     def remove_bullet(self, bullet):
@@ -297,9 +306,9 @@ class Board:
         :param y: Y coordinate.
         :return: True if the move is valid, False otherwise.
         """
-        return 0 <= x < self.size and 0 <= y < self.size and (self.grid[y][x] == GameColors.BOARD or
-                                                              self.grid[y][x] == GameColors.TANK1 or
-                                                              self.grid[y][x] == GameColors.TANK2)
+        return 0 <= x < self.width and 0 <= y < self.height and (self.grid[y][x] == GameColors.BOARD or
+                                                                 self.grid[y][x] == GameColors.TANK1 or
+                                                                 self.grid[y][x] == GameColors.TANK2)
 
     def show_message(self, message):
         """
@@ -363,10 +372,31 @@ class Board:
         self.bullet_label1.config(text=f"Tank 1 Bullets: {self.tank1.shots}")
         self.bullet_label2.config(text=f"Tank 2 Bullets: {self.tank2.shots}")
 
+    def generate_maze(self):
+        """Generate the maze and update the grid."""
+        maze = generate_spacious_maze(self.width, self.height)
+        for y in range(self.height):
+            for x in range(self.width):
+                if maze[y][x] == 'W':
+                    self.grid[y][x] = GameColors.WALL  # Use wall color for walls
+                else:
+                    self.grid[y][x] = GameColors.BOARD  # Use board color for paths
+
+    def is_wall(self, x, y):
+        """
+        Check if a position is a wall.
+        
+        :param x: X coordinate.
+        :param y: Y coordinate.
+        :return: True if the position is a wall, False otherwise.
+        """
+        return self.grid[y][x] == GameColors.WALL
+
 
 # -------------------------------------- Game -------------------------------------- #
 
-BOARD_SIZE = 10  # Size of the game board
+BOARD_WIDTH = 15  # Width of the game board
+BOARD_HEIGHT = 10  # Height of the game board
 
 
 class Game:
@@ -379,7 +409,7 @@ class Game:
         :param tank1_type: Type of tank 1 ('Player' or 'A*').
         :param tank2_type: Type of tank 2 ('Player' or 'A*').
         """
-        self.board = Board(BOARD_SIZE, main_window, delay)  # Game board
+        self.board = Board(BOARD_WIDTH, BOARD_HEIGHT, main_window, delay)  # Game board
         self.board.draw_grid()
         self.main_window = main_window  # Main window reference
         self.main_window.bind('<KeyRelease>', self.handle_key_release)  # Key release handler
@@ -388,7 +418,7 @@ class Game:
         self.player_action_done = False  # Flag to track player action
 
         self.tank1 = self.create_tank(tank1_type, 0, 0, 1)  # Tank 1
-        self.tank2 = self.create_tank(tank2_type, BOARD_SIZE - 1, BOARD_SIZE - 1, 2)  # Tank 2
+        self.tank2 = self.create_tank(tank2_type, BOARD_WIDTH - 1, BOARD_HEIGHT - 1, 2)  # Tank 2
 
         self.current_tank = self.tank1  # Current tank
         self.turns = 0  # Turn counter
