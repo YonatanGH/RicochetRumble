@@ -2,7 +2,6 @@
 from abc import ABC, abstractmethod
 import heapq
 from bullet import Bullet
-from game_state import GameState
 import numpy as np
 
 BEGINNING_SHOTS = 3
