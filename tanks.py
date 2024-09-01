@@ -1252,14 +1252,6 @@ class MinimaxTank(Tank):
 
         return score
 
-    """
-        factors:
-        - bullets around the opponent
-        - ammo for each tank
-        - distance to the opponent
-        - bullets aimed at you
-        """
-
     def evaluate_game_state(self, state):
         """
         Get the reward for a given state-action pair.
@@ -1667,7 +1659,7 @@ class MinimaxTank(Tank):
             self.move(action)
         else:
             self.shoot(action)
-        print(self.x, self.y, self.shots, action)
+        # print(self.x, self.y, self.shots, action)
         # for i in range(10):
         #     for j in range(10):
         #         print(self.board.grid[i][j], end=' ')
