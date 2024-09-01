@@ -1,5 +1,5 @@
-﻿from visualizations import MainMenu, TankManual, EndScreen
-from tanks import Tank
+﻿from abc import ABC, abstractmethod
+import heapq
 from bullet import Bullet
 import numpy as np
 import random
@@ -396,16 +396,26 @@ class QLearningTank(Tank):
         """
         legal_actions = []
         for action in ACTIONS:
-            if action == 'MOVE_UP' or (action == 'SHOOT_UP' and state[4] > 0):
+            if action.startswith('MOVE'):
+                simp_action = action[5:].lower()
+            else:
+                simp_action = action[6:].lower()
+            dx, dy = str_to_vals[simp_action]
+            if state[0 + prefix] + dx < 0 or state[0 + prefix] + dx >= self.board.width or \
+                    state[1 + prefix] + dy < 0 or state[1 + prefix] + dy >= self.board.height or \
+                    self.board.is_wall(state[0 + prefix] + dx, state[1 + prefix] + dy):
+                continue
+
+            if action == 'MOVE_UP' or (action == 'SHOOT_UP' and state[2 + prefix] > 0):
                 if 0 < state[1 + prefix] < self.board.height:
                     legal_actions.append(action)
-            elif action == 'MOVE_DOWN' or (action == 'SHOOT_DOWN' and state[4] > 0):
+            elif action == 'MOVE_DOWN' or (action == 'SHOOT_DOWN' and state[2 + prefix] > 0):
                 if 0 <= state[1 + prefix] < self.board.height - 1:
                     legal_actions.append(action)
-            elif action == 'MOVE_LEFT' or (action == 'SHOOT_LEFT' and state[4] > 0):
+            elif action == 'MOVE_LEFT' or (action == 'SHOOT_LEFT' and state[2 + prefix] > 0):
                 if 0 < state[0 + prefix] < self.board.width:
                     legal_actions.append(action)
-            elif action == 'MOVE_RIGHT' or (action == 'SHOOT_RIGHT' and state[4] > 0):
+            elif action == 'MOVE_RIGHT' or (action == 'SHOOT_RIGHT' and state[2 + prefix] > 0):
                 if 0 <= state[0 + prefix] < self.board.width - 1:
                     legal_actions.append(action)
             elif action == 'MOVE_UP_LEFT' or (action == 'SHOOT_UP_LEFT' and state[2 + prefix] > 0):
@@ -1250,7 +1260,7 @@ class MinimaxTank(Tank):
         - bullets aimed at you
         """
 
-    def reward(self, new_state):
+    def evaluate_game_state(self, state):
         """
         Get the reward for a given state-action pair.
 
@@ -1327,7 +1337,7 @@ class MinimaxTank(Tank):
             avoidance_score = 0
             for bullet_pos, bullet_dir in zip(bullet_positions, bullet_directions):
                 for i in range(5):
-                    distance_to_bullet = chebyshev_distance(new_pos, bullet_pos)
+                    distance_to_bullet = chebyshev_distance(pos, bullet_pos)
                     avoidance_score -= np.exp(-distance_to_bullet * i)  # Exponential penalty for proximity
 
                     bullet_pos = (bullet_pos[0] + bullet_dir[0], bullet_pos[1] + bullet_dir[1])
@@ -1335,7 +1345,7 @@ class MinimaxTank(Tank):
             return np.exp(avoidance_score)
 
         # Unpack the state
-        x, y, shots, opponent_x, opponent_y, opponent_shots = state
+        x, y, shots, opponent_x, opponent_y, opponent_shots = state[0], state[1], state[2], state[3], state[4], state[5]
 
         bullet_around_opponent = count_bullets_in_area((opponent_x, opponent_y))
 
@@ -1418,7 +1428,7 @@ class MinimaxTank(Tank):
             next_state[2] = max(0, next_state[2] - 1)
             next_state.extend([next_state[0] + 1, next_state[1] - 1, 'up_right', 0, 0])
         elif action == 'SHOOT_DOWN_LEFT':
-            next_state[2 + prefix] = max(0, next_state[2] - 1)
+            next_state[2] = max(0, next_state[2] - 1)
             next_state.extend([next_state[0] - 1, next_state[1] + 1, 'down_left', 0, 0])
         elif action == 'SHOOT_DOWN_RIGHT':
             next_state[2] = max(0, next_state[2] - 1)
@@ -1451,6 +1461,70 @@ class MinimaxTank(Tank):
             i += 5
         return next_state
 
+    def state_legal_actions(self, state):
+        """
+        Get the legal actions for a given state.
+
+        :param state: Current state.
+        :return: List of legal actions.
+        """
+        legal_actions = []
+        for action in ACTIONS:
+            if action.startswith('MOVE'):
+                simp_action = action[5:].lower()
+            else:
+                simp_action = action[6:].lower()
+            dx, dy = str_to_vals[simp_action]
+            if state[0] + dx < 0 or state[0] + dx >= self.board.width or \
+                    state[1] + dy < 0 or state[1] + dy >= self.board.height or \
+                    self.board.is_wall(state[0] + dx, state[1] + dy):
+                continue
+
+            if action == 'MOVE_UP' or (action == 'SHOOT_UP' and state[2] > 0):
+                if 0 < state[1] < self.board.height:
+                    legal_actions.append(action)
+            elif action == 'MOVE_DOWN' or (action == 'SHOOT_DOWN' and state[2] > 0):
+                if 0 <= state[1] < self.board.height - 1:
+                    legal_actions.append(action)
+            elif action == 'MOVE_LEFT' or (action == 'SHOOT_LEFT' and state[2] > 0):
+                if 0 < state[0] < self.board.width:
+                    legal_actions.append(action)
+            elif action == 'MOVE_RIGHT' or (action == 'SHOOT_RIGHT' and state[2] > 0):
+                if 0 <= state[0] < self.board.width - 1:
+                    legal_actions.append(action)
+            elif action == 'MOVE_UP_LEFT' or (action == 'SHOOT_UP_LEFT' and state[2] > 0):
+                if 0 < state[0] < self.board.width and 0 < state[1] < self.board.height:
+                    legal_actions.append(action)
+            elif action == 'MOVE_UP_RIGHT' or (action == 'SHOOT_UP_RIGHT' and state[2] > 0):
+                if 0 <= state[0] < self.board.width - 1 and 0 < state[1] < self.board.height:
+                    legal_actions.append(action)
+            elif action == 'MOVE_DOWN_LEFT' or (action == 'SHOOT_DOWN_LEFT' and state[2] > 0):
+                if 0 < state[0] < self.board.width - 1 and 0 <= state[1] < self.board.height - 1:
+                    legal_actions.append(action)
+            elif action == 'MOVE_DOWN_RIGHT' or (action == 'SHOOT_DOWN_RIGHT' and state[2] > 0):
+                if 0 <= state[0] < self.board.width - 1 and 0 <= state[1] < self.board.height - 1:
+                    legal_actions.append(action)
+        return legal_actions
+
+    def is_terminal_state(self, state):
+        """
+        Check if the given state is terminal.
+
+        :param state: Current state.
+        :return: True if terminal, False otherwise.
+        """
+        # check if there is a bullet in the same position as a tank
+        if len(state) <= 6:
+            return False
+        i = 6
+        while i < len(state):
+            if state[i] == state[0] and state[i + 1] == state[1]:
+                return True
+            if state[i] == state[3] and state[i + 1] == state[4]:
+                return True
+            i += 5
+        return False
+
     def minimax(self, state):
         """
         Minimax algorithm to determine the best move.
@@ -1465,10 +1539,10 @@ class MinimaxTank(Tank):
             state[0], state[3] = state[3], state[0]
             state[1], state[4] = state[4], state[1]
             state[2], state[5] = state[5], state[2]
-            if depth == 0 or state.done():
+            if depth == 0 or self.is_terminal_state(state):
                 return self.evaluate_game_state(state)
             v = float('-inf')
-            for action in state.get_legal_actions(self.number):
+            for action in self.state_legal_actions(state):
                 v = max(v, min_value(self.next_state(state, action), depth, alpha, beta))
                 if v >= beta:
                     return v
@@ -1479,11 +1553,11 @@ class MinimaxTank(Tank):
             state[0], state[3] = state[3], state[0]
             state[1], state[4] = state[4], state[1]
             state[2], state[5] = state[5], state[2]
-            if depth == 0 or state.done():
+            if depth == 0 or self.is_terminal_state(state):
                 return self.evaluate_game_state(state)
             v = float('inf')
             other_tank = 1 if self.number == 2 else 2
-            for action in state.get_legal_actions(other_tank):
+            for action in self.state_legal_actions(state):
                 v = min(v, max_value(self.next_state(state, action), depth - 1, alpha, beta))
                 if v <= alpha:
                     return v
@@ -1495,7 +1569,7 @@ class MinimaxTank(Tank):
         alpha = float('-inf')
         beta = float('inf')
         scores = {}
-        for action in self.get_legal_actions(self.number):
+        for action in self.state_legal_actions(state):
             state = [self.x, self.y, self.shots, self.board.tank2.x, self.board.tank2.y, self.board.tank2.shots]
             state[0], state[3] = state[3], state[0]
             state[1], state[4] = state[4], state[1]
