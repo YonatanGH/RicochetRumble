@@ -320,17 +320,15 @@ class Board:
 
     def update_mode(self, current_tank):
         """Update the mode label based on the current tank's type."""
+        # instead of writing tank 1 and tank 2, we can write their types
+        
         if isinstance(self.tank1, PlayerTank):
             self.mode_label1.config(text=f"Mode: {self.mode.capitalize()}")
             self.mode_label1.pack(side="left", pady=(0, 10))
-        else:
-            self.mode_label1.pack_forget()
 
         if isinstance(self.tank2, PlayerTank):
             self.mode_label2.config(text=f"Mode: {self.mode.capitalize()}")
             self.mode_label2.pack(side="right", pady=(0, 10))
-        else:
-            self.mode_label2.pack_forget()
 
     def update_bullets(self):
         """Update the positions of all bullets."""
@@ -369,8 +367,10 @@ class Board:
 
     def update_bullet_count(self):
         """Update the bullet count display for both tanks."""
-        self.bullet_label1.config(text=f"Tank 1 Bullets: {self.tank1.shots}")
-        self.bullet_label2.config(text=f"Tank 2 Bullets: {self.tank2.shots}")
+        tank_type1 = self.tank1.__class__.__name__ if self.tank1 else "Tank 1"
+        tank_type2 = self.tank2.__class__.__name__ if self.tank2 else "Tank 2"
+        self.bullet_label1.config(text=f"{tank_type1} Bullets: {self.tank1.shots}")
+        self.bullet_label2.config(text=f"{tank_type2} Bullets: {self.tank2.shots}")
 
     def generate_maze(self):
         """Generate the maze and update the grid."""
@@ -517,7 +517,8 @@ class Game:
     def npc_act(self):
         """Perform action for NPC tank."""
         # check if the current tank is minimax or q-learning
-        if isinstance(self.current_tank, MinimaxTank) or isinstance(self.current_tank, QLearningTank) or isinstance(self.current_tank, AStarTank):
+        if isinstance(self.current_tank, MinimaxTank) or isinstance(self.current_tank, QLearningTank) or isinstance(
+                self.current_tank, AStarTank):
             self.current_tank.update()
         else:
             self.current_tank.move(None)  # Move towards the target tank
