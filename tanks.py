@@ -254,7 +254,9 @@ class AStarTank(Tank):
 
             for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, 1), (-1, 1), (1, -1)]:
                 neighbor = (current[0] + dx, current[1] + dy)
-                if 0 <= neighbor[0] < self.board.width and 0 <= neighbor[1] < self.board.height:
+                if 0 <= neighbor[0] < self.board.width and 0 <= neighbor[1] < self.board.height and \
+                        not self.board.is_wall(neighbor[0], neighbor[1]) and \
+                        not any([bullet.x == neighbor[0] and bullet.y == neighbor[1] for bullet in self.board.bullets]):
                     tentative_g_score = g_score[current] + 1
                     if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
                         came_from[neighbor] = current
@@ -1351,8 +1353,8 @@ class MinimaxTank(Tank):
 
         # Calculate the reward
         reward = (ammo_reward_factor * (shots - opponent_shots)) + (
-                    proximity_reward_factor * bullet_around_opponent) + (
-                             avoidance_reward_factor * (bullets_aimed_at_you - bullets_aimed_at_opponent))
+                proximity_reward_factor * bullet_around_opponent) + (
+                         avoidance_reward_factor * (bullets_aimed_at_you - bullets_aimed_at_opponent))
 
         return reward
 
