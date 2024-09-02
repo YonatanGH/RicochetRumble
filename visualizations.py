@@ -41,7 +41,7 @@ class MainMenu:
         manual_button = tk.Button(self.window, text="Tank Manual", command=self.show_tank_manual)  # Tank Manual button
         manual_button.pack(pady=10)
 
-        self.delay_var = tk.BooleanVar()  # Delay option
+        self.delay_var = tk.BooleanVar(value=True)  # Delay variable
         delay_checkbox = tk.Checkbutton(self.window, text="Enable delay", variable=self.delay_var)  # Delay checkbox
         delay_checkbox.pack(pady=10)
 
@@ -289,12 +289,10 @@ class Board:
         """
         for bullet in self.bullets:
             if bullet.x == self.tank1.x and bullet.y == self.tank1.y:
-                self.show_message("Tank1 hit!")
-                self.end_game("Tank2 wins!")
+                self.end_game(f"Tank 2 ({self.tank2.__class__.__name__}) wins!")
                 return True
             elif bullet.x == self.tank2.x and bullet.y == self.tank2.y:
-                self.show_message("Tank2 hit!")
-                self.end_game("Tank1 wins!")
+                self.end_game(f"Tank 1 ({self.tank1.__class__.__name__}) wins!")
                 return True
         return False
 
@@ -321,7 +319,7 @@ class Board:
     def update_mode(self, current_tank):
         """Update the mode label based on the current tank's type."""
         # instead of writing tank 1 and tank 2, we can write their types
-        
+
         if isinstance(self.tank1, PlayerTank):
             self.mode_label1.config(text=f"Mode: {self.mode.capitalize()}")
             self.mode_label1.pack(side="left", pady=(0, 10))
@@ -332,7 +330,7 @@ class Board:
 
     def update_bullets(self):
         """Update the positions of all bullets."""
-        for bullet in self.bullets[:]:
+        for bullet in self.bullets:
             if bullet.moves > 0:
                 bullet.move()
             else:
@@ -369,8 +367,8 @@ class Board:
         """Update the bullet count display for both tanks."""
         tank_type1 = self.tank1.__class__.__name__ if self.tank1 else "Tank 1"
         tank_type2 = self.tank2.__class__.__name__ if self.tank2 else "Tank 2"
-        self.bullet_label1.config(text=f"{tank_type1} Bullets: {self.tank1.shots}")
-        self.bullet_label2.config(text=f"{tank_type2} Bullets: {self.tank2.shots}")
+        self.bullet_label1.config(text=f"Tank 1 ({tank_type1}) Bullets: {self.tank1.shots}")
+        self.bullet_label2.config(text=f"Tank 2 ({tank_type2}) Bullets: {self.tank2.shots}")
 
     def generate_maze(self):
         """Generate the maze and update the grid."""
@@ -390,7 +388,30 @@ class Board:
         :param y: Y coordinate.
         :return: True if the position is a wall, False otherwise.
         """
-        return self.grid[y][x] == GameColors.WALL
+        return x < 0 or x >= self.width or y < 0 or y >= self.height or self.grid[y][x] == GameColors.WALL
+
+    def get_bullet(self, x, y):
+        """
+        Get the bullet at a position.
+        
+        :param x: X coordinate.
+        :param y: Y coordinate.
+        :return: Bullet object if found, None otherwise.
+        """
+        for bullet in self.bullets:
+            if bullet.x == x and bullet.y == y:
+                return bullet
+        return None
+
+    def is_bullet(self, x, y):
+        """
+        Check if a position has a bullet.
+        
+        :param x: X coordinate.
+        :param y: Y coordinate.
+        :return: True if the position has a bullet, False otherwise.
+        """
+        return self.get_bullet(x, y) is not None
 
 
 # -------------------------------------- Game -------------------------------------- #

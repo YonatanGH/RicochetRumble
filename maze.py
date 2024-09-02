@@ -71,18 +71,16 @@ def fill_paths(maze, board_width, board_height):
             path_count += 1
 
 
-def print_maze(maze):
-    """
-    Prints the maze to the console.
-    
-    :param maze: The maze grid.
-    """
-    for row in maze:
-        print(''.join(row))
-
-
-# Example usage
-width = 15
-height = 10
-maze = generate_spacious_maze(width, height)
-print_maze(maze)
+# def print_maze(maze):
+#     """
+#     Prints the maze to the console.
+#     
+#     :param maze: The maze grid.
+#     """
+#     for row in maze:
+#         print(''.join(row))
+# # Example usage
+# width = 15
+# height = 10
+# maze = generate_spacious_maze(width, height)
+# print_maze(maze)

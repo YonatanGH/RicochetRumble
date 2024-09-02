@@ -1,6 +1,6 @@
 ﻿from game_colors import GameColors
 
-MAX_BOUNCES = 2  # Maximum number of bounces for a bullet
+MAX_BOUNCES = 4  # Maximum number of bounces for a bullet
 
 
 class Bullet:
@@ -41,8 +41,7 @@ class Bullet:
 
         dx, dy = directions[self.direction]
 
-        if self.x + dx < 0 or self.x + dx >= self.board.width or self.y + dy < 0 or self.y + dy >= self.board.height \
-                or self.board.is_wall(self.x + dx, self.y + dy):
+        if self.board.is_wall(self.x + dx, self.y + dy):
             if self.bounces < MAX_BOUNCES:
                 self.bounces += 1
                 bounce_map = {
@@ -53,12 +52,38 @@ class Bullet:
                     'up_left': 'down_right',
                     'up_right': 'down_left',
                     'down_left': 'up_right',
-                    'down_right': 'up_left'
+                    'down_right': 'up_left',
+                    'up_left_vertical_wall': 'up_right',
+                    'up_right_vertical_wall': 'up_left',
+                    'down_left_vertical_wall': 'down_right',
+                    'down_right_vertical_wall': 'down_left',
+                    'up_left_horizontal_wall': 'down_left',
+                    'up_right_horizontal_wall': 'down_right',
+                    'down_left_horizontal_wall': 'up_left',
+                    'down_right_horizontal_wall': 'up_right'
                 }
-                self.direction = bounce_map[self.direction]
+                # if the bullet is moving diagonally, change the direction to the opposite diagonal,
+                # according to the wall it hit. If it is a corner, then use the bounce_map.
+                if dx == 0 or dy == 0:
+                    self.direction = bounce_map[self.direction]
+                else:  # diagonal - TODO: there exists an option of a bullet in a 1-width path, that gets stuck
+                    # if (self.board.is_wall(self.x + dx, self.y) and self.board.is_wall(self.x, self.y + dy) or
+                    #         (not self.board.is_wall(self.x + dx, self.y) and not self.board.is_wall(self.x,
+                    #                                                                                 self.y + dy))):
+                    if not (self.board.is_wall(self.x + dx, self.y) ^ self.board.is_wall(self.x, self.y + dy)):
+                        self.direction = bounce_map[self.direction]
+                    elif self.board.is_wall(self.x, self.y + dy):
+                        self.direction = bounce_map[self.direction + '_horizontal_wall']
+                    elif self.board.is_wall(self.x + dx, self.y):
+                        self.direction = bounce_map[self.direction + '_vertical_wall']
+                # self.direction = bounce_map[self.direction]
                 self.board.update_position(self.x, self.y, GameColors.BOUNCED_BULLET)
             else:
                 self.board.remove_bullet(self)
+        # if bullets collide with each other, remove both bullets
+        elif self.board.is_bullet(self.x + dx, self.y + dy):
+            self.board.remove_bullet(self)
+            self.board.remove_bullet(self.board.get_bullet(self.x + dx, self.y + dy))
         else:
             self.board.update_position(self.x, self.y, GameColors.BOARD)
             self.x += dx
