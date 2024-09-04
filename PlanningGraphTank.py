@@ -1,4 +1,5 @@
 ﻿from tanks import Tank, Bullet
+from graph_plan import *
 import copy
 from abc import ABC, abstractmethod
 import heapq
@@ -32,16 +33,84 @@ class PGTank(Tank):
             self.plan = plan
             self.current_plan_index = 0
             self.isplan_uptodate = True
+            # remove the _from_{x}_{y} suffix from every action in the plan
+            self.plan = [action.split("_from")[0] for action in self.plan]
 
     def create_domain_file(self, domain_file_name, board):
-        pass
+        # Create the domain file for the planning graph
+        domain_file = open(domain_file_name, 'w')
+        domain_file.write("Propositions:\n")
+        # propositions: tank_at_x_y, enemy_at_x_y, bullet_at_x_y, wall_at_x_y, empty_at_x_y
+        for x in range(board.width):
+            for y in range(board.height):
+                domain_file.write(f"tank_at_{x}_{y} ")
+                domain_file.write(f"enemy_at_{x}_{y} ")
+                domain_file.write(f"bullet_at_{x}_{y} ")
+                domain_file.write(f"wall_at_{x}_{y} ")
+                domain_file.write(f"empty_at_{x}_{y} ")
+        domain_file.write("\nActions:\n")
+        # actions: move_up_from_x_y, move_down_from_x_y, move_left_from_x_y, move_right_from_x_y,
+        # move_upleft_from_x_y, move_upright_from_x_y, move_downleft_from_x_y, move_downright_from_x_y,
+        # shoot_up_from_x_y, shoot_down_from_x_y, shoot_left_from_x_y, shoot_right_from_x_y
+        # shoot_upleft_from_x_y, shoot_upright_from_x_y, shoot_downleft_from_x_y, shoot_downright_from_x_y
+        # action example:
+        # Name: move_up_from_3_4
+        # pre: tank_at_3_4 empty_at_3_3
+        # add: tank_at_3_3 empty_at_3_4
+        # delete: tank_at_3_4 empty_at_3_3
+        for x in range(board.width):
+            for y in range(board.height):
+                legal_actions = self.get_legal_actions()
+                for action in legal_actions:
+                    if "MOVE" in action:
+                        domain_file.write(f"Name: {action}_from_{x}_{y}\n")
+                        domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{action}\n")
+                        domain_file.write(f"add: tank_at_{action} empty_at_{x}_{y}\n")
+                        domain_file.write(f"delete: tank_at_{x}_{y} empty_at_{action}\n")
+                    elif "SHOOT" in action:
+                        domain_file.write(f"Name: {action}_from_{x}_{y}\n")
+                        domain_file.write(f"pre: tank_at_{x}_{y}\n")
+                        domain_file.write(f"add: bullet_at_{action}\n")
+                        domain_file.write(f"delete: tank_at_{x}_{y}\n")
+        domain_file.close()
 
     def create_problem_file(self, problem_file_name, board):
-        pass
+        # Create the problem file for the planning graph
+        problem_file = open(problem_file_name, 'w')
+        problem_file.write("Initial state: ")
+        my_tank_num = self.number
+        enemy_tank_num = 1 if my_tank_num == 2 else 2
+        for x in range(board.width):
+            for y in range(board.height):
+                if board.is_wall(x, y):
+                    problem_file.write(f"wall_at_{x}_{y} ")
+                elif board.tank1.x == x and board.tank1.y == y:
+                    if my_tank_num == 1:
+                        problem_file.write(f"tank_at_{x}_{y} ")
+                    else:
+                        problem_file.write(f"enemy_at_{x}_{y} ")
+                elif board.tank2.x == x and board.tank2.y == y:
+                    if my_tank_num == 2:
+                        problem_file.write(f"tank_at_{x}_{y} ")
+                    else:
+                        problem_file.write(f"enemy_at_{x}_{y} ")
+                elif board.is_bullet(x, y):
+                    problem_file.write(f"bullet_at_{x}_{y} ")
+        problem_file.write("\nGoal state: ")
+        for x in range(board.width):
+            for y in range(board.height):
+                if board.is_enemy(x, y):
+                    problem_file.write(f"enemy_at_{x}_{y} ")
+                    problem_file.write(f"bullet_at_{x}_{y} ")
+        problem_file.close()
 
 
     def move(self, _):
         super(PGTank, self).move(_)
+
+        # bad program design. The interface should be the same for all tanks, and the other interface
+        # with the update() is better than this.
+        # in that case, the update() will do the next line and also call move() and shoot()
         self.generate_plan(PLAN_DOMAIN_FILE, PLAN_PROBLEM_FILE)
 
         if self.isplan_uptodate:
@@ -68,13 +137,3 @@ class PGTank(Tank):
                 self.isplan_uptodate = False
 
         self.did_move = False
-
-class GraphPlan:
-    def __init__(self, domain_file, problem_file):
-        self.domain_file = domain_file
-        self.problem_file = problem_file
-        # TODO
-
-    # temporary:
-    def graph_plan(self):
-        return ["MOVE_UP"] # TODO - change this lol
