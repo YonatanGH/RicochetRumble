@@ -45,7 +45,9 @@ class PgParser:
                 for i in range(1, len(words)):
                     delete.append(Proposition(words[i]))
                 act = Action(name, precond, add, delete)
+
                 for prop in add:
+
                     self.find_prop_by_name(prop, propositions).add_producer(act)
                 actions.append(act)
             line = f.readline()

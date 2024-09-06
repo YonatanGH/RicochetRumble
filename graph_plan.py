@@ -60,7 +60,7 @@ class GraphPlan(object):
 
         while self.goal_state_not_in_prop_layer(self.graph[level].get_proposition_layer().get_propositions()) or \
                 self.goal_state_has_mutex(self.graph[level].get_proposition_layer()):
-            if self.is_fixed(level):
+            if self.is_fixed(level): # TODO: THIS IS WHERE WE FAIL
                 return None
                 # this means we stopped the while loop above because we reached a fixed point in the graph.
                 #  nothing more to do, we failed!
