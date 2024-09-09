@@ -22,6 +22,8 @@ class PGTank(Tank):
         self.isplan_uptodate = False
         self.current_plan_index = 0
         self.did_move = False
+        self.num_turns_to_replan = 1 # how many turns to wait before replanning,
+        # for best - do 1, for faster - do more than 1
 
     def generate_plan(self, domain_file, problem_file):
         # Generate a plan for the tank
@@ -242,8 +244,10 @@ class PGTank(Tank):
 
         # bad program design. The interface should be the same for all tanks, and the other interface
         # with the update() is better than this.
-        # in that case, the update() will do the next line and also call move() and shoot()
-        self.generate_plan(PLAN_DOMAIN_FILE, PLAN_PROBLEM_FILE)
+        # in that case, the update() will do the generate of plan and also call move() and shoot()
+
+        if self.current_plan_index+1 >= self.num_turns_to_replan or len(self.plan) <= self.num_turns_to_replan:
+            self.generate_plan(PLAN_DOMAIN_FILE, PLAN_PROBLEM_FILE)
 
         if self.isplan_uptodate:
             assert self.current_plan_index == 0
