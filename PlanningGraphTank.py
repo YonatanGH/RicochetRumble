@@ -43,7 +43,7 @@ class PGTank(Tank):
             # remove the _from_{x}_{y} suffix from every action in the plan
 
             self.plan = [action.name.split("_from")[0] for action in self.plan]
-            print(self.plan)
+            # print(self.plan)
 
     def create_domain_file(self, domain_file_name, board):
         # Create the domain file for the planning graph
@@ -77,116 +77,114 @@ class PGTank(Tank):
                             #     continue
                             domain_file.write(f"Name: {action}_from_{x}_{y}\n")
                             domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x-1}_{y-1}\n")
-                            domain_file.write(f"add: tank_at_{x-1}_{y-1} empty_at_{x}_{y}\n")
-                            domain_file.write(f"delete: tank_at_{x}_{y} empty_at_{x-1}_{y-1}\n")
+                            domain_file.write(f"add: tank_at_{x-1}_{y-1}\n") # empty_at_{x}_{y}\n")
+                            domain_file.write(f"delete: tank_at_{x}_{y}\n") # empty_at_{x-1}_{y-1}\n")
                         elif "UP_RIGHT" in action:
                             # if x == board.width - 1 or y == 0:
                             #     continue
                             domain_file.write(f"Name: {action}_from_{x}_{y}\n")
                             domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x+1}_{y-1}\n")
-                            domain_file.write(f"add: tank_at_{x+1}_{y-1} empty_at_{x}_{y}\n")
-                            domain_file.write(f"delete: tank_at_{x}_{y} empty_at_{x+1}_{y-1}\n")
+                            domain_file.write(f"add: tank_at_{x+1}_{y-1}\n") # empty_at_{x}_{y}\n")
+                            domain_file.write(f"delete: tank_at_{x}_{y}\n") # empty_at_{x+1}_{y-1}\n")
                         elif "DOWN_LEFT" in action:
                             # if x == 0 or y == board.height - 1:
                             #     continue
                             domain_file.write(f"Name: {action}_from_{x}_{y}\n")
                             domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x-1}_{y+1}\n")
-                            domain_file.write(f"add: tank_at_{x-1}_{y+1} empty_at_{x}_{y}\n")
-                            domain_file.write(f"delete: tank_at_{x}_{y} empty_at_{x-1}_{y+1}\n")
+                            domain_file.write(f"add: tank_at_{x-1}_{y+1}\n") # empty_at_{x}_{y}\n")
+                            domain_file.write(f"delete: tank_at_{x}_{y}\n") # empty_at_{x-1}_{y+1}\n")
                         elif "DOWN_RIGHT" in action:
                             # if x == board.width - 1 or y == board.height - 1:
                             #     continue
                             domain_file.write(f"Name: {action}_from_{x}_{y}\n")
                             domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x+1}_{y+1}\n")
-                            domain_file.write(f"add: tank_at_{x+1}_{y+1} empty_at_{x}_{y}\n")
-                            domain_file.write(f"delete: tank_at_{x}_{y} empty_at_{x+1}_{y+1}\n")
+                            domain_file.write(f"add: tank_at_{x+1}_{y+1}\n") # empty_at_{x}_{y}\n")
+                            domain_file.write(f"delete: tank_at_{x}_{y}\n") # empty_at_{x+1}_{y+1}
                         elif "UP" in action: # ~~~~ NOTE: the 4 direction must be after the diagonal directions
                             # if y == 0:
                             #     continue
                             domain_file.write(f"Name: {action}_from_{x}_{y}\n")
                             domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x}_{y-1}\n")
-                            domain_file.write(f"add: tank_at_{x}_{y-1} empty_at_{x}_{y}\n")
-                            domain_file.write(f"delete: tank_at_{x}_{y} empty_at_{x}_{y-1}\n")
+                            domain_file.write(f"add: tank_at_{x}_{y-1}\n") # empty_at_{x}_{y}\n")
+                            domain_file.write(f"delete: tank_at_{x}_{y}\n") # empty_at_{x}_{y-1}
                         elif "DOWN" in action:
                             # if y == board.height - 1:
                             #     continue
                             domain_file.write(f"Name: {action}_from_{x}_{y}\n")
                             domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x}_{y+1}\n")
-                            domain_file.write(f"add: tank_at_{x}_{y+1} empty_at_{x}_{y}\n")
-                            domain_file.write(f"delete: tank_at_{x}_{y} empty_at_{x}_{y+1}\n")
+                            domain_file.write(f"add: tank_at_{x}_{y+1}\n") # empty_at_{x}_{y}\n")
+                            domain_file.write(f"delete: tank_at_{x}_{y}\n") # empty_at_{x}_{y+1}\n")
                         elif "LEFT" in action:
                             # if x == 0:
                             #     continue
                             domain_file.write(f"Name: {action}_from_{x}_{y}\n")
                             domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x-1}_{y}\n")
-                            domain_file.write(f"add: tank_at_{x-1}_{y} empty_at_{x}_{y}\n")
-                            domain_file.write(f"delete: tank_at_{x}_{y} empty_at_{x-1}_{y}\n")
+                            domain_file.write(f"add: tank_at_{x-1}_{y}\n") # empty_at_{x}_{y}\n")
+                            domain_file.write(f"delete: tank_at_{x}_{y}\n") # empty_at_{x-1}_{y}\n")
                         elif "RIGHT" in action:
                             # if x == board.width - 1:
                             #     continue
                             domain_file.write(f"Name: {action}_from_{x}_{y}\n")
                             domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x+1}_{y}\n")
-                            domain_file.write(f"add: tank_at_{x+1}_{y} empty_at_{x}_{y}\n")
-                            domain_file.write(f"delete: tank_at_{x}_{y} empty_at_{x+1}_{y}\n")
+                            domain_file.write(f"add: tank_at_{x+1}_{y}\n") # empty_at_{x}_{y}\n")
+                            domain_file.write(f"delete: tank_at_{x}_{y}\n") # empty_at_{x+1}_{y}\n")
+        for x in range(board.width):
+            for y in range(board.height):
+                legal_actions = self.get_legal_actions()
+                for action in legal_actions:
+                    # """
 
-                    # elif "SHOOT" in action:
-                    #     if "UP_LEFT" in action:
-                    #         if x == 0 or y == 0:
-                    #             continue
-                    #         domain_file.write(f"Name: {action}_from_{x}_{y}\n")
-                    #         domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x-1}_{y-1}\n")
-                    #         domain_file.write(f"add: bullet_at_{x-1}_{y-1}\n")
-                    #         domain_file.write(f"delete: bullet_at_{x-1}_{y-1}\n")
-                    #     elif "UP_RIGHT" in action:
-                    #         if x == board.width - 1 or y == 0:
-                    #             continue
-                    #         domain_file.write(f"Name: {action}_from_{x}_{y}\n")
-                    #         domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x+1}_{y-1}\n")
-                    #         domain_file.write(f"add: bullet_at_{x+1}_{y-1}\n")
-                    #         domain_file.write(f"delete: bullet_at_{x+1}_{y-1}\n")
-                    #     elif "DOWN_LEFT" in action:
-                    #         if x == 0 or y == board.height - 1:
-                    #             continue
-                    #         domain_file.write(f"Name: {action}_from_{x}_{y}\n")
-                    #         domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x-1}_{y+1}\n")
-                    #         domain_file.write(f"add: bullet_at_{x-1}_{y+1}\n")
-                    #         domain_file.write(f"delete: bullet_at_{x-1}_{y+1}\n")
-                    #     elif "DOWN_RIGHT" in action:
-                    #         if x == board.width - 1 or y == board.height - 1:
-                    #             continue
-                    #         domain_file.write(f"Name: {action}_from_{x}_{y}\n")
-                    #         domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x+1}_{y+1}\n")
-                    #         domain_file.write(f"add: bullet_at_{x+1}_{y+1}\n")
-                    #         domain_file.write(f"delete: bullet_at_{x+1}_{y+1}\n")
-                    #     elif "UP" in action: # ~~~~ NOTE: the 4 direction must be after the diagonal directions
-                    #         if y == 0:
-                    #             continue
-                    #         domain_file.write(f"Name: {action}_from_{x}_{y}\n")
-                    #         domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x}_{y-1}\n")
-                    #         domain_file.write(f"add: bullet_at_{x}_{y-1}\n")
-                    #         domain_file.write(f"delete: bullet_at_{x}_{y-1}\n")
-                    #     elif "DOWN" in action:
-                    #         if y == board.height - 1:
-                    #             continue
-                    #         domain_file.write(f"Name: {action}_from_{x}_{y}\n")
-                    #         domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x}_{y+1}\n")
-                    #         domain_file.write(f"add: bullet_at_{x}_{y+1}\n")
-                    #         domain_file.write(f"delete: bullet_at_{x}_{y+1}\n")
-                    #     elif "LEFT" in action:
-                    #         if x == 0:
-                    #             continue
-                    #         domain_file.write(f"Name: {action}_from_{x}_{y}\n")
-                    #         domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x-1}_{y}\n")
-                    #         domain_file.write(f"add: bullet_at_{x-1}_{y}\n")
-                    #         domain_file.write(f"delete: bullet_at_{x-1}_{y}\n")
-                    #     elif "RIGHT" in action:
-                    #         if x == board.width - 1:
-                    #             continue
-                    #         domain_file.write(f"Name: {action}_from_{x}_{y}\n")
-                    #         domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x+1}_{y}\n")
-                    #         domain_file.write(f"add: bullet_at_{x+1}_{y}\n")
-                    #         domain_file.write(f"delete: bullet_at_{x+1}_{y}\n")
+                    if "SHOOT" in action:
+                        if "UP_LEFT" in action:
+                            # if x == 0 or y == 0:
+                            #     continue
+                            domain_file.write(f"Name: {action}_from_{x}_{y}\n")
+                            domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x-1}_{y-1}\n")
+                            domain_file.write(f"add: bullet_at_{x-1}_{y-1}\n")
+                        elif "UP_RIGHT" in action:
+                            # if x == board.width - 1 or y == 0:
+                            #     continue
+                            domain_file.write(f"Name: {action}_from_{x}_{y}\n")
+                            domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x+1}_{y-1}\n")
+                            domain_file.write(f"add: bullet_at_{x+1}_{y-1}\n")
+                        elif "DOWN_LEFT" in action:
+                            # if x == 0 or y == board.height - 1:
+                            #     continue
+                            domain_file.write(f"Name: {action}_from_{x}_{y}\n")
+                            domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x-1}_{y+1}\n")
+                            domain_file.write(f"add: bullet_at_{x-1}_{y+1}\n")
+                        elif "DOWN_RIGHT" in action:
+                            # if x == board.width - 1 or y == board.height - 1:
+                            #     continue
+                            domain_file.write(f"Name: {action}_from_{x}_{y}\n")
+                            domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x+1}_{y+1}\n")
+                            domain_file.write(f"add: bullet_at_{x+1}_{y+1}\n")
+                        elif "UP" in action:
+                            # if y == 0:
+                            #     continue
+                            domain_file.write(f"Name: {action}_from_{x}_{y}\n")
+                            domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x}_{y-1}\n")
+                            domain_file.write(f"add: bullet_at_{x}_{y-1}\n")
+                        elif "DOWN" in action:
+                            # if y == board.height - 1:
+                            #     continue
+                            domain_file.write(f"Name: {action}_from_{x}_{y}\n")
+                            domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x}_{y+1}\n")
+                            domain_file.write(f"add: bullet_at_{x}_{y+1}\n")
+                        elif "LEFT" in action:
+                            # if x == 0:
+                            #     continue
+                            domain_file.write(f"Name: {action}_from_{x}_{y}\n")
+                            domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x-1}_{y}\n")
+                            domain_file.write(f"add: bullet_at_{x-1}_{y}\n")
+                        elif "RIGHT" in action:
+                            # if x == board.width - 1:
+                            #     continue
+                            domain_file.write(f"Name: {action}_from_{x}_{y}\n")
+                            domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x+1}_{y}\n")
+                            domain_file.write(f"add: bullet_at_{x+1}_{y}\n")
 
+                    # """
 
         domain_file.close()
 
@@ -224,7 +222,7 @@ class PGTank(Tank):
 
         enemy_x = board.tank1.x if my_tank_num == 2 else board.tank2.x
         enemy_y = board.tank1.y if my_tank_num == 2 else board.tank2.y
-        problem_file.write(f"tank_at_{enemy_x}_{enemy_y} ")
+        problem_file.write(f"bullet_at_{enemy_x}_{enemy_y} ")
 
         # for x in range(board.width):
         #     for y in range(board.height):
@@ -250,7 +248,7 @@ class PGTank(Tank):
         if self.isplan_uptodate:
             assert self.current_plan_index == 0
 
-        print(self.plan, "\n", self.current_plan_index, "\n", self.isplan_uptodate) #TODO: REMOVE
+        # print(self.plan, "\n", self.current_plan_index, "\n", self.isplan_uptodate) #TODO: REMOVE
 
         action = self.plan[self.current_plan_index]
         if "MOVE" not in action:
