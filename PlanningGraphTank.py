@@ -13,6 +13,8 @@ import numpy as np
 PLAN_DOMAIN_FILE = "plan_domain.txt"
 PLAN_PROBLEM_FILE = "plan_problem.txt"
 
+ACCOUNT_BULLET_MOVEMENT = False
+
 # Planning graph tank
 class PGTank(Tank):
     # This is a tank that uses the planning graph algorithm to decide what to do
@@ -60,15 +62,33 @@ class PGTank(Tank):
                 domain_file.write(f"wall_at_{x}_{y} ")
                 domain_file.write(f"empty_at_{x}_{y} ")
         domain_file.write("\nActions:\n")
-        # actions: move_up_from_x_y, move_down_from_x_y, move_left_from_x_y, move_right_from_x_y,
-        # move_upleft_from_x_y, move_upright_from_x_y, move_downleft_from_x_y, move_downright_from_x_y,
-        # shoot_up_from_x_y, shoot_down_from_x_y, shoot_left_from_x_y, shoot_right_from_x_y
-        # shoot_upleft_from_x_y, shoot_upright_from_x_y, shoot_downleft_from_x_y, shoot_downright_from_x_y
-        # action example:
-        # Name: move_up_from_3_4
-        # pre: tank_at_3_4 empty_at_3_3
-        # add: tank_at_3_3 empty_at_3_4
-        # delete: tank_at_3_4 empty_at_3_3
+        # actions: MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT, MOVE_UP_LEFT, MOVE_UP_RIGHT, MOVE_DOWN_LEFT, MOVE_DOWN_RIGHT
+        #          SHOOT_UP, SHOOT_DOWN, SHOOT_LEFT, SHOOT_RIGHT, SHOOT_UP_LEFT, SHOOT_UP_RIGHT, SHOOT_DOWN_LEFT, SHOOT_DOWN_RIGHT
+
+        # also, for each action, we need to add the preconditions and effects
+        # TODO: and also, we need to add to the effects the movement of all bullets
+        # in order to do that, we will gather two list: one of the current location of the bullets,
+        # and one of the new location of the bullets, and then we will add the effects of the bullets
+        # to the actions
+        # problem with this: only considers the first step of the bullet, but this is the best I can think of
+        bullets = board.bullets
+        bullets_locations = [(bullet.x, bullet.y) for bullet in bullets]
+        bullets_new_locations = [(bullet.x + tanks.str_to_vals[bullet.direction][0],
+                                  bullet.y + tanks.str_to_vals[bullet.direction][1])
+                                 for bullet in bullets]
+        # now create a list of the proposition affected by the bullets
+        bullets_remove = ["bullet_at_{x}_{y}" for x, y in bullets_locations]
+        bullets_add = ["bullet_at_{x}_{y}" for x, y in bullets_new_locations]
+        # now turn those to strings with a space between the elements
+        bullets_remove = " ".join(bullets_remove)
+        bullets_remove = " " + bullets_remove
+        bullets_add = " ".join(bullets_add)
+        bullets_add = " " + bullets_add
+        if not ACCOUNT_BULLET_MOVEMENT:
+            bullets_remove = ""
+            bullets_add = ""
+
+
         for x in range(board.width):
             for y in range(board.height):
                 legal_actions = self.get_legal_actions()
