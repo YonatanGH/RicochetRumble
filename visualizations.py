@@ -2,8 +2,7 @@
 
 from game_colors import GameColors
 from maze import generate_spacious_maze
-from tanks import PlayerTank, AStarTank, MinimaxTank, QLearningTank
-from PlanningGraphTank import PGTank
+from tanks import PlayerTank, AStarTank, MinimaxTank, QLearningTank, ExpectimaxTank
 
 DELAY_MS = 500  # Delay in milliseconds for NPC actions
 
@@ -20,7 +19,7 @@ class MainMenu:
         self.window = tk.Frame(main_window)  # Menu window
         self.window.pack()
 
-        self.options = ["Player", "A*", "Turret", "Minimax",
+        self.options = ["Player", "A*", "Turret", "Minimax", "Expectimax",
                         "Q-Learning"]  # Tank options TODO: add here instead of turret
 
         self.tank1_var = tk.StringVar(value="Player")  # Tank 1 type
@@ -465,9 +464,11 @@ class Game:
             return AStarTank(self.board, x, y, number)
         # Future tank types can be added here
         elif tank_type == "Turret":  # TODO: Implement a class... and add here instead of turret
-            return PGTank(self.board, x, y, number)
+            return AStarTank(self.board, x, y, number)
         elif tank_type == "Minimax":
             return MinimaxTank(self.board, x, y, number)
+        elif tank_type == "Expectimax":
+            return ExpectimaxTank(self.board, x, y, number)
         elif tank_type == "Q-Learning":
             return QLearningTank(self.board, x, y, number)
 
@@ -540,7 +541,7 @@ class Game:
         """Perform action for NPC tank."""
         # check if the current tank is minimax or q-learning
         if isinstance(self.current_tank, MinimaxTank) or isinstance(self.current_tank, QLearningTank) or isinstance(
-                self.current_tank, AStarTank):
+                self.current_tank, AStarTank) or isinstance(self.current_tank, ExpectimaxTank):
             self.current_tank.update()
         else:
             self.current_tank.move(None)  # Move towards the target tank
