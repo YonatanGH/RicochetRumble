@@ -410,28 +410,100 @@ class QLearningTank(Tank):
 
             if action == 'MOVE_UP' or (action == 'SHOOT_UP' and state[2 + prefix] > 0):
                 if 0 < state[1 + prefix] < self.board.height:
-                    legal_actions.append(action)
+                    if action.startswith('SHOOT'):
+                        x, y = state[0 + prefix], state[1 + prefix]
+                        x += dx
+                        y += dy
+                        if (self.board.grid[y][x] == GameColors.BOARD or
+                            self.board.grid[y][x] == GameColors.TANK1 or
+                            self.board.grid[y][x] == GameColors.TANK2):
+                            legal_actions.append(action)
+                    else:
+                        legal_actions.append(action)
             elif action == 'MOVE_DOWN' or (action == 'SHOOT_DOWN' and state[2 + prefix] > 0):
                 if 0 <= state[1 + prefix] < self.board.height - 1:
-                    legal_actions.append(action)
+                    if action.startswith('SHOOT'):
+                        x, y = state[0 + prefix], state[1 + prefix]
+                        x += dx
+                        y += dy
+                        if (self.board.grid[y][x] == GameColors.BOARD or
+                            self.board.grid[y][x] == GameColors.TANK1 or
+                            self.board.grid[y][x] == GameColors.TANK2):
+                            legal_actions.append(action)
+                    else:
+                        legal_actions.append(action)
             elif action == 'MOVE_LEFT' or (action == 'SHOOT_LEFT' and state[2 + prefix] > 0):
                 if 0 < state[0 + prefix] < self.board.width:
-                    legal_actions.append(action)
+                    if action.startswith('SHOOT'):
+                        x, y = state[0 + prefix], state[1 + prefix]
+                        x += dx
+                        y += dy
+                        if (self.board.grid[y][x] == GameColors.BOARD or
+                            self.board.grid[y][x] == GameColors.TANK1 or
+                            self.board.grid[y][x] == GameColors.TANK2):
+                            legal_actions.append(action)
+                    else:
+                        legal_actions.append(action)
             elif action == 'MOVE_RIGHT' or (action == 'SHOOT_RIGHT' and state[2 + prefix] > 0):
                 if 0 <= state[0 + prefix] < self.board.width - 1:
-                    legal_actions.append(action)
+                    if action.startswith('SHOOT'):
+                        x, y = state[0 + prefix], state[1 + prefix]
+                        x += dx
+                        y += dy
+                        if (self.board.grid[y][x] == GameColors.BOARD or
+                            self.board.grid[y][x] == GameColors.TANK1 or
+                            self.board.grid[y][x] == GameColors.TANK2):
+                            legal_actions.append(action)
+                    else:
+                        legal_actions.append(action)
             elif action == 'MOVE_UP_LEFT' or (action == 'SHOOT_UP_LEFT' and state[2 + prefix] > 0):
                 if 0 < state[0 + prefix] < self.board.width and 0 < state[1 + prefix] < self.board.height:
-                    legal_actions.append(action)
+                    if action.startswith('SHOOT'):
+                        x, y = state[0 + prefix], state[1 + prefix]
+                        x += dx
+                        y += dy
+                        if (self.board.grid[y][x] == GameColors.BOARD or
+                            self.board.grid[y][x] == GameColors.TANK1 or
+                            self.board.grid[y][x] == GameColors.TANK2):
+                            legal_actions.append(action)
+                    else:
+                        legal_actions.append(action)
             elif action == 'MOVE_UP_RIGHT' or (action == 'SHOOT_UP_RIGHT' and state[2 + prefix] > 0):
                 if 0 <= state[0 + prefix] < self.board.width - 1 and 0 < state[1 + prefix] < self.board.height:
-                    legal_actions.append(action)
+                    if action.startswith('SHOOT'):
+                        x, y = state[0 + prefix], state[1 + prefix]
+                        x += dx
+                        y += dy
+                        if (self.board.grid[y][x] == GameColors.BOARD or
+                            self.board.grid[y][x] == GameColors.TANK1 or
+                            self.board.grid[y][x] == GameColors.TANK2):
+                            legal_actions.append(action)
+                    else:
+                        legal_actions.append(action)
             elif action == 'MOVE_DOWN_LEFT' or (action == 'SHOOT_DOWN_LEFT' and state[2 + prefix] > 0):
                 if 0 < state[0 + prefix] < self.board.width - 1 and 0 <= state[1 + prefix] < self.board.height - 1:
-                    legal_actions.append(action)
+                    if action.startswith('SHOOT'):
+                        x, y = state[0 + prefix], state[1 + prefix]
+                        x += dx
+                        y += dy
+                        if (self.board.grid[y][x] == GameColors.BOARD or
+                            self.board.grid[y][x] == GameColors.TANK1 or
+                            self.board.grid[y][x] == GameColors.TANK2):
+                            legal_actions.append(action)
+                    else:
+                        legal_actions.append(action)
             elif action == 'MOVE_DOWN_RIGHT' or (action == 'SHOOT_DOWN_RIGHT' and state[2 + prefix] > 0):
                 if 0 <= state[0 + prefix] < self.board.width - 1 and 0 <= state[1 + prefix] < self.board.height - 1:
-                    legal_actions.append(action)
+                    if action.startswith('SHOOT'):
+                        x, y = state[0 + prefix], state[1 + prefix]
+                        x += dx
+                        y += dy
+                        if (self.board.grid[y][x] == GameColors.BOARD or
+                            self.board.grid[y][x] == GameColors.TANK1 or
+                            self.board.grid[y][x] == GameColors.TANK2):
+                            legal_actions.append(action)
+                    else:
+                        legal_actions.append(action)
         return legal_actions
 
     def fill_q_table(self):
@@ -682,6 +754,50 @@ class QLearningTank(Tank):
 
             return bullets_in_area
 
+        def a_star_path(board, start, goal):
+            """
+            Compute the A* path from start to goal.
+
+            :param start: Starting position (x, y).
+            :param goal: Goal position (x, y).
+            :return: List of positions (x, y) in the path.
+            """
+
+            def heuristic(a, b):
+                # Manhattan distance
+                return abs(a[0] - b[0]) + abs(a[1] - b[1])
+
+            open_list = []
+            heapq.heappush(open_list, (0, start))
+            came_from = {}
+            g_score = {start: 0}
+            f_score = {start: heuristic(start, goal)}
+
+            while open_list:
+                current = heapq.heappop(open_list)[1]
+
+                if current == goal:
+                    path = []
+                    while current in came_from:
+                        path.append(current)
+                        current = came_from[current]
+                    return path[::-1]
+
+                for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, 1), (-1, 1), (1, -1)]:
+                    neighbor = (current[0] + dx, current[1] + dy)
+                    if 0 <= neighbor[0] < board.width and 0 <= neighbor[1] < board.height and \
+                            not board.is_wall(neighbor[0], neighbor[1]) and \
+                            not any(
+                                [bullet.x == neighbor[0] and bullet.y == neighbor[1] for bullet in board.bullets]):
+                        tentative_g_score = g_score[current] + 1
+                        if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
+                            came_from[neighbor] = current
+                            g_score[neighbor] = tentative_g_score
+                            f_score[neighbor] = tentative_g_score + heuristic(neighbor, goal)
+                            heapq.heappush(open_list, (f_score[neighbor], neighbor))
+
+            return []
+
         if state[2] == 0:
             return float('-inf')  # illegal move
 
@@ -709,7 +825,9 @@ class QLearningTank(Tank):
         else:
             return float('-inf')  # should never be reached
 
-        if chebyshev_distance((state[0], state[1]), (state[3], state[4])) == 1:
+        path = len(a_star_path(self.board, (state[0], state[1]), (state[3], state[4])))
+
+        if path == 1:
             if chebyshev_distance((state[0] + dx, state[1] + dy), (state[3], state[4])) == 0:
                 return 1000
             return -1000
@@ -855,6 +973,50 @@ class QLearningTank(Tank):
 
             return np.exp(avoidance_score)
 
+        def a_star_path(board, start, goal):
+            """
+            Compute the A* path from start to goal.
+
+            :param start: Starting position (x, y).
+            :param goal: Goal position (x, y).
+            :return: List of positions (x, y) in the path.
+            """
+
+            def heuristic(a, b):
+                # Manhattan distance
+                return abs(a[0] - b[0]) + abs(a[1] - b[1])
+
+            open_list = []
+            heapq.heappush(open_list, (0, start))
+            came_from = {}
+            g_score = {start: 0}
+            f_score = {start: heuristic(start, goal)}
+
+            while open_list:
+                current = heapq.heappop(open_list)[1]
+
+                if current == goal:
+                    path = []
+                    while current in came_from:
+                        path.append(current)
+                        current = came_from[current]
+                    return path[::-1]
+
+                for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, 1), (-1, 1), (1, -1)]:
+                    neighbor = (current[0] + dx, current[1] + dy)
+                    if 0 <= neighbor[0] < board.width and 0 <= neighbor[1] < board.height and \
+                            not board.is_wall(neighbor[0], neighbor[1]) and \
+                            not any(
+                                [bullet.x == neighbor[0] and bullet.y == neighbor[1] for bullet in board.bullets]):
+                        tentative_g_score = g_score[current] + 1
+                        if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
+                            came_from[neighbor] = current
+                            g_score[neighbor] = tentative_g_score
+                            f_score[neighbor] = tentative_g_score + heuristic(neighbor, goal)
+                            heapq.heappush(open_list, (f_score[neighbor], neighbor))
+
+            return []
+
         # Ammo management score (higher reward for lower ammo count)=
         ammo_reward_factor = 1 - (state[2] / MAX_SHOTS)  # Linearly scale from 1 (min ammo) to 0 (max ammo)
 
@@ -882,14 +1044,14 @@ class QLearningTank(Tank):
             y += 1
 
         # Calculate proximity score to the opponent
-        distance_to_opponent_old = chebyshev_distance((state[0], state[1]), (state[3], state[4]))
-        distance_to_opponent_new = chebyshev_distance((x, y), (state[3], state[4]))
+        distance_to_opponent_old = len(a_star_path(self.board, (state[0], state[1]), (state[3], state[4])))
+        distance_to_opponent_new = len(a_star_path(self.board, (x, y), (state[3], state[4])))
 
         # Reward for being at Chebyshev distance 3, penalize for less or more
         if distance_to_opponent_new < 2:
             return -1000
         else:
-            proximity_score = (distance_to_opponent_old / distance_to_opponent_new) - 1
+            proximity_score = 1 * (distance_to_opponent_old / distance_to_opponent_new) - 1
 
         # Bullet avoidance score
         avoidance_score = bullet_avoidance_score((x, y)) - bullet_avoidance_score((state[0], state[1]))
@@ -1003,256 +1165,7 @@ class MinimaxTank(Tank):
         :param number: Tank number (1 or 2).
         """
         super().__init__(board, x, y, number)
-        self.depth = 2  # TODO change to 3
-
-    def calculate_shoot_reward(self, state, action):
-        def chebyshev_distance(pos1, pos2):
-            """Calculate the Chebyshev distance between two points."""
-            return max(abs(pos1[0] - pos2[0]), abs(pos1[1] - pos2[1]))
-
-        def count_bullets_in_area(opponent_pos):
-            """
-            Counts the number of bullets within a 3x3 area around the opponent.
-            """
-
-            bullet_positions = []
-            i = 6
-            while i < len(state):
-                bullet_positions.append((state[i], state[i + 1]))
-                i += 5
-
-            x_min = max(opponent_pos[0] - 1, 0)
-            x_max = min(opponent_pos[0] + 1, self.board.width - 1)
-            y_min = max(opponent_pos[1] - 1, 0)
-            y_max = min(opponent_pos[1] + 1, self.board.height - 1)
-
-            bullets_in_area = 0
-
-            for bullet_pos in bullet_positions:
-                if x_min <= bullet_pos[0] <= x_max and y_min <= bullet_pos[1] <= y_max:
-                    bullets_in_area += 1
-
-            return bullets_in_area
-
-        if state[2] == 0:
-            return float('-inf')  # illegal move
-
-        # Maximum possible distance (considering a maximum Manhattan distance with bounces)
-        max_possible_distance = 2 * (max(self.board.height, self.board.width) - 1)
-
-        # Step through each position on the trajectory
-        x, y = state[0], state[1]
-        if action == 'SHOOT_UP' or action == 'up':
-            dx, dy = 0, -1
-        elif action == 'SHOOT_DOWN' or action == 'down':
-            dx, dy = 0, 1
-        elif action == 'SHOOT_LEFT' or action == 'left':
-            dx, dy = -1, 0
-        elif action == 'SHOOT_RIGHT' or action == 'right':
-            dx, dy = 1, 0
-        elif action == 'SHOOT_UP_LEFT' or action == 'up_left':
-            dx, dy = -1, -1
-        elif action == 'SHOOT_UP_RIGHT' or action == 'up_right':
-            dx, dy = 1, -1
-        elif action == 'SHOOT_DOWN_LEFT' or action == 'down_left':
-            dx, dy = -1, 1
-        elif action == 'SHOOT_DOWN_RIGHT' or action == 'down_right':
-            dx, dy = 1, 1
-        else:
-            return float('-inf')  # should never be reached
-
-        if chebyshev_distance((state[0], state[1]), (state[3], state[4])) == 1:
-            if chebyshev_distance((state[0] + dx, state[1] + dy), (state[3], state[4])) == 0:
-                return 1000
-            return -1000
-
-        # check if there is a bullet aimed at the tank
-        bullet_positions = []
-        bullet_directions = []
-
-        i = 6
-        while i < len(state):
-            bullet_positions.append((state[i], state[i + 1]))
-            bullet_directions.append(state[i + 2])
-            i += 5
-
-        for i in range(len(bullet_directions)):
-            if bullet_directions[i] == 'up':
-                dx, dy = 0, -1
-            elif bullet_directions[i] == 'down':
-                dx, dy = 0, 1
-            elif bullet_directions[i] == 'left':
-                dx, dy = -1, 0
-            elif bullet_directions[i] == 'right':
-                dx, dy = 1, 0
-            elif bullet_directions[i] == 'up_left':
-                dx, dy = -1, -1
-            elif bullet_directions[i] == 'up_right':
-                dx, dy = 1, -1
-            elif bullet_directions[i] == 'down_left':
-                dx, dy = -1, 1
-            elif bullet_directions[i] == 'down_right':
-                dx, dy = 1, 1
-            else:
-                return float('-inf')
-            bullet_directions[i] = (dx, dy)
-
-        avoidance_score = 0
-        for bullet_pos, bullet_dir in zip(bullet_positions, bullet_directions):
-            # Predict the next position of the bullet
-            next_bullet_pos = (bullet_pos[0] + bullet_dir[0], bullet_pos[1] + bullet_dir[1])
-            # Check if the bullet is aimed at the new position
-            # if next_bullet_pos == (state[3], state[4]):
-            #     return -1000
-            if next_bullet_pos == (state[0], state[1]):
-                return -1000
-
-            # handle bullet bounces
-            if next_bullet_pos[0] < 0 or next_bullet_pos[0] >= self.board.width:
-                bullet_dir = (-bullet_dir[0], bullet_dir[1])
-            if next_bullet_pos[1] < 0 or next_bullet_pos[1] >= self.board.height:
-                bullet_dir = (bullet_dir[0], -bullet_dir[1])
-
-            next_bullet_pos = (next_bullet_pos[0] + bullet_dir[0], next_bullet_pos[1] + bullet_dir[1])
-            # Check if the bullet is aimed at the new position
-            if next_bullet_pos == (state[0], state[1]):
-                return -1000
-
-        min_distance = float('inf')
-
-        for _ in range(10):
-            # Calculate Chebyshev distance from current position on trajectory to the opponent
-            distance_to_opponent = chebyshev_distance((x + dx, y + dy), (state[3], state[4]))
-            min_distance = min(min_distance, distance_to_opponent)
-
-            # Move to the next point on the trajectory
-            x += dx
-            y += dy
-
-            # Handle wall bounces
-            if x < 0 or x >= self.board.width:
-                dx = -dx  # Bounce off vertical walls
-                x += 2 * dx
-            if y < 0 or y >= self.board.height:
-                dy = -dy  # Bounce off horizontal walls
-                y += 2 * dy
-
-        # Proximity score for the best point (minimum product of distances)
-        proximity_score = 1 / np.exp(
-            min_distance / (max(self.board.height, self.board.width) - 2)) - 0.35  # Exponential decrease in score
-
-        # Calculate escape difficulty based on the number of bullets in a 3x3 area around the opponent
-        bullets_in_area = count_bullets_in_area((state[3], state[4]))
-        escape_difficulty_score = 1 - np.exp(-bullets_in_area)  # Exponential increase in difficulty
-
-        # Exponential penalty for ammo (less ammo results in a lower score)
-        ammo_penalty_factor = np.exp(state[2]) / np.exp(MAX_SHOTS)
-
-        # Combine scores with weighted factors
-        score = (proximity_score * 0.6) + (escape_difficulty_score * 0.3) + (ammo_penalty_factor * 0.1)
-
-        return score
-
-    def calculate_move_reward(self, state, action):
-        def chebyshev_distance(pos1, pos2):
-            """Calculate the Chebyshev distance between two points."""
-            return max(abs(pos1[0] - pos2[0]), abs(pos1[1] - pos2[1]))
-
-        def bullet_avoidance_score(new_pos):
-            """
-            Calculate the bullet avoidance score based on bullets aimed at the new position
-            and their distances.
-            """
-            bullet_positions = []
-            bullet_directions = []
-
-            i = 6
-            while i < len(state):
-                bullet_positions.append((state[i], state[i + 1]))
-                bullet_directions.append(state[i + 2])
-                i += 5
-
-            for i in range(len(bullet_directions)):
-                if bullet_directions[i] == 'up':
-                    dx, dy = 0, -1
-                elif bullet_directions[i] == 'down':
-                    dx, dy = 0, 1
-                elif bullet_directions[i] == 'left':
-                    dx, dy = -1, 0
-                elif bullet_directions[i] == 'right':
-                    dx, dy = 1, 0
-                elif bullet_directions[i] == 'up_left':
-                    dx, dy = -1, -1
-                elif bullet_directions[i] == 'up_right':
-                    dx, dy = 1, -1
-                elif bullet_directions[i] == 'down_left':
-                    dx, dy = -1, 1
-                elif bullet_directions[i] == 'down_right':
-                    dx, dy = 1, 1
-                else:
-                    return float('-inf')
-                bullet_directions[i] = (dx, dy)
-
-            avoidance_score = 0
-            for bullet_pos, bullet_dir in zip(bullet_positions, bullet_directions):
-                # Predict the next position of the bullet
-                next_bullet_pos = (bullet_pos[0] + bullet_dir[0], bullet_pos[1] + bullet_dir[1])
-
-                # Check if the bullet is aimed at the new position
-                if next_bullet_pos == new_pos:
-                    return -500
-
-                distance_to_bullet = chebyshev_distance(new_pos, bullet_pos)
-                avoidance_score -= np.exp(-distance_to_bullet)  # Exponential penalty for proximity
-
-            return np.exp(avoidance_score)
-
-        # Ammo management score (higher reward for lower ammo count)=
-        ammo_reward_factor = 1 - (state[2] / MAX_SHOTS)  # Linearly scale from 1 (min ammo) to 0 (max ammo)
-
-        # calculate the new position after the move
-        x, y = state[0], state[1]
-        if action == 'MOVE_UP' or action == 'up':
-            y -= 1
-        elif action == 'MOVE_DOWN' or action == 'down':
-            y += 1
-        elif action == 'MOVE_LEFT' or action == 'left':
-            x -= 1
-        elif action == 'MOVE_RIGHT' or action == 'right':
-            x += 1
-        elif action == 'MOVE_UP_LEFT' or action == 'up_left':
-            x -= 1
-            y -= 1
-        elif action == 'MOVE_UP_RIGHT' or action == 'up_right':
-            x += 1
-            y -= 1
-        elif action == 'MOVE_DOWN_LEFT' or action == 'down_left':
-            x -= 1
-            y += 1
-        elif action == 'MOVE_DOWN_RIGHT' or action == 'down_right':
-            x += 1
-            y += 1
-
-        # Calculate proximity score to the opponent
-        distance_to_opponent_old = chebyshev_distance((state[0], state[1]), (state[3], state[4]))
-        distance_to_opponent_new = chebyshev_distance((x, y), (state[3], state[4]))
-
-        # Reward for being at Chebyshev distance 3, penalize for less or more
-        if distance_to_opponent_new < 2:
-            return -1000
-        else:
-            proximity_score = (distance_to_opponent_old / distance_to_opponent_new) - 1
-
-        # Bullet avoidance score
-        avoidance_score = bullet_avoidance_score((x, y)) - bullet_avoidance_score((state[0], state[1]))
-
-        # Combine scores with weighted factors
-        avoidance_coef = 0.3 * len(self.board.bullets)
-        other_coef = 0.3 * MAX_SHOTS - len(self.board.bullets)
-        score = (ammo_reward_factor * (0.3 + other_coef)) + (proximity_score * (0.4 + other_coef)) + (
-                avoidance_score * avoidance_coef)
-
-        return score
+        self.depth = 2
 
     def evaluate_game_state(self, state):
         """
@@ -1263,29 +1176,49 @@ class MinimaxTank(Tank):
         :return: Reward for the state-action pair.
         """
 
-        def count_bullets_in_area(opponent_pos):
+        def a_star_path(board, start, goal):
             """
-            Counts the number of bullets within a 3x3 area around the opponent.
+            Compute the A* path from start to goal.
+
+            :param start: Starting position (x, y).
+            :param goal: Goal position (x, y).
+            :return: List of positions (x, y) in the path.
             """
 
-            bullet_positions = []
-            i = 6
-            while i < len(state):
-                bullet_positions.append((state[i], state[i + 1]))
-                i += 5
+            def heuristic(a, b):
+                # Manhattan distance
+                return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
-            x_min = max(opponent_pos[0] - 1, 0)
-            x_max = min(opponent_pos[0] + 1, self.board.width - 1)
-            y_min = max(opponent_pos[1] - 1, 0)
-            y_max = min(opponent_pos[1] + 1, self.board.height - 1)
+            open_list = []
+            heapq.heappush(open_list, (0, start))
+            came_from = {}
+            g_score = {start: 0}
+            f_score = {start: heuristic(start, goal)}
 
-            bullets_in_area = 0
+            while open_list:
+                current = heapq.heappop(open_list)[1]
 
-            for bullet_pos in bullet_positions:
-                if x_min <= bullet_pos[0] <= x_max and y_min <= bullet_pos[1] <= y_max:
-                    bullets_in_area += 1
+                if current == goal:
+                    path = []
+                    while current in came_from:
+                        path.append(current)
+                        current = came_from[current]
+                    return path[::-1]
 
-            return bullets_in_area
+                for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, 1), (-1, 1), (1, -1)]:
+                    neighbor = (current[0] + dx, current[1] + dy)
+                    if 0 <= neighbor[0] < board.width and 0 <= neighbor[1] < board.height and \
+                            not board.is_wall(neighbor[0], neighbor[1]) and \
+                            not any(
+                                [bullet.x == neighbor[0] and bullet.y == neighbor[1] for bullet in board.bullets]):
+                        tentative_g_score = g_score[current] + 1
+                        if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
+                            came_from[neighbor] = current
+                            g_score[neighbor] = tentative_g_score
+                            f_score[neighbor] = tentative_g_score + heuristic(neighbor, goal)
+                            heapq.heappush(open_list, (f_score[neighbor], neighbor))
+
+            return []
 
         def chebyshev_distance(pos1, pos2):
             """
@@ -1329,32 +1262,62 @@ class MinimaxTank(Tank):
                 bullet_directions[i] = (dx, dy)
 
             avoidance_score = 0
-            for bullet_pos, bullet_dir in zip(bullet_positions, bullet_directions):
-                for i in range(5):
+            for i in range(2):
+                remove_bullets = []
+                next_positions = []
+                for i, (bullet_pos, bullet_dir) in enumerate(zip(bullet_positions, bullet_directions)):
                     distance_to_bullet = chebyshev_distance(pos, bullet_pos)
-                    avoidance_score -= np.exp(-distance_to_bullet * i)  # Exponential penalty for proximity
+                    if bullet_pos == pos:
+                        avoidance_score -= np.exp(-distance_to_bullet * i)  # Exponential penalty for proximity
 
+                    if i in remove_bullets:
+                        continue
+
+                    # count how many times bullet_pos is in next_positions
+                    if next_positions.count(bullet_pos) > 1:
+                        for j, next_pos in enumerate(next_positions):
+                            if next_pos == bullet_pos:
+                                remove_bullets.append(j)
+                        continue
+
+                    dx, dy = bullet_dir
+                    if bullet_pos[0] < 0 or bullet_pos[0] >= self.board.width:
+                        dx = -dx
+                    if bullet_pos[1] < 0 or bullet_pos[1] >= self.board.height:
+                        dy = -dy
+                    bullet_dir = (dx, dy)
                     bullet_pos = (bullet_pos[0] + bullet_dir[0], bullet_pos[1] + bullet_dir[1])
+                    next_positions.append(bullet_pos)
 
             return np.exp(avoidance_score)
 
         # Unpack the state
         x, y, shots, opponent_x, opponent_y, opponent_shots = state[0], state[1], state[2], state[3], state[4], state[5]
 
-        bullet_around_opponent = count_bullets_in_area((opponent_x, opponent_y))
+        path = len(a_star_path(self.board, (x, y), (opponent_x, opponent_y)))
+        if path <= 1:
+            distance_score = -100
+        else:
+            distance_score = 100 / path
 
-        bullets_aimed_at_you = bullet_avoidance_score((x, y))
-        bullets_aimed_at_opponent = bullet_avoidance_score((opponent_x, opponent_y))
+
+        bullets_aimed_at_you = 100 * bullet_avoidance_score((x, y))
+        if bullets_aimed_at_you != 100:
+            bullet_avoidance_score((x, y))
+        bullets_aimed_at_opponent = -100 * bullet_avoidance_score((opponent_x, opponent_y))
+        if bullets_aimed_at_opponent != -100:
+            bullet_avoidance_score((opponent_x, opponent_y))
 
         # Reward factors
-        ammo_reward_factor = 0.2
-        proximity_reward_factor = 0.4
-        avoidance_reward_factor = 0.4
+        ammo_reward_factor = 0.1
+        attacks_reward_factor = 0.4
+        avoidance_reward_factor = 0.3
+        proximity_reward_factor = 0.3
 
         # Calculate the reward
-        reward = (ammo_reward_factor * (shots - opponent_shots)) + (
-                proximity_reward_factor * bullet_around_opponent) + (
-                         avoidance_reward_factor * (bullets_aimed_at_you - bullets_aimed_at_opponent))
+        reward = (ammo_reward_factor * 10 * shots) + (
+                attacks_reward_factor * bullets_aimed_at_opponent) + (avoidance_reward_factor * bullets_aimed_at_you) \
+                 + (proximity_reward_factor * distance_score)
 
         return reward
 
@@ -1476,28 +1439,100 @@ class MinimaxTank(Tank):
 
             if action == 'MOVE_UP' or (action == 'SHOOT_UP' and state[2] > 0):
                 if 0 < state[1] < self.board.height:
-                    legal_actions.append(action)
+                    if action.startswith('SHOOT'):
+                        x, y = state[0], state[1]
+                        x += dx
+                        y += dy
+                        if (self.board.grid[y][x] == GameColors.BOARD or
+                            self.board.grid[y][x] == GameColors.TANK1 or
+                            self.board.grid[y][x] == GameColors.TANK2):
+                            legal_actions.append(action)
+                    else:
+                        legal_actions.append(action)
             elif action == 'MOVE_DOWN' or (action == 'SHOOT_DOWN' and state[2] > 0):
                 if 0 <= state[1] < self.board.height - 1:
-                    legal_actions.append(action)
+                    if action.startswith('SHOOT'):
+                        x, y = state[0], state[1]
+                        x += dx
+                        y += dy
+                        if (self.board.grid[y][x] == GameColors.BOARD or
+                            self.board.grid[y][x] == GameColors.TANK1 or
+                            self.board.grid[y][x] == GameColors.TANK2):
+                            legal_actions.append(action)
+                    else:
+                        legal_actions.append(action)
             elif action == 'MOVE_LEFT' or (action == 'SHOOT_LEFT' and state[2] > 0):
                 if 0 < state[0] < self.board.width:
-                    legal_actions.append(action)
+                    if action.startswith('SHOOT'):
+                        x, y = state[0], state[1]
+                        x += dx
+                        y += dy
+                        if (self.board.grid[y][x] == GameColors.BOARD or
+                            self.board.grid[y][x] == GameColors.TANK1 or
+                            self.board.grid[y][x] == GameColors.TANK2):
+                            legal_actions.append(action)
+                    else:
+                        legal_actions.append(action)
             elif action == 'MOVE_RIGHT' or (action == 'SHOOT_RIGHT' and state[2] > 0):
                 if 0 <= state[0] < self.board.width - 1:
-                    legal_actions.append(action)
+                    if action.startswith('SHOOT'):
+                        x, y = state[0], state[1]
+                        x += dx
+                        y += dy
+                        if (self.board.grid[y][x] == GameColors.BOARD or
+                            self.board.grid[y][x] == GameColors.TANK1 or
+                            self.board.grid[y][x] == GameColors.TANK2):
+                            legal_actions.append(action)
+                    else:
+                        legal_actions.append(action)
             elif action == 'MOVE_UP_LEFT' or (action == 'SHOOT_UP_LEFT' and state[2] > 0):
                 if 0 < state[0] < self.board.width and 0 < state[1] < self.board.height:
-                    legal_actions.append(action)
+                    if action.startswith('SHOOT'):
+                        x, y = state[0], state[1]
+                        x += dx
+                        y += dy
+                        if (self.board.grid[y][x] == GameColors.BOARD or
+                            self.board.grid[y][x] == GameColors.TANK1 or
+                            self.board.grid[y][x] == GameColors.TANK2):
+                            legal_actions.append(action)
+                    else:
+                        legal_actions.append(action)
             elif action == 'MOVE_UP_RIGHT' or (action == 'SHOOT_UP_RIGHT' and state[2] > 0):
                 if 0 <= state[0] < self.board.width - 1 and 0 < state[1] < self.board.height:
-                    legal_actions.append(action)
+                    if action.startswith('SHOOT'):
+                        x, y = state[0], state[1]
+                        x += dx
+                        y += dy
+                        if (self.board.grid[y][x] == GameColors.BOARD or
+                            self.board.grid[y][x] == GameColors.TANK1 or
+                            self.board.grid[y][x] == GameColors.TANK2):
+                            legal_actions.append(action)
+                    else:
+                        legal_actions.append(action)
             elif action == 'MOVE_DOWN_LEFT' or (action == 'SHOOT_DOWN_LEFT' and state[2] > 0):
                 if 0 < state[0] < self.board.width - 1 and 0 <= state[1] < self.board.height - 1:
-                    legal_actions.append(action)
+                    if action.startswith('SHOOT'):
+                        x, y = state[0], state[1]
+                        x += dx
+                        y += dy
+                        if (self.board.grid[y][x] == GameColors.BOARD or
+                            self.board.grid[y][x] == GameColors.TANK1 or
+                            self.board.grid[y][x] == GameColors.TANK2):
+                            legal_actions.append(action)
+                    else:
+                        legal_actions.append(action)
             elif action == 'MOVE_DOWN_RIGHT' or (action == 'SHOOT_DOWN_RIGHT' and state[2] > 0):
                 if 0 <= state[0] < self.board.width - 1 and 0 <= state[1] < self.board.height - 1:
-                    legal_actions.append(action)
+                    if action.startswith('SHOOT'):
+                        x, y = state[0], state[1]
+                        x += dx
+                        y += dy
+                        if (self.board.grid[y][x] == GameColors.BOARD or
+                            self.board.grid[y][x] == GameColors.TANK1 or
+                            self.board.grid[y][x] == GameColors.TANK2):
+                            legal_actions.append(action)
+                    else:
+                        legal_actions.append(action)
         return legal_actions
 
     def is_terminal_state(self, state):
@@ -1539,8 +1574,10 @@ class MinimaxTank(Tank):
             for action in self.state_legal_actions(state):
                 v = max(v, min_value(self.next_state(state, action), depth, alpha, beta))
                 if v >= beta:
+                    # print(f'max: {v} with depth {depth} and action {action}')
                     return v
                 alpha = max(alpha, v)
+                # print(f'max: {v} with depth {depth} and action {action}')
             return v
 
         def min_value(state, depth, alpha, beta):
@@ -1554,8 +1591,10 @@ class MinimaxTank(Tank):
             for action in self.state_legal_actions(state):
                 v = min(v, max_value(self.next_state(state, action), depth - 1, alpha, beta))
                 if v <= alpha:
+                    # print(f'min: {v} with depth {depth} and action {action}')
                     return v
                 beta = min(beta, v)
+            # print(f'min: {v} with depth {depth} and action {action}')
             return v
 
         best_action = None
@@ -1564,18 +1603,15 @@ class MinimaxTank(Tank):
         beta = float('inf')
         scores = {}
         for action in self.state_legal_actions(state):
-            state = [self.x, self.y, self.shots, self.board.tank2.x, self.board.tank2.y, self.board.tank2.shots]
-            state[0], state[3] = state[3], state[0]
-            state[1], state[4] = state[4], state[1]
-            state[2], state[5] = state[5], state[2]
-            for bullet in self.board.bullets:
-                state.extend([bullet.x, bullet.y, bullet.direction, bullet.bounces, bullet.moves])
+            state = self.get_state()
+            state = self.next_state(state, action)
             score = min_value(state, self.depth, alpha, beta)
             # restore the data of each tank
             if score > best_score:
                 best_score = score
                 best_action = action
             scores[action] = score
+        print(scores)
         return best_action
 
     def move(self, action):
@@ -1615,39 +1651,38 @@ class MinimaxTank(Tank):
         else:
             target_tank = self.board.tank1
         tank_position = (target_tank.x, target_tank.y)
-        if abs(self.x - tank_position[0]) <= 1 and abs(self.y - tank_position[1]) <= 1:
-            if action == 'SHOOT_UP':
-                dx, dy = 0, -1
-            elif action == 'SHOOT_DOWN':
-                dx, dy = 0, 1
-            elif action == 'SHOOT_LEFT':
-                dx, dy = -1, 0
-            elif action == 'SHOOT_RIGHT':
-                dx, dy = 1, 0
-            elif action == 'SHOOT_UP_LEFT':
-                dx, dy = -1, -1
-            elif action == 'SHOOT_UP_RIGHT':
-                dx, dy = 1, -1
-            elif action == 'SHOOT_DOWN_LEFT':
-                dx, dy = -1, 1
-            elif action == 'SHOOT_DOWN_RIGHT':
-                dx, dy = 1, 1
-            else:
-                return False
-            direction_map = {
-                (0, -1): 'up',
-                (0, 1): 'down',
-                (-1, 0): 'left',
-                (1, 0): 'right',
-                (-1, -1): 'up_left',
-                (1, -1): 'up_right',
-                (-1, 1): 'down_left',
-                (1, 1): 'down_right'
-            }
-            direction = direction_map.get((dx, dy))
-            if direction:
-                self.board.add_bullet(Bullet(self.board, self.x + dx, self.y + dy, direction))
-                return True
+        if action == 'SHOOT_UP':
+            dx, dy = 0, -1
+        elif action == 'SHOOT_DOWN':
+            dx, dy = 0, 1
+        elif action == 'SHOOT_LEFT':
+            dx, dy = -1, 0
+        elif action == 'SHOOT_RIGHT':
+            dx, dy = 1, 0
+        elif action == 'SHOOT_UP_LEFT':
+            dx, dy = -1, -1
+        elif action == 'SHOOT_UP_RIGHT':
+            dx, dy = 1, -1
+        elif action == 'SHOOT_DOWN_LEFT':
+            dx, dy = -1, 1
+        elif action == 'SHOOT_DOWN_RIGHT':
+            dx, dy = 1, 1
+        else:
+            return False
+        direction_map = {
+            (0, -1): 'up',
+            (0, 1): 'down',
+            (-1, 0): 'left',
+            (1, 0): 'right',
+            (-1, -1): 'up_left',
+            (1, -1): 'up_right',
+            (-1, 1): 'down_left',
+            (1, 1): 'down_right'
+        }
+        direction = direction_map.get((dx, dy))
+        if direction:
+            self.board.add_bullet(Bullet(self.board, self.x + dx, self.y + dy, direction))
+            return True
         return False
 
     def update(self):
@@ -1661,8 +1696,4 @@ class MinimaxTank(Tank):
             self.move(action)
         else:
             self.shoot(action)
-        # print(self.x, self.y, self.shots, action)
-        # for i in range(10):
-        #     for j in range(10):
-        #         print(self.board.grid[i][j], end=' ')
-        #     print()
+        print(action)
