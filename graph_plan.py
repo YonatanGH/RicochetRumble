@@ -19,6 +19,8 @@ class GraphPlan(object):
         self.graph = []
         p = PgParser(_domain, _problem)
         self.actions, self.propositions = p.parse_actions_and_propositions()
+
+
         # list of all the actions and list of all the propositions
 
         self.initial_state, self.goal = p.parse_problem()

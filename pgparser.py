@@ -75,6 +75,7 @@ class PgParser:
         line = f.readline()
         words = [word.rstrip() for word in line.split(" ") if len(word.rstrip()) > 0]
         for i in range(2, len(words)):
+            # print(words[i])
             init.append(Proposition(words[i]))
         line = f.readline()
         words = [word.rstrip() for word in line.split(" ") if len(word.rstrip()) > 0]

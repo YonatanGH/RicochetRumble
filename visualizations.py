@@ -3,6 +3,7 @@
 from game_colors import GameColors
 from maze import generate_spacious_maze
 from tanks import PlayerTank, AStarTank, MinimaxTank, QLearningTank
+from PlanningGraphTank import PGTank
 
 DELAY_MS = 500  # Delay in milliseconds for NPC actions
 
@@ -464,7 +465,7 @@ class Game:
             return AStarTank(self.board, x, y, number)
         # Future tank types can be added here
         elif tank_type == "Turret":  # TODO: Implement a class... and add here instead of turret
-            return AStarTank(self.board, x, y, number)
+            return PGTank(self.board, x, y, number)
         elif tank_type == "Minimax":
             return MinimaxTank(self.board, x, y, number)
         elif tank_type == "Q-Learning":
