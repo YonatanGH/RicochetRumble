@@ -4,6 +4,7 @@ import numpy as np
 import random
 from game_colors import GameColors
 import heapq
+import pickle
 
 from planning_problem import PlanningProblem, solve, null_heuristic, max_level, level_sum
 
@@ -414,7 +415,7 @@ class AStarTank(Tank):
 
 
 class QLearningTank(Tank):
-    def __init__(self, board, x, y, number, lr=0.2, ds=0.99, er=0.1, ed=0.01, epochs=200):
+    def __init__(self, board, x, y, number, lr=0.2, ds=0.99, er=0.1, ed=0.01, epochs=100, pretrained=False, save_file=None):
         """
         Initialize an AI-controlled tank using the Q-learning algorithm.
 
@@ -430,8 +431,15 @@ class QLearningTank(Tank):
         self.exploration_rate = er
         self.exploration_decay = ed
         self.epochs = epochs
+        self.save_file = save_file
+        self.pretrained = pretrained
 
-        # self.fill_q_table()
+        if self.pretrained:
+            # load from pickle file
+            with open(self.save_file, 'rb') as f:
+                self.q_table = pickle.load(f)
+        else:
+            self.fill_q_table()
 
     def set_data(self, x, y, number):
         """
@@ -474,7 +482,7 @@ class QLearningTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
             elif action == 'MOVE_DOWN' or (action == 'SHOOT_DOWN' and state[2 + prefix] > 0):
                 if 0 <= state[1 + prefix] < self.board.height - 1:
@@ -487,7 +495,7 @@ class QLearningTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
             elif action == 'MOVE_LEFT' or (action == 'SHOOT_LEFT' and state[2 + prefix] > 0):
                 if 0 < state[0 + prefix] < self.board.width:
@@ -500,7 +508,7 @@ class QLearningTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
             elif action == 'MOVE_RIGHT' or (action == 'SHOOT_RIGHT' and state[2 + prefix] > 0):
                 if 0 <= state[0 + prefix] < self.board.width - 1:
@@ -513,7 +521,7 @@ class QLearningTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
             elif action == 'MOVE_UP_LEFT' or (action == 'SHOOT_UP_LEFT' and state[2 + prefix] > 0):
                 if 0 < state[0 + prefix] < self.board.width and 0 < state[1 + prefix] < self.board.height:
@@ -526,7 +534,7 @@ class QLearningTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
             elif action == 'MOVE_UP_RIGHT' or (action == 'SHOOT_UP_RIGHT' and state[2 + prefix] > 0):
                 if 0 <= state[0 + prefix] < self.board.width - 1 and 0 < state[1 + prefix] < self.board.height:
@@ -539,7 +547,7 @@ class QLearningTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
             elif action == 'MOVE_DOWN_LEFT' or (action == 'SHOOT_DOWN_LEFT' and state[2 + prefix] > 0):
                 if 0 < state[0 + prefix] < self.board.width - 1 and 0 <= state[1 + prefix] < self.board.height - 1:
@@ -552,7 +560,7 @@ class QLearningTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
             elif action == 'MOVE_DOWN_RIGHT' or (action == 'SHOOT_DOWN_RIGHT' and state[2 + prefix] > 0):
                 if 0 <= state[0 + prefix] < self.board.width - 1 and 0 <= state[1 + prefix] < self.board.height - 1:
@@ -565,7 +573,7 @@ class QLearningTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
         return legal_actions
 
@@ -595,6 +603,9 @@ class QLearningTank(Tank):
                 i += 5
             return False
 
+        if self.pretrained:
+            return
+
         for i in range(self.epochs):
             state = self.get_random_state()
             while not is_terminal_state(state):
@@ -609,6 +620,11 @@ class QLearningTank(Tank):
                 self.update_q_table(state, action, reward, next_state)
                 state = next_state
             self.exploration_rate *= (1 - self.exploration_decay)
+
+        if self.save_file != None:
+            # save the Q-table to a pickle file
+            with open(self.save_file, 'wb') as f:
+                pickle.dump(self.q_table, f)
 
     def get_random_state(self):
         """
@@ -1246,6 +1262,17 @@ class QLearningTank(Tank):
         #     print(self.reward(self.get_state(), action_loop), end=' ')
         # print(action)
 
+    def state_to_move(self, state):
+        """
+        Get the move corresponding to a state.
+
+        :param state: State to convert.
+        :return: Move corresponding to the state.
+        """
+        q_values = [self.get_q_value(tuple(state), action) for action in self.state_legal_actions(state, 3)]
+        action = self.state_legal_actions(state, 3)[np.argmax(q_values)]
+        return action
+
 
 class MinimaxTank(Tank):
     def __init__(self, board, x, y, number):
@@ -1656,7 +1683,7 @@ class MinimaxTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
             elif action == 'MOVE_DOWN' or (action == 'SHOOT_DOWN' and state[2] > 0):
                 if 0 <= state[1] < self.board.height - 1:
@@ -1669,7 +1696,7 @@ class MinimaxTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
             elif action == 'MOVE_LEFT' or (action == 'SHOOT_LEFT' and state[2] > 0):
                 if 0 < state[0] < self.board.width:
@@ -1682,7 +1709,7 @@ class MinimaxTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
             elif action == 'MOVE_RIGHT' or (action == 'SHOOT_RIGHT' and state[2] > 0):
                 if 0 <= state[0] < self.board.width - 1:
@@ -1695,7 +1722,7 @@ class MinimaxTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
             elif action == 'MOVE_UP_LEFT' or (action == 'SHOOT_UP_LEFT' and state[2] > 0):
                 if 0 < state[0] < self.board.width and 0 < state[1] < self.board.height:
@@ -1708,7 +1735,7 @@ class MinimaxTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
             elif action == 'MOVE_UP_RIGHT' or (action == 'SHOOT_UP_RIGHT' and state[2] > 0):
                 if 0 <= state[0] < self.board.width - 1 and 0 < state[1] < self.board.height:
@@ -1721,7 +1748,7 @@ class MinimaxTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
             elif action == 'MOVE_DOWN_LEFT' or (action == 'SHOOT_DOWN_LEFT' and state[2] > 0):
                 if 0 < state[0] < self.board.width - 1 and 0 <= state[1] < self.board.height - 1:
@@ -1734,7 +1761,7 @@ class MinimaxTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
             elif action == 'MOVE_DOWN_RIGHT' or (action == 'SHOOT_DOWN_RIGHT' and state[2] > 0):
                 if 0 <= state[0] < self.board.width - 1 and 0 <= state[1] < self.board.height - 1:
@@ -1747,7 +1774,7 @@ class MinimaxTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
         return legal_actions
 
@@ -2323,7 +2350,7 @@ class ExpectimaxTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
             elif action == 'MOVE_DOWN' or (action == 'SHOOT_DOWN' and state[2] > 0):
                 if 0 <= state[1] < self.board.height - 1:
@@ -2336,7 +2363,7 @@ class ExpectimaxTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
             elif action == 'MOVE_LEFT' or (action == 'SHOOT_LEFT' and state[2] > 0):
                 if 0 < state[0] < self.board.width:
@@ -2349,7 +2376,7 @@ class ExpectimaxTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
             elif action == 'MOVE_RIGHT' or (action == 'SHOOT_RIGHT' and state[2] > 0):
                 if 0 <= state[0] < self.board.width - 1:
@@ -2362,7 +2389,7 @@ class ExpectimaxTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
             elif action == 'MOVE_UP_LEFT' or (action == 'SHOOT_UP_LEFT' and state[2] > 0):
                 if 0 < state[0] < self.board.width and 0 < state[1] < self.board.height:
@@ -2375,7 +2402,7 @@ class ExpectimaxTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
             elif action == 'MOVE_UP_RIGHT' or (action == 'SHOOT_UP_RIGHT' and state[2] > 0):
                 if 0 <= state[0] < self.board.width - 1 and 0 < state[1] < self.board.height:
@@ -2388,7 +2415,7 @@ class ExpectimaxTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
             elif action == 'MOVE_DOWN_LEFT' or (action == 'SHOOT_DOWN_LEFT' and state[2] > 0):
                 if 0 < state[0] < self.board.width - 1 and 0 <= state[1] < self.board.height - 1:
@@ -2401,7 +2428,7 @@ class ExpectimaxTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
             elif action == 'MOVE_DOWN_RIGHT' or (action == 'SHOOT_DOWN_RIGHT' and state[2] > 0):
                 if 0 <= state[0] < self.board.width - 1 and 0 <= state[1] < self.board.height - 1:
@@ -2414,7 +2441,7 @@ class ExpectimaxTank(Tank):
                                 self.board.grid[y][x] == GameColors.TANK2):
                             legal_actions.append(action)
                     else:
-                        if not (state[3] == state[0] and state[4] == state[1]):
+                        if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
                             legal_actions.append(action)
         return legal_actions
 

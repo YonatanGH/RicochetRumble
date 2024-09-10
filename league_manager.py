@@ -1,6 +1,5 @@
 from visualizations import MainMenu, TankManual, EndScreen
 from tanks import Tank
-from bullet import Bullet
 import numpy as np
 import random
 from game_colors import GameColors
@@ -886,7 +885,7 @@ class Bullet:
             self.board.update_position(self.x, self.y, GameColors.BULLET)
 
 
-class Board:
+class Board: # TODO the board is outdated
     def __init__(self, size, main_window, delay=False):
         """
         Initialize the game board.

@@ -11,7 +11,7 @@ BOARD_HEIGHT = 10  # Height of the game board
 
 # -------------------------------------- Main Menu -------------------------------------- #
 class MainMenu:
-    def __init__(self, main_window):
+    def __init__(self, main_window, qchoice1="None", qchoice2="None"):
         """
         Initialize the main menu.
         
@@ -23,6 +23,9 @@ class MainMenu:
 
         self.options = ["Player", "A*", "Planning-Graph", "Minimax", "Expectimax", "Q-Learning", "Random"]  # Tanks
 
+        self.qchoice1 = qchoice1
+        self.qchoice2 = qchoice2
+
         self.tank1_var = tk.StringVar(value="Player")  # Tank 1 type
         self.tank2_var = tk.StringVar(value="A*")  # Tank 2 type
 
@@ -30,6 +33,7 @@ class MainMenu:
         tank1_label.pack(pady=10)
         tank1_options = tk.OptionMenu(self.window, self.tank1_var, *self.options)  # Tank 1 options
         tank1_options.pack(pady=10)
+
 
         tank2_label = tk.Label(self.window, text="Tank 2:")  # Tank 2 label
         tank2_label.pack(pady=10)
@@ -42,6 +46,9 @@ class MainMenu:
         manual_button = tk.Button(self.window, text="Tank Manual", command=self.show_tank_manual)  # Tank Manual button
         manual_button.pack(pady=10)
 
+        settings_button = tk.Button(self.window, text="Q-Settings", command=self.show_settings)  # Tank Manual button
+        settings_button.pack(pady=10)
+
         self.delay_var = tk.BooleanVar(value=True)  # Delay variable
         delay_checkbox = tk.Checkbutton(self.window, text="Enable delay", variable=self.delay_var)  # Delay checkbox
         delay_checkbox.pack(pady=10)
@@ -52,12 +59,17 @@ class MainMenu:
     def start_game(self):
         """Start the game with selected options."""
         self.window.pack_forget()
-        Game(self.main_window, self.delay_var.get(), self.tank1_var.get(), self.tank2_var.get())
+        Game(self.main_window, self.delay_var.get(), self.tank1_var.get(), self.tank2_var.get(), self.qchoice1.get(), self.qchoice2.get())
 
     def show_tank_manual(self):
         """Show the tank manual."""
         self.window.pack_forget()
         TankManual(self.main_window)
+
+    def show_settings(self):
+        """Show the settings."""
+        self.window.pack_forget()
+        Settings(self.main_window)
 
     def quit_game(self):
         """Quit the game."""
@@ -93,16 +105,17 @@ class TankManual:
 
             "Random Tank:\n"
             "- This tank has a chance of 20% to shoot and 80% to move. Its actions are valid, but fully random.\n"
-            
+
             "Minimax Tank:\n"
             "- This AI-controlled tank uses the Minimax algorithm to determine the best action.\n"
-            
+
             "Expectimax Tank:\n"
             "- This AI-controlled tank uses the Expectimax algorithm to determine the best action.\n"
-            
+
             "Q-Learning Tank:\n"
             "- This AI-controlled tank uses the Q-Learning algorithm to learn about the game in advance.\n"
             "- It uses the learned information to determine the best action in each turn.\n"
+            "- The tank will learn to play against the tank chosen in the settings.\n"
         )
 
         manual_label = tk.Label(self.window, text=manual_text, justify="left")
@@ -115,6 +128,46 @@ class TankManual:
         """Return to the main menu."""
         self.window.pack_forget()
         MainMenu(self.main_window)
+
+
+# -------------------------------------- Settings -------------------------------------- #
+
+class Settings:
+    def __init__(self, main_window):
+        """
+        Initialize the tank manual screen.
+
+        :param main_window: Reference to the main Tkinter window.
+        """
+        self.main_window = main_window  # Main window reference
+        self.window = tk.Frame(main_window)  # Manual window
+        self.window.pack()
+
+        self.options = ["None", "A*", "Planning-Graph", "Minimax", "Expectimax", "Random"]
+
+        self.choice1 = tk.StringVar(value="None")
+        self.choice2 = tk.StringVar(value="None")
+
+        tank1_label = tk.Label(self.window, text="Pre-training for tank 1:")
+        tank1_label.pack(pady=10)
+        tank1_options = tk.OptionMenu(self.window, self.choice1, *self.options)
+        tank1_options.pack(pady=10)
+
+        tank2_label = tk.Label(self.window, text="Pre-training for tank 2:")
+        tank2_label.pack(pady=10)
+        tank2_options = tk.OptionMenu(self.window, self.choice2, *self.options)
+        tank2_options.pack(pady=10)
+
+        back_button = tk.Button(self.window, text="Back to Menu", command=self.back_to_menu)  # Back to menu button
+        back_button.pack(pady=10)
+
+    def back_to_menu(self):
+        """Return to the main menu."""
+        self.window.pack_forget()
+        MainMenu(self.main_window, self.choice1, self.choice2)
+
+    def get_choices(self):
+        return self.choice1, self.choice2
 
 
 # -------------------------------------- End Screen -------------------------------------- #
@@ -431,7 +484,7 @@ class Board:
 # -------------------------------------- Game -------------------------------------- #
 
 class Game:
-    def __init__(self, main_window, delay, tank1_type, tank2_type):
+    def __init__(self, main_window, delay, tank1_type, tank2_type, qmode1="None", qmode2="None"):
         """
         Initialize the game.
         
@@ -448,8 +501,8 @@ class Game:
         self.last_keys = []  # List of last pressed keys
         self.player_action_done = False  # Flag to track player action
 
-        self.tank1 = self.create_tank(tank1_type, 0, 0, 1)  # Tank 1
-        self.tank2 = self.create_tank(tank2_type, BOARD_WIDTH - 1, BOARD_HEIGHT - 1, 2)  # Tank 2
+        self.tank1 = self.create_tank(tank1_type, 0, 0, 1, qmode1)  # Tank 1
+        self.tank2 = self.create_tank(tank2_type, BOARD_WIDTH - 1, BOARD_HEIGHT - 1, 2, qmode2)  # Tank 2
 
         self.current_tank = self.tank1  # Current tank
         self.turns = 0  # Turn counter
@@ -458,7 +511,7 @@ class Game:
             # make the first move for the NPC tank
             self.board.delay_action(self.npc_act)
 
-    def create_tank(self, tank_type, x, y, number):
+    def create_tank(self, tank_type, x, y, number, mode):
         """
         Create a tank based on type.
         
@@ -480,9 +533,18 @@ class Game:
         elif tank_type == "Expectimax":
             return ExpectimaxTank(self.board, x, y, number)
         elif tank_type == "Q-Learning":
-            return QLearningTank(self.board, x, y, number)
-        elif tank_type == "Random":
-            return RandomTank(self.board, x, y, number)
+            if mode == "None":
+                return QLearningTank(self.board, x, y, number)
+            if mode == "A*":
+                return QLearningTank(self.board, x, y, number, pretrained=True, save_file="qlearning_a_star.pkl")
+            elif mode == "Planning-Graph":
+                return QLearningTank(self.board, x, y, number, pretrained=True, save_file="qlearning_planning_graph.pkl.pkl")
+            elif mode == "Minimax":
+                return QLearningTank(self.board, x, y, number, pretrained=True, save_file="qlearning_minimax.pkl")
+            elif mode == "Expectimax":
+                return QLearningTank(self.board, x, y, number, pretrained=True, save_file="qlearning_expectimax.pkl")
+            elif mode == "Random":
+                return QLearningTank(self.board, x, y, number, pretrained=True, save_file="qlearning_random.pkl")
 
     def handle_key_press(self, event):
         """
