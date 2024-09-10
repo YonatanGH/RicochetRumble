@@ -132,6 +132,60 @@ class Tank(ABC):
         pass
 
 
+# ---------------------- RandomTank ---------------------- #
+class RandomTank(Tank):
+    def __init__(self, board, x, y, number):
+        """
+        Initialize a tank with random legal moves.
+
+        :param board: Reference to the game board.
+        :param x: Initial X coordinate.
+        :param y: Initial Y coordinate.
+        :param number: Tank number (1 or 2).
+        """
+        super().__init__(board, x, y, number)
+
+    def move(self, _):
+        """
+        Move the tank in a random direction.
+        :param _: Unused parameter. Needed to match the parent class signature.
+        :return: True if move is valid, False otherwise.
+        """
+        super().move(_)
+        legal_actions = self.get_legal_actions()
+        valid_actions = [action for action in legal_actions if action.startswith('MOVE')]
+        while valid_actions:
+            action = np.random.choice(valid_actions)
+            dx, dy = str_to_vals[action[5:].lower()]
+            if self.board.is_valid_move(self.x + dx, self.y + dy):
+                self.board.move_tank(self, self.x + dx, self.y + dy, self.number)
+                return True
+            valid_actions.remove(action)
+        return False
+
+    def shoot(self, _):
+        """
+        Shoot a bullet in a random direction.
+        :param _: Unused parameter. Needed to match the parent class signature.
+        :return: True if shoot is valid, False otherwise.
+        """
+        super().shoot(_)
+        legal_actions = self.get_legal_actions()
+        valid_actions = [action for action in legal_actions if action.startswith('SHOOT')]
+        while valid_actions:
+            action = np.random.choice(valid_actions)
+            direction = action[6:].lower()
+            dx, dy = str_to_vals[direction]
+            bullet = Bullet(self.board, self.x + dx, self.y + dy, direction)
+            can_add = self.board.is_valid_move(bullet.x, bullet.y)
+            if can_add:
+                self.board.add_bullet(bullet)
+                self.shots -= 1
+                return True
+        return False
+
+
+# ---------------------- PlayerTank ---------------------- #
 class PlayerTank(Tank):
     def __init__(self, board, x, y, number):
         """

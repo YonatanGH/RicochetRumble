@@ -2,7 +2,7 @@
 
 from game_colors import GameColors
 from maze import generate_spacious_maze
-from tanks import PlayerTank, AStarTank, MinimaxTank, QLearningTank, ExpectimaxTank, PGTank
+from tanks import PlayerTank, AStarTank, MinimaxTank, QLearningTank, ExpectimaxTank, PGTank, RandomTank
 
 DELAY_MS = 1000  # Delay in milliseconds for NPC actions
 BOARD_WIDTH = 10  # Width of the game board
@@ -21,7 +21,7 @@ class MainMenu:
         self.window = tk.Frame(main_window)  # Menu window
         self.window.pack()
 
-        self.options = ["Player", "A*", "Planning-Graph", "Minimax", "Expectimax", "Q-Learning"]  # Tank options
+        self.options = ["Player", "A*", "Planning-Graph", "Minimax", "Expectimax", "Q-Learning", "Random"]  # Tanks
 
         self.tank1_var = tk.StringVar(value="Player")  # Tank 1 type
         self.tank2_var = tk.StringVar(value="A*")  # Tank 2 type
@@ -81,15 +81,18 @@ class TankManual:
         manual_text = (
             "Tank Manual:\n\n"
             "PlayerTank:\n"
-            "- You control this tank with the 'w', 'a', 's', 'd' keys to move, and 'q', 'e', 'z', 'c' for diagonal movement.\n"
+            "- You control this tank with the 'w', 'a', 's', 'd' keys to move, "
+            "and 'q', 'e', 'z', 'c' for diagonal movement.\n"
             "- Press 'm' to switch between move and shoot modes.\n"
             "- In shoot mode, use the same keys to shoot in different directions.\n"
             "- The tank can hold up to 3 bullets at a time.\n\n"
+
             "A* Tank:\n"
             "- This AI-controlled tank uses the A* algorithm to find and move towards the player's tank.\n"
             "- It automatically shoots at the player when in range.\n\n"
-            "Turret Tank (Future Addition):\n"
-            "- This tank stays stationary but rotates to shoot at the player or other targets.\n"
+
+            "Random Tank:\n"
+            "- This tank has a chance of 20% to shoot and 80% to move. Its actions are valid, but fully random.\n"
         )
 
         manual_label = tk.Label(self.window, text=manual_text, justify="left")
@@ -468,6 +471,8 @@ class Game:
             return ExpectimaxTank(self.board, x, y, number)
         elif tank_type == "Q-Learning":
             return QLearningTank(self.board, x, y, number)
+        elif tank_type == "Random":
+            return RandomTank(self.board, x, y, number)
 
     def handle_key_press(self, event):
         """
@@ -540,6 +545,14 @@ class Game:
         if isinstance(self.current_tank, MinimaxTank) or isinstance(self.current_tank, QLearningTank) or isinstance(
                 self.current_tank, AStarTank) or isinstance(self.current_tank, ExpectimaxTank):
             self.current_tank.update()
+        elif isinstance(self.current_tank, RandomTank):
+            # choose randomly between moving and shooting - below 0.8 move, above 0.8 shoot
+            import random
+            choice = random.random()
+            if choice < 0.8:
+                self.current_tank.move(None)
+            else:
+                self.current_tank.shoot(None)
         else:
             self.current_tank.move(None)  # Move towards the target tank
             self.current_tank.shoot(None)  # Shoot if possible
