@@ -1,34 +1,6 @@
 Propositions:
-tank_at_-1_-1 enemy_at_-1_-1 bullet_at_-1_-1 wall_at_-1_-1 empty_at_-1_-1 tank_at_-1_0 enemy_at_-1_0 bullet_at_-1_0 wall_at_-1_0 empty_at_-1_0 tank_at_-1_1 enemy_at_-1_1 bullet_at_-1_1 wall_at_-1_1 empty_at_-1_1 tank_at_-1_2 enemy_at_-1_2 bullet_at_-1_2 wall_at_-1_2 empty_at_-1_2 tank_at_-1_3 enemy_at_-1_3 bullet_at_-1_3 wall_at_-1_3 empty_at_-1_3 tank_at_-1_4 enemy_at_-1_4 bullet_at_-1_4 wall_at_-1_4 empty_at_-1_4 tank_at_-1_5 enemy_at_-1_5 bullet_at_-1_5 wall_at_-1_5 empty_at_-1_5 tank_at_-1_6 enemy_at_-1_6 bullet_at_-1_6 wall_at_-1_6 empty_at_-1_6 tank_at_-1_7 enemy_at_-1_7 bullet_at_-1_7 wall_at_-1_7 empty_at_-1_7 tank_at_-1_8 enemy_at_-1_8 bullet_at_-1_8 wall_at_-1_8 empty_at_-1_8 tank_at_-1_9 enemy_at_-1_9 bullet_at_-1_9 wall_at_-1_9 empty_at_-1_9 tank_at_-1_10 enemy_at_-1_10 bullet_at_-1_10 wall_at_-1_10 empty_at_-1_10 tank_at_0_-1 enemy_at_0_-1 bullet_at_0_-1 wall_at_0_-1 empty_at_0_-1 tank_at_0_0 enemy_at_0_0 bullet_at_0_0 wall_at_0_0 empty_at_0_0 tank_at_0_1 enemy_at_0_1 bullet_at_0_1 wall_at_0_1 empty_at_0_1 tank_at_0_2 enemy_at_0_2 bullet_at_0_2 wall_at_0_2 empty_at_0_2 tank_at_0_3 enemy_at_0_3 bullet_at_0_3 wall_at_0_3 empty_at_0_3 tank_at_0_4 enemy_at_0_4 bullet_at_0_4 wall_at_0_4 empty_at_0_4 tank_at_0_5 enemy_at_0_5 bullet_at_0_5 wall_at_0_5 empty_at_0_5 tank_at_0_6 enemy_at_0_6 bullet_at_0_6 wall_at_0_6 empty_at_0_6 tank_at_0_7 enemy_at_0_7 bullet_at_0_7 wall_at_0_7 empty_at_0_7 tank_at_0_8 enemy_at_0_8 bullet_at_0_8 wall_at_0_8 empty_at_0_8 tank_at_0_9 enemy_at_0_9 bullet_at_0_9 wall_at_0_9 empty_at_0_9 tank_at_0_10 enemy_at_0_10 bullet_at_0_10 wall_at_0_10 empty_at_0_10 tank_at_1_-1 enemy_at_1_-1 bullet_at_1_-1 wall_at_1_-1 empty_at_1_-1 tank_at_1_0 enemy_at_1_0 bullet_at_1_0 wall_at_1_0 empty_at_1_0 tank_at_1_1 enemy_at_1_1 bullet_at_1_1 wall_at_1_1 empty_at_1_1 tank_at_1_2 enemy_at_1_2 bullet_at_1_2 wall_at_1_2 empty_at_1_2 tank_at_1_3 enemy_at_1_3 bullet_at_1_3 wall_at_1_3 empty_at_1_3 tank_at_1_4 enemy_at_1_4 bullet_at_1_4 wall_at_1_4 empty_at_1_4 tank_at_1_5 enemy_at_1_5 bullet_at_1_5 wall_at_1_5 empty_at_1_5 tank_at_1_6 enemy_at_1_6 bullet_at_1_6 wall_at_1_6 empty_at_1_6 tank_at_1_7 enemy_at_1_7 bullet_at_1_7 wall_at_1_7 empty_at_1_7 tank_at_1_8 enemy_at_1_8 bullet_at_1_8 wall_at_1_8 empty_at_1_8 tank_at_1_9 enemy_at_1_9 bullet_at_1_9 wall_at_1_9 empty_at_1_9 tank_at_1_10 enemy_at_1_10 bullet_at_1_10 wall_at_1_10 empty_at_1_10 tank_at_2_-1 enemy_at_2_-1 bullet_at_2_-1 wall_at_2_-1 empty_at_2_-1 tank_at_2_0 enemy_at_2_0 bullet_at_2_0 wall_at_2_0 empty_at_2_0 tank_at_2_1 enemy_at_2_1 bullet_at_2_1 wall_at_2_1 empty_at_2_1 tank_at_2_2 enemy_at_2_2 bullet_at_2_2 wall_at_2_2 empty_at_2_2 tank_at_2_3 enemy_at_2_3 bullet_at_2_3 wall_at_2_3 empty_at_2_3 tank_at_2_4 enemy_at_2_4 bullet_at_2_4 wall_at_2_4 empty_at_2_4 tank_at_2_5 enemy_at_2_5 bullet_at_2_5 wall_at_2_5 empty_at_2_5 tank_at_2_6 enemy_at_2_6 bullet_at_2_6 wall_at_2_6 empty_at_2_6 tank_at_2_7 enemy_at_2_7 bullet_at_2_7 wall_at_2_7 empty_at_2_7 tank_at_2_8 enemy_at_2_8 bullet_at_2_8 wall_at_2_8 empty_at_2_8 tank_at_2_9 enemy_at_2_9 bullet_at_2_9 wall_at_2_9 empty_at_2_9 tank_at_2_10 enemy_at_2_10 bullet_at_2_10 wall_at_2_10 empty_at_2_10 tank_at_3_-1 enemy_at_3_-1 bullet_at_3_-1 wall_at_3_-1 empty_at_3_-1 tank_at_3_0 enemy_at_3_0 bullet_at_3_0 wall_at_3_0 empty_at_3_0 tank_at_3_1 enemy_at_3_1 bullet_at_3_1 wall_at_3_1 empty_at_3_1 tank_at_3_2 enemy_at_3_2 bullet_at_3_2 wall_at_3_2 empty_at_3_2 tank_at_3_3 enemy_at_3_3 bullet_at_3_3 wall_at_3_3 empty_at_3_3 tank_at_3_4 enemy_at_3_4 bullet_at_3_4 wall_at_3_4 empty_at_3_4 tank_at_3_5 enemy_at_3_5 bullet_at_3_5 wall_at_3_5 empty_at_3_5 tank_at_3_6 enemy_at_3_6 bullet_at_3_6 wall_at_3_6 empty_at_3_6 tank_at_3_7 enemy_at_3_7 bullet_at_3_7 wall_at_3_7 empty_at_3_7 tank_at_3_8 enemy_at_3_8 bullet_at_3_8 wall_at_3_8 empty_at_3_8 tank_at_3_9 enemy_at_3_9 bullet_at_3_9 wall_at_3_9 empty_at_3_9 tank_at_3_10 enemy_at_3_10 bullet_at_3_10 wall_at_3_10 empty_at_3_10 tank_at_4_-1 enemy_at_4_-1 bullet_at_4_-1 wall_at_4_-1 empty_at_4_-1 tank_at_4_0 enemy_at_4_0 bullet_at_4_0 wall_at_4_0 empty_at_4_0 tank_at_4_1 enemy_at_4_1 bullet_at_4_1 wall_at_4_1 empty_at_4_1 tank_at_4_2 enemy_at_4_2 bullet_at_4_2 wall_at_4_2 empty_at_4_2 tank_at_4_3 enemy_at_4_3 bullet_at_4_3 wall_at_4_3 empty_at_4_3 tank_at_4_4 enemy_at_4_4 bullet_at_4_4 wall_at_4_4 empty_at_4_4 tank_at_4_5 enemy_at_4_5 bullet_at_4_5 wall_at_4_5 empty_at_4_5 tank_at_4_6 enemy_at_4_6 bullet_at_4_6 wall_at_4_6 empty_at_4_6 tank_at_4_7 enemy_at_4_7 bullet_at_4_7 wall_at_4_7 empty_at_4_7 tank_at_4_8 enemy_at_4_8 bullet_at_4_8 wall_at_4_8 empty_at_4_8 tank_at_4_9 enemy_at_4_9 bullet_at_4_9 wall_at_4_9 empty_at_4_9 tank_at_4_10 enemy_at_4_10 bullet_at_4_10 wall_at_4_10 empty_at_4_10 tank_at_5_-1 enemy_at_5_-1 bullet_at_5_-1 wall_at_5_-1 empty_at_5_-1 tank_at_5_0 enemy_at_5_0 bullet_at_5_0 wall_at_5_0 empty_at_5_0 tank_at_5_1 enemy_at_5_1 bullet_at_5_1 wall_at_5_1 empty_at_5_1 tank_at_5_2 enemy_at_5_2 bullet_at_5_2 wall_at_5_2 empty_at_5_2 tank_at_5_3 enemy_at_5_3 bullet_at_5_3 wall_at_5_3 empty_at_5_3 tank_at_5_4 enemy_at_5_4 bullet_at_5_4 wall_at_5_4 empty_at_5_4 tank_at_5_5 enemy_at_5_5 bullet_at_5_5 wall_at_5_5 empty_at_5_5 tank_at_5_6 enemy_at_5_6 bullet_at_5_6 wall_at_5_6 empty_at_5_6 tank_at_5_7 enemy_at_5_7 bullet_at_5_7 wall_at_5_7 empty_at_5_7 tank_at_5_8 enemy_at_5_8 bullet_at_5_8 wall_at_5_8 empty_at_5_8 tank_at_5_9 enemy_at_5_9 bullet_at_5_9 wall_at_5_9 empty_at_5_9 tank_at_5_10 enemy_at_5_10 bullet_at_5_10 wall_at_5_10 empty_at_5_10 tank_at_6_-1 enemy_at_6_-1 bullet_at_6_-1 wall_at_6_-1 empty_at_6_-1 tank_at_6_0 enemy_at_6_0 bullet_at_6_0 wall_at_6_0 empty_at_6_0 tank_at_6_1 enemy_at_6_1 bullet_at_6_1 wall_at_6_1 empty_at_6_1 tank_at_6_2 enemy_at_6_2 bullet_at_6_2 wall_at_6_2 empty_at_6_2 tank_at_6_3 enemy_at_6_3 bullet_at_6_3 wall_at_6_3 empty_at_6_3 tank_at_6_4 enemy_at_6_4 bullet_at_6_4 wall_at_6_4 empty_at_6_4 tank_at_6_5 enemy_at_6_5 bullet_at_6_5 wall_at_6_5 empty_at_6_5 tank_at_6_6 enemy_at_6_6 bullet_at_6_6 wall_at_6_6 empty_at_6_6 tank_at_6_7 enemy_at_6_7 bullet_at_6_7 wall_at_6_7 empty_at_6_7 tank_at_6_8 enemy_at_6_8 bullet_at_6_8 wall_at_6_8 empty_at_6_8 tank_at_6_9 enemy_at_6_9 bullet_at_6_9 wall_at_6_9 empty_at_6_9 tank_at_6_10 enemy_at_6_10 bullet_at_6_10 wall_at_6_10 empty_at_6_10 tank_at_7_-1 enemy_at_7_-1 bullet_at_7_-1 wall_at_7_-1 empty_at_7_-1 tank_at_7_0 enemy_at_7_0 bullet_at_7_0 wall_at_7_0 empty_at_7_0 tank_at_7_1 enemy_at_7_1 bullet_at_7_1 wall_at_7_1 empty_at_7_1 tank_at_7_2 enemy_at_7_2 bullet_at_7_2 wall_at_7_2 empty_at_7_2 tank_at_7_3 enemy_at_7_3 bullet_at_7_3 wall_at_7_3 empty_at_7_3 tank_at_7_4 enemy_at_7_4 bullet_at_7_4 wall_at_7_4 empty_at_7_4 tank_at_7_5 enemy_at_7_5 bullet_at_7_5 wall_at_7_5 empty_at_7_5 tank_at_7_6 enemy_at_7_6 bullet_at_7_6 wall_at_7_6 empty_at_7_6 tank_at_7_7 enemy_at_7_7 bullet_at_7_7 wall_at_7_7 empty_at_7_7 tank_at_7_8 enemy_at_7_8 bullet_at_7_8 wall_at_7_8 empty_at_7_8 tank_at_7_9 enemy_at_7_9 bullet_at_7_9 wall_at_7_9 empty_at_7_9 tank_at_7_10 enemy_at_7_10 bullet_at_7_10 wall_at_7_10 empty_at_7_10 tank_at_8_-1 enemy_at_8_-1 bullet_at_8_-1 wall_at_8_-1 empty_at_8_-1 tank_at_8_0 enemy_at_8_0 bullet_at_8_0 wall_at_8_0 empty_at_8_0 tank_at_8_1 enemy_at_8_1 bullet_at_8_1 wall_at_8_1 empty_at_8_1 tank_at_8_2 enemy_at_8_2 bullet_at_8_2 wall_at_8_2 empty_at_8_2 tank_at_8_3 enemy_at_8_3 bullet_at_8_3 wall_at_8_3 empty_at_8_3 tank_at_8_4 enemy_at_8_4 bullet_at_8_4 wall_at_8_4 empty_at_8_4 tank_at_8_5 enemy_at_8_5 bullet_at_8_5 wall_at_8_5 empty_at_8_5 tank_at_8_6 enemy_at_8_6 bullet_at_8_6 wall_at_8_6 empty_at_8_6 tank_at_8_7 enemy_at_8_7 bullet_at_8_7 wall_at_8_7 empty_at_8_7 tank_at_8_8 enemy_at_8_8 bullet_at_8_8 wall_at_8_8 empty_at_8_8 tank_at_8_9 enemy_at_8_9 bullet_at_8_9 wall_at_8_9 empty_at_8_9 tank_at_8_10 enemy_at_8_10 bullet_at_8_10 wall_at_8_10 empty_at_8_10 tank_at_9_-1 enemy_at_9_-1 bullet_at_9_-1 wall_at_9_-1 empty_at_9_-1 tank_at_9_0 enemy_at_9_0 bullet_at_9_0 wall_at_9_0 empty_at_9_0 tank_at_9_1 enemy_at_9_1 bullet_at_9_1 wall_at_9_1 empty_at_9_1 tank_at_9_2 enemy_at_9_2 bullet_at_9_2 wall_at_9_2 empty_at_9_2 tank_at_9_3 enemy_at_9_3 bullet_at_9_3 wall_at_9_3 empty_at_9_3 tank_at_9_4 enemy_at_9_4 bullet_at_9_4 wall_at_9_4 empty_at_9_4 tank_at_9_5 enemy_at_9_5 bullet_at_9_5 wall_at_9_5 empty_at_9_5 tank_at_9_6 enemy_at_9_6 bullet_at_9_6 wall_at_9_6 empty_at_9_6 tank_at_9_7 enemy_at_9_7 bullet_at_9_7 wall_at_9_7 empty_at_9_7 tank_at_9_8 enemy_at_9_8 bullet_at_9_8 wall_at_9_8 empty_at_9_8 tank_at_9_9 enemy_at_9_9 bullet_at_9_9 wall_at_9_9 empty_at_9_9 tank_at_9_10 enemy_at_9_10 bullet_at_9_10 wall_at_9_10 empty_at_9_10 tank_at_10_-1 enemy_at_10_-1 bullet_at_10_-1 wall_at_10_-1 empty_at_10_-1 tank_at_10_0 enemy_at_10_0 bullet_at_10_0 wall_at_10_0 empty_at_10_0 tank_at_10_1 enemy_at_10_1 bullet_at_10_1 wall_at_10_1 empty_at_10_1 tank_at_10_2 enemy_at_10_2 bullet_at_10_2 wall_at_10_2 empty_at_10_2 tank_at_10_3 enemy_at_10_3 bullet_at_10_3 wall_at_10_3 empty_at_10_3 tank_at_10_4 enemy_at_10_4 bullet_at_10_4 wall_at_10_4 empty_at_10_4 tank_at_10_5 enemy_at_10_5 bullet_at_10_5 wall_at_10_5 empty_at_10_5 tank_at_10_6 enemy_at_10_6 bullet_at_10_6 wall_at_10_6 empty_at_10_6 tank_at_10_7 enemy_at_10_7 bullet_at_10_7 wall_at_10_7 empty_at_10_7 tank_at_10_8 enemy_at_10_8 bullet_at_10_8 wall_at_10_8 empty_at_10_8 tank_at_10_9 enemy_at_10_9 bullet_at_10_9 wall_at_10_9 empty_at_10_9 tank_at_10_10 enemy_at_10_10 bullet_at_10_10 wall_at_10_10 empty_at_10_10 
+tank_at_-1_-1 bullet_at_-1_-1 wall_at_-1_-1 empty_at_-1_-1 tank_at_-1_0 bullet_at_-1_0 wall_at_-1_0 empty_at_-1_0 tank_at_-1_1 bullet_at_-1_1 wall_at_-1_1 empty_at_-1_1 tank_at_-1_2 bullet_at_-1_2 wall_at_-1_2 empty_at_-1_2 tank_at_-1_3 bullet_at_-1_3 wall_at_-1_3 empty_at_-1_3 tank_at_-1_4 bullet_at_-1_4 wall_at_-1_4 empty_at_-1_4 tank_at_-1_5 bullet_at_-1_5 wall_at_-1_5 empty_at_-1_5 tank_at_-1_6 bullet_at_-1_6 wall_at_-1_6 empty_at_-1_6 tank_at_-1_7 bullet_at_-1_7 wall_at_-1_7 empty_at_-1_7 tank_at_-1_8 bullet_at_-1_8 wall_at_-1_8 empty_at_-1_8 tank_at_-1_9 bullet_at_-1_9 wall_at_-1_9 empty_at_-1_9 tank_at_-1_10 bullet_at_-1_10 wall_at_-1_10 empty_at_-1_10 tank_at_0_-1 bullet_at_0_-1 wall_at_0_-1 empty_at_0_-1 tank_at_0_0 bullet_at_0_0 wall_at_0_0 empty_at_0_0 tank_at_0_1 bullet_at_0_1 wall_at_0_1 empty_at_0_1 tank_at_0_2 bullet_at_0_2 wall_at_0_2 empty_at_0_2 tank_at_0_3 bullet_at_0_3 wall_at_0_3 empty_at_0_3 tank_at_0_4 bullet_at_0_4 wall_at_0_4 empty_at_0_4 tank_at_0_5 bullet_at_0_5 wall_at_0_5 empty_at_0_5 tank_at_0_6 bullet_at_0_6 wall_at_0_6 empty_at_0_6 tank_at_0_7 bullet_at_0_7 wall_at_0_7 empty_at_0_7 tank_at_0_8 bullet_at_0_8 wall_at_0_8 empty_at_0_8 tank_at_0_9 bullet_at_0_9 wall_at_0_9 empty_at_0_9 tank_at_0_10 bullet_at_0_10 wall_at_0_10 empty_at_0_10 tank_at_1_-1 bullet_at_1_-1 wall_at_1_-1 empty_at_1_-1 tank_at_1_0 bullet_at_1_0 wall_at_1_0 empty_at_1_0 tank_at_1_1 bullet_at_1_1 wall_at_1_1 empty_at_1_1 tank_at_1_2 bullet_at_1_2 wall_at_1_2 empty_at_1_2 tank_at_1_3 bullet_at_1_3 wall_at_1_3 empty_at_1_3 tank_at_1_4 bullet_at_1_4 wall_at_1_4 empty_at_1_4 tank_at_1_5 bullet_at_1_5 wall_at_1_5 empty_at_1_5 tank_at_1_6 bullet_at_1_6 wall_at_1_6 empty_at_1_6 tank_at_1_7 bullet_at_1_7 wall_at_1_7 empty_at_1_7 tank_at_1_8 bullet_at_1_8 wall_at_1_8 empty_at_1_8 tank_at_1_9 bullet_at_1_9 wall_at_1_9 empty_at_1_9 tank_at_1_10 bullet_at_1_10 wall_at_1_10 empty_at_1_10 tank_at_2_-1 bullet_at_2_-1 wall_at_2_-1 empty_at_2_-1 tank_at_2_0 bullet_at_2_0 wall_at_2_0 empty_at_2_0 tank_at_2_1 bullet_at_2_1 wall_at_2_1 empty_at_2_1 tank_at_2_2 bullet_at_2_2 wall_at_2_2 empty_at_2_2 tank_at_2_3 bullet_at_2_3 wall_at_2_3 empty_at_2_3 tank_at_2_4 bullet_at_2_4 wall_at_2_4 empty_at_2_4 tank_at_2_5 bullet_at_2_5 wall_at_2_5 empty_at_2_5 tank_at_2_6 bullet_at_2_6 wall_at_2_6 empty_at_2_6 tank_at_2_7 bullet_at_2_7 wall_at_2_7 empty_at_2_7 tank_at_2_8 bullet_at_2_8 wall_at_2_8 empty_at_2_8 tank_at_2_9 bullet_at_2_9 wall_at_2_9 empty_at_2_9 tank_at_2_10 bullet_at_2_10 wall_at_2_10 empty_at_2_10 tank_at_3_-1 bullet_at_3_-1 wall_at_3_-1 empty_at_3_-1 tank_at_3_0 bullet_at_3_0 wall_at_3_0 empty_at_3_0 tank_at_3_1 bullet_at_3_1 wall_at_3_1 empty_at_3_1 tank_at_3_2 bullet_at_3_2 wall_at_3_2 empty_at_3_2 tank_at_3_3 bullet_at_3_3 wall_at_3_3 empty_at_3_3 tank_at_3_4 bullet_at_3_4 wall_at_3_4 empty_at_3_4 tank_at_3_5 bullet_at_3_5 wall_at_3_5 empty_at_3_5 tank_at_3_6 bullet_at_3_6 wall_at_3_6 empty_at_3_6 tank_at_3_7 bullet_at_3_7 wall_at_3_7 empty_at_3_7 tank_at_3_8 bullet_at_3_8 wall_at_3_8 empty_at_3_8 tank_at_3_9 bullet_at_3_9 wall_at_3_9 empty_at_3_9 tank_at_3_10 bullet_at_3_10 wall_at_3_10 empty_at_3_10 tank_at_4_-1 bullet_at_4_-1 wall_at_4_-1 empty_at_4_-1 tank_at_4_0 bullet_at_4_0 wall_at_4_0 empty_at_4_0 tank_at_4_1 bullet_at_4_1 wall_at_4_1 empty_at_4_1 tank_at_4_2 bullet_at_4_2 wall_at_4_2 empty_at_4_2 tank_at_4_3 bullet_at_4_3 wall_at_4_3 empty_at_4_3 tank_at_4_4 bullet_at_4_4 wall_at_4_4 empty_at_4_4 tank_at_4_5 bullet_at_4_5 wall_at_4_5 empty_at_4_5 tank_at_4_6 bullet_at_4_6 wall_at_4_6 empty_at_4_6 tank_at_4_7 bullet_at_4_7 wall_at_4_7 empty_at_4_7 tank_at_4_8 bullet_at_4_8 wall_at_4_8 empty_at_4_8 tank_at_4_9 bullet_at_4_9 wall_at_4_9 empty_at_4_9 tank_at_4_10 bullet_at_4_10 wall_at_4_10 empty_at_4_10 tank_at_5_-1 bullet_at_5_-1 wall_at_5_-1 empty_at_5_-1 tank_at_5_0 bullet_at_5_0 wall_at_5_0 empty_at_5_0 tank_at_5_1 bullet_at_5_1 wall_at_5_1 empty_at_5_1 tank_at_5_2 bullet_at_5_2 wall_at_5_2 empty_at_5_2 tank_at_5_3 bullet_at_5_3 wall_at_5_3 empty_at_5_3 tank_at_5_4 bullet_at_5_4 wall_at_5_4 empty_at_5_4 tank_at_5_5 bullet_at_5_5 wall_at_5_5 empty_at_5_5 tank_at_5_6 bullet_at_5_6 wall_at_5_6 empty_at_5_6 tank_at_5_7 bullet_at_5_7 wall_at_5_7 empty_at_5_7 tank_at_5_8 bullet_at_5_8 wall_at_5_8 empty_at_5_8 tank_at_5_9 bullet_at_5_9 wall_at_5_9 empty_at_5_9 tank_at_5_10 bullet_at_5_10 wall_at_5_10 empty_at_5_10 tank_at_6_-1 bullet_at_6_-1 wall_at_6_-1 empty_at_6_-1 tank_at_6_0 bullet_at_6_0 wall_at_6_0 empty_at_6_0 tank_at_6_1 bullet_at_6_1 wall_at_6_1 empty_at_6_1 tank_at_6_2 bullet_at_6_2 wall_at_6_2 empty_at_6_2 tank_at_6_3 bullet_at_6_3 wall_at_6_3 empty_at_6_3 tank_at_6_4 bullet_at_6_4 wall_at_6_4 empty_at_6_4 tank_at_6_5 bullet_at_6_5 wall_at_6_5 empty_at_6_5 tank_at_6_6 bullet_at_6_6 wall_at_6_6 empty_at_6_6 tank_at_6_7 bullet_at_6_7 wall_at_6_7 empty_at_6_7 tank_at_6_8 bullet_at_6_8 wall_at_6_8 empty_at_6_8 tank_at_6_9 bullet_at_6_9 wall_at_6_9 empty_at_6_9 tank_at_6_10 bullet_at_6_10 wall_at_6_10 empty_at_6_10 tank_at_7_-1 bullet_at_7_-1 wall_at_7_-1 empty_at_7_-1 tank_at_7_0 bullet_at_7_0 wall_at_7_0 empty_at_7_0 tank_at_7_1 bullet_at_7_1 wall_at_7_1 empty_at_7_1 tank_at_7_2 bullet_at_7_2 wall_at_7_2 empty_at_7_2 tank_at_7_3 bullet_at_7_3 wall_at_7_3 empty_at_7_3 tank_at_7_4 bullet_at_7_4 wall_at_7_4 empty_at_7_4 tank_at_7_5 bullet_at_7_5 wall_at_7_5 empty_at_7_5 tank_at_7_6 bullet_at_7_6 wall_at_7_6 empty_at_7_6 tank_at_7_7 bullet_at_7_7 wall_at_7_7 empty_at_7_7 tank_at_7_8 bullet_at_7_8 wall_at_7_8 empty_at_7_8 tank_at_7_9 bullet_at_7_9 wall_at_7_9 empty_at_7_9 tank_at_7_10 bullet_at_7_10 wall_at_7_10 empty_at_7_10 tank_at_8_-1 bullet_at_8_-1 wall_at_8_-1 empty_at_8_-1 tank_at_8_0 bullet_at_8_0 wall_at_8_0 empty_at_8_0 tank_at_8_1 bullet_at_8_1 wall_at_8_1 empty_at_8_1 tank_at_8_2 bullet_at_8_2 wall_at_8_2 empty_at_8_2 tank_at_8_3 bullet_at_8_3 wall_at_8_3 empty_at_8_3 tank_at_8_4 bullet_at_8_4 wall_at_8_4 empty_at_8_4 tank_at_8_5 bullet_at_8_5 wall_at_8_5 empty_at_8_5 tank_at_8_6 bullet_at_8_6 wall_at_8_6 empty_at_8_6 tank_at_8_7 bullet_at_8_7 wall_at_8_7 empty_at_8_7 tank_at_8_8 bullet_at_8_8 wall_at_8_8 empty_at_8_8 tank_at_8_9 bullet_at_8_9 wall_at_8_9 empty_at_8_9 tank_at_8_10 bullet_at_8_10 wall_at_8_10 empty_at_8_10 tank_at_9_-1 bullet_at_9_-1 wall_at_9_-1 empty_at_9_-1 tank_at_9_0 bullet_at_9_0 wall_at_9_0 empty_at_9_0 tank_at_9_1 bullet_at_9_1 wall_at_9_1 empty_at_9_1 tank_at_9_2 bullet_at_9_2 wall_at_9_2 empty_at_9_2 tank_at_9_3 bullet_at_9_3 wall_at_9_3 empty_at_9_3 tank_at_9_4 bullet_at_9_4 wall_at_9_4 empty_at_9_4 tank_at_9_5 bullet_at_9_5 wall_at_9_5 empty_at_9_5 tank_at_9_6 bullet_at_9_6 wall_at_9_6 empty_at_9_6 tank_at_9_7 bullet_at_9_7 wall_at_9_7 empty_at_9_7 tank_at_9_8 bullet_at_9_8 wall_at_9_8 empty_at_9_8 tank_at_9_9 bullet_at_9_9 wall_at_9_9 empty_at_9_9 tank_at_9_10 bullet_at_9_10 wall_at_9_10 empty_at_9_10 tank_at_10_-1 bullet_at_10_-1 wall_at_10_-1 empty_at_10_-1 tank_at_10_0 bullet_at_10_0 wall_at_10_0 empty_at_10_0 tank_at_10_1 bullet_at_10_1 wall_at_10_1 empty_at_10_1 tank_at_10_2 bullet_at_10_2 wall_at_10_2 empty_at_10_2 tank_at_10_3 bullet_at_10_3 wall_at_10_3 empty_at_10_3 tank_at_10_4 bullet_at_10_4 wall_at_10_4 empty_at_10_4 tank_at_10_5 bullet_at_10_5 wall_at_10_5 empty_at_10_5 tank_at_10_6 bullet_at_10_6 wall_at_10_6 empty_at_10_6 tank_at_10_7 bullet_at_10_7 wall_at_10_7 empty_at_10_7 tank_at_10_8 bullet_at_10_8 wall_at_10_8 empty_at_10_8 tank_at_10_9 bullet_at_10_9 wall_at_10_9 empty_at_10_9 tank_at_10_10 bullet_at_10_10 wall_at_10_10 empty_at_10_10 
 Actions:
-Name: MOVE_UP_from_0_0
-pre: tank_at_0_0 empty_at_0_-1
-add: tank_at_0_-1
-delete: tank_at_0_0
-Name: MOVE_DOWN_from_0_0
-pre: tank_at_0_0 empty_at_0_1
-add: tank_at_0_1
-delete: tank_at_0_0
-Name: MOVE_LEFT_from_0_0
-pre: tank_at_0_0 empty_at_-1_0
-add: tank_at_-1_0
-delete: tank_at_0_0
-Name: MOVE_RIGHT_from_0_0
-pre: tank_at_0_0 empty_at_1_0
-add: tank_at_1_0
-delete: tank_at_0_0
-Name: MOVE_UP_LEFT_from_0_0
-pre: tank_at_0_0 empty_at_-1_-1
-add: tank_at_-1_-1
-delete: tank_at_0_0
-Name: MOVE_UP_RIGHT_from_0_0
-pre: tank_at_0_0 empty_at_1_-1
-add: tank_at_1_-1
-delete: tank_at_0_0
-Name: MOVE_DOWN_LEFT_from_0_0
-pre: tank_at_0_0 empty_at_-1_1
-add: tank_at_-1_1
-delete: tank_at_0_0
 Name: MOVE_DOWN_RIGHT_from_0_0
 pre: tank_at_0_0 empty_at_1_1
 add: tank_at_1_1
@@ -41,61 +13,17 @@ Name: MOVE_DOWN_from_0_1
 pre: tank_at_0_1 empty_at_0_2
 add: tank_at_0_2
 delete: tank_at_0_1
-Name: MOVE_LEFT_from_0_1
-pre: tank_at_0_1 empty_at_-1_1
-add: tank_at_-1_1
-delete: tank_at_0_1
 Name: MOVE_RIGHT_from_0_1
 pre: tank_at_0_1 empty_at_1_1
 add: tank_at_1_1
 delete: tank_at_0_1
-Name: MOVE_UP_LEFT_from_0_1
-pre: tank_at_0_1 empty_at_-1_0
-add: tank_at_-1_0
-delete: tank_at_0_1
-Name: MOVE_UP_RIGHT_from_0_1
-pre: tank_at_0_1 empty_at_1_0
-add: tank_at_1_0
-delete: tank_at_0_1
-Name: MOVE_DOWN_LEFT_from_0_1
-pre: tank_at_0_1 empty_at_-1_2
-add: tank_at_-1_2
-delete: tank_at_0_1
-Name: MOVE_DOWN_RIGHT_from_0_1
-pre: tank_at_0_1 empty_at_1_2
-add: tank_at_1_2
-delete: tank_at_0_1
-Name: MOVE_UP_from_0_2
-pre: tank_at_0_2 empty_at_0_1
-add: tank_at_0_1
-delete: tank_at_0_2
 Name: MOVE_DOWN_from_0_2
 pre: tank_at_0_2 empty_at_0_3
 add: tank_at_0_3
 delete: tank_at_0_2
-Name: MOVE_LEFT_from_0_2
-pre: tank_at_0_2 empty_at_-1_2
-add: tank_at_-1_2
-delete: tank_at_0_2
-Name: MOVE_RIGHT_from_0_2
-pre: tank_at_0_2 empty_at_1_2
-add: tank_at_1_2
-delete: tank_at_0_2
-Name: MOVE_UP_LEFT_from_0_2
-pre: tank_at_0_2 empty_at_-1_1
-add: tank_at_-1_1
-delete: tank_at_0_2
 Name: MOVE_UP_RIGHT_from_0_2
 pre: tank_at_0_2 empty_at_1_1
 add: tank_at_1_1
-delete: tank_at_0_2
-Name: MOVE_DOWN_LEFT_from_0_2
-pre: tank_at_0_2 empty_at_-1_3
-add: tank_at_-1_3
-delete: tank_at_0_2
-Name: MOVE_DOWN_RIGHT_from_0_2
-pre: tank_at_0_2 empty_at_1_3
-add: tank_at_1_3
 delete: tank_at_0_2
 Name: MOVE_UP_from_0_3
 pre: tank_at_0_3 empty_at_0_2
@@ -104,26 +32,6 @@ delete: tank_at_0_3
 Name: MOVE_DOWN_from_0_3
 pre: tank_at_0_3 empty_at_0_4
 add: tank_at_0_4
-delete: tank_at_0_3
-Name: MOVE_LEFT_from_0_3
-pre: tank_at_0_3 empty_at_-1_3
-add: tank_at_-1_3
-delete: tank_at_0_3
-Name: MOVE_RIGHT_from_0_3
-pre: tank_at_0_3 empty_at_1_3
-add: tank_at_1_3
-delete: tank_at_0_3
-Name: MOVE_UP_LEFT_from_0_3
-pre: tank_at_0_3 empty_at_-1_2
-add: tank_at_-1_2
-delete: tank_at_0_3
-Name: MOVE_UP_RIGHT_from_0_3
-pre: tank_at_0_3 empty_at_1_2
-add: tank_at_1_2
-delete: tank_at_0_3
-Name: MOVE_DOWN_LEFT_from_0_3
-pre: tank_at_0_3 empty_at_-1_4
-add: tank_at_-1_4
 delete: tank_at_0_3
 Name: MOVE_DOWN_RIGHT_from_0_3
 pre: tank_at_0_3 empty_at_1_4
@@ -137,29 +45,9 @@ Name: MOVE_DOWN_from_0_4
 pre: tank_at_0_4 empty_at_0_5
 add: tank_at_0_5
 delete: tank_at_0_4
-Name: MOVE_LEFT_from_0_4
-pre: tank_at_0_4 empty_at_-1_4
-add: tank_at_-1_4
-delete: tank_at_0_4
 Name: MOVE_RIGHT_from_0_4
 pre: tank_at_0_4 empty_at_1_4
 add: tank_at_1_4
-delete: tank_at_0_4
-Name: MOVE_UP_LEFT_from_0_4
-pre: tank_at_0_4 empty_at_-1_3
-add: tank_at_-1_3
-delete: tank_at_0_4
-Name: MOVE_UP_RIGHT_from_0_4
-pre: tank_at_0_4 empty_at_1_3
-add: tank_at_1_3
-delete: tank_at_0_4
-Name: MOVE_DOWN_LEFT_from_0_4
-pre: tank_at_0_4 empty_at_-1_5
-add: tank_at_-1_5
-delete: tank_at_0_4
-Name: MOVE_DOWN_RIGHT_from_0_4
-pre: tank_at_0_4 empty_at_1_5
-add: tank_at_1_5
 delete: tank_at_0_4
 Name: MOVE_UP_from_0_5
 pre: tank_at_0_5 empty_at_0_4
@@ -169,25 +57,9 @@ Name: MOVE_DOWN_from_0_5
 pre: tank_at_0_5 empty_at_0_6
 add: tank_at_0_6
 delete: tank_at_0_5
-Name: MOVE_LEFT_from_0_5
-pre: tank_at_0_5 empty_at_-1_5
-add: tank_at_-1_5
-delete: tank_at_0_5
-Name: MOVE_RIGHT_from_0_5
-pre: tank_at_0_5 empty_at_1_5
-add: tank_at_1_5
-delete: tank_at_0_5
-Name: MOVE_UP_LEFT_from_0_5
-pre: tank_at_0_5 empty_at_-1_4
-add: tank_at_-1_4
-delete: tank_at_0_5
 Name: MOVE_UP_RIGHT_from_0_5
 pre: tank_at_0_5 empty_at_1_4
 add: tank_at_1_4
-delete: tank_at_0_5
-Name: MOVE_DOWN_LEFT_from_0_5
-pre: tank_at_0_5 empty_at_-1_6
-add: tank_at_-1_6
 delete: tank_at_0_5
 Name: MOVE_DOWN_RIGHT_from_0_5
 pre: tank_at_0_5 empty_at_1_6
@@ -201,25 +73,9 @@ Name: MOVE_DOWN_from_0_6
 pre: tank_at_0_6 empty_at_0_7
 add: tank_at_0_7
 delete: tank_at_0_6
-Name: MOVE_LEFT_from_0_6
-pre: tank_at_0_6 empty_at_-1_6
-add: tank_at_-1_6
-delete: tank_at_0_6
 Name: MOVE_RIGHT_from_0_6
 pre: tank_at_0_6 empty_at_1_6
 add: tank_at_1_6
-delete: tank_at_0_6
-Name: MOVE_UP_LEFT_from_0_6
-pre: tank_at_0_6 empty_at_-1_5
-add: tank_at_-1_5
-delete: tank_at_0_6
-Name: MOVE_UP_RIGHT_from_0_6
-pre: tank_at_0_6 empty_at_1_5
-add: tank_at_1_5
-delete: tank_at_0_6
-Name: MOVE_DOWN_LEFT_from_0_6
-pre: tank_at_0_6 empty_at_-1_7
-add: tank_at_-1_7
 delete: tank_at_0_6
 Name: MOVE_DOWN_RIGHT_from_0_6
 pre: tank_at_0_6 empty_at_1_7
@@ -233,25 +89,13 @@ Name: MOVE_DOWN_from_0_7
 pre: tank_at_0_7 empty_at_0_8
 add: tank_at_0_8
 delete: tank_at_0_7
-Name: MOVE_LEFT_from_0_7
-pre: tank_at_0_7 empty_at_-1_7
-add: tank_at_-1_7
-delete: tank_at_0_7
 Name: MOVE_RIGHT_from_0_7
 pre: tank_at_0_7 empty_at_1_7
 add: tank_at_1_7
 delete: tank_at_0_7
-Name: MOVE_UP_LEFT_from_0_7
-pre: tank_at_0_7 empty_at_-1_6
-add: tank_at_-1_6
-delete: tank_at_0_7
 Name: MOVE_UP_RIGHT_from_0_7
 pre: tank_at_0_7 empty_at_1_6
 add: tank_at_1_6
-delete: tank_at_0_7
-Name: MOVE_DOWN_LEFT_from_0_7
-pre: tank_at_0_7 empty_at_-1_8
-add: tank_at_-1_8
 delete: tank_at_0_7
 Name: MOVE_DOWN_RIGHT_from_0_7
 pre: tank_at_0_7 empty_at_1_8
@@ -265,25 +109,13 @@ Name: MOVE_DOWN_from_0_8
 pre: tank_at_0_8 empty_at_0_9
 add: tank_at_0_9
 delete: tank_at_0_8
-Name: MOVE_LEFT_from_0_8
-pre: tank_at_0_8 empty_at_-1_8
-add: tank_at_-1_8
-delete: tank_at_0_8
 Name: MOVE_RIGHT_from_0_8
 pre: tank_at_0_8 empty_at_1_8
 add: tank_at_1_8
 delete: tank_at_0_8
-Name: MOVE_UP_LEFT_from_0_8
-pre: tank_at_0_8 empty_at_-1_7
-add: tank_at_-1_7
-delete: tank_at_0_8
 Name: MOVE_UP_RIGHT_from_0_8
 pre: tank_at_0_8 empty_at_1_7
 add: tank_at_1_7
-delete: tank_at_0_8
-Name: MOVE_DOWN_LEFT_from_0_8
-pre: tank_at_0_8 empty_at_-1_9
-add: tank_at_-1_9
 delete: tank_at_0_8
 Name: MOVE_DOWN_RIGHT_from_0_8
 pre: tank_at_0_8 empty_at_1_9
@@ -293,38 +125,14 @@ Name: MOVE_UP_from_0_9
 pre: tank_at_0_9 empty_at_0_8
 add: tank_at_0_8
 delete: tank_at_0_9
-Name: MOVE_DOWN_from_0_9
-pre: tank_at_0_9 empty_at_0_10
-add: tank_at_0_10
-delete: tank_at_0_9
-Name: MOVE_LEFT_from_0_9
-pre: tank_at_0_9 empty_at_-1_9
-add: tank_at_-1_9
-delete: tank_at_0_9
 Name: MOVE_RIGHT_from_0_9
 pre: tank_at_0_9 empty_at_1_9
 add: tank_at_1_9
-delete: tank_at_0_9
-Name: MOVE_UP_LEFT_from_0_9
-pre: tank_at_0_9 empty_at_-1_8
-add: tank_at_-1_8
 delete: tank_at_0_9
 Name: MOVE_UP_RIGHT_from_0_9
 pre: tank_at_0_9 empty_at_1_8
 add: tank_at_1_8
 delete: tank_at_0_9
-Name: MOVE_DOWN_LEFT_from_0_9
-pre: tank_at_0_9 empty_at_-1_10
-add: tank_at_-1_10
-delete: tank_at_0_9
-Name: MOVE_DOWN_RIGHT_from_0_9
-pre: tank_at_0_9 empty_at_1_10
-add: tank_at_1_10
-delete: tank_at_0_9
-Name: MOVE_UP_from_1_0
-pre: tank_at_1_0 empty_at_1_-1
-add: tank_at_1_-1
-delete: tank_at_1_0
 Name: MOVE_DOWN_from_1_0
 pre: tank_at_1_0 empty_at_1_1
 add: tank_at_1_1
@@ -337,34 +145,10 @@ Name: MOVE_RIGHT_from_1_0
 pre: tank_at_1_0 empty_at_2_0
 add: tank_at_2_0
 delete: tank_at_1_0
-Name: MOVE_UP_LEFT_from_1_0
-pre: tank_at_1_0 empty_at_0_-1
-add: tank_at_0_-1
-delete: tank_at_1_0
-Name: MOVE_UP_RIGHT_from_1_0
-pre: tank_at_1_0 empty_at_2_-1
-add: tank_at_2_-1
-delete: tank_at_1_0
-Name: MOVE_DOWN_LEFT_from_1_0
-pre: tank_at_1_0 empty_at_0_1
-add: tank_at_0_1
-delete: tank_at_1_0
 Name: MOVE_DOWN_RIGHT_from_1_0
 pre: tank_at_1_0 empty_at_2_1
 add: tank_at_2_1
 delete: tank_at_1_0
-Name: MOVE_UP_from_1_1
-pre: tank_at_1_1 empty_at_1_0
-add: tank_at_1_0
-delete: tank_at_1_1
-Name: MOVE_DOWN_from_1_1
-pre: tank_at_1_1 empty_at_1_2
-add: tank_at_1_2
-delete: tank_at_1_1
-Name: MOVE_LEFT_from_1_1
-pre: tank_at_1_1 empty_at_0_1
-add: tank_at_0_1
-delete: tank_at_1_1
 Name: MOVE_RIGHT_from_1_1
 pre: tank_at_1_1 empty_at_2_1
 add: tank_at_2_1
@@ -389,10 +173,6 @@ Name: MOVE_UP_from_1_2
 pre: tank_at_1_2 empty_at_1_1
 add: tank_at_1_1
 delete: tank_at_1_2
-Name: MOVE_DOWN_from_1_2
-pre: tank_at_1_2 empty_at_1_3
-add: tank_at_1_3
-delete: tank_at_1_2
 Name: MOVE_LEFT_from_1_2
 pre: tank_at_1_2 empty_at_0_2
 add: tank_at_0_2
@@ -400,10 +180,6 @@ delete: tank_at_1_2
 Name: MOVE_RIGHT_from_1_2
 pre: tank_at_1_2 empty_at_2_2
 add: tank_at_2_2
-delete: tank_at_1_2
-Name: MOVE_UP_LEFT_from_1_2
-pre: tank_at_1_2 empty_at_0_1
-add: tank_at_0_1
 delete: tank_at_1_2
 Name: MOVE_UP_RIGHT_from_1_2
 pre: tank_at_1_2 empty_at_2_1
@@ -413,14 +189,6 @@ Name: MOVE_DOWN_LEFT_from_1_2
 pre: tank_at_1_2 empty_at_0_3
 add: tank_at_0_3
 delete: tank_at_1_2
-Name: MOVE_DOWN_RIGHT_from_1_2
-pre: tank_at_1_2 empty_at_2_3
-add: tank_at_2_3
-delete: tank_at_1_2
-Name: MOVE_UP_from_1_3
-pre: tank_at_1_3 empty_at_1_2
-add: tank_at_1_2
-delete: tank_at_1_3
 Name: MOVE_DOWN_from_1_3
 pre: tank_at_1_3 empty_at_1_4
 add: tank_at_1_4
@@ -428,10 +196,6 @@ delete: tank_at_1_3
 Name: MOVE_LEFT_from_1_3
 pre: tank_at_1_3 empty_at_0_3
 add: tank_at_0_3
-delete: tank_at_1_3
-Name: MOVE_RIGHT_from_1_3
-pre: tank_at_1_3 empty_at_2_3
-add: tank_at_2_3
 delete: tank_at_1_3
 Name: MOVE_UP_LEFT_from_1_3
 pre: tank_at_1_3 empty_at_0_2
@@ -449,14 +213,6 @@ Name: MOVE_DOWN_RIGHT_from_1_3
 pre: tank_at_1_3 empty_at_2_4
 add: tank_at_2_4
 delete: tank_at_1_3
-Name: MOVE_UP_from_1_4
-pre: tank_at_1_4 empty_at_1_3
-add: tank_at_1_3
-delete: tank_at_1_4
-Name: MOVE_DOWN_from_1_4
-pre: tank_at_1_4 empty_at_1_5
-add: tank_at_1_5
-delete: tank_at_1_4
 Name: MOVE_LEFT_from_1_4
 pre: tank_at_1_4 empty_at_0_4
 add: tank_at_0_4
@@ -468,10 +224,6 @@ delete: tank_at_1_4
 Name: MOVE_UP_LEFT_from_1_4
 pre: tank_at_1_4 empty_at_0_3
 add: tank_at_0_3
-delete: tank_at_1_4
-Name: MOVE_UP_RIGHT_from_1_4
-pre: tank_at_1_4 empty_at_2_3
-add: tank_at_2_3
 delete: tank_at_1_4
 Name: MOVE_DOWN_LEFT_from_1_4
 pre: tank_at_1_4 empty_at_0_5
@@ -513,10 +265,6 @@ Name: MOVE_DOWN_RIGHT_from_1_5
 pre: tank_at_1_5 empty_at_2_6
 add: tank_at_2_6
 delete: tank_at_1_5
-Name: MOVE_UP_from_1_6
-pre: tank_at_1_6 empty_at_1_5
-add: tank_at_1_5
-delete: tank_at_1_6
 Name: MOVE_DOWN_from_1_6
 pre: tank_at_1_6 empty_at_1_7
 add: tank_at_1_7
@@ -605,25 +353,13 @@ Name: MOVE_DOWN_LEFT_from_1_8
 pre: tank_at_1_8 empty_at_0_9
 add: tank_at_0_9
 delete: tank_at_1_8
-Name: MOVE_DOWN_RIGHT_from_1_8
-pre: tank_at_1_8 empty_at_2_9
-add: tank_at_2_9
-delete: tank_at_1_8
 Name: MOVE_UP_from_1_9
 pre: tank_at_1_9 empty_at_1_8
 add: tank_at_1_8
 delete: tank_at_1_9
-Name: MOVE_DOWN_from_1_9
-pre: tank_at_1_9 empty_at_1_10
-add: tank_at_1_10
-delete: tank_at_1_9
 Name: MOVE_LEFT_from_1_9
 pre: tank_at_1_9 empty_at_0_9
 add: tank_at_0_9
-delete: tank_at_1_9
-Name: MOVE_RIGHT_from_1_9
-pre: tank_at_1_9 empty_at_2_9
-add: tank_at_2_9
 delete: tank_at_1_9
 Name: MOVE_UP_LEFT_from_1_9
 pre: tank_at_1_9 empty_at_0_8
@@ -633,37 +369,9 @@ Name: MOVE_UP_RIGHT_from_1_9
 pre: tank_at_1_9 empty_at_2_8
 add: tank_at_2_8
 delete: tank_at_1_9
-Name: MOVE_DOWN_LEFT_from_1_9
-pre: tank_at_1_9 empty_at_0_10
-add: tank_at_0_10
-delete: tank_at_1_9
-Name: MOVE_DOWN_RIGHT_from_1_9
-pre: tank_at_1_9 empty_at_2_10
-add: tank_at_2_10
-delete: tank_at_1_9
-Name: MOVE_UP_from_2_0
-pre: tank_at_2_0 empty_at_2_-1
-add: tank_at_2_-1
-delete: tank_at_2_0
 Name: MOVE_DOWN_from_2_0
 pre: tank_at_2_0 empty_at_2_1
 add: tank_at_2_1
-delete: tank_at_2_0
-Name: MOVE_LEFT_from_2_0
-pre: tank_at_2_0 empty_at_1_0
-add: tank_at_1_0
-delete: tank_at_2_0
-Name: MOVE_RIGHT_from_2_0
-pre: tank_at_2_0 empty_at_3_0
-add: tank_at_3_0
-delete: tank_at_2_0
-Name: MOVE_UP_LEFT_from_2_0
-pre: tank_at_2_0 empty_at_1_-1
-add: tank_at_1_-1
-delete: tank_at_2_0
-Name: MOVE_UP_RIGHT_from_2_0
-pre: tank_at_2_0 empty_at_3_-1
-add: tank_at_3_-1
 delete: tank_at_2_0
 Name: MOVE_DOWN_LEFT_from_2_0
 pre: tank_at_2_0 empty_at_1_1
@@ -689,37 +397,9 @@ Name: MOVE_RIGHT_from_2_1
 pre: tank_at_2_1 empty_at_3_1
 add: tank_at_3_1
 delete: tank_at_2_1
-Name: MOVE_UP_LEFT_from_2_1
-pre: tank_at_2_1 empty_at_1_0
-add: tank_at_1_0
-delete: tank_at_2_1
-Name: MOVE_UP_RIGHT_from_2_1
-pre: tank_at_2_1 empty_at_3_0
-add: tank_at_3_0
-delete: tank_at_2_1
-Name: MOVE_DOWN_LEFT_from_2_1
-pre: tank_at_2_1 empty_at_1_2
-add: tank_at_1_2
-delete: tank_at_2_1
-Name: MOVE_DOWN_RIGHT_from_2_1
-pre: tank_at_2_1 empty_at_3_2
-add: tank_at_3_2
-delete: tank_at_2_1
 Name: MOVE_UP_from_2_2
 pre: tank_at_2_2 empty_at_2_1
 add: tank_at_2_1
-delete: tank_at_2_2
-Name: MOVE_DOWN_from_2_2
-pre: tank_at_2_2 empty_at_2_3
-add: tank_at_2_3
-delete: tank_at_2_2
-Name: MOVE_LEFT_from_2_2
-pre: tank_at_2_2 empty_at_1_2
-add: tank_at_1_2
-delete: tank_at_2_2
-Name: MOVE_RIGHT_from_2_2
-pre: tank_at_2_2 empty_at_3_2
-add: tank_at_3_2
 delete: tank_at_2_2
 Name: MOVE_UP_LEFT_from_2_2
 pre: tank_at_2_2 empty_at_1_1
@@ -728,10 +408,6 @@ delete: tank_at_2_2
 Name: MOVE_UP_RIGHT_from_2_2
 pre: tank_at_2_2 empty_at_3_1
 add: tank_at_3_1
-delete: tank_at_2_2
-Name: MOVE_DOWN_LEFT_from_2_2
-pre: tank_at_2_2 empty_at_1_3
-add: tank_at_1_3
 delete: tank_at_2_2
 Name: MOVE_DOWN_RIGHT_from_2_2
 pre: tank_at_2_2 empty_at_3_3
@@ -745,34 +421,14 @@ Name: MOVE_DOWN_from_2_3
 pre: tank_at_2_3 empty_at_2_4
 add: tank_at_2_4
 delete: tank_at_2_3
-Name: MOVE_LEFT_from_2_3
-pre: tank_at_2_3 empty_at_1_3
-add: tank_at_1_3
-delete: tank_at_2_3
 Name: MOVE_RIGHT_from_2_3
 pre: tank_at_2_3 empty_at_3_3
 add: tank_at_3_3
-delete: tank_at_2_3
-Name: MOVE_UP_LEFT_from_2_3
-pre: tank_at_2_3 empty_at_1_2
-add: tank_at_1_2
-delete: tank_at_2_3
-Name: MOVE_UP_RIGHT_from_2_3
-pre: tank_at_2_3 empty_at_3_2
-add: tank_at_3_2
 delete: tank_at_2_3
 Name: MOVE_DOWN_LEFT_from_2_3
 pre: tank_at_2_3 empty_at_1_4
 add: tank_at_1_4
 delete: tank_at_2_3
-Name: MOVE_DOWN_RIGHT_from_2_3
-pre: tank_at_2_3 empty_at_3_4
-add: tank_at_3_4
-delete: tank_at_2_3
-Name: MOVE_UP_from_2_4
-pre: tank_at_2_4 empty_at_2_3
-add: tank_at_2_3
-delete: tank_at_2_4
 Name: MOVE_DOWN_from_2_4
 pre: tank_at_2_4 empty_at_2_5
 add: tank_at_2_5
@@ -781,21 +437,9 @@ Name: MOVE_LEFT_from_2_4
 pre: tank_at_2_4 empty_at_1_4
 add: tank_at_1_4
 delete: tank_at_2_4
-Name: MOVE_RIGHT_from_2_4
-pre: tank_at_2_4 empty_at_3_4
-add: tank_at_3_4
-delete: tank_at_2_4
-Name: MOVE_UP_LEFT_from_2_4
-pre: tank_at_2_4 empty_at_1_3
-add: tank_at_1_3
-delete: tank_at_2_4
 Name: MOVE_UP_RIGHT_from_2_4
 pre: tank_at_2_4 empty_at_3_3
 add: tank_at_3_3
-delete: tank_at_2_4
-Name: MOVE_DOWN_LEFT_from_2_4
-pre: tank_at_2_4 empty_at_1_5
-add: tank_at_1_5
 delete: tank_at_2_4
 Name: MOVE_DOWN_RIGHT_from_2_4
 pre: tank_at_2_4 empty_at_3_5
@@ -809,10 +453,6 @@ Name: MOVE_DOWN_from_2_5
 pre: tank_at_2_5 empty_at_2_6
 add: tank_at_2_6
 delete: tank_at_2_5
-Name: MOVE_LEFT_from_2_5
-pre: tank_at_2_5 empty_at_1_5
-add: tank_at_1_5
-delete: tank_at_2_5
 Name: MOVE_RIGHT_from_2_5
 pre: tank_at_2_5 empty_at_3_5
 add: tank_at_3_5
@@ -820,10 +460,6 @@ delete: tank_at_2_5
 Name: MOVE_UP_LEFT_from_2_5
 pre: tank_at_2_5 empty_at_1_4
 add: tank_at_1_4
-delete: tank_at_2_5
-Name: MOVE_UP_RIGHT_from_2_5
-pre: tank_at_2_5 empty_at_3_4
-add: tank_at_3_4
 delete: tank_at_2_5
 Name: MOVE_DOWN_LEFT_from_2_5
 pre: tank_at_2_5 empty_at_1_6
@@ -849,10 +485,6 @@ Name: MOVE_RIGHT_from_2_6
 pre: tank_at_2_6 empty_at_3_6
 add: tank_at_3_6
 delete: tank_at_2_6
-Name: MOVE_UP_LEFT_from_2_6
-pre: tank_at_2_6 empty_at_1_5
-add: tank_at_1_5
-delete: tank_at_2_6
 Name: MOVE_UP_RIGHT_from_2_6
 pre: tank_at_2_6 empty_at_3_5
 add: tank_at_3_5
@@ -860,10 +492,6 @@ delete: tank_at_2_6
 Name: MOVE_DOWN_LEFT_from_2_6
 pre: tank_at_2_6 empty_at_1_7
 add: tank_at_1_7
-delete: tank_at_2_6
-Name: MOVE_DOWN_RIGHT_from_2_6
-pre: tank_at_2_6 empty_at_3_7
-add: tank_at_3_7
 delete: tank_at_2_6
 Name: MOVE_UP_from_2_7
 pre: tank_at_2_7 empty_at_2_6
@@ -876,10 +504,6 @@ delete: tank_at_2_7
 Name: MOVE_LEFT_from_2_7
 pre: tank_at_2_7 empty_at_1_7
 add: tank_at_1_7
-delete: tank_at_2_7
-Name: MOVE_RIGHT_from_2_7
-pre: tank_at_2_7 empty_at_3_7
-add: tank_at_3_7
 delete: tank_at_2_7
 Name: MOVE_UP_LEFT_from_2_7
 pre: tank_at_2_7 empty_at_1_6
@@ -901,10 +525,6 @@ Name: MOVE_UP_from_2_8
 pre: tank_at_2_8 empty_at_2_7
 add: tank_at_2_7
 delete: tank_at_2_8
-Name: MOVE_DOWN_from_2_8
-pre: tank_at_2_8 empty_at_2_9
-add: tank_at_2_9
-delete: tank_at_2_8
 Name: MOVE_LEFT_from_2_8
 pre: tank_at_2_8 empty_at_1_8
 add: tank_at_1_8
@@ -917,10 +537,6 @@ Name: MOVE_UP_LEFT_from_2_8
 pre: tank_at_2_8 empty_at_1_7
 add: tank_at_1_7
 delete: tank_at_2_8
-Name: MOVE_UP_RIGHT_from_2_8
-pre: tank_at_2_8 empty_at_3_7
-add: tank_at_3_7
-delete: tank_at_2_8
 Name: MOVE_DOWN_LEFT_from_2_8
 pre: tank_at_2_8 empty_at_1_9
 add: tank_at_1_9
@@ -932,10 +548,6 @@ delete: tank_at_2_8
 Name: MOVE_UP_from_2_9
 pre: tank_at_2_9 empty_at_2_8
 add: tank_at_2_8
-delete: tank_at_2_9
-Name: MOVE_DOWN_from_2_9
-pre: tank_at_2_9 empty_at_2_10
-add: tank_at_2_10
 delete: tank_at_2_9
 Name: MOVE_LEFT_from_2_9
 pre: tank_at_2_9 empty_at_1_9
@@ -953,18 +565,6 @@ Name: MOVE_UP_RIGHT_from_2_9
 pre: tank_at_2_9 empty_at_3_8
 add: tank_at_3_8
 delete: tank_at_2_9
-Name: MOVE_DOWN_LEFT_from_2_9
-pre: tank_at_2_9 empty_at_1_10
-add: tank_at_1_10
-delete: tank_at_2_9
-Name: MOVE_DOWN_RIGHT_from_2_9
-pre: tank_at_2_9 empty_at_3_10
-add: tank_at_3_10
-delete: tank_at_2_9
-Name: MOVE_UP_from_3_0
-pre: tank_at_3_0 empty_at_3_-1
-add: tank_at_3_-1
-delete: tank_at_3_0
 Name: MOVE_DOWN_from_3_0
 pre: tank_at_3_0 empty_at_3_1
 add: tank_at_3_1
@@ -977,37 +577,13 @@ Name: MOVE_RIGHT_from_3_0
 pre: tank_at_3_0 empty_at_4_0
 add: tank_at_4_0
 delete: tank_at_3_0
-Name: MOVE_UP_LEFT_from_3_0
-pre: tank_at_3_0 empty_at_2_-1
-add: tank_at_2_-1
-delete: tank_at_3_0
-Name: MOVE_UP_RIGHT_from_3_0
-pre: tank_at_3_0 empty_at_4_-1
-add: tank_at_4_-1
-delete: tank_at_3_0
 Name: MOVE_DOWN_LEFT_from_3_0
 pre: tank_at_3_0 empty_at_2_1
 add: tank_at_2_1
 delete: tank_at_3_0
-Name: MOVE_DOWN_RIGHT_from_3_0
-pre: tank_at_3_0 empty_at_4_1
-add: tank_at_4_1
-delete: tank_at_3_0
-Name: MOVE_UP_from_3_1
-pre: tank_at_3_1 empty_at_3_0
-add: tank_at_3_0
-delete: tank_at_3_1
-Name: MOVE_DOWN_from_3_1
-pre: tank_at_3_1 empty_at_3_2
-add: tank_at_3_2
-delete: tank_at_3_1
 Name: MOVE_LEFT_from_3_1
 pre: tank_at_3_1 empty_at_2_1
 add: tank_at_2_1
-delete: tank_at_3_1
-Name: MOVE_RIGHT_from_3_1
-pre: tank_at_3_1 empty_at_4_1
-add: tank_at_4_1
 delete: tank_at_3_1
 Name: MOVE_UP_LEFT_from_3_1
 pre: tank_at_3_1 empty_at_2_0
@@ -1045,34 +621,6 @@ Name: MOVE_UP_LEFT_from_3_2
 pre: tank_at_3_2 empty_at_2_1
 add: tank_at_2_1
 delete: tank_at_3_2
-Name: MOVE_UP_RIGHT_from_3_2
-pre: tank_at_3_2 empty_at_4_1
-add: tank_at_4_1
-delete: tank_at_3_2
-Name: MOVE_DOWN_LEFT_from_3_2
-pre: tank_at_3_2 empty_at_2_3
-add: tank_at_2_3
-delete: tank_at_3_2
-Name: MOVE_DOWN_RIGHT_from_3_2
-pre: tank_at_3_2 empty_at_4_3
-add: tank_at_4_3
-delete: tank_at_3_2
-Name: MOVE_UP_from_3_3
-pre: tank_at_3_3 empty_at_3_2
-add: tank_at_3_2
-delete: tank_at_3_3
-Name: MOVE_DOWN_from_3_3
-pre: tank_at_3_3 empty_at_3_4
-add: tank_at_3_4
-delete: tank_at_3_3
-Name: MOVE_LEFT_from_3_3
-pre: tank_at_3_3 empty_at_2_3
-add: tank_at_2_3
-delete: tank_at_3_3
-Name: MOVE_RIGHT_from_3_3
-pre: tank_at_3_3 empty_at_4_3
-add: tank_at_4_3
-delete: tank_at_3_3
 Name: MOVE_UP_LEFT_from_3_3
 pre: tank_at_3_3 empty_at_2_2
 add: tank_at_2_2
@@ -1105,14 +653,6 @@ Name: MOVE_RIGHT_from_3_4
 pre: tank_at_3_4 empty_at_4_4
 add: tank_at_4_4
 delete: tank_at_3_4
-Name: MOVE_UP_LEFT_from_3_4
-pre: tank_at_3_4 empty_at_2_3
-add: tank_at_2_3
-delete: tank_at_3_4
-Name: MOVE_UP_RIGHT_from_3_4
-pre: tank_at_3_4 empty_at_4_3
-add: tank_at_4_3
-delete: tank_at_3_4
 Name: MOVE_DOWN_LEFT_from_3_4
 pre: tank_at_3_4 empty_at_2_5
 add: tank_at_2_5
@@ -1121,10 +661,6 @@ Name: MOVE_DOWN_RIGHT_from_3_4
 pre: tank_at_3_4 empty_at_4_5
 add: tank_at_4_5
 delete: tank_at_3_4
-Name: MOVE_UP_from_3_5
-pre: tank_at_3_5 empty_at_3_4
-add: tank_at_3_4
-delete: tank_at_3_5
 Name: MOVE_DOWN_from_3_5
 pre: tank_at_3_5 empty_at_3_6
 add: tank_at_3_6
@@ -1156,10 +692,6 @@ delete: tank_at_3_5
 Name: MOVE_UP_from_3_6
 pre: tank_at_3_6 empty_at_3_5
 add: tank_at_3_5
-delete: tank_at_3_6
-Name: MOVE_DOWN_from_3_6
-pre: tank_at_3_6 empty_at_3_7
-add: tank_at_3_7
 delete: tank_at_3_6
 Name: MOVE_LEFT_from_3_6
 pre: tank_at_3_6 empty_at_2_6
@@ -1217,10 +749,6 @@ Name: MOVE_DOWN_RIGHT_from_3_7
 pre: tank_at_3_7 empty_at_4_8
 add: tank_at_4_8
 delete: tank_at_3_7
-Name: MOVE_UP_from_3_8
-pre: tank_at_3_8 empty_at_3_7
-add: tank_at_3_7
-delete: tank_at_3_8
 Name: MOVE_DOWN_from_3_8
 pre: tank_at_3_8 empty_at_3_9
 add: tank_at_3_9
@@ -1241,10 +769,6 @@ Name: MOVE_UP_RIGHT_from_3_8
 pre: tank_at_3_8 empty_at_4_7
 add: tank_at_4_7
 delete: tank_at_3_8
-Name: MOVE_DOWN_LEFT_from_3_8
-pre: tank_at_3_8 empty_at_2_9
-add: tank_at_2_9
-delete: tank_at_3_8
 Name: MOVE_DOWN_RIGHT_from_3_8
 pre: tank_at_3_8 empty_at_4_9
 add: tank_at_4_9
@@ -1252,14 +776,6 @@ delete: tank_at_3_8
 Name: MOVE_UP_from_3_9
 pre: tank_at_3_9 empty_at_3_8
 add: tank_at_3_8
-delete: tank_at_3_9
-Name: MOVE_DOWN_from_3_9
-pre: tank_at_3_9 empty_at_3_10
-add: tank_at_3_10
-delete: tank_at_3_9
-Name: MOVE_LEFT_from_3_9
-pre: tank_at_3_9 empty_at_2_9
-add: tank_at_2_9
 delete: tank_at_3_9
 Name: MOVE_RIGHT_from_3_9
 pre: tank_at_3_9 empty_at_4_9
@@ -1273,37 +789,9 @@ Name: MOVE_UP_RIGHT_from_3_9
 pre: tank_at_3_9 empty_at_4_8
 add: tank_at_4_8
 delete: tank_at_3_9
-Name: MOVE_DOWN_LEFT_from_3_9
-pre: tank_at_3_9 empty_at_2_10
-add: tank_at_2_10
-delete: tank_at_3_9
-Name: MOVE_DOWN_RIGHT_from_3_9
-pre: tank_at_3_9 empty_at_4_10
-add: tank_at_4_10
-delete: tank_at_3_9
-Name: MOVE_UP_from_4_0
-pre: tank_at_4_0 empty_at_4_-1
-add: tank_at_4_-1
-delete: tank_at_4_0
-Name: MOVE_DOWN_from_4_0
-pre: tank_at_4_0 empty_at_4_1
-add: tank_at_4_1
-delete: tank_at_4_0
-Name: MOVE_LEFT_from_4_0
-pre: tank_at_4_0 empty_at_3_0
-add: tank_at_3_0
-delete: tank_at_4_0
 Name: MOVE_RIGHT_from_4_0
 pre: tank_at_4_0 empty_at_5_0
 add: tank_at_5_0
-delete: tank_at_4_0
-Name: MOVE_UP_LEFT_from_4_0
-pre: tank_at_4_0 empty_at_3_-1
-add: tank_at_3_-1
-delete: tank_at_4_0
-Name: MOVE_UP_RIGHT_from_4_0
-pre: tank_at_4_0 empty_at_5_-1
-add: tank_at_5_-1
 delete: tank_at_4_0
 Name: MOVE_DOWN_LEFT_from_4_0
 pre: tank_at_4_0 empty_at_3_1
@@ -1329,38 +817,10 @@ Name: MOVE_RIGHT_from_4_1
 pre: tank_at_4_1 empty_at_5_1
 add: tank_at_5_1
 delete: tank_at_4_1
-Name: MOVE_UP_LEFT_from_4_1
-pre: tank_at_4_1 empty_at_3_0
-add: tank_at_3_0
-delete: tank_at_4_1
 Name: MOVE_UP_RIGHT_from_4_1
 pre: tank_at_4_1 empty_at_5_0
 add: tank_at_5_0
 delete: tank_at_4_1
-Name: MOVE_DOWN_LEFT_from_4_1
-pre: tank_at_4_1 empty_at_3_2
-add: tank_at_3_2
-delete: tank_at_4_1
-Name: MOVE_DOWN_RIGHT_from_4_1
-pre: tank_at_4_1 empty_at_5_2
-add: tank_at_5_2
-delete: tank_at_4_1
-Name: MOVE_UP_from_4_2
-pre: tank_at_4_2 empty_at_4_1
-add: tank_at_4_1
-delete: tank_at_4_2
-Name: MOVE_DOWN_from_4_2
-pre: tank_at_4_2 empty_at_4_3
-add: tank_at_4_3
-delete: tank_at_4_2
-Name: MOVE_LEFT_from_4_2
-pre: tank_at_4_2 empty_at_3_2
-add: tank_at_3_2
-delete: tank_at_4_2
-Name: MOVE_RIGHT_from_4_2
-pre: tank_at_4_2 empty_at_5_2
-add: tank_at_5_2
-delete: tank_at_4_2
 Name: MOVE_UP_LEFT_from_4_2
 pre: tank_at_4_2 empty_at_3_1
 add: tank_at_3_1
@@ -1372,10 +832,6 @@ delete: tank_at_4_2
 Name: MOVE_DOWN_LEFT_from_4_2
 pre: tank_at_4_2 empty_at_3_3
 add: tank_at_3_3
-delete: tank_at_4_2
-Name: MOVE_DOWN_RIGHT_from_4_2
-pre: tank_at_4_2 empty_at_5_3
-add: tank_at_5_3
 delete: tank_at_4_2
 Name: MOVE_UP_from_4_3
 pre: tank_at_4_3 empty_at_4_2
@@ -1389,37 +845,13 @@ Name: MOVE_LEFT_from_4_3
 pre: tank_at_4_3 empty_at_3_3
 add: tank_at_3_3
 delete: tank_at_4_3
-Name: MOVE_RIGHT_from_4_3
-pre: tank_at_4_3 empty_at_5_3
-add: tank_at_5_3
-delete: tank_at_4_3
-Name: MOVE_UP_LEFT_from_4_3
-pre: tank_at_4_3 empty_at_3_2
-add: tank_at_3_2
-delete: tank_at_4_3
-Name: MOVE_UP_RIGHT_from_4_3
-pre: tank_at_4_3 empty_at_5_2
-add: tank_at_5_2
-delete: tank_at_4_3
-Name: MOVE_DOWN_LEFT_from_4_3
-pre: tank_at_4_3 empty_at_3_4
-add: tank_at_3_4
-delete: tank_at_4_3
 Name: MOVE_DOWN_RIGHT_from_4_3
 pre: tank_at_4_3 empty_at_5_4
 add: tank_at_5_4
 delete: tank_at_4_3
-Name: MOVE_UP_from_4_4
-pre: tank_at_4_4 empty_at_4_3
-add: tank_at_4_3
-delete: tank_at_4_4
 Name: MOVE_DOWN_from_4_4
 pre: tank_at_4_4 empty_at_4_5
 add: tank_at_4_5
-delete: tank_at_4_4
-Name: MOVE_LEFT_from_4_4
-pre: tank_at_4_4 empty_at_3_4
-add: tank_at_3_4
 delete: tank_at_4_4
 Name: MOVE_RIGHT_from_4_4
 pre: tank_at_4_4 empty_at_5_4
@@ -1428,10 +860,6 @@ delete: tank_at_4_4
 Name: MOVE_UP_LEFT_from_4_4
 pre: tank_at_4_4 empty_at_3_3
 add: tank_at_3_3
-delete: tank_at_4_4
-Name: MOVE_UP_RIGHT_from_4_4
-pre: tank_at_4_4 empty_at_5_3
-add: tank_at_5_3
 delete: tank_at_4_4
 Name: MOVE_DOWN_LEFT_from_4_4
 pre: tank_at_4_4 empty_at_3_5
@@ -1457,10 +885,6 @@ Name: MOVE_RIGHT_from_4_5
 pre: tank_at_4_5 empty_at_5_5
 add: tank_at_5_5
 delete: tank_at_4_5
-Name: MOVE_UP_LEFT_from_4_5
-pre: tank_at_4_5 empty_at_3_4
-add: tank_at_3_4
-delete: tank_at_4_5
 Name: MOVE_UP_RIGHT_from_4_5
 pre: tank_at_4_5 empty_at_5_4
 add: tank_at_5_4
@@ -1468,10 +892,6 @@ delete: tank_at_4_5
 Name: MOVE_DOWN_LEFT_from_4_5
 pre: tank_at_4_5 empty_at_3_6
 add: tank_at_3_6
-delete: tank_at_4_5
-Name: MOVE_DOWN_RIGHT_from_4_5
-pre: tank_at_4_5 empty_at_5_6
-add: tank_at_5_6
 delete: tank_at_4_5
 Name: MOVE_UP_from_4_6
 pre: tank_at_4_6 empty_at_4_5
@@ -1485,10 +905,6 @@ Name: MOVE_LEFT_from_4_6
 pre: tank_at_4_6 empty_at_3_6
 add: tank_at_3_6
 delete: tank_at_4_6
-Name: MOVE_RIGHT_from_4_6
-pre: tank_at_4_6 empty_at_5_6
-add: tank_at_5_6
-delete: tank_at_4_6
 Name: MOVE_UP_LEFT_from_4_6
 pre: tank_at_4_6 empty_at_3_5
 add: tank_at_3_5
@@ -1496,10 +912,6 @@ delete: tank_at_4_6
 Name: MOVE_UP_RIGHT_from_4_6
 pre: tank_at_4_6 empty_at_5_5
 add: tank_at_5_5
-delete: tank_at_4_6
-Name: MOVE_DOWN_LEFT_from_4_6
-pre: tank_at_4_6 empty_at_3_7
-add: tank_at_3_7
 delete: tank_at_4_6
 Name: MOVE_DOWN_RIGHT_from_4_6
 pre: tank_at_4_6 empty_at_5_7
@@ -1513,10 +925,6 @@ Name: MOVE_DOWN_from_4_7
 pre: tank_at_4_7 empty_at_4_8
 add: tank_at_4_8
 delete: tank_at_4_7
-Name: MOVE_LEFT_from_4_7
-pre: tank_at_4_7 empty_at_3_7
-add: tank_at_3_7
-delete: tank_at_4_7
 Name: MOVE_RIGHT_from_4_7
 pre: tank_at_4_7 empty_at_5_7
 add: tank_at_5_7
@@ -1524,10 +932,6 @@ delete: tank_at_4_7
 Name: MOVE_UP_LEFT_from_4_7
 pre: tank_at_4_7 empty_at_3_6
 add: tank_at_3_6
-delete: tank_at_4_7
-Name: MOVE_UP_RIGHT_from_4_7
-pre: tank_at_4_7 empty_at_5_6
-add: tank_at_5_6
 delete: tank_at_4_7
 Name: MOVE_DOWN_LEFT_from_4_7
 pre: tank_at_4_7 empty_at_3_8
@@ -1553,10 +957,6 @@ Name: MOVE_RIGHT_from_4_8
 pre: tank_at_4_8 empty_at_5_8
 add: tank_at_5_8
 delete: tank_at_4_8
-Name: MOVE_UP_LEFT_from_4_8
-pre: tank_at_4_8 empty_at_3_7
-add: tank_at_3_7
-delete: tank_at_4_8
 Name: MOVE_UP_RIGHT_from_4_8
 pre: tank_at_4_8 empty_at_5_7
 add: tank_at_5_7
@@ -1565,25 +965,13 @@ Name: MOVE_DOWN_LEFT_from_4_8
 pre: tank_at_4_8 empty_at_3_9
 add: tank_at_3_9
 delete: tank_at_4_8
-Name: MOVE_DOWN_RIGHT_from_4_8
-pre: tank_at_4_8 empty_at_5_9
-add: tank_at_5_9
-delete: tank_at_4_8
 Name: MOVE_UP_from_4_9
 pre: tank_at_4_9 empty_at_4_8
 add: tank_at_4_8
 delete: tank_at_4_9
-Name: MOVE_DOWN_from_4_9
-pre: tank_at_4_9 empty_at_4_10
-add: tank_at_4_10
-delete: tank_at_4_9
 Name: MOVE_LEFT_from_4_9
 pre: tank_at_4_9 empty_at_3_9
 add: tank_at_3_9
-delete: tank_at_4_9
-Name: MOVE_RIGHT_from_4_9
-pre: tank_at_4_9 empty_at_5_9
-add: tank_at_5_9
 delete: tank_at_4_9
 Name: MOVE_UP_LEFT_from_4_9
 pre: tank_at_4_9 empty_at_3_8
@@ -1593,18 +981,6 @@ Name: MOVE_UP_RIGHT_from_4_9
 pre: tank_at_4_9 empty_at_5_8
 add: tank_at_5_8
 delete: tank_at_4_9
-Name: MOVE_DOWN_LEFT_from_4_9
-pre: tank_at_4_9 empty_at_3_10
-add: tank_at_3_10
-delete: tank_at_4_9
-Name: MOVE_DOWN_RIGHT_from_4_9
-pre: tank_at_4_9 empty_at_5_10
-add: tank_at_5_10
-delete: tank_at_4_9
-Name: MOVE_UP_from_5_0
-pre: tank_at_5_0 empty_at_5_-1
-add: tank_at_5_-1
-delete: tank_at_5_0
 Name: MOVE_DOWN_from_5_0
 pre: tank_at_5_0 empty_at_5_1
 add: tank_at_5_1
@@ -1617,37 +993,9 @@ Name: MOVE_RIGHT_from_5_0
 pre: tank_at_5_0 empty_at_6_0
 add: tank_at_6_0
 delete: tank_at_5_0
-Name: MOVE_UP_LEFT_from_5_0
-pre: tank_at_5_0 empty_at_4_-1
-add: tank_at_4_-1
-delete: tank_at_5_0
-Name: MOVE_UP_RIGHT_from_5_0
-pre: tank_at_5_0 empty_at_6_-1
-add: tank_at_6_-1
-delete: tank_at_5_0
-Name: MOVE_DOWN_LEFT_from_5_0
-pre: tank_at_5_0 empty_at_4_1
-add: tank_at_4_1
-delete: tank_at_5_0
-Name: MOVE_DOWN_RIGHT_from_5_0
-pre: tank_at_5_0 empty_at_6_1
-add: tank_at_6_1
-delete: tank_at_5_0
 Name: MOVE_UP_from_5_1
 pre: tank_at_5_1 empty_at_5_0
 add: tank_at_5_0
-delete: tank_at_5_1
-Name: MOVE_DOWN_from_5_1
-pre: tank_at_5_1 empty_at_5_2
-add: tank_at_5_2
-delete: tank_at_5_1
-Name: MOVE_LEFT_from_5_1
-pre: tank_at_5_1 empty_at_4_1
-add: tank_at_4_1
-delete: tank_at_5_1
-Name: MOVE_RIGHT_from_5_1
-pre: tank_at_5_1 empty_at_6_1
-add: tank_at_6_1
 delete: tank_at_5_1
 Name: MOVE_UP_LEFT_from_5_1
 pre: tank_at_5_1 empty_at_4_0
@@ -1669,10 +1017,6 @@ Name: MOVE_UP_from_5_2
 pre: tank_at_5_2 empty_at_5_1
 add: tank_at_5_1
 delete: tank_at_5_2
-Name: MOVE_DOWN_from_5_2
-pre: tank_at_5_2 empty_at_5_3
-add: tank_at_5_3
-delete: tank_at_5_2
 Name: MOVE_LEFT_from_5_2
 pre: tank_at_5_2 empty_at_4_2
 add: tank_at_4_2
@@ -1681,37 +1025,9 @@ Name: MOVE_RIGHT_from_5_2
 pre: tank_at_5_2 empty_at_6_2
 add: tank_at_6_2
 delete: tank_at_5_2
-Name: MOVE_UP_LEFT_from_5_2
-pre: tank_at_5_2 empty_at_4_1
-add: tank_at_4_1
-delete: tank_at_5_2
-Name: MOVE_UP_RIGHT_from_5_2
-pre: tank_at_5_2 empty_at_6_1
-add: tank_at_6_1
-delete: tank_at_5_2
-Name: MOVE_DOWN_LEFT_from_5_2
-pre: tank_at_5_2 empty_at_4_3
-add: tank_at_4_3
-delete: tank_at_5_2
-Name: MOVE_DOWN_RIGHT_from_5_2
-pre: tank_at_5_2 empty_at_6_3
-add: tank_at_6_3
-delete: tank_at_5_2
-Name: MOVE_UP_from_5_3
-pre: tank_at_5_3 empty_at_5_2
-add: tank_at_5_2
-delete: tank_at_5_3
 Name: MOVE_DOWN_from_5_3
 pre: tank_at_5_3 empty_at_5_4
 add: tank_at_5_4
-delete: tank_at_5_3
-Name: MOVE_LEFT_from_5_3
-pre: tank_at_5_3 empty_at_4_3
-add: tank_at_4_3
-delete: tank_at_5_3
-Name: MOVE_RIGHT_from_5_3
-pre: tank_at_5_3 empty_at_6_3
-add: tank_at_6_3
 delete: tank_at_5_3
 Name: MOVE_UP_LEFT_from_5_3
 pre: tank_at_5_3 empty_at_4_2
@@ -1729,10 +1045,6 @@ Name: MOVE_DOWN_RIGHT_from_5_3
 pre: tank_at_5_3 empty_at_6_4
 add: tank_at_6_4
 delete: tank_at_5_3
-Name: MOVE_UP_from_5_4
-pre: tank_at_5_4 empty_at_5_3
-add: tank_at_5_3
-delete: tank_at_5_4
 Name: MOVE_DOWN_from_5_4
 pre: tank_at_5_4 empty_at_5_5
 add: tank_at_5_5
@@ -1745,37 +1057,17 @@ Name: MOVE_RIGHT_from_5_4
 pre: tank_at_5_4 empty_at_6_4
 add: tank_at_6_4
 delete: tank_at_5_4
-Name: MOVE_UP_LEFT_from_5_4
-pre: tank_at_5_4 empty_at_4_3
-add: tank_at_4_3
-delete: tank_at_5_4
-Name: MOVE_UP_RIGHT_from_5_4
-pre: tank_at_5_4 empty_at_6_3
-add: tank_at_6_3
-delete: tank_at_5_4
 Name: MOVE_DOWN_LEFT_from_5_4
 pre: tank_at_5_4 empty_at_4_5
 add: tank_at_4_5
-delete: tank_at_5_4
-Name: MOVE_DOWN_RIGHT_from_5_4
-pre: tank_at_5_4 empty_at_6_5
-add: tank_at_6_5
 delete: tank_at_5_4
 Name: MOVE_UP_from_5_5
 pre: tank_at_5_5 empty_at_5_4
 add: tank_at_5_4
 delete: tank_at_5_5
-Name: MOVE_DOWN_from_5_5
-pre: tank_at_5_5 empty_at_5_6
-add: tank_at_5_6
-delete: tank_at_5_5
 Name: MOVE_LEFT_from_5_5
 pre: tank_at_5_5 empty_at_4_5
 add: tank_at_4_5
-delete: tank_at_5_5
-Name: MOVE_RIGHT_from_5_5
-pre: tank_at_5_5 empty_at_6_5
-add: tank_at_6_5
 delete: tank_at_5_5
 Name: MOVE_UP_LEFT_from_5_5
 pre: tank_at_5_5 empty_at_4_4
@@ -1813,22 +1105,10 @@ Name: MOVE_UP_LEFT_from_5_6
 pre: tank_at_5_6 empty_at_4_5
 add: tank_at_4_5
 delete: tank_at_5_6
-Name: MOVE_UP_RIGHT_from_5_6
-pre: tank_at_5_6 empty_at_6_5
-add: tank_at_6_5
-delete: tank_at_5_6
 Name: MOVE_DOWN_LEFT_from_5_6
 pre: tank_at_5_6 empty_at_4_7
 add: tank_at_4_7
 delete: tank_at_5_6
-Name: MOVE_DOWN_RIGHT_from_5_6
-pre: tank_at_5_6 empty_at_6_7
-add: tank_at_6_7
-delete: tank_at_5_6
-Name: MOVE_UP_from_5_7
-pre: tank_at_5_7 empty_at_5_6
-add: tank_at_5_6
-delete: tank_at_5_7
 Name: MOVE_DOWN_from_5_7
 pre: tank_at_5_7 empty_at_5_8
 add: tank_at_5_8
@@ -1836,10 +1116,6 @@ delete: tank_at_5_7
 Name: MOVE_LEFT_from_5_7
 pre: tank_at_5_7 empty_at_4_7
 add: tank_at_4_7
-delete: tank_at_5_7
-Name: MOVE_RIGHT_from_5_7
-pre: tank_at_5_7 empty_at_6_7
-add: tank_at_6_7
 delete: tank_at_5_7
 Name: MOVE_UP_LEFT_from_5_7
 pre: tank_at_5_7 empty_at_4_6
@@ -1861,10 +1137,6 @@ Name: MOVE_UP_from_5_8
 pre: tank_at_5_8 empty_at_5_7
 add: tank_at_5_7
 delete: tank_at_5_8
-Name: MOVE_DOWN_from_5_8
-pre: tank_at_5_8 empty_at_5_9
-add: tank_at_5_9
-delete: tank_at_5_8
 Name: MOVE_LEFT_from_5_8
 pre: tank_at_5_8 empty_at_4_8
 add: tank_at_4_8
@@ -1877,33 +1149,17 @@ Name: MOVE_UP_LEFT_from_5_8
 pre: tank_at_5_8 empty_at_4_7
 add: tank_at_4_7
 delete: tank_at_5_8
-Name: MOVE_UP_RIGHT_from_5_8
-pre: tank_at_5_8 empty_at_6_7
-add: tank_at_6_7
-delete: tank_at_5_8
 Name: MOVE_DOWN_LEFT_from_5_8
 pre: tank_at_5_8 empty_at_4_9
 add: tank_at_4_9
-delete: tank_at_5_8
-Name: MOVE_DOWN_RIGHT_from_5_8
-pre: tank_at_5_8 empty_at_6_9
-add: tank_at_6_9
 delete: tank_at_5_8
 Name: MOVE_UP_from_5_9
 pre: tank_at_5_9 empty_at_5_8
 add: tank_at_5_8
 delete: tank_at_5_9
-Name: MOVE_DOWN_from_5_9
-pre: tank_at_5_9 empty_at_5_10
-add: tank_at_5_10
-delete: tank_at_5_9
 Name: MOVE_LEFT_from_5_9
 pre: tank_at_5_9 empty_at_4_9
 add: tank_at_4_9
-delete: tank_at_5_9
-Name: MOVE_RIGHT_from_5_9
-pre: tank_at_5_9 empty_at_6_9
-add: tank_at_6_9
 delete: tank_at_5_9
 Name: MOVE_UP_LEFT_from_5_9
 pre: tank_at_5_9 empty_at_4_8
@@ -1913,22 +1169,6 @@ Name: MOVE_UP_RIGHT_from_5_9
 pre: tank_at_5_9 empty_at_6_8
 add: tank_at_6_8
 delete: tank_at_5_9
-Name: MOVE_DOWN_LEFT_from_5_9
-pre: tank_at_5_9 empty_at_4_10
-add: tank_at_4_10
-delete: tank_at_5_9
-Name: MOVE_DOWN_RIGHT_from_5_9
-pre: tank_at_5_9 empty_at_6_10
-add: tank_at_6_10
-delete: tank_at_5_9
-Name: MOVE_UP_from_6_0
-pre: tank_at_6_0 empty_at_6_-1
-add: tank_at_6_-1
-delete: tank_at_6_0
-Name: MOVE_DOWN_from_6_0
-pre: tank_at_6_0 empty_at_6_1
-add: tank_at_6_1
-delete: tank_at_6_0
 Name: MOVE_LEFT_from_6_0
 pre: tank_at_6_0 empty_at_5_0
 add: tank_at_5_0
@@ -1937,21 +1177,9 @@ Name: MOVE_RIGHT_from_6_0
 pre: tank_at_6_0 empty_at_7_0
 add: tank_at_7_0
 delete: tank_at_6_0
-Name: MOVE_UP_LEFT_from_6_0
-pre: tank_at_6_0 empty_at_5_-1
-add: tank_at_5_-1
-delete: tank_at_6_0
-Name: MOVE_UP_RIGHT_from_6_0
-pre: tank_at_6_0 empty_at_7_-1
-add: tank_at_7_-1
-delete: tank_at_6_0
 Name: MOVE_DOWN_LEFT_from_6_0
 pre: tank_at_6_0 empty_at_5_1
 add: tank_at_5_1
-delete: tank_at_6_0
-Name: MOVE_DOWN_RIGHT_from_6_0
-pre: tank_at_6_0 empty_at_7_1
-add: tank_at_7_1
 delete: tank_at_6_0
 Name: MOVE_UP_from_6_1
 pre: tank_at_6_1 empty_at_6_0
@@ -1965,10 +1193,6 @@ Name: MOVE_LEFT_from_6_1
 pre: tank_at_6_1 empty_at_5_1
 add: tank_at_5_1
 delete: tank_at_6_1
-Name: MOVE_RIGHT_from_6_1
-pre: tank_at_6_1 empty_at_7_1
-add: tank_at_7_1
-delete: tank_at_6_1
 Name: MOVE_UP_LEFT_from_6_1
 pre: tank_at_6_1 empty_at_5_0
 add: tank_at_5_0
@@ -1977,41 +1201,9 @@ Name: MOVE_UP_RIGHT_from_6_1
 pre: tank_at_6_1 empty_at_7_0
 add: tank_at_7_0
 delete: tank_at_6_1
-Name: MOVE_DOWN_LEFT_from_6_1
-pre: tank_at_6_1 empty_at_5_2
-add: tank_at_5_2
-delete: tank_at_6_1
-Name: MOVE_DOWN_RIGHT_from_6_1
-pre: tank_at_6_1 empty_at_7_2
-add: tank_at_7_2
-delete: tank_at_6_1
-Name: MOVE_UP_from_6_2
-pre: tank_at_6_2 empty_at_6_1
-add: tank_at_6_1
-delete: tank_at_6_2
-Name: MOVE_DOWN_from_6_2
-pre: tank_at_6_2 empty_at_6_3
-add: tank_at_6_3
-delete: tank_at_6_2
-Name: MOVE_LEFT_from_6_2
-pre: tank_at_6_2 empty_at_5_2
-add: tank_at_5_2
-delete: tank_at_6_2
-Name: MOVE_RIGHT_from_6_2
-pre: tank_at_6_2 empty_at_7_2
-add: tank_at_7_2
-delete: tank_at_6_2
 Name: MOVE_UP_LEFT_from_6_2
 pre: tank_at_6_2 empty_at_5_1
 add: tank_at_5_1
-delete: tank_at_6_2
-Name: MOVE_UP_RIGHT_from_6_2
-pre: tank_at_6_2 empty_at_7_1
-add: tank_at_7_1
-delete: tank_at_6_2
-Name: MOVE_DOWN_LEFT_from_6_2
-pre: tank_at_6_2 empty_at_5_3
-add: tank_at_5_3
 delete: tank_at_6_2
 Name: MOVE_DOWN_RIGHT_from_6_2
 pre: tank_at_6_2 empty_at_7_3
@@ -2025,49 +1217,17 @@ Name: MOVE_DOWN_from_6_3
 pre: tank_at_6_3 empty_at_6_4
 add: tank_at_6_4
 delete: tank_at_6_3
-Name: MOVE_LEFT_from_6_3
-pre: tank_at_6_3 empty_at_5_3
-add: tank_at_5_3
-delete: tank_at_6_3
 Name: MOVE_RIGHT_from_6_3
 pre: tank_at_6_3 empty_at_7_3
 add: tank_at_7_3
-delete: tank_at_6_3
-Name: MOVE_UP_LEFT_from_6_3
-pre: tank_at_6_3 empty_at_5_2
-add: tank_at_5_2
-delete: tank_at_6_3
-Name: MOVE_UP_RIGHT_from_6_3
-pre: tank_at_6_3 empty_at_7_2
-add: tank_at_7_2
 delete: tank_at_6_3
 Name: MOVE_DOWN_LEFT_from_6_3
 pre: tank_at_6_3 empty_at_5_4
 add: tank_at_5_4
 delete: tank_at_6_3
-Name: MOVE_DOWN_RIGHT_from_6_3
-pre: tank_at_6_3 empty_at_7_4
-add: tank_at_7_4
-delete: tank_at_6_3
-Name: MOVE_UP_from_6_4
-pre: tank_at_6_4 empty_at_6_3
-add: tank_at_6_3
-delete: tank_at_6_4
-Name: MOVE_DOWN_from_6_4
-pre: tank_at_6_4 empty_at_6_5
-add: tank_at_6_5
-delete: tank_at_6_4
 Name: MOVE_LEFT_from_6_4
 pre: tank_at_6_4 empty_at_5_4
 add: tank_at_5_4
-delete: tank_at_6_4
-Name: MOVE_RIGHT_from_6_4
-pre: tank_at_6_4 empty_at_7_4
-add: tank_at_7_4
-delete: tank_at_6_4
-Name: MOVE_UP_LEFT_from_6_4
-pre: tank_at_6_4 empty_at_5_3
-add: tank_at_5_3
 delete: tank_at_6_4
 Name: MOVE_UP_RIGHT_from_6_4
 pre: tank_at_6_4 empty_at_7_3
@@ -2076,10 +1236,6 @@ delete: tank_at_6_4
 Name: MOVE_DOWN_LEFT_from_6_4
 pre: tank_at_6_4 empty_at_5_5
 add: tank_at_5_5
-delete: tank_at_6_4
-Name: MOVE_DOWN_RIGHT_from_6_4
-pre: tank_at_6_4 empty_at_7_5
-add: tank_at_7_5
 delete: tank_at_6_4
 Name: MOVE_UP_from_6_5
 pre: tank_at_6_5 empty_at_6_4
@@ -2093,49 +1249,13 @@ Name: MOVE_LEFT_from_6_5
 pre: tank_at_6_5 empty_at_5_5
 add: tank_at_5_5
 delete: tank_at_6_5
-Name: MOVE_RIGHT_from_6_5
-pre: tank_at_6_5 empty_at_7_5
-add: tank_at_7_5
-delete: tank_at_6_5
 Name: MOVE_UP_LEFT_from_6_5
 pre: tank_at_6_5 empty_at_5_4
 add: tank_at_5_4
 delete: tank_at_6_5
-Name: MOVE_UP_RIGHT_from_6_5
-pre: tank_at_6_5 empty_at_7_4
-add: tank_at_7_4
-delete: tank_at_6_5
-Name: MOVE_DOWN_LEFT_from_6_5
-pre: tank_at_6_5 empty_at_5_6
-add: tank_at_5_6
-delete: tank_at_6_5
-Name: MOVE_DOWN_RIGHT_from_6_5
-pre: tank_at_6_5 empty_at_7_6
-add: tank_at_7_6
-delete: tank_at_6_5
-Name: MOVE_UP_from_6_6
-pre: tank_at_6_6 empty_at_6_5
-add: tank_at_6_5
-delete: tank_at_6_6
-Name: MOVE_DOWN_from_6_6
-pre: tank_at_6_6 empty_at_6_7
-add: tank_at_6_7
-delete: tank_at_6_6
-Name: MOVE_LEFT_from_6_6
-pre: tank_at_6_6 empty_at_5_6
-add: tank_at_5_6
-delete: tank_at_6_6
-Name: MOVE_RIGHT_from_6_6
-pre: tank_at_6_6 empty_at_7_6
-add: tank_at_7_6
-delete: tank_at_6_6
 Name: MOVE_UP_LEFT_from_6_6
 pre: tank_at_6_6 empty_at_5_5
 add: tank_at_5_5
-delete: tank_at_6_6
-Name: MOVE_UP_RIGHT_from_6_6
-pre: tank_at_6_6 empty_at_7_5
-add: tank_at_7_5
 delete: tank_at_6_6
 Name: MOVE_DOWN_LEFT_from_6_6
 pre: tank_at_6_6 empty_at_5_7
@@ -2161,37 +1281,13 @@ Name: MOVE_RIGHT_from_6_7
 pre: tank_at_6_7 empty_at_7_7
 add: tank_at_7_7
 delete: tank_at_6_7
-Name: MOVE_UP_LEFT_from_6_7
-pre: tank_at_6_7 empty_at_5_6
-add: tank_at_5_6
-delete: tank_at_6_7
-Name: MOVE_UP_RIGHT_from_6_7
-pre: tank_at_6_7 empty_at_7_6
-add: tank_at_7_6
-delete: tank_at_6_7
 Name: MOVE_DOWN_LEFT_from_6_7
 pre: tank_at_6_7 empty_at_5_8
 add: tank_at_5_8
 delete: tank_at_6_7
-Name: MOVE_DOWN_RIGHT_from_6_7
-pre: tank_at_6_7 empty_at_7_8
-add: tank_at_7_8
-delete: tank_at_6_7
-Name: MOVE_UP_from_6_8
-pre: tank_at_6_8 empty_at_6_7
-add: tank_at_6_7
-delete: tank_at_6_8
-Name: MOVE_DOWN_from_6_8
-pre: tank_at_6_8 empty_at_6_9
-add: tank_at_6_9
-delete: tank_at_6_8
 Name: MOVE_LEFT_from_6_8
 pre: tank_at_6_8 empty_at_5_8
 add: tank_at_5_8
-delete: tank_at_6_8
-Name: MOVE_RIGHT_from_6_8
-pre: tank_at_6_8 empty_at_7_8
-add: tank_at_7_8
 delete: tank_at_6_8
 Name: MOVE_UP_LEFT_from_6_8
 pre: tank_at_6_8 empty_at_5_7
@@ -2201,54 +1297,14 @@ Name: MOVE_UP_RIGHT_from_6_8
 pre: tank_at_6_8 empty_at_7_7
 add: tank_at_7_7
 delete: tank_at_6_8
-Name: MOVE_DOWN_LEFT_from_6_8
-pre: tank_at_6_8 empty_at_5_9
-add: tank_at_5_9
-delete: tank_at_6_8
-Name: MOVE_DOWN_RIGHT_from_6_8
-pre: tank_at_6_8 empty_at_7_9
-add: tank_at_7_9
-delete: tank_at_6_8
 Name: MOVE_UP_from_6_9
 pre: tank_at_6_9 empty_at_6_8
 add: tank_at_6_8
-delete: tank_at_6_9
-Name: MOVE_DOWN_from_6_9
-pre: tank_at_6_9 empty_at_6_10
-add: tank_at_6_10
-delete: tank_at_6_9
-Name: MOVE_LEFT_from_6_9
-pre: tank_at_6_9 empty_at_5_9
-add: tank_at_5_9
-delete: tank_at_6_9
-Name: MOVE_RIGHT_from_6_9
-pre: tank_at_6_9 empty_at_7_9
-add: tank_at_7_9
 delete: tank_at_6_9
 Name: MOVE_UP_LEFT_from_6_9
 pre: tank_at_6_9 empty_at_5_8
 add: tank_at_5_8
 delete: tank_at_6_9
-Name: MOVE_UP_RIGHT_from_6_9
-pre: tank_at_6_9 empty_at_7_8
-add: tank_at_7_8
-delete: tank_at_6_9
-Name: MOVE_DOWN_LEFT_from_6_9
-pre: tank_at_6_9 empty_at_5_10
-add: tank_at_5_10
-delete: tank_at_6_9
-Name: MOVE_DOWN_RIGHT_from_6_9
-pre: tank_at_6_9 empty_at_7_10
-add: tank_at_7_10
-delete: tank_at_6_9
-Name: MOVE_UP_from_7_0
-pre: tank_at_7_0 empty_at_7_-1
-add: tank_at_7_-1
-delete: tank_at_7_0
-Name: MOVE_DOWN_from_7_0
-pre: tank_at_7_0 empty_at_7_1
-add: tank_at_7_1
-delete: tank_at_7_0
 Name: MOVE_LEFT_from_7_0
 pre: tank_at_7_0 empty_at_6_0
 add: tank_at_6_0
@@ -2257,18 +1313,6 @@ Name: MOVE_RIGHT_from_7_0
 pre: tank_at_7_0 empty_at_8_0
 add: tank_at_8_0
 delete: tank_at_7_0
-Name: MOVE_UP_LEFT_from_7_0
-pre: tank_at_7_0 empty_at_6_-1
-add: tank_at_6_-1
-delete: tank_at_7_0
-Name: MOVE_UP_RIGHT_from_7_0
-pre: tank_at_7_0 empty_at_8_-1
-add: tank_at_8_-1
-delete: tank_at_7_0
-Name: MOVE_DOWN_LEFT_from_7_0
-pre: tank_at_7_0 empty_at_6_1
-add: tank_at_6_1
-delete: tank_at_7_0
 Name: MOVE_DOWN_RIGHT_from_7_0
 pre: tank_at_7_0 empty_at_8_1
 add: tank_at_8_1
@@ -2276,14 +1320,6 @@ delete: tank_at_7_0
 Name: MOVE_UP_from_7_1
 pre: tank_at_7_1 empty_at_7_0
 add: tank_at_7_0
-delete: tank_at_7_1
-Name: MOVE_DOWN_from_7_1
-pre: tank_at_7_1 empty_at_7_2
-add: tank_at_7_2
-delete: tank_at_7_1
-Name: MOVE_LEFT_from_7_1
-pre: tank_at_7_1 empty_at_6_1
-add: tank_at_6_1
 delete: tank_at_7_1
 Name: MOVE_RIGHT_from_7_1
 pre: tank_at_7_1 empty_at_8_1
@@ -2305,10 +1341,6 @@ Name: MOVE_DOWN_RIGHT_from_7_1
 pre: tank_at_7_1 empty_at_8_2
 add: tank_at_8_2
 delete: tank_at_7_1
-Name: MOVE_UP_from_7_2
-pre: tank_at_7_2 empty_at_7_1
-add: tank_at_7_1
-delete: tank_at_7_2
 Name: MOVE_DOWN_from_7_2
 pre: tank_at_7_2 empty_at_7_3
 add: tank_at_7_3
@@ -2321,38 +1353,10 @@ Name: MOVE_RIGHT_from_7_2
 pre: tank_at_7_2 empty_at_8_2
 add: tank_at_8_2
 delete: tank_at_7_2
-Name: MOVE_UP_LEFT_from_7_2
-pre: tank_at_7_2 empty_at_6_1
-add: tank_at_6_1
-delete: tank_at_7_2
 Name: MOVE_UP_RIGHT_from_7_2
 pre: tank_at_7_2 empty_at_8_1
 add: tank_at_8_1
 delete: tank_at_7_2
-Name: MOVE_DOWN_LEFT_from_7_2
-pre: tank_at_7_2 empty_at_6_3
-add: tank_at_6_3
-delete: tank_at_7_2
-Name: MOVE_DOWN_RIGHT_from_7_2
-pre: tank_at_7_2 empty_at_8_3
-add: tank_at_8_3
-delete: tank_at_7_2
-Name: MOVE_UP_from_7_3
-pre: tank_at_7_3 empty_at_7_2
-add: tank_at_7_2
-delete: tank_at_7_3
-Name: MOVE_DOWN_from_7_3
-pre: tank_at_7_3 empty_at_7_4
-add: tank_at_7_4
-delete: tank_at_7_3
-Name: MOVE_LEFT_from_7_3
-pre: tank_at_7_3 empty_at_6_3
-add: tank_at_6_3
-delete: tank_at_7_3
-Name: MOVE_RIGHT_from_7_3
-pre: tank_at_7_3 empty_at_8_3
-add: tank_at_8_3
-delete: tank_at_7_3
 Name: MOVE_UP_LEFT_from_7_3
 pre: tank_at_7_3 empty_at_6_2
 add: tank_at_6_2
@@ -2373,10 +1377,6 @@ Name: MOVE_UP_from_7_4
 pre: tank_at_7_4 empty_at_7_3
 add: tank_at_7_3
 delete: tank_at_7_4
-Name: MOVE_DOWN_from_7_4
-pre: tank_at_7_4 empty_at_7_5
-add: tank_at_7_5
-delete: tank_at_7_4
 Name: MOVE_LEFT_from_7_4
 pre: tank_at_7_4 empty_at_6_4
 add: tank_at_6_4
@@ -2385,34 +1385,10 @@ Name: MOVE_RIGHT_from_7_4
 pre: tank_at_7_4 empty_at_8_4
 add: tank_at_8_4
 delete: tank_at_7_4
-Name: MOVE_UP_LEFT_from_7_4
-pre: tank_at_7_4 empty_at_6_3
-add: tank_at_6_3
-delete: tank_at_7_4
-Name: MOVE_UP_RIGHT_from_7_4
-pre: tank_at_7_4 empty_at_8_3
-add: tank_at_8_3
-delete: tank_at_7_4
-Name: MOVE_DOWN_LEFT_from_7_4
-pre: tank_at_7_4 empty_at_6_5
-add: tank_at_6_5
-delete: tank_at_7_4
 Name: MOVE_DOWN_RIGHT_from_7_4
 pre: tank_at_7_4 empty_at_8_5
 add: tank_at_8_5
 delete: tank_at_7_4
-Name: MOVE_UP_from_7_5
-pre: tank_at_7_5 empty_at_7_4
-add: tank_at_7_4
-delete: tank_at_7_5
-Name: MOVE_DOWN_from_7_5
-pre: tank_at_7_5 empty_at_7_6
-add: tank_at_7_6
-delete: tank_at_7_5
-Name: MOVE_LEFT_from_7_5
-pre: tank_at_7_5 empty_at_6_5
-add: tank_at_6_5
-delete: tank_at_7_5
 Name: MOVE_RIGHT_from_7_5
 pre: tank_at_7_5 empty_at_8_5
 add: tank_at_8_5
@@ -2433,10 +1409,6 @@ Name: MOVE_DOWN_RIGHT_from_7_5
 pre: tank_at_7_5 empty_at_8_6
 add: tank_at_8_6
 delete: tank_at_7_5
-Name: MOVE_UP_from_7_6
-pre: tank_at_7_6 empty_at_7_5
-add: tank_at_7_5
-delete: tank_at_7_6
 Name: MOVE_DOWN_from_7_6
 pre: tank_at_7_6 empty_at_7_7
 add: tank_at_7_7
@@ -2449,34 +1421,14 @@ Name: MOVE_RIGHT_from_7_6
 pre: tank_at_7_6 empty_at_8_6
 add: tank_at_8_6
 delete: tank_at_7_6
-Name: MOVE_UP_LEFT_from_7_6
-pre: tank_at_7_6 empty_at_6_5
-add: tank_at_6_5
-delete: tank_at_7_6
 Name: MOVE_UP_RIGHT_from_7_6
 pre: tank_at_7_6 empty_at_8_5
 add: tank_at_8_5
-delete: tank_at_7_6
-Name: MOVE_DOWN_LEFT_from_7_6
-pre: tank_at_7_6 empty_at_6_7
-add: tank_at_6_7
 delete: tank_at_7_6
 Name: MOVE_DOWN_RIGHT_from_7_6
 pre: tank_at_7_6 empty_at_8_7
 add: tank_at_8_7
 delete: tank_at_7_6
-Name: MOVE_UP_from_7_7
-pre: tank_at_7_7 empty_at_7_6
-add: tank_at_7_6
-delete: tank_at_7_7
-Name: MOVE_DOWN_from_7_7
-pre: tank_at_7_7 empty_at_7_8
-add: tank_at_7_8
-delete: tank_at_7_7
-Name: MOVE_LEFT_from_7_7
-pre: tank_at_7_7 empty_at_6_7
-add: tank_at_6_7
-delete: tank_at_7_7
 Name: MOVE_RIGHT_from_7_7
 pre: tank_at_7_7 empty_at_8_7
 add: tank_at_8_7
@@ -2501,10 +1453,6 @@ Name: MOVE_UP_from_7_8
 pre: tank_at_7_8 empty_at_7_7
 add: tank_at_7_7
 delete: tank_at_7_8
-Name: MOVE_DOWN_from_7_8
-pre: tank_at_7_8 empty_at_7_9
-add: tank_at_7_9
-delete: tank_at_7_8
 Name: MOVE_LEFT_from_7_8
 pre: tank_at_7_8 empty_at_6_8
 add: tank_at_6_8
@@ -2513,38 +1461,10 @@ Name: MOVE_RIGHT_from_7_8
 pre: tank_at_7_8 empty_at_8_8
 add: tank_at_8_8
 delete: tank_at_7_8
-Name: MOVE_UP_LEFT_from_7_8
-pre: tank_at_7_8 empty_at_6_7
-add: tank_at_6_7
-delete: tank_at_7_8
 Name: MOVE_UP_RIGHT_from_7_8
 pre: tank_at_7_8 empty_at_8_7
 add: tank_at_8_7
 delete: tank_at_7_8
-Name: MOVE_DOWN_LEFT_from_7_8
-pre: tank_at_7_8 empty_at_6_9
-add: tank_at_6_9
-delete: tank_at_7_8
-Name: MOVE_DOWN_RIGHT_from_7_8
-pre: tank_at_7_8 empty_at_8_9
-add: tank_at_8_9
-delete: tank_at_7_8
-Name: MOVE_UP_from_7_9
-pre: tank_at_7_9 empty_at_7_8
-add: tank_at_7_8
-delete: tank_at_7_9
-Name: MOVE_DOWN_from_7_9
-pre: tank_at_7_9 empty_at_7_10
-add: tank_at_7_10
-delete: tank_at_7_9
-Name: MOVE_LEFT_from_7_9
-pre: tank_at_7_9 empty_at_6_9
-add: tank_at_6_9
-delete: tank_at_7_9
-Name: MOVE_RIGHT_from_7_9
-pre: tank_at_7_9 empty_at_8_9
-add: tank_at_8_9
-delete: tank_at_7_9
 Name: MOVE_UP_LEFT_from_7_9
 pre: tank_at_7_9 empty_at_6_8
 add: tank_at_6_8
@@ -2553,18 +1473,6 @@ Name: MOVE_UP_RIGHT_from_7_9
 pre: tank_at_7_9 empty_at_8_8
 add: tank_at_8_8
 delete: tank_at_7_9
-Name: MOVE_DOWN_LEFT_from_7_9
-pre: tank_at_7_9 empty_at_6_10
-add: tank_at_6_10
-delete: tank_at_7_9
-Name: MOVE_DOWN_RIGHT_from_7_9
-pre: tank_at_7_9 empty_at_8_10
-add: tank_at_8_10
-delete: tank_at_7_9
-Name: MOVE_UP_from_8_0
-pre: tank_at_8_0 empty_at_8_-1
-add: tank_at_8_-1
-delete: tank_at_8_0
 Name: MOVE_DOWN_from_8_0
 pre: tank_at_8_0 empty_at_8_1
 add: tank_at_8_1
@@ -2572,26 +1480,6 @@ delete: tank_at_8_0
 Name: MOVE_LEFT_from_8_0
 pre: tank_at_8_0 empty_at_7_0
 add: tank_at_7_0
-delete: tank_at_8_0
-Name: MOVE_RIGHT_from_8_0
-pre: tank_at_8_0 empty_at_9_0
-add: tank_at_9_0
-delete: tank_at_8_0
-Name: MOVE_UP_LEFT_from_8_0
-pre: tank_at_8_0 empty_at_7_-1
-add: tank_at_7_-1
-delete: tank_at_8_0
-Name: MOVE_UP_RIGHT_from_8_0
-pre: tank_at_8_0 empty_at_9_-1
-add: tank_at_9_-1
-delete: tank_at_8_0
-Name: MOVE_DOWN_LEFT_from_8_0
-pre: tank_at_8_0 empty_at_7_1
-add: tank_at_7_1
-delete: tank_at_8_0
-Name: MOVE_DOWN_RIGHT_from_8_0
-pre: tank_at_8_0 empty_at_9_1
-add: tank_at_9_1
 delete: tank_at_8_0
 Name: MOVE_UP_from_8_1
 pre: tank_at_8_1 empty_at_8_0
@@ -2601,61 +1489,17 @@ Name: MOVE_DOWN_from_8_1
 pre: tank_at_8_1 empty_at_8_2
 add: tank_at_8_2
 delete: tank_at_8_1
-Name: MOVE_LEFT_from_8_1
-pre: tank_at_8_1 empty_at_7_1
-add: tank_at_7_1
-delete: tank_at_8_1
-Name: MOVE_RIGHT_from_8_1
-pre: tank_at_8_1 empty_at_9_1
-add: tank_at_9_1
-delete: tank_at_8_1
 Name: MOVE_UP_LEFT_from_8_1
 pre: tank_at_8_1 empty_at_7_0
 add: tank_at_7_0
-delete: tank_at_8_1
-Name: MOVE_UP_RIGHT_from_8_1
-pre: tank_at_8_1 empty_at_9_0
-add: tank_at_9_0
-delete: tank_at_8_1
-Name: MOVE_DOWN_LEFT_from_8_1
-pre: tank_at_8_1 empty_at_7_2
-add: tank_at_7_2
-delete: tank_at_8_1
-Name: MOVE_DOWN_RIGHT_from_8_1
-pre: tank_at_8_1 empty_at_9_2
-add: tank_at_9_2
 delete: tank_at_8_1
 Name: MOVE_UP_from_8_2
 pre: tank_at_8_2 empty_at_8_1
 add: tank_at_8_1
 delete: tank_at_8_2
-Name: MOVE_DOWN_from_8_2
-pre: tank_at_8_2 empty_at_8_3
-add: tank_at_8_3
-delete: tank_at_8_2
-Name: MOVE_LEFT_from_8_2
-pre: tank_at_8_2 empty_at_7_2
-add: tank_at_7_2
-delete: tank_at_8_2
-Name: MOVE_RIGHT_from_8_2
-pre: tank_at_8_2 empty_at_9_2
-add: tank_at_9_2
-delete: tank_at_8_2
-Name: MOVE_UP_LEFT_from_8_2
-pre: tank_at_8_2 empty_at_7_1
-add: tank_at_7_1
-delete: tank_at_8_2
-Name: MOVE_UP_RIGHT_from_8_2
-pre: tank_at_8_2 empty_at_9_1
-add: tank_at_9_1
-delete: tank_at_8_2
 Name: MOVE_DOWN_LEFT_from_8_2
 pre: tank_at_8_2 empty_at_7_3
 add: tank_at_7_3
-delete: tank_at_8_2
-Name: MOVE_DOWN_RIGHT_from_8_2
-pre: tank_at_8_2 empty_at_9_3
-add: tank_at_9_3
 delete: tank_at_8_2
 Name: MOVE_UP_from_8_3
 pre: tank_at_8_3 empty_at_8_2
@@ -2669,57 +1513,13 @@ Name: MOVE_LEFT_from_8_3
 pre: tank_at_8_3 empty_at_7_3
 add: tank_at_7_3
 delete: tank_at_8_3
-Name: MOVE_RIGHT_from_8_3
-pre: tank_at_8_3 empty_at_9_3
-add: tank_at_9_3
-delete: tank_at_8_3
-Name: MOVE_UP_LEFT_from_8_3
-pre: tank_at_8_3 empty_at_7_2
-add: tank_at_7_2
-delete: tank_at_8_3
-Name: MOVE_UP_RIGHT_from_8_3
-pre: tank_at_8_3 empty_at_9_2
-add: tank_at_9_2
-delete: tank_at_8_3
-Name: MOVE_DOWN_LEFT_from_8_3
-pre: tank_at_8_3 empty_at_7_4
-add: tank_at_7_4
-delete: tank_at_8_3
-Name: MOVE_DOWN_RIGHT_from_8_3
-pre: tank_at_8_3 empty_at_9_4
-add: tank_at_9_4
-delete: tank_at_8_3
-Name: MOVE_UP_from_8_4
-pre: tank_at_8_4 empty_at_8_3
-add: tank_at_8_3
-delete: tank_at_8_4
 Name: MOVE_DOWN_from_8_4
 pre: tank_at_8_4 empty_at_8_5
 add: tank_at_8_5
 delete: tank_at_8_4
-Name: MOVE_LEFT_from_8_4
-pre: tank_at_8_4 empty_at_7_4
-add: tank_at_7_4
-delete: tank_at_8_4
-Name: MOVE_RIGHT_from_8_4
-pre: tank_at_8_4 empty_at_9_4
-add: tank_at_9_4
-delete: tank_at_8_4
 Name: MOVE_UP_LEFT_from_8_4
 pre: tank_at_8_4 empty_at_7_3
 add: tank_at_7_3
-delete: tank_at_8_4
-Name: MOVE_UP_RIGHT_from_8_4
-pre: tank_at_8_4 empty_at_9_3
-add: tank_at_9_3
-delete: tank_at_8_4
-Name: MOVE_DOWN_LEFT_from_8_4
-pre: tank_at_8_4 empty_at_7_5
-add: tank_at_7_5
-delete: tank_at_8_4
-Name: MOVE_DOWN_RIGHT_from_8_4
-pre: tank_at_8_4 empty_at_9_5
-add: tank_at_9_5
 delete: tank_at_8_4
 Name: MOVE_UP_from_8_5
 pre: tank_at_8_5 empty_at_8_4
@@ -2729,30 +1529,6 @@ Name: MOVE_DOWN_from_8_5
 pre: tank_at_8_5 empty_at_8_6
 add: tank_at_8_6
 delete: tank_at_8_5
-Name: MOVE_LEFT_from_8_5
-pre: tank_at_8_5 empty_at_7_5
-add: tank_at_7_5
-delete: tank_at_8_5
-Name: MOVE_RIGHT_from_8_5
-pre: tank_at_8_5 empty_at_9_5
-add: tank_at_9_5
-delete: tank_at_8_5
-Name: MOVE_UP_LEFT_from_8_5
-pre: tank_at_8_5 empty_at_7_4
-add: tank_at_7_4
-delete: tank_at_8_5
-Name: MOVE_UP_RIGHT_from_8_5
-pre: tank_at_8_5 empty_at_9_4
-add: tank_at_9_4
-delete: tank_at_8_5
-Name: MOVE_DOWN_LEFT_from_8_5
-pre: tank_at_8_5 empty_at_7_6
-add: tank_at_7_6
-delete: tank_at_8_5
-Name: MOVE_DOWN_RIGHT_from_8_5
-pre: tank_at_8_5 empty_at_9_6
-add: tank_at_9_6
-delete: tank_at_8_5
 Name: MOVE_UP_from_8_6
 pre: tank_at_8_6 empty_at_8_5
 add: tank_at_8_5
@@ -2760,22 +1536,6 @@ delete: tank_at_8_6
 Name: MOVE_DOWN_from_8_6
 pre: tank_at_8_6 empty_at_8_7
 add: tank_at_8_7
-delete: tank_at_8_6
-Name: MOVE_LEFT_from_8_6
-pre: tank_at_8_6 empty_at_7_6
-add: tank_at_7_6
-delete: tank_at_8_6
-Name: MOVE_RIGHT_from_8_6
-pre: tank_at_8_6 empty_at_9_6
-add: tank_at_9_6
-delete: tank_at_8_6
-Name: MOVE_UP_LEFT_from_8_6
-pre: tank_at_8_6 empty_at_7_5
-add: tank_at_7_5
-delete: tank_at_8_6
-Name: MOVE_UP_RIGHT_from_8_6
-pre: tank_at_8_6 empty_at_9_5
-add: tank_at_9_5
 delete: tank_at_8_6
 Name: MOVE_DOWN_LEFT_from_8_6
 pre: tank_at_8_6 empty_at_7_7
@@ -2801,37 +1561,9 @@ Name: MOVE_RIGHT_from_8_7
 pre: tank_at_8_7 empty_at_9_7
 add: tank_at_9_7
 delete: tank_at_8_7
-Name: MOVE_UP_LEFT_from_8_7
-pre: tank_at_8_7 empty_at_7_6
-add: tank_at_7_6
-delete: tank_at_8_7
-Name: MOVE_UP_RIGHT_from_8_7
-pre: tank_at_8_7 empty_at_9_6
-add: tank_at_9_6
-delete: tank_at_8_7
-Name: MOVE_DOWN_LEFT_from_8_7
-pre: tank_at_8_7 empty_at_7_8
-add: tank_at_7_8
-delete: tank_at_8_7
-Name: MOVE_DOWN_RIGHT_from_8_7
-pre: tank_at_8_7 empty_at_9_8
-add: tank_at_9_8
-delete: tank_at_8_7
 Name: MOVE_UP_from_8_8
 pre: tank_at_8_8 empty_at_8_7
 add: tank_at_8_7
-delete: tank_at_8_8
-Name: MOVE_DOWN_from_8_8
-pre: tank_at_8_8 empty_at_8_9
-add: tank_at_8_9
-delete: tank_at_8_8
-Name: MOVE_LEFT_from_8_8
-pre: tank_at_8_8 empty_at_7_8
-add: tank_at_7_8
-delete: tank_at_8_8
-Name: MOVE_RIGHT_from_8_8
-pre: tank_at_8_8 empty_at_9_8
-add: tank_at_9_8
 delete: tank_at_8_8
 Name: MOVE_UP_LEFT_from_8_8
 pre: tank_at_8_8 empty_at_7_7
@@ -2841,10 +1573,6 @@ Name: MOVE_UP_RIGHT_from_8_8
 pre: tank_at_8_8 empty_at_9_7
 add: tank_at_9_7
 delete: tank_at_8_8
-Name: MOVE_DOWN_LEFT_from_8_8
-pre: tank_at_8_8 empty_at_7_9
-add: tank_at_7_9
-delete: tank_at_8_8
 Name: MOVE_DOWN_RIGHT_from_8_8
 pre: tank_at_8_8 empty_at_9_9
 add: tank_at_9_9
@@ -2853,230 +1581,66 @@ Name: MOVE_UP_from_8_9
 pre: tank_at_8_9 empty_at_8_8
 add: tank_at_8_8
 delete: tank_at_8_9
-Name: MOVE_DOWN_from_8_9
-pre: tank_at_8_9 empty_at_8_10
-add: tank_at_8_10
-delete: tank_at_8_9
-Name: MOVE_LEFT_from_8_9
-pre: tank_at_8_9 empty_at_7_9
-add: tank_at_7_9
-delete: tank_at_8_9
 Name: MOVE_RIGHT_from_8_9
 pre: tank_at_8_9 empty_at_9_9
 add: tank_at_9_9
 delete: tank_at_8_9
-Name: MOVE_UP_LEFT_from_8_9
-pre: tank_at_8_9 empty_at_7_8
-add: tank_at_7_8
-delete: tank_at_8_9
-Name: MOVE_UP_RIGHT_from_8_9
-pre: tank_at_8_9 empty_at_9_8
-add: tank_at_9_8
-delete: tank_at_8_9
-Name: MOVE_DOWN_LEFT_from_8_9
-pre: tank_at_8_9 empty_at_7_10
-add: tank_at_7_10
-delete: tank_at_8_9
-Name: MOVE_DOWN_RIGHT_from_8_9
-pre: tank_at_8_9 empty_at_9_10
-add: tank_at_9_10
-delete: tank_at_8_9
-Name: MOVE_UP_from_9_0
-pre: tank_at_9_0 empty_at_9_-1
-add: tank_at_9_-1
-delete: tank_at_9_0
-Name: MOVE_DOWN_from_9_0
-pre: tank_at_9_0 empty_at_9_1
-add: tank_at_9_1
-delete: tank_at_9_0
 Name: MOVE_LEFT_from_9_0
 pre: tank_at_9_0 empty_at_8_0
 add: tank_at_8_0
-delete: tank_at_9_0
-Name: MOVE_RIGHT_from_9_0
-pre: tank_at_9_0 empty_at_10_0
-add: tank_at_10_0
-delete: tank_at_9_0
-Name: MOVE_UP_LEFT_from_9_0
-pre: tank_at_9_0 empty_at_8_-1
-add: tank_at_8_-1
-delete: tank_at_9_0
-Name: MOVE_UP_RIGHT_from_9_0
-pre: tank_at_9_0 empty_at_10_-1
-add: tank_at_10_-1
 delete: tank_at_9_0
 Name: MOVE_DOWN_LEFT_from_9_0
 pre: tank_at_9_0 empty_at_8_1
 add: tank_at_8_1
 delete: tank_at_9_0
-Name: MOVE_DOWN_RIGHT_from_9_0
-pre: tank_at_9_0 empty_at_10_1
-add: tank_at_10_1
-delete: tank_at_9_0
-Name: MOVE_UP_from_9_1
-pre: tank_at_9_1 empty_at_9_0
-add: tank_at_9_0
-delete: tank_at_9_1
-Name: MOVE_DOWN_from_9_1
-pre: tank_at_9_1 empty_at_9_2
-add: tank_at_9_2
-delete: tank_at_9_1
 Name: MOVE_LEFT_from_9_1
 pre: tank_at_9_1 empty_at_8_1
 add: tank_at_8_1
-delete: tank_at_9_1
-Name: MOVE_RIGHT_from_9_1
-pre: tank_at_9_1 empty_at_10_1
-add: tank_at_10_1
 delete: tank_at_9_1
 Name: MOVE_UP_LEFT_from_9_1
 pre: tank_at_9_1 empty_at_8_0
 add: tank_at_8_0
 delete: tank_at_9_1
-Name: MOVE_UP_RIGHT_from_9_1
-pre: tank_at_9_1 empty_at_10_0
-add: tank_at_10_0
-delete: tank_at_9_1
 Name: MOVE_DOWN_LEFT_from_9_1
 pre: tank_at_9_1 empty_at_8_2
 add: tank_at_8_2
 delete: tank_at_9_1
-Name: MOVE_DOWN_RIGHT_from_9_1
-pre: tank_at_9_1 empty_at_10_2
-add: tank_at_10_2
-delete: tank_at_9_1
-Name: MOVE_UP_from_9_2
-pre: tank_at_9_2 empty_at_9_1
-add: tank_at_9_1
-delete: tank_at_9_2
-Name: MOVE_DOWN_from_9_2
-pre: tank_at_9_2 empty_at_9_3
-add: tank_at_9_3
-delete: tank_at_9_2
 Name: MOVE_LEFT_from_9_2
 pre: tank_at_9_2 empty_at_8_2
 add: tank_at_8_2
-delete: tank_at_9_2
-Name: MOVE_RIGHT_from_9_2
-pre: tank_at_9_2 empty_at_10_2
-add: tank_at_10_2
 delete: tank_at_9_2
 Name: MOVE_UP_LEFT_from_9_2
 pre: tank_at_9_2 empty_at_8_1
 add: tank_at_8_1
 delete: tank_at_9_2
-Name: MOVE_UP_RIGHT_from_9_2
-pre: tank_at_9_2 empty_at_10_1
-add: tank_at_10_1
-delete: tank_at_9_2
-Name: MOVE_DOWN_LEFT_from_9_2
-pre: tank_at_9_2 empty_at_8_3
-add: tank_at_8_3
-delete: tank_at_9_2
-Name: MOVE_DOWN_RIGHT_from_9_2
-pre: tank_at_9_2 empty_at_10_3
-add: tank_at_10_3
-delete: tank_at_9_2
-Name: MOVE_UP_from_9_3
-pre: tank_at_9_3 empty_at_9_2
-add: tank_at_9_2
-delete: tank_at_9_3
-Name: MOVE_DOWN_from_9_3
-pre: tank_at_9_3 empty_at_9_4
-add: tank_at_9_4
-delete: tank_at_9_3
-Name: MOVE_LEFT_from_9_3
-pre: tank_at_9_3 empty_at_8_3
-add: tank_at_8_3
-delete: tank_at_9_3
-Name: MOVE_RIGHT_from_9_3
-pre: tank_at_9_3 empty_at_10_3
-add: tank_at_10_3
-delete: tank_at_9_3
 Name: MOVE_UP_LEFT_from_9_3
 pre: tank_at_9_3 empty_at_8_2
 add: tank_at_8_2
-delete: tank_at_9_3
-Name: MOVE_UP_RIGHT_from_9_3
-pre: tank_at_9_3 empty_at_10_2
-add: tank_at_10_2
 delete: tank_at_9_3
 Name: MOVE_DOWN_LEFT_from_9_3
 pre: tank_at_9_3 empty_at_8_4
 add: tank_at_8_4
 delete: tank_at_9_3
-Name: MOVE_DOWN_RIGHT_from_9_3
-pre: tank_at_9_3 empty_at_10_4
-add: tank_at_10_4
-delete: tank_at_9_3
-Name: MOVE_UP_from_9_4
-pre: tank_at_9_4 empty_at_9_3
-add: tank_at_9_3
-delete: tank_at_9_4
-Name: MOVE_DOWN_from_9_4
-pre: tank_at_9_4 empty_at_9_5
-add: tank_at_9_5
-delete: tank_at_9_4
 Name: MOVE_LEFT_from_9_4
 pre: tank_at_9_4 empty_at_8_4
 add: tank_at_8_4
-delete: tank_at_9_4
-Name: MOVE_RIGHT_from_9_4
-pre: tank_at_9_4 empty_at_10_4
-add: tank_at_10_4
-delete: tank_at_9_4
-Name: MOVE_UP_LEFT_from_9_4
-pre: tank_at_9_4 empty_at_8_3
-add: tank_at_8_3
-delete: tank_at_9_4
-Name: MOVE_UP_RIGHT_from_9_4
-pre: tank_at_9_4 empty_at_10_3
-add: tank_at_10_3
 delete: tank_at_9_4
 Name: MOVE_DOWN_LEFT_from_9_4
 pre: tank_at_9_4 empty_at_8_5
 add: tank_at_8_5
 delete: tank_at_9_4
-Name: MOVE_DOWN_RIGHT_from_9_4
-pre: tank_at_9_4 empty_at_10_5
-add: tank_at_10_5
-delete: tank_at_9_4
-Name: MOVE_UP_from_9_5
-pre: tank_at_9_5 empty_at_9_4
-add: tank_at_9_4
-delete: tank_at_9_5
-Name: MOVE_DOWN_from_9_5
-pre: tank_at_9_5 empty_at_9_6
-add: tank_at_9_6
-delete: tank_at_9_5
 Name: MOVE_LEFT_from_9_5
 pre: tank_at_9_5 empty_at_8_5
 add: tank_at_8_5
-delete: tank_at_9_5
-Name: MOVE_RIGHT_from_9_5
-pre: tank_at_9_5 empty_at_10_5
-add: tank_at_10_5
 delete: tank_at_9_5
 Name: MOVE_UP_LEFT_from_9_5
 pre: tank_at_9_5 empty_at_8_4
 add: tank_at_8_4
 delete: tank_at_9_5
-Name: MOVE_UP_RIGHT_from_9_5
-pre: tank_at_9_5 empty_at_10_4
-add: tank_at_10_4
-delete: tank_at_9_5
 Name: MOVE_DOWN_LEFT_from_9_5
 pre: tank_at_9_5 empty_at_8_6
 add: tank_at_8_6
 delete: tank_at_9_5
-Name: MOVE_DOWN_RIGHT_from_9_5
-pre: tank_at_9_5 empty_at_10_6
-add: tank_at_10_6
-delete: tank_at_9_5
-Name: MOVE_UP_from_9_6
-pre: tank_at_9_6 empty_at_9_5
-add: tank_at_9_5
-delete: tank_at_9_6
 Name: MOVE_DOWN_from_9_6
 pre: tank_at_9_6 empty_at_9_7
 add: tank_at_9_7
@@ -3085,57 +1649,25 @@ Name: MOVE_LEFT_from_9_6
 pre: tank_at_9_6 empty_at_8_6
 add: tank_at_8_6
 delete: tank_at_9_6
-Name: MOVE_RIGHT_from_9_6
-pre: tank_at_9_6 empty_at_10_6
-add: tank_at_10_6
-delete: tank_at_9_6
 Name: MOVE_UP_LEFT_from_9_6
 pre: tank_at_9_6 empty_at_8_5
 add: tank_at_8_5
-delete: tank_at_9_6
-Name: MOVE_UP_RIGHT_from_9_6
-pre: tank_at_9_6 empty_at_10_5
-add: tank_at_10_5
 delete: tank_at_9_6
 Name: MOVE_DOWN_LEFT_from_9_6
 pre: tank_at_9_6 empty_at_8_7
 add: tank_at_8_7
 delete: tank_at_9_6
-Name: MOVE_DOWN_RIGHT_from_9_6
-pre: tank_at_9_6 empty_at_10_7
-add: tank_at_10_7
-delete: tank_at_9_6
-Name: MOVE_UP_from_9_7
-pre: tank_at_9_7 empty_at_9_6
-add: tank_at_9_6
-delete: tank_at_9_7
-Name: MOVE_DOWN_from_9_7
-pre: tank_at_9_7 empty_at_9_8
-add: tank_at_9_8
-delete: tank_at_9_7
 Name: MOVE_LEFT_from_9_7
 pre: tank_at_9_7 empty_at_8_7
 add: tank_at_8_7
-delete: tank_at_9_7
-Name: MOVE_RIGHT_from_9_7
-pre: tank_at_9_7 empty_at_10_7
-add: tank_at_10_7
 delete: tank_at_9_7
 Name: MOVE_UP_LEFT_from_9_7
 pre: tank_at_9_7 empty_at_8_6
 add: tank_at_8_6
 delete: tank_at_9_7
-Name: MOVE_UP_RIGHT_from_9_7
-pre: tank_at_9_7 empty_at_10_6
-add: tank_at_10_6
-delete: tank_at_9_7
 Name: MOVE_DOWN_LEFT_from_9_7
 pre: tank_at_9_7 empty_at_8_8
 add: tank_at_8_8
-delete: tank_at_9_7
-Name: MOVE_DOWN_RIGHT_from_9_7
-pre: tank_at_9_7 empty_at_10_8
-add: tank_at_10_8
 delete: tank_at_9_7
 Name: MOVE_UP_from_9_8
 pre: tank_at_9_8 empty_at_9_7
@@ -3149,79 +1681,14 @@ Name: MOVE_LEFT_from_9_8
 pre: tank_at_9_8 empty_at_8_8
 add: tank_at_8_8
 delete: tank_at_9_8
-Name: MOVE_RIGHT_from_9_8
-pre: tank_at_9_8 empty_at_10_8
-add: tank_at_10_8
-delete: tank_at_9_8
 Name: MOVE_UP_LEFT_from_9_8
 pre: tank_at_9_8 empty_at_8_7
 add: tank_at_8_7
 delete: tank_at_9_8
-Name: MOVE_UP_RIGHT_from_9_8
-pre: tank_at_9_8 empty_at_10_7
-add: tank_at_10_7
-delete: tank_at_9_8
-Name: MOVE_DOWN_LEFT_from_9_8
-pre: tank_at_9_8 empty_at_8_9
-add: tank_at_8_9
-delete: tank_at_9_8
-Name: MOVE_DOWN_RIGHT_from_9_8
-pre: tank_at_9_8 empty_at_10_9
-add: tank_at_10_9
-delete: tank_at_9_8
-Name: MOVE_UP_from_9_9
-pre: tank_at_9_9 empty_at_9_8
-add: tank_at_9_8
-delete: tank_at_9_9
-Name: MOVE_DOWN_from_9_9
-pre: tank_at_9_9 empty_at_9_10
-add: tank_at_9_10
-delete: tank_at_9_9
-Name: MOVE_LEFT_from_9_9
-pre: tank_at_9_9 empty_at_8_9
-add: tank_at_8_9
-delete: tank_at_9_9
-Name: MOVE_RIGHT_from_9_9
-pre: tank_at_9_9 empty_at_10_9
-add: tank_at_10_9
-delete: tank_at_9_9
 Name: MOVE_UP_LEFT_from_9_9
 pre: tank_at_9_9 empty_at_8_8
 add: tank_at_8_8
 delete: tank_at_9_9
-Name: MOVE_UP_RIGHT_from_9_9
-pre: tank_at_9_9 empty_at_10_8
-add: tank_at_10_8
-delete: tank_at_9_9
-Name: MOVE_DOWN_LEFT_from_9_9
-pre: tank_at_9_9 empty_at_8_10
-add: tank_at_8_10
-delete: tank_at_9_9
-Name: MOVE_DOWN_RIGHT_from_9_9
-pre: tank_at_9_9 empty_at_10_10
-add: tank_at_10_10
-delete: tank_at_9_9
-Name: SHOOT_UP_from_0_0
-pre: tank_at_0_0 empty_at_0_-1
-add: bullet_at_0_-1
-Name: SHOOT_DOWN_from_0_0
-pre: tank_at_0_0 empty_at_0_1
-add: bullet_at_0_1
-Name: SHOOT_LEFT_from_0_0
-pre: tank_at_0_0 empty_at_-1_0
-add: bullet_at_-1_0
-Name: SHOOT_RIGHT_from_0_0
-pre: tank_at_0_0 empty_at_1_0
-add: bullet_at_1_0
-Name: SHOOT_UP_LEFT_from_0_0
-pre: tank_at_0_0 empty_at_-1_-1
-add: bullet_at_-1_-1
-Name: SHOOT_UP_RIGHT_from_0_0
-pre: tank_at_0_0 empty_at_1_-1
-add: bullet_at_1_-1
-Name: SHOOT_DOWN_LEFT_from_0_0
-pre: tank_at_0_0 empty_at_-1_1
-add: bullet_at_-1_1
 Name: SHOOT_DOWN_RIGHT_from_0_0
 pre: tank_at_0_0 empty_at_1_1
 add: bullet_at_1_1
@@ -3231,69 +1698,21 @@ add: bullet_at_0_0
 Name: SHOOT_DOWN_from_0_1
 pre: tank_at_0_1 empty_at_0_2
 add: bullet_at_0_2
-Name: SHOOT_LEFT_from_0_1
-pre: tank_at_0_1 empty_at_-1_1
-add: bullet_at_-1_1
 Name: SHOOT_RIGHT_from_0_1
 pre: tank_at_0_1 empty_at_1_1
 add: bullet_at_1_1
-Name: SHOOT_UP_LEFT_from_0_1
-pre: tank_at_0_1 empty_at_-1_0
-add: bullet_at_-1_0
-Name: SHOOT_UP_RIGHT_from_0_1
-pre: tank_at_0_1 empty_at_1_0
-add: bullet_at_1_0
-Name: SHOOT_DOWN_LEFT_from_0_1
-pre: tank_at_0_1 empty_at_-1_2
-add: bullet_at_-1_2
-Name: SHOOT_DOWN_RIGHT_from_0_1
-pre: tank_at_0_1 empty_at_1_2
-add: bullet_at_1_2
-Name: SHOOT_UP_from_0_2
-pre: tank_at_0_2 empty_at_0_1
-add: bullet_at_0_1
 Name: SHOOT_DOWN_from_0_2
 pre: tank_at_0_2 empty_at_0_3
 add: bullet_at_0_3
-Name: SHOOT_LEFT_from_0_2
-pre: tank_at_0_2 empty_at_-1_2
-add: bullet_at_-1_2
-Name: SHOOT_RIGHT_from_0_2
-pre: tank_at_0_2 empty_at_1_2
-add: bullet_at_1_2
-Name: SHOOT_UP_LEFT_from_0_2
-pre: tank_at_0_2 empty_at_-1_1
-add: bullet_at_-1_1
 Name: SHOOT_UP_RIGHT_from_0_2
 pre: tank_at_0_2 empty_at_1_1
 add: bullet_at_1_1
-Name: SHOOT_DOWN_LEFT_from_0_2
-pre: tank_at_0_2 empty_at_-1_3
-add: bullet_at_-1_3
-Name: SHOOT_DOWN_RIGHT_from_0_2
-pre: tank_at_0_2 empty_at_1_3
-add: bullet_at_1_3
 Name: SHOOT_UP_from_0_3
 pre: tank_at_0_3 empty_at_0_2
 add: bullet_at_0_2
 Name: SHOOT_DOWN_from_0_3
 pre: tank_at_0_3 empty_at_0_4
 add: bullet_at_0_4
-Name: SHOOT_LEFT_from_0_3
-pre: tank_at_0_3 empty_at_-1_3
-add: bullet_at_-1_3
-Name: SHOOT_RIGHT_from_0_3
-pre: tank_at_0_3 empty_at_1_3
-add: bullet_at_1_3
-Name: SHOOT_UP_LEFT_from_0_3
-pre: tank_at_0_3 empty_at_-1_2
-add: bullet_at_-1_2
-Name: SHOOT_UP_RIGHT_from_0_3
-pre: tank_at_0_3 empty_at_1_2
-add: bullet_at_1_2
-Name: SHOOT_DOWN_LEFT_from_0_3
-pre: tank_at_0_3 empty_at_-1_4
-add: bullet_at_-1_4
 Name: SHOOT_DOWN_RIGHT_from_0_3
 pre: tank_at_0_3 empty_at_1_4
 add: bullet_at_1_4
@@ -3303,45 +1722,18 @@ add: bullet_at_0_3
 Name: SHOOT_DOWN_from_0_4
 pre: tank_at_0_4 empty_at_0_5
 add: bullet_at_0_5
-Name: SHOOT_LEFT_from_0_4
-pre: tank_at_0_4 empty_at_-1_4
-add: bullet_at_-1_4
 Name: SHOOT_RIGHT_from_0_4
 pre: tank_at_0_4 empty_at_1_4
 add: bullet_at_1_4
-Name: SHOOT_UP_LEFT_from_0_4
-pre: tank_at_0_4 empty_at_-1_3
-add: bullet_at_-1_3
-Name: SHOOT_UP_RIGHT_from_0_4
-pre: tank_at_0_4 empty_at_1_3
-add: bullet_at_1_3
-Name: SHOOT_DOWN_LEFT_from_0_4
-pre: tank_at_0_4 empty_at_-1_5
-add: bullet_at_-1_5
-Name: SHOOT_DOWN_RIGHT_from_0_4
-pre: tank_at_0_4 empty_at_1_5
-add: bullet_at_1_5
 Name: SHOOT_UP_from_0_5
 pre: tank_at_0_5 empty_at_0_4
 add: bullet_at_0_4
 Name: SHOOT_DOWN_from_0_5
 pre: tank_at_0_5 empty_at_0_6
 add: bullet_at_0_6
-Name: SHOOT_LEFT_from_0_5
-pre: tank_at_0_5 empty_at_-1_5
-add: bullet_at_-1_5
-Name: SHOOT_RIGHT_from_0_5
-pre: tank_at_0_5 empty_at_1_5
-add: bullet_at_1_5
-Name: SHOOT_UP_LEFT_from_0_5
-pre: tank_at_0_5 empty_at_-1_4
-add: bullet_at_-1_4
 Name: SHOOT_UP_RIGHT_from_0_5
 pre: tank_at_0_5 empty_at_1_4
 add: bullet_at_1_4
-Name: SHOOT_DOWN_LEFT_from_0_5
-pre: tank_at_0_5 empty_at_-1_6
-add: bullet_at_-1_6
 Name: SHOOT_DOWN_RIGHT_from_0_5
 pre: tank_at_0_5 empty_at_1_6
 add: bullet_at_1_6
@@ -3351,21 +1743,9 @@ add: bullet_at_0_5
 Name: SHOOT_DOWN_from_0_6
 pre: tank_at_0_6 empty_at_0_7
 add: bullet_at_0_7
-Name: SHOOT_LEFT_from_0_6
-pre: tank_at_0_6 empty_at_-1_6
-add: bullet_at_-1_6
 Name: SHOOT_RIGHT_from_0_6
 pre: tank_at_0_6 empty_at_1_6
 add: bullet_at_1_6
-Name: SHOOT_UP_LEFT_from_0_6
-pre: tank_at_0_6 empty_at_-1_5
-add: bullet_at_-1_5
-Name: SHOOT_UP_RIGHT_from_0_6
-pre: tank_at_0_6 empty_at_1_5
-add: bullet_at_1_5
-Name: SHOOT_DOWN_LEFT_from_0_6
-pre: tank_at_0_6 empty_at_-1_7
-add: bullet_at_-1_7
 Name: SHOOT_DOWN_RIGHT_from_0_6
 pre: tank_at_0_6 empty_at_1_7
 add: bullet_at_1_7
@@ -3375,21 +1755,12 @@ add: bullet_at_0_6
 Name: SHOOT_DOWN_from_0_7
 pre: tank_at_0_7 empty_at_0_8
 add: bullet_at_0_8
-Name: SHOOT_LEFT_from_0_7
-pre: tank_at_0_7 empty_at_-1_7
-add: bullet_at_-1_7
 Name: SHOOT_RIGHT_from_0_7
 pre: tank_at_0_7 empty_at_1_7
 add: bullet_at_1_7
-Name: SHOOT_UP_LEFT_from_0_7
-pre: tank_at_0_7 empty_at_-1_6
-add: bullet_at_-1_6
 Name: SHOOT_UP_RIGHT_from_0_7
 pre: tank_at_0_7 empty_at_1_6
 add: bullet_at_1_6
-Name: SHOOT_DOWN_LEFT_from_0_7
-pre: tank_at_0_7 empty_at_-1_8
-add: bullet_at_-1_8
 Name: SHOOT_DOWN_RIGHT_from_0_7
 pre: tank_at_0_7 empty_at_1_8
 add: bullet_at_1_8
@@ -3399,51 +1770,24 @@ add: bullet_at_0_7
 Name: SHOOT_DOWN_from_0_8
 pre: tank_at_0_8 empty_at_0_9
 add: bullet_at_0_9
-Name: SHOOT_LEFT_from_0_8
-pre: tank_at_0_8 empty_at_-1_8
-add: bullet_at_-1_8
 Name: SHOOT_RIGHT_from_0_8
 pre: tank_at_0_8 empty_at_1_8
 add: bullet_at_1_8
-Name: SHOOT_UP_LEFT_from_0_8
-pre: tank_at_0_8 empty_at_-1_7
-add: bullet_at_-1_7
 Name: SHOOT_UP_RIGHT_from_0_8
 pre: tank_at_0_8 empty_at_1_7
 add: bullet_at_1_7
-Name: SHOOT_DOWN_LEFT_from_0_8
-pre: tank_at_0_8 empty_at_-1_9
-add: bullet_at_-1_9
 Name: SHOOT_DOWN_RIGHT_from_0_8
 pre: tank_at_0_8 empty_at_1_9
 add: bullet_at_1_9
 Name: SHOOT_UP_from_0_9
 pre: tank_at_0_9 empty_at_0_8
 add: bullet_at_0_8
-Name: SHOOT_DOWN_from_0_9
-pre: tank_at_0_9 empty_at_0_10
-add: bullet_at_0_10
-Name: SHOOT_LEFT_from_0_9
-pre: tank_at_0_9 empty_at_-1_9
-add: bullet_at_-1_9
 Name: SHOOT_RIGHT_from_0_9
 pre: tank_at_0_9 empty_at_1_9
 add: bullet_at_1_9
-Name: SHOOT_UP_LEFT_from_0_9
-pre: tank_at_0_9 empty_at_-1_8
-add: bullet_at_-1_8
 Name: SHOOT_UP_RIGHT_from_0_9
 pre: tank_at_0_9 empty_at_1_8
 add: bullet_at_1_8
-Name: SHOOT_DOWN_LEFT_from_0_9
-pre: tank_at_0_9 empty_at_-1_10
-add: bullet_at_-1_10
-Name: SHOOT_DOWN_RIGHT_from_0_9
-pre: tank_at_0_9 empty_at_1_10
-add: bullet_at_1_10
-Name: SHOOT_UP_from_1_0
-pre: tank_at_1_0 empty_at_1_-1
-add: bullet_at_1_-1
 Name: SHOOT_DOWN_from_1_0
 pre: tank_at_1_0 empty_at_1_1
 add: bullet_at_1_1
@@ -3453,27 +1797,9 @@ add: bullet_at_0_0
 Name: SHOOT_RIGHT_from_1_0
 pre: tank_at_1_0 empty_at_2_0
 add: bullet_at_2_0
-Name: SHOOT_UP_LEFT_from_1_0
-pre: tank_at_1_0 empty_at_0_-1
-add: bullet_at_0_-1
-Name: SHOOT_UP_RIGHT_from_1_0
-pre: tank_at_1_0 empty_at_2_-1
-add: bullet_at_2_-1
-Name: SHOOT_DOWN_LEFT_from_1_0
-pre: tank_at_1_0 empty_at_0_1
-add: bullet_at_0_1
 Name: SHOOT_DOWN_RIGHT_from_1_0
 pre: tank_at_1_0 empty_at_2_1
 add: bullet_at_2_1
-Name: SHOOT_UP_from_1_1
-pre: tank_at_1_1 empty_at_1_0
-add: bullet_at_1_0
-Name: SHOOT_DOWN_from_1_1
-pre: tank_at_1_1 empty_at_1_2
-add: bullet_at_1_2
-Name: SHOOT_LEFT_from_1_1
-pre: tank_at_1_1 empty_at_0_1
-add: bullet_at_0_1
 Name: SHOOT_RIGHT_from_1_1
 pre: tank_at_1_1 empty_at_2_1
 add: bullet_at_2_1
@@ -3492,39 +1818,24 @@ add: bullet_at_2_2
 Name: SHOOT_UP_from_1_2
 pre: tank_at_1_2 empty_at_1_1
 add: bullet_at_1_1
-Name: SHOOT_DOWN_from_1_2
-pre: tank_at_1_2 empty_at_1_3
-add: bullet_at_1_3
 Name: SHOOT_LEFT_from_1_2
 pre: tank_at_1_2 empty_at_0_2
 add: bullet_at_0_2
 Name: SHOOT_RIGHT_from_1_2
 pre: tank_at_1_2 empty_at_2_2
 add: bullet_at_2_2
-Name: SHOOT_UP_LEFT_from_1_2
-pre: tank_at_1_2 empty_at_0_1
-add: bullet_at_0_1
 Name: SHOOT_UP_RIGHT_from_1_2
 pre: tank_at_1_2 empty_at_2_1
 add: bullet_at_2_1
 Name: SHOOT_DOWN_LEFT_from_1_2
 pre: tank_at_1_2 empty_at_0_3
 add: bullet_at_0_3
-Name: SHOOT_DOWN_RIGHT_from_1_2
-pre: tank_at_1_2 empty_at_2_3
-add: bullet_at_2_3
-Name: SHOOT_UP_from_1_3
-pre: tank_at_1_3 empty_at_1_2
-add: bullet_at_1_2
 Name: SHOOT_DOWN_from_1_3
 pre: tank_at_1_3 empty_at_1_4
 add: bullet_at_1_4
 Name: SHOOT_LEFT_from_1_3
 pre: tank_at_1_3 empty_at_0_3
 add: bullet_at_0_3
-Name: SHOOT_RIGHT_from_1_3
-pre: tank_at_1_3 empty_at_2_3
-add: bullet_at_2_3
 Name: SHOOT_UP_LEFT_from_1_3
 pre: tank_at_1_3 empty_at_0_2
 add: bullet_at_0_2
@@ -3537,12 +1848,6 @@ add: bullet_at_0_4
 Name: SHOOT_DOWN_RIGHT_from_1_3
 pre: tank_at_1_3 empty_at_2_4
 add: bullet_at_2_4
-Name: SHOOT_UP_from_1_4
-pre: tank_at_1_4 empty_at_1_3
-add: bullet_at_1_3
-Name: SHOOT_DOWN_from_1_4
-pre: tank_at_1_4 empty_at_1_5
-add: bullet_at_1_5
 Name: SHOOT_LEFT_from_1_4
 pre: tank_at_1_4 empty_at_0_4
 add: bullet_at_0_4
@@ -3552,9 +1857,6 @@ add: bullet_at_2_4
 Name: SHOOT_UP_LEFT_from_1_4
 pre: tank_at_1_4 empty_at_0_3
 add: bullet_at_0_3
-Name: SHOOT_UP_RIGHT_from_1_4
-pre: tank_at_1_4 empty_at_2_3
-add: bullet_at_2_3
 Name: SHOOT_DOWN_LEFT_from_1_4
 pre: tank_at_1_4 empty_at_0_5
 add: bullet_at_0_5
@@ -3585,9 +1887,6 @@ add: bullet_at_0_6
 Name: SHOOT_DOWN_RIGHT_from_1_5
 pre: tank_at_1_5 empty_at_2_6
 add: bullet_at_2_6
-Name: SHOOT_UP_from_1_6
-pre: tank_at_1_6 empty_at_1_5
-add: bullet_at_1_5
 Name: SHOOT_DOWN_from_1_6
 pre: tank_at_1_6 empty_at_1_7
 add: bullet_at_1_7
@@ -3654,51 +1953,21 @@ add: bullet_at_2_7
 Name: SHOOT_DOWN_LEFT_from_1_8
 pre: tank_at_1_8 empty_at_0_9
 add: bullet_at_0_9
-Name: SHOOT_DOWN_RIGHT_from_1_8
-pre: tank_at_1_8 empty_at_2_9
-add: bullet_at_2_9
 Name: SHOOT_UP_from_1_9
 pre: tank_at_1_9 empty_at_1_8
 add: bullet_at_1_8
-Name: SHOOT_DOWN_from_1_9
-pre: tank_at_1_9 empty_at_1_10
-add: bullet_at_1_10
 Name: SHOOT_LEFT_from_1_9
 pre: tank_at_1_9 empty_at_0_9
 add: bullet_at_0_9
-Name: SHOOT_RIGHT_from_1_9
-pre: tank_at_1_9 empty_at_2_9
-add: bullet_at_2_9
 Name: SHOOT_UP_LEFT_from_1_9
 pre: tank_at_1_9 empty_at_0_8
 add: bullet_at_0_8
 Name: SHOOT_UP_RIGHT_from_1_9
 pre: tank_at_1_9 empty_at_2_8
 add: bullet_at_2_8
-Name: SHOOT_DOWN_LEFT_from_1_9
-pre: tank_at_1_9 empty_at_0_10
-add: bullet_at_0_10
-Name: SHOOT_DOWN_RIGHT_from_1_9
-pre: tank_at_1_9 empty_at_2_10
-add: bullet_at_2_10
-Name: SHOOT_UP_from_2_0
-pre: tank_at_2_0 empty_at_2_-1
-add: bullet_at_2_-1
 Name: SHOOT_DOWN_from_2_0
 pre: tank_at_2_0 empty_at_2_1
 add: bullet_at_2_1
-Name: SHOOT_LEFT_from_2_0
-pre: tank_at_2_0 empty_at_1_0
-add: bullet_at_1_0
-Name: SHOOT_RIGHT_from_2_0
-pre: tank_at_2_0 empty_at_3_0
-add: bullet_at_3_0
-Name: SHOOT_UP_LEFT_from_2_0
-pre: tank_at_2_0 empty_at_1_-1
-add: bullet_at_1_-1
-Name: SHOOT_UP_RIGHT_from_2_0
-pre: tank_at_2_0 empty_at_3_-1
-add: bullet_at_3_-1
 Name: SHOOT_DOWN_LEFT_from_2_0
 pre: tank_at_2_0 empty_at_1_1
 add: bullet_at_1_1
@@ -3717,39 +1986,15 @@ add: bullet_at_1_1
 Name: SHOOT_RIGHT_from_2_1
 pre: tank_at_2_1 empty_at_3_1
 add: bullet_at_3_1
-Name: SHOOT_UP_LEFT_from_2_1
-pre: tank_at_2_1 empty_at_1_0
-add: bullet_at_1_0
-Name: SHOOT_UP_RIGHT_from_2_1
-pre: tank_at_2_1 empty_at_3_0
-add: bullet_at_3_0
-Name: SHOOT_DOWN_LEFT_from_2_1
-pre: tank_at_2_1 empty_at_1_2
-add: bullet_at_1_2
-Name: SHOOT_DOWN_RIGHT_from_2_1
-pre: tank_at_2_1 empty_at_3_2
-add: bullet_at_3_2
 Name: SHOOT_UP_from_2_2
 pre: tank_at_2_2 empty_at_2_1
 add: bullet_at_2_1
-Name: SHOOT_DOWN_from_2_2
-pre: tank_at_2_2 empty_at_2_3
-add: bullet_at_2_3
-Name: SHOOT_LEFT_from_2_2
-pre: tank_at_2_2 empty_at_1_2
-add: bullet_at_1_2
-Name: SHOOT_RIGHT_from_2_2
-pre: tank_at_2_2 empty_at_3_2
-add: bullet_at_3_2
 Name: SHOOT_UP_LEFT_from_2_2
 pre: tank_at_2_2 empty_at_1_1
 add: bullet_at_1_1
 Name: SHOOT_UP_RIGHT_from_2_2
 pre: tank_at_2_2 empty_at_3_1
 add: bullet_at_3_1
-Name: SHOOT_DOWN_LEFT_from_2_2
-pre: tank_at_2_2 empty_at_1_3
-add: bullet_at_1_3
 Name: SHOOT_DOWN_RIGHT_from_2_2
 pre: tank_at_2_2 empty_at_3_3
 add: bullet_at_3_3
@@ -3759,45 +2004,21 @@ add: bullet_at_2_2
 Name: SHOOT_DOWN_from_2_3
 pre: tank_at_2_3 empty_at_2_4
 add: bullet_at_2_4
-Name: SHOOT_LEFT_from_2_3
-pre: tank_at_2_3 empty_at_1_3
-add: bullet_at_1_3
 Name: SHOOT_RIGHT_from_2_3
 pre: tank_at_2_3 empty_at_3_3
 add: bullet_at_3_3
-Name: SHOOT_UP_LEFT_from_2_3
-pre: tank_at_2_3 empty_at_1_2
-add: bullet_at_1_2
-Name: SHOOT_UP_RIGHT_from_2_3
-pre: tank_at_2_3 empty_at_3_2
-add: bullet_at_3_2
 Name: SHOOT_DOWN_LEFT_from_2_3
 pre: tank_at_2_3 empty_at_1_4
 add: bullet_at_1_4
-Name: SHOOT_DOWN_RIGHT_from_2_3
-pre: tank_at_2_3 empty_at_3_4
-add: bullet_at_3_4
-Name: SHOOT_UP_from_2_4
-pre: tank_at_2_4 empty_at_2_3
-add: bullet_at_2_3
 Name: SHOOT_DOWN_from_2_4
 pre: tank_at_2_4 empty_at_2_5
 add: bullet_at_2_5
 Name: SHOOT_LEFT_from_2_4
 pre: tank_at_2_4 empty_at_1_4
 add: bullet_at_1_4
-Name: SHOOT_RIGHT_from_2_4
-pre: tank_at_2_4 empty_at_3_4
-add: bullet_at_3_4
-Name: SHOOT_UP_LEFT_from_2_4
-pre: tank_at_2_4 empty_at_1_3
-add: bullet_at_1_3
 Name: SHOOT_UP_RIGHT_from_2_4
 pre: tank_at_2_4 empty_at_3_3
 add: bullet_at_3_3
-Name: SHOOT_DOWN_LEFT_from_2_4
-pre: tank_at_2_4 empty_at_1_5
-add: bullet_at_1_5
 Name: SHOOT_DOWN_RIGHT_from_2_4
 pre: tank_at_2_4 empty_at_3_5
 add: bullet_at_3_5
@@ -3807,18 +2028,12 @@ add: bullet_at_2_4
 Name: SHOOT_DOWN_from_2_5
 pre: tank_at_2_5 empty_at_2_6
 add: bullet_at_2_6
-Name: SHOOT_LEFT_from_2_5
-pre: tank_at_2_5 empty_at_1_5
-add: bullet_at_1_5
 Name: SHOOT_RIGHT_from_2_5
 pre: tank_at_2_5 empty_at_3_5
 add: bullet_at_3_5
 Name: SHOOT_UP_LEFT_from_2_5
 pre: tank_at_2_5 empty_at_1_4
 add: bullet_at_1_4
-Name: SHOOT_UP_RIGHT_from_2_5
-pre: tank_at_2_5 empty_at_3_4
-add: bullet_at_3_4
 Name: SHOOT_DOWN_LEFT_from_2_5
 pre: tank_at_2_5 empty_at_1_6
 add: bullet_at_1_6
@@ -3837,18 +2052,12 @@ add: bullet_at_1_6
 Name: SHOOT_RIGHT_from_2_6
 pre: tank_at_2_6 empty_at_3_6
 add: bullet_at_3_6
-Name: SHOOT_UP_LEFT_from_2_6
-pre: tank_at_2_6 empty_at_1_5
-add: bullet_at_1_5
 Name: SHOOT_UP_RIGHT_from_2_6
 pre: tank_at_2_6 empty_at_3_5
 add: bullet_at_3_5
 Name: SHOOT_DOWN_LEFT_from_2_6
 pre: tank_at_2_6 empty_at_1_7
 add: bullet_at_1_7
-Name: SHOOT_DOWN_RIGHT_from_2_6
-pre: tank_at_2_6 empty_at_3_7
-add: bullet_at_3_7
 Name: SHOOT_UP_from_2_7
 pre: tank_at_2_7 empty_at_2_6
 add: bullet_at_2_6
@@ -3858,9 +2067,6 @@ add: bullet_at_2_8
 Name: SHOOT_LEFT_from_2_7
 pre: tank_at_2_7 empty_at_1_7
 add: bullet_at_1_7
-Name: SHOOT_RIGHT_from_2_7
-pre: tank_at_2_7 empty_at_3_7
-add: bullet_at_3_7
 Name: SHOOT_UP_LEFT_from_2_7
 pre: tank_at_2_7 empty_at_1_6
 add: bullet_at_1_6
@@ -3876,9 +2082,6 @@ add: bullet_at_3_8
 Name: SHOOT_UP_from_2_8
 pre: tank_at_2_8 empty_at_2_7
 add: bullet_at_2_7
-Name: SHOOT_DOWN_from_2_8
-pre: tank_at_2_8 empty_at_2_9
-add: bullet_at_2_9
 Name: SHOOT_LEFT_from_2_8
 pre: tank_at_2_8 empty_at_1_8
 add: bullet_at_1_8
@@ -3888,9 +2091,6 @@ add: bullet_at_3_8
 Name: SHOOT_UP_LEFT_from_2_8
 pre: tank_at_2_8 empty_at_1_7
 add: bullet_at_1_7
-Name: SHOOT_UP_RIGHT_from_2_8
-pre: tank_at_2_8 empty_at_3_7
-add: bullet_at_3_7
 Name: SHOOT_DOWN_LEFT_from_2_8
 pre: tank_at_2_8 empty_at_1_9
 add: bullet_at_1_9
@@ -3900,9 +2100,6 @@ add: bullet_at_3_9
 Name: SHOOT_UP_from_2_9
 pre: tank_at_2_9 empty_at_2_8
 add: bullet_at_2_8
-Name: SHOOT_DOWN_from_2_9
-pre: tank_at_2_9 empty_at_2_10
-add: bullet_at_2_10
 Name: SHOOT_LEFT_from_2_9
 pre: tank_at_2_9 empty_at_1_9
 add: bullet_at_1_9
@@ -3915,15 +2112,6 @@ add: bullet_at_1_8
 Name: SHOOT_UP_RIGHT_from_2_9
 pre: tank_at_2_9 empty_at_3_8
 add: bullet_at_3_8
-Name: SHOOT_DOWN_LEFT_from_2_9
-pre: tank_at_2_9 empty_at_1_10
-add: bullet_at_1_10
-Name: SHOOT_DOWN_RIGHT_from_2_9
-pre: tank_at_2_9 empty_at_3_10
-add: bullet_at_3_10
-Name: SHOOT_UP_from_3_0
-pre: tank_at_3_0 empty_at_3_-1
-add: bullet_at_3_-1
 Name: SHOOT_DOWN_from_3_0
 pre: tank_at_3_0 empty_at_3_1
 add: bullet_at_3_1
@@ -3933,30 +2121,12 @@ add: bullet_at_2_0
 Name: SHOOT_RIGHT_from_3_0
 pre: tank_at_3_0 empty_at_4_0
 add: bullet_at_4_0
-Name: SHOOT_UP_LEFT_from_3_0
-pre: tank_at_3_0 empty_at_2_-1
-add: bullet_at_2_-1
-Name: SHOOT_UP_RIGHT_from_3_0
-pre: tank_at_3_0 empty_at_4_-1
-add: bullet_at_4_-1
 Name: SHOOT_DOWN_LEFT_from_3_0
 pre: tank_at_3_0 empty_at_2_1
 add: bullet_at_2_1
-Name: SHOOT_DOWN_RIGHT_from_3_0
-pre: tank_at_3_0 empty_at_4_1
-add: bullet_at_4_1
-Name: SHOOT_UP_from_3_1
-pre: tank_at_3_1 empty_at_3_0
-add: bullet_at_3_0
-Name: SHOOT_DOWN_from_3_1
-pre: tank_at_3_1 empty_at_3_2
-add: bullet_at_3_2
 Name: SHOOT_LEFT_from_3_1
 pre: tank_at_3_1 empty_at_2_1
 add: bullet_at_2_1
-Name: SHOOT_RIGHT_from_3_1
-pre: tank_at_3_1 empty_at_4_1
-add: bullet_at_4_1
 Name: SHOOT_UP_LEFT_from_3_1
 pre: tank_at_3_1 empty_at_2_0
 add: bullet_at_2_0
@@ -3984,27 +2154,6 @@ add: bullet_at_4_2
 Name: SHOOT_UP_LEFT_from_3_2
 pre: tank_at_3_2 empty_at_2_1
 add: bullet_at_2_1
-Name: SHOOT_UP_RIGHT_from_3_2
-pre: tank_at_3_2 empty_at_4_1
-add: bullet_at_4_1
-Name: SHOOT_DOWN_LEFT_from_3_2
-pre: tank_at_3_2 empty_at_2_3
-add: bullet_at_2_3
-Name: SHOOT_DOWN_RIGHT_from_3_2
-pre: tank_at_3_2 empty_at_4_3
-add: bullet_at_4_3
-Name: SHOOT_UP_from_3_3
-pre: tank_at_3_3 empty_at_3_2
-add: bullet_at_3_2
-Name: SHOOT_DOWN_from_3_3
-pre: tank_at_3_3 empty_at_3_4
-add: bullet_at_3_4
-Name: SHOOT_LEFT_from_3_3
-pre: tank_at_3_3 empty_at_2_3
-add: bullet_at_2_3
-Name: SHOOT_RIGHT_from_3_3
-pre: tank_at_3_3 empty_at_4_3
-add: bullet_at_4_3
 Name: SHOOT_UP_LEFT_from_3_3
 pre: tank_at_3_3 empty_at_2_2
 add: bullet_at_2_2
@@ -4029,21 +2178,12 @@ add: bullet_at_2_4
 Name: SHOOT_RIGHT_from_3_4
 pre: tank_at_3_4 empty_at_4_4
 add: bullet_at_4_4
-Name: SHOOT_UP_LEFT_from_3_4
-pre: tank_at_3_4 empty_at_2_3
-add: bullet_at_2_3
-Name: SHOOT_UP_RIGHT_from_3_4
-pre: tank_at_3_4 empty_at_4_3
-add: bullet_at_4_3
 Name: SHOOT_DOWN_LEFT_from_3_4
 pre: tank_at_3_4 empty_at_2_5
 add: bullet_at_2_5
 Name: SHOOT_DOWN_RIGHT_from_3_4
 pre: tank_at_3_4 empty_at_4_5
 add: bullet_at_4_5
-Name: SHOOT_UP_from_3_5
-pre: tank_at_3_5 empty_at_3_4
-add: bullet_at_3_4
 Name: SHOOT_DOWN_from_3_5
 pre: tank_at_3_5 empty_at_3_6
 add: bullet_at_3_6
@@ -4068,9 +2208,6 @@ add: bullet_at_4_6
 Name: SHOOT_UP_from_3_6
 pre: tank_at_3_6 empty_at_3_5
 add: bullet_at_3_5
-Name: SHOOT_DOWN_from_3_6
-pre: tank_at_3_6 empty_at_3_7
-add: bullet_at_3_7
 Name: SHOOT_LEFT_from_3_6
 pre: tank_at_3_6 empty_at_2_6
 add: bullet_at_2_6
@@ -4113,9 +2250,6 @@ add: bullet_at_2_8
 Name: SHOOT_DOWN_RIGHT_from_3_7
 pre: tank_at_3_7 empty_at_4_8
 add: bullet_at_4_8
-Name: SHOOT_UP_from_3_8
-pre: tank_at_3_8 empty_at_3_7
-add: bullet_at_3_7
 Name: SHOOT_DOWN_from_3_8
 pre: tank_at_3_8 empty_at_3_9
 add: bullet_at_3_9
@@ -4131,21 +2265,12 @@ add: bullet_at_2_7
 Name: SHOOT_UP_RIGHT_from_3_8
 pre: tank_at_3_8 empty_at_4_7
 add: bullet_at_4_7
-Name: SHOOT_DOWN_LEFT_from_3_8
-pre: tank_at_3_8 empty_at_2_9
-add: bullet_at_2_9
 Name: SHOOT_DOWN_RIGHT_from_3_8
 pre: tank_at_3_8 empty_at_4_9
 add: bullet_at_4_9
 Name: SHOOT_UP_from_3_9
 pre: tank_at_3_9 empty_at_3_8
 add: bullet_at_3_8
-Name: SHOOT_DOWN_from_3_9
-pre: tank_at_3_9 empty_at_3_10
-add: bullet_at_3_10
-Name: SHOOT_LEFT_from_3_9
-pre: tank_at_3_9 empty_at_2_9
-add: bullet_at_2_9
 Name: SHOOT_RIGHT_from_3_9
 pre: tank_at_3_9 empty_at_4_9
 add: bullet_at_4_9
@@ -4155,30 +2280,9 @@ add: bullet_at_2_8
 Name: SHOOT_UP_RIGHT_from_3_9
 pre: tank_at_3_9 empty_at_4_8
 add: bullet_at_4_8
-Name: SHOOT_DOWN_LEFT_from_3_9
-pre: tank_at_3_9 empty_at_2_10
-add: bullet_at_2_10
-Name: SHOOT_DOWN_RIGHT_from_3_9
-pre: tank_at_3_9 empty_at_4_10
-add: bullet_at_4_10
-Name: SHOOT_UP_from_4_0
-pre: tank_at_4_0 empty_at_4_-1
-add: bullet_at_4_-1
-Name: SHOOT_DOWN_from_4_0
-pre: tank_at_4_0 empty_at_4_1
-add: bullet_at_4_1
-Name: SHOOT_LEFT_from_4_0
-pre: tank_at_4_0 empty_at_3_0
-add: bullet_at_3_0
 Name: SHOOT_RIGHT_from_4_0
 pre: tank_at_4_0 empty_at_5_0
 add: bullet_at_5_0
-Name: SHOOT_UP_LEFT_from_4_0
-pre: tank_at_4_0 empty_at_3_-1
-add: bullet_at_3_-1
-Name: SHOOT_UP_RIGHT_from_4_0
-pre: tank_at_4_0 empty_at_5_-1
-add: bullet_at_5_-1
 Name: SHOOT_DOWN_LEFT_from_4_0
 pre: tank_at_4_0 empty_at_3_1
 add: bullet_at_3_1
@@ -4197,30 +2301,9 @@ add: bullet_at_3_1
 Name: SHOOT_RIGHT_from_4_1
 pre: tank_at_4_1 empty_at_5_1
 add: bullet_at_5_1
-Name: SHOOT_UP_LEFT_from_4_1
-pre: tank_at_4_1 empty_at_3_0
-add: bullet_at_3_0
 Name: SHOOT_UP_RIGHT_from_4_1
 pre: tank_at_4_1 empty_at_5_0
 add: bullet_at_5_0
-Name: SHOOT_DOWN_LEFT_from_4_1
-pre: tank_at_4_1 empty_at_3_2
-add: bullet_at_3_2
-Name: SHOOT_DOWN_RIGHT_from_4_1
-pre: tank_at_4_1 empty_at_5_2
-add: bullet_at_5_2
-Name: SHOOT_UP_from_4_2
-pre: tank_at_4_2 empty_at_4_1
-add: bullet_at_4_1
-Name: SHOOT_DOWN_from_4_2
-pre: tank_at_4_2 empty_at_4_3
-add: bullet_at_4_3
-Name: SHOOT_LEFT_from_4_2
-pre: tank_at_4_2 empty_at_3_2
-add: bullet_at_3_2
-Name: SHOOT_RIGHT_from_4_2
-pre: tank_at_4_2 empty_at_5_2
-add: bullet_at_5_2
 Name: SHOOT_UP_LEFT_from_4_2
 pre: tank_at_4_2 empty_at_3_1
 add: bullet_at_3_1
@@ -4230,9 +2313,6 @@ add: bullet_at_5_1
 Name: SHOOT_DOWN_LEFT_from_4_2
 pre: tank_at_4_2 empty_at_3_3
 add: bullet_at_3_3
-Name: SHOOT_DOWN_RIGHT_from_4_2
-pre: tank_at_4_2 empty_at_5_3
-add: bullet_at_5_3
 Name: SHOOT_UP_from_4_3
 pre: tank_at_4_3 empty_at_4_2
 add: bullet_at_4_2
@@ -4242,39 +2322,18 @@ add: bullet_at_4_4
 Name: SHOOT_LEFT_from_4_3
 pre: tank_at_4_3 empty_at_3_3
 add: bullet_at_3_3
-Name: SHOOT_RIGHT_from_4_3
-pre: tank_at_4_3 empty_at_5_3
-add: bullet_at_5_3
-Name: SHOOT_UP_LEFT_from_4_3
-pre: tank_at_4_3 empty_at_3_2
-add: bullet_at_3_2
-Name: SHOOT_UP_RIGHT_from_4_3
-pre: tank_at_4_3 empty_at_5_2
-add: bullet_at_5_2
-Name: SHOOT_DOWN_LEFT_from_4_3
-pre: tank_at_4_3 empty_at_3_4
-add: bullet_at_3_4
 Name: SHOOT_DOWN_RIGHT_from_4_3
 pre: tank_at_4_3 empty_at_5_4
 add: bullet_at_5_4
-Name: SHOOT_UP_from_4_4
-pre: tank_at_4_4 empty_at_4_3
-add: bullet_at_4_3
 Name: SHOOT_DOWN_from_4_4
 pre: tank_at_4_4 empty_at_4_5
 add: bullet_at_4_5
-Name: SHOOT_LEFT_from_4_4
-pre: tank_at_4_4 empty_at_3_4
-add: bullet_at_3_4
 Name: SHOOT_RIGHT_from_4_4
 pre: tank_at_4_4 empty_at_5_4
 add: bullet_at_5_4
 Name: SHOOT_UP_LEFT_from_4_4
 pre: tank_at_4_4 empty_at_3_3
 add: bullet_at_3_3
-Name: SHOOT_UP_RIGHT_from_4_4
-pre: tank_at_4_4 empty_at_5_3
-add: bullet_at_5_3
 Name: SHOOT_DOWN_LEFT_from_4_4
 pre: tank_at_4_4 empty_at_3_5
 add: bullet_at_3_5
@@ -4293,18 +2352,12 @@ add: bullet_at_3_5
 Name: SHOOT_RIGHT_from_4_5
 pre: tank_at_4_5 empty_at_5_5
 add: bullet_at_5_5
-Name: SHOOT_UP_LEFT_from_4_5
-pre: tank_at_4_5 empty_at_3_4
-add: bullet_at_3_4
 Name: SHOOT_UP_RIGHT_from_4_5
 pre: tank_at_4_5 empty_at_5_4
 add: bullet_at_5_4
 Name: SHOOT_DOWN_LEFT_from_4_5
 pre: tank_at_4_5 empty_at_3_6
 add: bullet_at_3_6
-Name: SHOOT_DOWN_RIGHT_from_4_5
-pre: tank_at_4_5 empty_at_5_6
-add: bullet_at_5_6
 Name: SHOOT_UP_from_4_6
 pre: tank_at_4_6 empty_at_4_5
 add: bullet_at_4_5
@@ -4314,18 +2367,12 @@ add: bullet_at_4_7
 Name: SHOOT_LEFT_from_4_6
 pre: tank_at_4_6 empty_at_3_6
 add: bullet_at_3_6
-Name: SHOOT_RIGHT_from_4_6
-pre: tank_at_4_6 empty_at_5_6
-add: bullet_at_5_6
 Name: SHOOT_UP_LEFT_from_4_6
 pre: tank_at_4_6 empty_at_3_5
 add: bullet_at_3_5
 Name: SHOOT_UP_RIGHT_from_4_6
 pre: tank_at_4_6 empty_at_5_5
 add: bullet_at_5_5
-Name: SHOOT_DOWN_LEFT_from_4_6
-pre: tank_at_4_6 empty_at_3_7
-add: bullet_at_3_7
 Name: SHOOT_DOWN_RIGHT_from_4_6
 pre: tank_at_4_6 empty_at_5_7
 add: bullet_at_5_7
@@ -4335,18 +2382,12 @@ add: bullet_at_4_6
 Name: SHOOT_DOWN_from_4_7
 pre: tank_at_4_7 empty_at_4_8
 add: bullet_at_4_8
-Name: SHOOT_LEFT_from_4_7
-pre: tank_at_4_7 empty_at_3_7
-add: bullet_at_3_7
 Name: SHOOT_RIGHT_from_4_7
 pre: tank_at_4_7 empty_at_5_7
 add: bullet_at_5_7
 Name: SHOOT_UP_LEFT_from_4_7
 pre: tank_at_4_7 empty_at_3_6
 add: bullet_at_3_6
-Name: SHOOT_UP_RIGHT_from_4_7
-pre: tank_at_4_7 empty_at_5_6
-add: bullet_at_5_6
 Name: SHOOT_DOWN_LEFT_from_4_7
 pre: tank_at_4_7 empty_at_3_8
 add: bullet_at_3_8
@@ -4365,45 +2406,24 @@ add: bullet_at_3_8
 Name: SHOOT_RIGHT_from_4_8
 pre: tank_at_4_8 empty_at_5_8
 add: bullet_at_5_8
-Name: SHOOT_UP_LEFT_from_4_8
-pre: tank_at_4_8 empty_at_3_7
-add: bullet_at_3_7
 Name: SHOOT_UP_RIGHT_from_4_8
 pre: tank_at_4_8 empty_at_5_7
 add: bullet_at_5_7
 Name: SHOOT_DOWN_LEFT_from_4_8
 pre: tank_at_4_8 empty_at_3_9
 add: bullet_at_3_9
-Name: SHOOT_DOWN_RIGHT_from_4_8
-pre: tank_at_4_8 empty_at_5_9
-add: bullet_at_5_9
 Name: SHOOT_UP_from_4_9
 pre: tank_at_4_9 empty_at_4_8
 add: bullet_at_4_8
-Name: SHOOT_DOWN_from_4_9
-pre: tank_at_4_9 empty_at_4_10
-add: bullet_at_4_10
 Name: SHOOT_LEFT_from_4_9
 pre: tank_at_4_9 empty_at_3_9
 add: bullet_at_3_9
-Name: SHOOT_RIGHT_from_4_9
-pre: tank_at_4_9 empty_at_5_9
-add: bullet_at_5_9
 Name: SHOOT_UP_LEFT_from_4_9
 pre: tank_at_4_9 empty_at_3_8
 add: bullet_at_3_8
 Name: SHOOT_UP_RIGHT_from_4_9
 pre: tank_at_4_9 empty_at_5_8
 add: bullet_at_5_8
-Name: SHOOT_DOWN_LEFT_from_4_9
-pre: tank_at_4_9 empty_at_3_10
-add: bullet_at_3_10
-Name: SHOOT_DOWN_RIGHT_from_4_9
-pre: tank_at_4_9 empty_at_5_10
-add: bullet_at_5_10
-Name: SHOOT_UP_from_5_0
-pre: tank_at_5_0 empty_at_5_-1
-add: bullet_at_5_-1
 Name: SHOOT_DOWN_from_5_0
 pre: tank_at_5_0 empty_at_5_1
 add: bullet_at_5_1
@@ -4413,30 +2433,9 @@ add: bullet_at_4_0
 Name: SHOOT_RIGHT_from_5_0
 pre: tank_at_5_0 empty_at_6_0
 add: bullet_at_6_0
-Name: SHOOT_UP_LEFT_from_5_0
-pre: tank_at_5_0 empty_at_4_-1
-add: bullet_at_4_-1
-Name: SHOOT_UP_RIGHT_from_5_0
-pre: tank_at_5_0 empty_at_6_-1
-add: bullet_at_6_-1
-Name: SHOOT_DOWN_LEFT_from_5_0
-pre: tank_at_5_0 empty_at_4_1
-add: bullet_at_4_1
-Name: SHOOT_DOWN_RIGHT_from_5_0
-pre: tank_at_5_0 empty_at_6_1
-add: bullet_at_6_1
 Name: SHOOT_UP_from_5_1
 pre: tank_at_5_1 empty_at_5_0
 add: bullet_at_5_0
-Name: SHOOT_DOWN_from_5_1
-pre: tank_at_5_1 empty_at_5_2
-add: bullet_at_5_2
-Name: SHOOT_LEFT_from_5_1
-pre: tank_at_5_1 empty_at_4_1
-add: bullet_at_4_1
-Name: SHOOT_RIGHT_from_5_1
-pre: tank_at_5_1 empty_at_6_1
-add: bullet_at_6_1
 Name: SHOOT_UP_LEFT_from_5_1
 pre: tank_at_5_1 empty_at_4_0
 add: bullet_at_4_0
@@ -4452,39 +2451,15 @@ add: bullet_at_6_2
 Name: SHOOT_UP_from_5_2
 pre: tank_at_5_2 empty_at_5_1
 add: bullet_at_5_1
-Name: SHOOT_DOWN_from_5_2
-pre: tank_at_5_2 empty_at_5_3
-add: bullet_at_5_3
 Name: SHOOT_LEFT_from_5_2
 pre: tank_at_5_2 empty_at_4_2
 add: bullet_at_4_2
 Name: SHOOT_RIGHT_from_5_2
 pre: tank_at_5_2 empty_at_6_2
 add: bullet_at_6_2
-Name: SHOOT_UP_LEFT_from_5_2
-pre: tank_at_5_2 empty_at_4_1
-add: bullet_at_4_1
-Name: SHOOT_UP_RIGHT_from_5_2
-pre: tank_at_5_2 empty_at_6_1
-add: bullet_at_6_1
-Name: SHOOT_DOWN_LEFT_from_5_2
-pre: tank_at_5_2 empty_at_4_3
-add: bullet_at_4_3
-Name: SHOOT_DOWN_RIGHT_from_5_2
-pre: tank_at_5_2 empty_at_6_3
-add: bullet_at_6_3
-Name: SHOOT_UP_from_5_3
-pre: tank_at_5_3 empty_at_5_2
-add: bullet_at_5_2
 Name: SHOOT_DOWN_from_5_3
 pre: tank_at_5_3 empty_at_5_4
 add: bullet_at_5_4
-Name: SHOOT_LEFT_from_5_3
-pre: tank_at_5_3 empty_at_4_3
-add: bullet_at_4_3
-Name: SHOOT_RIGHT_from_5_3
-pre: tank_at_5_3 empty_at_6_3
-add: bullet_at_6_3
 Name: SHOOT_UP_LEFT_from_5_3
 pre: tank_at_5_3 empty_at_4_2
 add: bullet_at_4_2
@@ -4497,9 +2472,6 @@ add: bullet_at_4_4
 Name: SHOOT_DOWN_RIGHT_from_5_3
 pre: tank_at_5_3 empty_at_6_4
 add: bullet_at_6_4
-Name: SHOOT_UP_from_5_4
-pre: tank_at_5_4 empty_at_5_3
-add: bullet_at_5_3
 Name: SHOOT_DOWN_from_5_4
 pre: tank_at_5_4 empty_at_5_5
 add: bullet_at_5_5
@@ -4509,30 +2481,15 @@ add: bullet_at_4_4
 Name: SHOOT_RIGHT_from_5_4
 pre: tank_at_5_4 empty_at_6_4
 add: bullet_at_6_4
-Name: SHOOT_UP_LEFT_from_5_4
-pre: tank_at_5_4 empty_at_4_3
-add: bullet_at_4_3
-Name: SHOOT_UP_RIGHT_from_5_4
-pre: tank_at_5_4 empty_at_6_3
-add: bullet_at_6_3
 Name: SHOOT_DOWN_LEFT_from_5_4
 pre: tank_at_5_4 empty_at_4_5
 add: bullet_at_4_5
-Name: SHOOT_DOWN_RIGHT_from_5_4
-pre: tank_at_5_4 empty_at_6_5
-add: bullet_at_6_5
 Name: SHOOT_UP_from_5_5
 pre: tank_at_5_5 empty_at_5_4
 add: bullet_at_5_4
-Name: SHOOT_DOWN_from_5_5
-pre: tank_at_5_5 empty_at_5_6
-add: bullet_at_5_6
 Name: SHOOT_LEFT_from_5_5
 pre: tank_at_5_5 empty_at_4_5
 add: bullet_at_4_5
-Name: SHOOT_RIGHT_from_5_5
-pre: tank_at_5_5 empty_at_6_5
-add: bullet_at_6_5
 Name: SHOOT_UP_LEFT_from_5_5
 pre: tank_at_5_5 empty_at_4_4
 add: bullet_at_4_4
@@ -4560,27 +2517,15 @@ add: bullet_at_6_6
 Name: SHOOT_UP_LEFT_from_5_6
 pre: tank_at_5_6 empty_at_4_5
 add: bullet_at_4_5
-Name: SHOOT_UP_RIGHT_from_5_6
-pre: tank_at_5_6 empty_at_6_5
-add: bullet_at_6_5
 Name: SHOOT_DOWN_LEFT_from_5_6
 pre: tank_at_5_6 empty_at_4_7
 add: bullet_at_4_7
-Name: SHOOT_DOWN_RIGHT_from_5_6
-pre: tank_at_5_6 empty_at_6_7
-add: bullet_at_6_7
-Name: SHOOT_UP_from_5_7
-pre: tank_at_5_7 empty_at_5_6
-add: bullet_at_5_6
 Name: SHOOT_DOWN_from_5_7
 pre: tank_at_5_7 empty_at_5_8
 add: bullet_at_5_8
 Name: SHOOT_LEFT_from_5_7
 pre: tank_at_5_7 empty_at_4_7
 add: bullet_at_4_7
-Name: SHOOT_RIGHT_from_5_7
-pre: tank_at_5_7 empty_at_6_7
-add: bullet_at_6_7
 Name: SHOOT_UP_LEFT_from_5_7
 pre: tank_at_5_7 empty_at_4_6
 add: bullet_at_4_6
@@ -4596,9 +2541,6 @@ add: bullet_at_6_8
 Name: SHOOT_UP_from_5_8
 pre: tank_at_5_8 empty_at_5_7
 add: bullet_at_5_7
-Name: SHOOT_DOWN_from_5_8
-pre: tank_at_5_8 empty_at_5_9
-add: bullet_at_5_9
 Name: SHOOT_LEFT_from_5_8
 pre: tank_at_5_8 empty_at_4_8
 add: bullet_at_4_8
@@ -4608,63 +2550,30 @@ add: bullet_at_6_8
 Name: SHOOT_UP_LEFT_from_5_8
 pre: tank_at_5_8 empty_at_4_7
 add: bullet_at_4_7
-Name: SHOOT_UP_RIGHT_from_5_8
-pre: tank_at_5_8 empty_at_6_7
-add: bullet_at_6_7
 Name: SHOOT_DOWN_LEFT_from_5_8
 pre: tank_at_5_8 empty_at_4_9
 add: bullet_at_4_9
-Name: SHOOT_DOWN_RIGHT_from_5_8
-pre: tank_at_5_8 empty_at_6_9
-add: bullet_at_6_9
 Name: SHOOT_UP_from_5_9
 pre: tank_at_5_9 empty_at_5_8
 add: bullet_at_5_8
-Name: SHOOT_DOWN_from_5_9
-pre: tank_at_5_9 empty_at_5_10
-add: bullet_at_5_10
 Name: SHOOT_LEFT_from_5_9
 pre: tank_at_5_9 empty_at_4_9
 add: bullet_at_4_9
-Name: SHOOT_RIGHT_from_5_9
-pre: tank_at_5_9 empty_at_6_9
-add: bullet_at_6_9
 Name: SHOOT_UP_LEFT_from_5_9
 pre: tank_at_5_9 empty_at_4_8
 add: bullet_at_4_8
 Name: SHOOT_UP_RIGHT_from_5_9
 pre: tank_at_5_9 empty_at_6_8
 add: bullet_at_6_8
-Name: SHOOT_DOWN_LEFT_from_5_9
-pre: tank_at_5_9 empty_at_4_10
-add: bullet_at_4_10
-Name: SHOOT_DOWN_RIGHT_from_5_9
-pre: tank_at_5_9 empty_at_6_10
-add: bullet_at_6_10
-Name: SHOOT_UP_from_6_0
-pre: tank_at_6_0 empty_at_6_-1
-add: bullet_at_6_-1
-Name: SHOOT_DOWN_from_6_0
-pre: tank_at_6_0 empty_at_6_1
-add: bullet_at_6_1
 Name: SHOOT_LEFT_from_6_0
 pre: tank_at_6_0 empty_at_5_0
 add: bullet_at_5_0
 Name: SHOOT_RIGHT_from_6_0
 pre: tank_at_6_0 empty_at_7_0
 add: bullet_at_7_0
-Name: SHOOT_UP_LEFT_from_6_0
-pre: tank_at_6_0 empty_at_5_-1
-add: bullet_at_5_-1
-Name: SHOOT_UP_RIGHT_from_6_0
-pre: tank_at_6_0 empty_at_7_-1
-add: bullet_at_7_-1
 Name: SHOOT_DOWN_LEFT_from_6_0
 pre: tank_at_6_0 empty_at_5_1
 add: bullet_at_5_1
-Name: SHOOT_DOWN_RIGHT_from_6_0
-pre: tank_at_6_0 empty_at_7_1
-add: bullet_at_7_1
 Name: SHOOT_UP_from_6_1
 pre: tank_at_6_1 empty_at_6_0
 add: bullet_at_6_0
@@ -4674,42 +2583,15 @@ add: bullet_at_6_2
 Name: SHOOT_LEFT_from_6_1
 pre: tank_at_6_1 empty_at_5_1
 add: bullet_at_5_1
-Name: SHOOT_RIGHT_from_6_1
-pre: tank_at_6_1 empty_at_7_1
-add: bullet_at_7_1
 Name: SHOOT_UP_LEFT_from_6_1
 pre: tank_at_6_1 empty_at_5_0
 add: bullet_at_5_0
 Name: SHOOT_UP_RIGHT_from_6_1
 pre: tank_at_6_1 empty_at_7_0
 add: bullet_at_7_0
-Name: SHOOT_DOWN_LEFT_from_6_1
-pre: tank_at_6_1 empty_at_5_2
-add: bullet_at_5_2
-Name: SHOOT_DOWN_RIGHT_from_6_1
-pre: tank_at_6_1 empty_at_7_2
-add: bullet_at_7_2
-Name: SHOOT_UP_from_6_2
-pre: tank_at_6_2 empty_at_6_1
-add: bullet_at_6_1
-Name: SHOOT_DOWN_from_6_2
-pre: tank_at_6_2 empty_at_6_3
-add: bullet_at_6_3
-Name: SHOOT_LEFT_from_6_2
-pre: tank_at_6_2 empty_at_5_2
-add: bullet_at_5_2
-Name: SHOOT_RIGHT_from_6_2
-pre: tank_at_6_2 empty_at_7_2
-add: bullet_at_7_2
 Name: SHOOT_UP_LEFT_from_6_2
 pre: tank_at_6_2 empty_at_5_1
 add: bullet_at_5_1
-Name: SHOOT_UP_RIGHT_from_6_2
-pre: tank_at_6_2 empty_at_7_1
-add: bullet_at_7_1
-Name: SHOOT_DOWN_LEFT_from_6_2
-pre: tank_at_6_2 empty_at_5_3
-add: bullet_at_5_3
 Name: SHOOT_DOWN_RIGHT_from_6_2
 pre: tank_at_6_2 empty_at_7_3
 add: bullet_at_7_3
@@ -4719,48 +2601,21 @@ add: bullet_at_6_2
 Name: SHOOT_DOWN_from_6_3
 pre: tank_at_6_3 empty_at_6_4
 add: bullet_at_6_4
-Name: SHOOT_LEFT_from_6_3
-pre: tank_at_6_3 empty_at_5_3
-add: bullet_at_5_3
 Name: SHOOT_RIGHT_from_6_3
 pre: tank_at_6_3 empty_at_7_3
 add: bullet_at_7_3
-Name: SHOOT_UP_LEFT_from_6_3
-pre: tank_at_6_3 empty_at_5_2
-add: bullet_at_5_2
-Name: SHOOT_UP_RIGHT_from_6_3
-pre: tank_at_6_3 empty_at_7_2
-add: bullet_at_7_2
 Name: SHOOT_DOWN_LEFT_from_6_3
 pre: tank_at_6_3 empty_at_5_4
 add: bullet_at_5_4
-Name: SHOOT_DOWN_RIGHT_from_6_3
-pre: tank_at_6_3 empty_at_7_4
-add: bullet_at_7_4
-Name: SHOOT_UP_from_6_4
-pre: tank_at_6_4 empty_at_6_3
-add: bullet_at_6_3
-Name: SHOOT_DOWN_from_6_4
-pre: tank_at_6_4 empty_at_6_5
-add: bullet_at_6_5
 Name: SHOOT_LEFT_from_6_4
 pre: tank_at_6_4 empty_at_5_4
 add: bullet_at_5_4
-Name: SHOOT_RIGHT_from_6_4
-pre: tank_at_6_4 empty_at_7_4
-add: bullet_at_7_4
-Name: SHOOT_UP_LEFT_from_6_4
-pre: tank_at_6_4 empty_at_5_3
-add: bullet_at_5_3
 Name: SHOOT_UP_RIGHT_from_6_4
 pre: tank_at_6_4 empty_at_7_3
 add: bullet_at_7_3
 Name: SHOOT_DOWN_LEFT_from_6_4
 pre: tank_at_6_4 empty_at_5_5
 add: bullet_at_5_5
-Name: SHOOT_DOWN_RIGHT_from_6_4
-pre: tank_at_6_4 empty_at_7_5
-add: bullet_at_7_5
 Name: SHOOT_UP_from_6_5
 pre: tank_at_6_5 empty_at_6_4
 add: bullet_at_6_4
@@ -4770,39 +2625,12 @@ add: bullet_at_6_6
 Name: SHOOT_LEFT_from_6_5
 pre: tank_at_6_5 empty_at_5_5
 add: bullet_at_5_5
-Name: SHOOT_RIGHT_from_6_5
-pre: tank_at_6_5 empty_at_7_5
-add: bullet_at_7_5
 Name: SHOOT_UP_LEFT_from_6_5
 pre: tank_at_6_5 empty_at_5_4
 add: bullet_at_5_4
-Name: SHOOT_UP_RIGHT_from_6_5
-pre: tank_at_6_5 empty_at_7_4
-add: bullet_at_7_4
-Name: SHOOT_DOWN_LEFT_from_6_5
-pre: tank_at_6_5 empty_at_5_6
-add: bullet_at_5_6
-Name: SHOOT_DOWN_RIGHT_from_6_5
-pre: tank_at_6_5 empty_at_7_6
-add: bullet_at_7_6
-Name: SHOOT_UP_from_6_6
-pre: tank_at_6_6 empty_at_6_5
-add: bullet_at_6_5
-Name: SHOOT_DOWN_from_6_6
-pre: tank_at_6_6 empty_at_6_7
-add: bullet_at_6_7
-Name: SHOOT_LEFT_from_6_6
-pre: tank_at_6_6 empty_at_5_6
-add: bullet_at_5_6
-Name: SHOOT_RIGHT_from_6_6
-pre: tank_at_6_6 empty_at_7_6
-add: bullet_at_7_6
 Name: SHOOT_UP_LEFT_from_6_6
 pre: tank_at_6_6 empty_at_5_5
 add: bullet_at_5_5
-Name: SHOOT_UP_RIGHT_from_6_6
-pre: tank_at_6_6 empty_at_7_5
-add: bullet_at_7_5
 Name: SHOOT_DOWN_LEFT_from_6_6
 pre: tank_at_6_6 empty_at_5_7
 add: bullet_at_5_7
@@ -4821,99 +2649,36 @@ add: bullet_at_5_7
 Name: SHOOT_RIGHT_from_6_7
 pre: tank_at_6_7 empty_at_7_7
 add: bullet_at_7_7
-Name: SHOOT_UP_LEFT_from_6_7
-pre: tank_at_6_7 empty_at_5_6
-add: bullet_at_5_6
-Name: SHOOT_UP_RIGHT_from_6_7
-pre: tank_at_6_7 empty_at_7_6
-add: bullet_at_7_6
 Name: SHOOT_DOWN_LEFT_from_6_7
 pre: tank_at_6_7 empty_at_5_8
 add: bullet_at_5_8
-Name: SHOOT_DOWN_RIGHT_from_6_7
-pre: tank_at_6_7 empty_at_7_8
-add: bullet_at_7_8
-Name: SHOOT_UP_from_6_8
-pre: tank_at_6_8 empty_at_6_7
-add: bullet_at_6_7
-Name: SHOOT_DOWN_from_6_8
-pre: tank_at_6_8 empty_at_6_9
-add: bullet_at_6_9
 Name: SHOOT_LEFT_from_6_8
 pre: tank_at_6_8 empty_at_5_8
 add: bullet_at_5_8
-Name: SHOOT_RIGHT_from_6_8
-pre: tank_at_6_8 empty_at_7_8
-add: bullet_at_7_8
 Name: SHOOT_UP_LEFT_from_6_8
 pre: tank_at_6_8 empty_at_5_7
 add: bullet_at_5_7
 Name: SHOOT_UP_RIGHT_from_6_8
 pre: tank_at_6_8 empty_at_7_7
 add: bullet_at_7_7
-Name: SHOOT_DOWN_LEFT_from_6_8
-pre: tank_at_6_8 empty_at_5_9
-add: bullet_at_5_9
-Name: SHOOT_DOWN_RIGHT_from_6_8
-pre: tank_at_6_8 empty_at_7_9
-add: bullet_at_7_9
 Name: SHOOT_UP_from_6_9
 pre: tank_at_6_9 empty_at_6_8
 add: bullet_at_6_8
-Name: SHOOT_DOWN_from_6_9
-pre: tank_at_6_9 empty_at_6_10
-add: bullet_at_6_10
-Name: SHOOT_LEFT_from_6_9
-pre: tank_at_6_9 empty_at_5_9
-add: bullet_at_5_9
-Name: SHOOT_RIGHT_from_6_9
-pre: tank_at_6_9 empty_at_7_9
-add: bullet_at_7_9
 Name: SHOOT_UP_LEFT_from_6_9
 pre: tank_at_6_9 empty_at_5_8
 add: bullet_at_5_8
-Name: SHOOT_UP_RIGHT_from_6_9
-pre: tank_at_6_9 empty_at_7_8
-add: bullet_at_7_8
-Name: SHOOT_DOWN_LEFT_from_6_9
-pre: tank_at_6_9 empty_at_5_10
-add: bullet_at_5_10
-Name: SHOOT_DOWN_RIGHT_from_6_9
-pre: tank_at_6_9 empty_at_7_10
-add: bullet_at_7_10
-Name: SHOOT_UP_from_7_0
-pre: tank_at_7_0 empty_at_7_-1
-add: bullet_at_7_-1
-Name: SHOOT_DOWN_from_7_0
-pre: tank_at_7_0 empty_at_7_1
-add: bullet_at_7_1
 Name: SHOOT_LEFT_from_7_0
 pre: tank_at_7_0 empty_at_6_0
 add: bullet_at_6_0
 Name: SHOOT_RIGHT_from_7_0
 pre: tank_at_7_0 empty_at_8_0
 add: bullet_at_8_0
-Name: SHOOT_UP_LEFT_from_7_0
-pre: tank_at_7_0 empty_at_6_-1
-add: bullet_at_6_-1
-Name: SHOOT_UP_RIGHT_from_7_0
-pre: tank_at_7_0 empty_at_8_-1
-add: bullet_at_8_-1
-Name: SHOOT_DOWN_LEFT_from_7_0
-pre: tank_at_7_0 empty_at_6_1
-add: bullet_at_6_1
 Name: SHOOT_DOWN_RIGHT_from_7_0
 pre: tank_at_7_0 empty_at_8_1
 add: bullet_at_8_1
 Name: SHOOT_UP_from_7_1
 pre: tank_at_7_1 empty_at_7_0
 add: bullet_at_7_0
-Name: SHOOT_DOWN_from_7_1
-pre: tank_at_7_1 empty_at_7_2
-add: bullet_at_7_2
-Name: SHOOT_LEFT_from_7_1
-pre: tank_at_7_1 empty_at_6_1
-add: bullet_at_6_1
 Name: SHOOT_RIGHT_from_7_1
 pre: tank_at_7_1 empty_at_8_1
 add: bullet_at_8_1
@@ -4929,9 +2694,6 @@ add: bullet_at_6_2
 Name: SHOOT_DOWN_RIGHT_from_7_1
 pre: tank_at_7_1 empty_at_8_2
 add: bullet_at_8_2
-Name: SHOOT_UP_from_7_2
-pre: tank_at_7_2 empty_at_7_1
-add: bullet_at_7_1
 Name: SHOOT_DOWN_from_7_2
 pre: tank_at_7_2 empty_at_7_3
 add: bullet_at_7_3
@@ -4941,30 +2703,9 @@ add: bullet_at_6_2
 Name: SHOOT_RIGHT_from_7_2
 pre: tank_at_7_2 empty_at_8_2
 add: bullet_at_8_2
-Name: SHOOT_UP_LEFT_from_7_2
-pre: tank_at_7_2 empty_at_6_1
-add: bullet_at_6_1
 Name: SHOOT_UP_RIGHT_from_7_2
 pre: tank_at_7_2 empty_at_8_1
 add: bullet_at_8_1
-Name: SHOOT_DOWN_LEFT_from_7_2
-pre: tank_at_7_2 empty_at_6_3
-add: bullet_at_6_3
-Name: SHOOT_DOWN_RIGHT_from_7_2
-pre: tank_at_7_2 empty_at_8_3
-add: bullet_at_8_3
-Name: SHOOT_UP_from_7_3
-pre: tank_at_7_3 empty_at_7_2
-add: bullet_at_7_2
-Name: SHOOT_DOWN_from_7_3
-pre: tank_at_7_3 empty_at_7_4
-add: bullet_at_7_4
-Name: SHOOT_LEFT_from_7_3
-pre: tank_at_7_3 empty_at_6_3
-add: bullet_at_6_3
-Name: SHOOT_RIGHT_from_7_3
-pre: tank_at_7_3 empty_at_8_3
-add: bullet_at_8_3
 Name: SHOOT_UP_LEFT_from_7_3
 pre: tank_at_7_3 empty_at_6_2
 add: bullet_at_6_2
@@ -4980,36 +2721,15 @@ add: bullet_at_8_4
 Name: SHOOT_UP_from_7_4
 pre: tank_at_7_4 empty_at_7_3
 add: bullet_at_7_3
-Name: SHOOT_DOWN_from_7_4
-pre: tank_at_7_4 empty_at_7_5
-add: bullet_at_7_5
 Name: SHOOT_LEFT_from_7_4
 pre: tank_at_7_4 empty_at_6_4
 add: bullet_at_6_4
 Name: SHOOT_RIGHT_from_7_4
 pre: tank_at_7_4 empty_at_8_4
 add: bullet_at_8_4
-Name: SHOOT_UP_LEFT_from_7_4
-pre: tank_at_7_4 empty_at_6_3
-add: bullet_at_6_3
-Name: SHOOT_UP_RIGHT_from_7_4
-pre: tank_at_7_4 empty_at_8_3
-add: bullet_at_8_3
-Name: SHOOT_DOWN_LEFT_from_7_4
-pre: tank_at_7_4 empty_at_6_5
-add: bullet_at_6_5
 Name: SHOOT_DOWN_RIGHT_from_7_4
 pre: tank_at_7_4 empty_at_8_5
 add: bullet_at_8_5
-Name: SHOOT_UP_from_7_5
-pre: tank_at_7_5 empty_at_7_4
-add: bullet_at_7_4
-Name: SHOOT_DOWN_from_7_5
-pre: tank_at_7_5 empty_at_7_6
-add: bullet_at_7_6
-Name: SHOOT_LEFT_from_7_5
-pre: tank_at_7_5 empty_at_6_5
-add: bullet_at_6_5
 Name: SHOOT_RIGHT_from_7_5
 pre: tank_at_7_5 empty_at_8_5
 add: bullet_at_8_5
@@ -5025,9 +2745,6 @@ add: bullet_at_6_6
 Name: SHOOT_DOWN_RIGHT_from_7_5
 pre: tank_at_7_5 empty_at_8_6
 add: bullet_at_8_6
-Name: SHOOT_UP_from_7_6
-pre: tank_at_7_6 empty_at_7_5
-add: bullet_at_7_5
 Name: SHOOT_DOWN_from_7_6
 pre: tank_at_7_6 empty_at_7_7
 add: bullet_at_7_7
@@ -5037,27 +2754,12 @@ add: bullet_at_6_6
 Name: SHOOT_RIGHT_from_7_6
 pre: tank_at_7_6 empty_at_8_6
 add: bullet_at_8_6
-Name: SHOOT_UP_LEFT_from_7_6
-pre: tank_at_7_6 empty_at_6_5
-add: bullet_at_6_5
 Name: SHOOT_UP_RIGHT_from_7_6
 pre: tank_at_7_6 empty_at_8_5
 add: bullet_at_8_5
-Name: SHOOT_DOWN_LEFT_from_7_6
-pre: tank_at_7_6 empty_at_6_7
-add: bullet_at_6_7
 Name: SHOOT_DOWN_RIGHT_from_7_6
 pre: tank_at_7_6 empty_at_8_7
 add: bullet_at_8_7
-Name: SHOOT_UP_from_7_7
-pre: tank_at_7_7 empty_at_7_6
-add: bullet_at_7_6
-Name: SHOOT_DOWN_from_7_7
-pre: tank_at_7_7 empty_at_7_8
-add: bullet_at_7_8
-Name: SHOOT_LEFT_from_7_7
-pre: tank_at_7_7 empty_at_6_7
-add: bullet_at_6_7
 Name: SHOOT_RIGHT_from_7_7
 pre: tank_at_7_7 empty_at_8_7
 add: bullet_at_8_7
@@ -5076,123 +2778,42 @@ add: bullet_at_8_8
 Name: SHOOT_UP_from_7_8
 pre: tank_at_7_8 empty_at_7_7
 add: bullet_at_7_7
-Name: SHOOT_DOWN_from_7_8
-pre: tank_at_7_8 empty_at_7_9
-add: bullet_at_7_9
 Name: SHOOT_LEFT_from_7_8
 pre: tank_at_7_8 empty_at_6_8
 add: bullet_at_6_8
 Name: SHOOT_RIGHT_from_7_8
 pre: tank_at_7_8 empty_at_8_8
 add: bullet_at_8_8
-Name: SHOOT_UP_LEFT_from_7_8
-pre: tank_at_7_8 empty_at_6_7
-add: bullet_at_6_7
 Name: SHOOT_UP_RIGHT_from_7_8
 pre: tank_at_7_8 empty_at_8_7
 add: bullet_at_8_7
-Name: SHOOT_DOWN_LEFT_from_7_8
-pre: tank_at_7_8 empty_at_6_9
-add: bullet_at_6_9
-Name: SHOOT_DOWN_RIGHT_from_7_8
-pre: tank_at_7_8 empty_at_8_9
-add: bullet_at_8_9
-Name: SHOOT_UP_from_7_9
-pre: tank_at_7_9 empty_at_7_8
-add: bullet_at_7_8
-Name: SHOOT_DOWN_from_7_9
-pre: tank_at_7_9 empty_at_7_10
-add: bullet_at_7_10
-Name: SHOOT_LEFT_from_7_9
-pre: tank_at_7_9 empty_at_6_9
-add: bullet_at_6_9
-Name: SHOOT_RIGHT_from_7_9
-pre: tank_at_7_9 empty_at_8_9
-add: bullet_at_8_9
 Name: SHOOT_UP_LEFT_from_7_9
 pre: tank_at_7_9 empty_at_6_8
 add: bullet_at_6_8
 Name: SHOOT_UP_RIGHT_from_7_9
 pre: tank_at_7_9 empty_at_8_8
 add: bullet_at_8_8
-Name: SHOOT_DOWN_LEFT_from_7_9
-pre: tank_at_7_9 empty_at_6_10
-add: bullet_at_6_10
-Name: SHOOT_DOWN_RIGHT_from_7_9
-pre: tank_at_7_9 empty_at_8_10
-add: bullet_at_8_10
-Name: SHOOT_UP_from_8_0
-pre: tank_at_8_0 empty_at_8_-1
-add: bullet_at_8_-1
 Name: SHOOT_DOWN_from_8_0
 pre: tank_at_8_0 empty_at_8_1
 add: bullet_at_8_1
 Name: SHOOT_LEFT_from_8_0
 pre: tank_at_8_0 empty_at_7_0
 add: bullet_at_7_0
-Name: SHOOT_RIGHT_from_8_0
-pre: tank_at_8_0 empty_at_9_0
-add: bullet_at_9_0
-Name: SHOOT_UP_LEFT_from_8_0
-pre: tank_at_8_0 empty_at_7_-1
-add: bullet_at_7_-1
-Name: SHOOT_UP_RIGHT_from_8_0
-pre: tank_at_8_0 empty_at_9_-1
-add: bullet_at_9_-1
-Name: SHOOT_DOWN_LEFT_from_8_0
-pre: tank_at_8_0 empty_at_7_1
-add: bullet_at_7_1
-Name: SHOOT_DOWN_RIGHT_from_8_0
-pre: tank_at_8_0 empty_at_9_1
-add: bullet_at_9_1
 Name: SHOOT_UP_from_8_1
 pre: tank_at_8_1 empty_at_8_0
 add: bullet_at_8_0
 Name: SHOOT_DOWN_from_8_1
 pre: tank_at_8_1 empty_at_8_2
 add: bullet_at_8_2
-Name: SHOOT_LEFT_from_8_1
-pre: tank_at_8_1 empty_at_7_1
-add: bullet_at_7_1
-Name: SHOOT_RIGHT_from_8_1
-pre: tank_at_8_1 empty_at_9_1
-add: bullet_at_9_1
 Name: SHOOT_UP_LEFT_from_8_1
 pre: tank_at_8_1 empty_at_7_0
 add: bullet_at_7_0
-Name: SHOOT_UP_RIGHT_from_8_1
-pre: tank_at_8_1 empty_at_9_0
-add: bullet_at_9_0
-Name: SHOOT_DOWN_LEFT_from_8_1
-pre: tank_at_8_1 empty_at_7_2
-add: bullet_at_7_2
-Name: SHOOT_DOWN_RIGHT_from_8_1
-pre: tank_at_8_1 empty_at_9_2
-add: bullet_at_9_2
 Name: SHOOT_UP_from_8_2
 pre: tank_at_8_2 empty_at_8_1
 add: bullet_at_8_1
-Name: SHOOT_DOWN_from_8_2
-pre: tank_at_8_2 empty_at_8_3
-add: bullet_at_8_3
-Name: SHOOT_LEFT_from_8_2
-pre: tank_at_8_2 empty_at_7_2
-add: bullet_at_7_2
-Name: SHOOT_RIGHT_from_8_2
-pre: tank_at_8_2 empty_at_9_2
-add: bullet_at_9_2
-Name: SHOOT_UP_LEFT_from_8_2
-pre: tank_at_8_2 empty_at_7_1
-add: bullet_at_7_1
-Name: SHOOT_UP_RIGHT_from_8_2
-pre: tank_at_8_2 empty_at_9_1
-add: bullet_at_9_1
 Name: SHOOT_DOWN_LEFT_from_8_2
 pre: tank_at_8_2 empty_at_7_3
 add: bullet_at_7_3
-Name: SHOOT_DOWN_RIGHT_from_8_2
-pre: tank_at_8_2 empty_at_9_3
-add: bullet_at_9_3
 Name: SHOOT_UP_from_8_3
 pre: tank_at_8_3 empty_at_8_2
 add: bullet_at_8_2
@@ -5202,87 +2823,24 @@ add: bullet_at_8_4
 Name: SHOOT_LEFT_from_8_3
 pre: tank_at_8_3 empty_at_7_3
 add: bullet_at_7_3
-Name: SHOOT_RIGHT_from_8_3
-pre: tank_at_8_3 empty_at_9_3
-add: bullet_at_9_3
-Name: SHOOT_UP_LEFT_from_8_3
-pre: tank_at_8_3 empty_at_7_2
-add: bullet_at_7_2
-Name: SHOOT_UP_RIGHT_from_8_3
-pre: tank_at_8_3 empty_at_9_2
-add: bullet_at_9_2
-Name: SHOOT_DOWN_LEFT_from_8_3
-pre: tank_at_8_3 empty_at_7_4
-add: bullet_at_7_4
-Name: SHOOT_DOWN_RIGHT_from_8_3
-pre: tank_at_8_3 empty_at_9_4
-add: bullet_at_9_4
-Name: SHOOT_UP_from_8_4
-pre: tank_at_8_4 empty_at_8_3
-add: bullet_at_8_3
 Name: SHOOT_DOWN_from_8_4
 pre: tank_at_8_4 empty_at_8_5
 add: bullet_at_8_5
-Name: SHOOT_LEFT_from_8_4
-pre: tank_at_8_4 empty_at_7_4
-add: bullet_at_7_4
-Name: SHOOT_RIGHT_from_8_4
-pre: tank_at_8_4 empty_at_9_4
-add: bullet_at_9_4
 Name: SHOOT_UP_LEFT_from_8_4
 pre: tank_at_8_4 empty_at_7_3
 add: bullet_at_7_3
-Name: SHOOT_UP_RIGHT_from_8_4
-pre: tank_at_8_4 empty_at_9_3
-add: bullet_at_9_3
-Name: SHOOT_DOWN_LEFT_from_8_4
-pre: tank_at_8_4 empty_at_7_5
-add: bullet_at_7_5
-Name: SHOOT_DOWN_RIGHT_from_8_4
-pre: tank_at_8_4 empty_at_9_5
-add: bullet_at_9_5
 Name: SHOOT_UP_from_8_5
 pre: tank_at_8_5 empty_at_8_4
 add: bullet_at_8_4
 Name: SHOOT_DOWN_from_8_5
 pre: tank_at_8_5 empty_at_8_6
 add: bullet_at_8_6
-Name: SHOOT_LEFT_from_8_5
-pre: tank_at_8_5 empty_at_7_5
-add: bullet_at_7_5
-Name: SHOOT_RIGHT_from_8_5
-pre: tank_at_8_5 empty_at_9_5
-add: bullet_at_9_5
-Name: SHOOT_UP_LEFT_from_8_5
-pre: tank_at_8_5 empty_at_7_4
-add: bullet_at_7_4
-Name: SHOOT_UP_RIGHT_from_8_5
-pre: tank_at_8_5 empty_at_9_4
-add: bullet_at_9_4
-Name: SHOOT_DOWN_LEFT_from_8_5
-pre: tank_at_8_5 empty_at_7_6
-add: bullet_at_7_6
-Name: SHOOT_DOWN_RIGHT_from_8_5
-pre: tank_at_8_5 empty_at_9_6
-add: bullet_at_9_6
 Name: SHOOT_UP_from_8_6
 pre: tank_at_8_6 empty_at_8_5
 add: bullet_at_8_5
 Name: SHOOT_DOWN_from_8_6
 pre: tank_at_8_6 empty_at_8_7
 add: bullet_at_8_7
-Name: SHOOT_LEFT_from_8_6
-pre: tank_at_8_6 empty_at_7_6
-add: bullet_at_7_6
-Name: SHOOT_RIGHT_from_8_6
-pre: tank_at_8_6 empty_at_9_6
-add: bullet_at_9_6
-Name: SHOOT_UP_LEFT_from_8_6
-pre: tank_at_8_6 empty_at_7_5
-add: bullet_at_7_5
-Name: SHOOT_UP_RIGHT_from_8_6
-pre: tank_at_8_6 empty_at_9_5
-add: bullet_at_9_5
 Name: SHOOT_DOWN_LEFT_from_8_6
 pre: tank_at_8_6 empty_at_7_7
 add: bullet_at_7_7
@@ -5301,258 +2859,87 @@ add: bullet_at_7_7
 Name: SHOOT_RIGHT_from_8_7
 pre: tank_at_8_7 empty_at_9_7
 add: bullet_at_9_7
-Name: SHOOT_UP_LEFT_from_8_7
-pre: tank_at_8_7 empty_at_7_6
-add: bullet_at_7_6
-Name: SHOOT_UP_RIGHT_from_8_7
-pre: tank_at_8_7 empty_at_9_6
-add: bullet_at_9_6
-Name: SHOOT_DOWN_LEFT_from_8_7
-pre: tank_at_8_7 empty_at_7_8
-add: bullet_at_7_8
-Name: SHOOT_DOWN_RIGHT_from_8_7
-pre: tank_at_8_7 empty_at_9_8
-add: bullet_at_9_8
 Name: SHOOT_UP_from_8_8
 pre: tank_at_8_8 empty_at_8_7
 add: bullet_at_8_7
-Name: SHOOT_DOWN_from_8_8
-pre: tank_at_8_8 empty_at_8_9
-add: bullet_at_8_9
-Name: SHOOT_LEFT_from_8_8
-pre: tank_at_8_8 empty_at_7_8
-add: bullet_at_7_8
-Name: SHOOT_RIGHT_from_8_8
-pre: tank_at_8_8 empty_at_9_8
-add: bullet_at_9_8
 Name: SHOOT_UP_LEFT_from_8_8
 pre: tank_at_8_8 empty_at_7_7
 add: bullet_at_7_7
 Name: SHOOT_UP_RIGHT_from_8_8
 pre: tank_at_8_8 empty_at_9_7
 add: bullet_at_9_7
-Name: SHOOT_DOWN_LEFT_from_8_8
-pre: tank_at_8_8 empty_at_7_9
-add: bullet_at_7_9
 Name: SHOOT_DOWN_RIGHT_from_8_8
 pre: tank_at_8_8 empty_at_9_9
 add: bullet_at_9_9
 Name: SHOOT_UP_from_8_9
 pre: tank_at_8_9 empty_at_8_8
 add: bullet_at_8_8
-Name: SHOOT_DOWN_from_8_9
-pre: tank_at_8_9 empty_at_8_10
-add: bullet_at_8_10
-Name: SHOOT_LEFT_from_8_9
-pre: tank_at_8_9 empty_at_7_9
-add: bullet_at_7_9
 Name: SHOOT_RIGHT_from_8_9
 pre: tank_at_8_9 empty_at_9_9
 add: bullet_at_9_9
-Name: SHOOT_UP_LEFT_from_8_9
-pre: tank_at_8_9 empty_at_7_8
-add: bullet_at_7_8
-Name: SHOOT_UP_RIGHT_from_8_9
-pre: tank_at_8_9 empty_at_9_8
-add: bullet_at_9_8
-Name: SHOOT_DOWN_LEFT_from_8_9
-pre: tank_at_8_9 empty_at_7_10
-add: bullet_at_7_10
-Name: SHOOT_DOWN_RIGHT_from_8_9
-pre: tank_at_8_9 empty_at_9_10
-add: bullet_at_9_10
-Name: SHOOT_UP_from_9_0
-pre: tank_at_9_0 empty_at_9_-1
-add: bullet_at_9_-1
-Name: SHOOT_DOWN_from_9_0
-pre: tank_at_9_0 empty_at_9_1
-add: bullet_at_9_1
 Name: SHOOT_LEFT_from_9_0
 pre: tank_at_9_0 empty_at_8_0
 add: bullet_at_8_0
-Name: SHOOT_RIGHT_from_9_0
-pre: tank_at_9_0 empty_at_10_0
-add: bullet_at_10_0
-Name: SHOOT_UP_LEFT_from_9_0
-pre: tank_at_9_0 empty_at_8_-1
-add: bullet_at_8_-1
-Name: SHOOT_UP_RIGHT_from_9_0
-pre: tank_at_9_0 empty_at_10_-1
-add: bullet_at_10_-1
 Name: SHOOT_DOWN_LEFT_from_9_0
 pre: tank_at_9_0 empty_at_8_1
 add: bullet_at_8_1
-Name: SHOOT_DOWN_RIGHT_from_9_0
-pre: tank_at_9_0 empty_at_10_1
-add: bullet_at_10_1
-Name: SHOOT_UP_from_9_1
-pre: tank_at_9_1 empty_at_9_0
-add: bullet_at_9_0
-Name: SHOOT_DOWN_from_9_1
-pre: tank_at_9_1 empty_at_9_2
-add: bullet_at_9_2
 Name: SHOOT_LEFT_from_9_1
 pre: tank_at_9_1 empty_at_8_1
 add: bullet_at_8_1
-Name: SHOOT_RIGHT_from_9_1
-pre: tank_at_9_1 empty_at_10_1
-add: bullet_at_10_1
 Name: SHOOT_UP_LEFT_from_9_1
 pre: tank_at_9_1 empty_at_8_0
 add: bullet_at_8_0
-Name: SHOOT_UP_RIGHT_from_9_1
-pre: tank_at_9_1 empty_at_10_0
-add: bullet_at_10_0
 Name: SHOOT_DOWN_LEFT_from_9_1
 pre: tank_at_9_1 empty_at_8_2
 add: bullet_at_8_2
-Name: SHOOT_DOWN_RIGHT_from_9_1
-pre: tank_at_9_1 empty_at_10_2
-add: bullet_at_10_2
-Name: SHOOT_UP_from_9_2
-pre: tank_at_9_2 empty_at_9_1
-add: bullet_at_9_1
-Name: SHOOT_DOWN_from_9_2
-pre: tank_at_9_2 empty_at_9_3
-add: bullet_at_9_3
 Name: SHOOT_LEFT_from_9_2
 pre: tank_at_9_2 empty_at_8_2
 add: bullet_at_8_2
-Name: SHOOT_RIGHT_from_9_2
-pre: tank_at_9_2 empty_at_10_2
-add: bullet_at_10_2
 Name: SHOOT_UP_LEFT_from_9_2
 pre: tank_at_9_2 empty_at_8_1
 add: bullet_at_8_1
-Name: SHOOT_UP_RIGHT_from_9_2
-pre: tank_at_9_2 empty_at_10_1
-add: bullet_at_10_1
-Name: SHOOT_DOWN_LEFT_from_9_2
-pre: tank_at_9_2 empty_at_8_3
-add: bullet_at_8_3
-Name: SHOOT_DOWN_RIGHT_from_9_2
-pre: tank_at_9_2 empty_at_10_3
-add: bullet_at_10_3
-Name: SHOOT_UP_from_9_3
-pre: tank_at_9_3 empty_at_9_2
-add: bullet_at_9_2
-Name: SHOOT_DOWN_from_9_3
-pre: tank_at_9_3 empty_at_9_4
-add: bullet_at_9_4
-Name: SHOOT_LEFT_from_9_3
-pre: tank_at_9_3 empty_at_8_3
-add: bullet_at_8_3
-Name: SHOOT_RIGHT_from_9_3
-pre: tank_at_9_3 empty_at_10_3
-add: bullet_at_10_3
 Name: SHOOT_UP_LEFT_from_9_3
 pre: tank_at_9_3 empty_at_8_2
 add: bullet_at_8_2
-Name: SHOOT_UP_RIGHT_from_9_3
-pre: tank_at_9_3 empty_at_10_2
-add: bullet_at_10_2
 Name: SHOOT_DOWN_LEFT_from_9_3
 pre: tank_at_9_3 empty_at_8_4
 add: bullet_at_8_4
-Name: SHOOT_DOWN_RIGHT_from_9_3
-pre: tank_at_9_3 empty_at_10_4
-add: bullet_at_10_4
-Name: SHOOT_UP_from_9_4
-pre: tank_at_9_4 empty_at_9_3
-add: bullet_at_9_3
-Name: SHOOT_DOWN_from_9_4
-pre: tank_at_9_4 empty_at_9_5
-add: bullet_at_9_5
 Name: SHOOT_LEFT_from_9_4
 pre: tank_at_9_4 empty_at_8_4
 add: bullet_at_8_4
-Name: SHOOT_RIGHT_from_9_4
-pre: tank_at_9_4 empty_at_10_4
-add: bullet_at_10_4
-Name: SHOOT_UP_LEFT_from_9_4
-pre: tank_at_9_4 empty_at_8_3
-add: bullet_at_8_3
-Name: SHOOT_UP_RIGHT_from_9_4
-pre: tank_at_9_4 empty_at_10_3
-add: bullet_at_10_3
 Name: SHOOT_DOWN_LEFT_from_9_4
 pre: tank_at_9_4 empty_at_8_5
 add: bullet_at_8_5
-Name: SHOOT_DOWN_RIGHT_from_9_4
-pre: tank_at_9_4 empty_at_10_5
-add: bullet_at_10_5
-Name: SHOOT_UP_from_9_5
-pre: tank_at_9_5 empty_at_9_4
-add: bullet_at_9_4
-Name: SHOOT_DOWN_from_9_5
-pre: tank_at_9_5 empty_at_9_6
-add: bullet_at_9_6
 Name: SHOOT_LEFT_from_9_5
 pre: tank_at_9_5 empty_at_8_5
 add: bullet_at_8_5
-Name: SHOOT_RIGHT_from_9_5
-pre: tank_at_9_5 empty_at_10_5
-add: bullet_at_10_5
 Name: SHOOT_UP_LEFT_from_9_5
 pre: tank_at_9_5 empty_at_8_4
 add: bullet_at_8_4
-Name: SHOOT_UP_RIGHT_from_9_5
-pre: tank_at_9_5 empty_at_10_4
-add: bullet_at_10_4
 Name: SHOOT_DOWN_LEFT_from_9_5
 pre: tank_at_9_5 empty_at_8_6
 add: bullet_at_8_6
-Name: SHOOT_DOWN_RIGHT_from_9_5
-pre: tank_at_9_5 empty_at_10_6
-add: bullet_at_10_6
-Name: SHOOT_UP_from_9_6
-pre: tank_at_9_6 empty_at_9_5
-add: bullet_at_9_5
 Name: SHOOT_DOWN_from_9_6
 pre: tank_at_9_6 empty_at_9_7
 add: bullet_at_9_7
 Name: SHOOT_LEFT_from_9_6
 pre: tank_at_9_6 empty_at_8_6
 add: bullet_at_8_6
-Name: SHOOT_RIGHT_from_9_6
-pre: tank_at_9_6 empty_at_10_6
-add: bullet_at_10_6
 Name: SHOOT_UP_LEFT_from_9_6
 pre: tank_at_9_6 empty_at_8_5
 add: bullet_at_8_5
-Name: SHOOT_UP_RIGHT_from_9_6
-pre: tank_at_9_6 empty_at_10_5
-add: bullet_at_10_5
 Name: SHOOT_DOWN_LEFT_from_9_6
 pre: tank_at_9_6 empty_at_8_7
 add: bullet_at_8_7
-Name: SHOOT_DOWN_RIGHT_from_9_6
-pre: tank_at_9_6 empty_at_10_7
-add: bullet_at_10_7
-Name: SHOOT_UP_from_9_7
-pre: tank_at_9_7 empty_at_9_6
-add: bullet_at_9_6
-Name: SHOOT_DOWN_from_9_7
-pre: tank_at_9_7 empty_at_9_8
-add: bullet_at_9_8
 Name: SHOOT_LEFT_from_9_7
 pre: tank_at_9_7 empty_at_8_7
 add: bullet_at_8_7
-Name: SHOOT_RIGHT_from_9_7
-pre: tank_at_9_7 empty_at_10_7
-add: bullet_at_10_7
 Name: SHOOT_UP_LEFT_from_9_7
 pre: tank_at_9_7 empty_at_8_6
 add: bullet_at_8_6
-Name: SHOOT_UP_RIGHT_from_9_7
-pre: tank_at_9_7 empty_at_10_6
-add: bullet_at_10_6
 Name: SHOOT_DOWN_LEFT_from_9_7
 pre: tank_at_9_7 empty_at_8_8
 add: bullet_at_8_8
-Name: SHOOT_DOWN_RIGHT_from_9_7
-pre: tank_at_9_7 empty_at_10_8
-add: bullet_at_10_8
 Name: SHOOT_UP_from_9_8
 pre: tank_at_9_8 empty_at_9_7
 add: bullet_at_9_7
@@ -5562,42 +2949,9 @@ add: bullet_at_9_9
 Name: SHOOT_LEFT_from_9_8
 pre: tank_at_9_8 empty_at_8_8
 add: bullet_at_8_8
-Name: SHOOT_RIGHT_from_9_8
-pre: tank_at_9_8 empty_at_10_8
-add: bullet_at_10_8
 Name: SHOOT_UP_LEFT_from_9_8
 pre: tank_at_9_8 empty_at_8_7
 add: bullet_at_8_7
-Name: SHOOT_UP_RIGHT_from_9_8
-pre: tank_at_9_8 empty_at_10_7
-add: bullet_at_10_7
-Name: SHOOT_DOWN_LEFT_from_9_8
-pre: tank_at_9_8 empty_at_8_9
-add: bullet_at_8_9
-Name: SHOOT_DOWN_RIGHT_from_9_8
-pre: tank_at_9_8 empty_at_10_9
-add: bullet_at_10_9
-Name: SHOOT_UP_from_9_9
-pre: tank_at_9_9 empty_at_9_8
-add: bullet_at_9_8
-Name: SHOOT_DOWN_from_9_9
-pre: tank_at_9_9 empty_at_9_10
-add: bullet_at_9_10
-Name: SHOOT_LEFT_from_9_9
-pre: tank_at_9_9 empty_at_8_9
-add: bullet_at_8_9
-Name: SHOOT_RIGHT_from_9_9
-pre: tank_at_9_9 empty_at_10_9
-add: bullet_at_10_9
 Name: SHOOT_UP_LEFT_from_9_9
 pre: tank_at_9_9 empty_at_8_8
 add: bullet_at_8_8
-Name: SHOOT_UP_RIGHT_from_9_9
-pre: tank_at_9_9 empty_at_10_8
-add: bullet_at_10_8
-Name: SHOOT_DOWN_LEFT_from_9_9
-pre: tank_at_9_9 empty_at_8_10
-add: bullet_at_8_10
-Name: SHOOT_DOWN_RIGHT_from_9_9
-pre: tank_at_9_9 empty_at_10_10
-add: bullet_at_10_10
