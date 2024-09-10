@@ -3,7 +3,7 @@
 from game_colors import GameColors
 from maze import generate_spacious_maze
 from tanks import PlayerTank, AStarTank, MinimaxTank, QLearningTank, ExpectimaxTank, PGTank, RandomTank
-from tournament_league import TournamentLeague
+from tournament_league import TournamentLeague, ResultsTracker
 
 DELAY_MS = 1000  # Delay in milliseconds for NPC actions
 BOARD_WIDTH = 10  # Width of the game board
@@ -70,10 +70,10 @@ class MainMenu:
         """Start the tournament menu."""
         self.window.pack_forget()
         TournamentMenu(self.main_window)
-    def start_tournament(self, tank1, tank2, num_games):
+    def start_tournament(self, tank1, tank2, num_games, num_visualized):
         """Start the tournament with selected options."""
         self.window.pack_forget()
-        TournamentLeague(tank1, tank2, self.main_window, num_games=num_games)
+        TournamentLeague(tank1, tank2, self.main_window, num_games=num_games, amount_of_visualizations=num_visualized)
 
     def show_tank_manual(self):
         """Show the tank manual."""
@@ -215,7 +215,14 @@ class TournamentMenu:
         self.num_games = tk.StringVar(value="1")
         num_games_label = tk.Label(self.window, text="Number of games:")
         num_games_label.pack(pady=10)
-        num_games_options = tk.OptionMenu(self.window, self.num_games, "5", "10", "25", "50", "100")
+        num_games_options = tk.OptionMenu(self.window, self.num_games,"1", "3", "5", "10", "25", "50", "100")
+        num_games_options.pack(pady=10)
+
+        # number of games to visualize
+        self.num_visualized = tk.StringVar(value="1")
+        num_games_label = tk.Label(self.window, text="Number of visualized games:")
+        num_games_label.pack(pady=10)
+        num_games_options = tk.OptionMenu(self.window, self.num_visualized,"1", "3", "5", "10", "25", "50", "100")
         num_games_options.pack(pady=10)
 
         start_button = tk.Button(self.window, text="Start Tournament", command=self.start_tournament)  # Start game button
@@ -228,7 +235,7 @@ class TournamentMenu:
         """Start the tournament with selected options."""
         self.window.pack_forget()
         main_menu = MainMenu(self.main_window)
-        main_menu.start_tournament(self.choice1.get(), self.choice2.get(), int(self.num_games.get()))
+        main_menu.start_tournament(self.choice1.get(), self.choice2.get(), int(self.num_games.get()), int(self.num_visualized.get()))
         # TournamentLeague(self.choice1.get(), self.choice2.get(), self.main_window, int(self.num_games.get()))
 
     def back_to_menu(self):
@@ -276,7 +283,7 @@ class EndScreen:
 # -------------------------------------- Board -------------------------------------- #
 
 class Board:
-    def __init__(self, width, height, main_window, delay=False):
+    def __init__(self, width, height, main_window, delay=False, result_tracker=None, enable_endscreen=True):
         """
         Initialize the game board.
         
@@ -285,6 +292,8 @@ class Board:
         :param main_window: The main Tkinter window.
         :param delay: Boolean to enable/disable delay for NPC actions.
         """
+        self.result_tracker = result_tracker
+        self.enable_endscreen = enable_endscreen
         self.width = width  # Width of the board
         self.height = height  # Height of the board
 
@@ -426,10 +435,10 @@ class Board:
         """
         for bullet in self.bullets:
             if bullet.x == self.tank1.x and bullet.y == self.tank1.y:
-                self.end_game(f"Tank 2 ({self.tank2.__class__.__name__}) wins!")
+                self.end_game(f"Tank 2 ({self.tank2.__class__.__name__}) wins!", winner=2)
                 return True
             elif bullet.x == self.tank2.x and bullet.y == self.tank2.y:
-                self.end_game(f"Tank 1 ({self.tank1.__class__.__name__}) wins!")
+                self.end_game(f"Tank 1 ({self.tank1.__class__.__name__}) wins!", winner=1)
                 return True
         return False
 
@@ -475,14 +484,20 @@ class Board:
             if bullet.moves >= 10:
                 self.remove_bullet(bullet)
 
-    def end_game(self, result_message):
+    def end_game(self, result_message, winner=None):
         """
         End the game and show the result.
 
         :param result_message: Message to display.
         """
+        if self.result_tracker != None and winner != None:
+            if winner == 1:
+                self.result_tracker.add_tank1_win()
+            elif winner == 2:
+                self.result_tracker.add_tank2_win()
         self.window.destroy()
-        EndScreen(self.main_window, result_message)
+        if self.enable_endscreen:
+            EndScreen(self.main_window, result_message)
 
     def quit_game(self):
         """Quit the game."""
@@ -554,7 +569,7 @@ class Board:
 # -------------------------------------- Game -------------------------------------- #
 
 class Game:
-    def __init__(self, main_window, delay, tank1_type, tank2_type, qmode1="None", qmode2="None"):
+    def __init__(self, main_window, delay, tank1_type, tank2_type, qmode1="None", qmode2="None", result_tracker=None, enable_endscreen=True):
         """
         Initialize the game.
         
@@ -563,7 +578,9 @@ class Game:
         :param tank1_type: Type of tank 1 ('Player' or 'A*').
         :param tank2_type: Type of tank 2 ('Player' or 'A*').
         """
-        self.board = Board(BOARD_WIDTH, BOARD_HEIGHT, main_window, delay)  # Game board
+        self.result_tracker = result_tracker
+        self.enable_endscreen = enable_endscreen
+        self.board = Board(BOARD_WIDTH, BOARD_HEIGHT, main_window, delay, result_tracker=result_tracker, enable_endscreen=self.enable_endscreen)  # Game board
         self.board.draw_grid()
         self.main_window = main_window  # Main window reference
         self.main_window.bind('<KeyRelease>', self.handle_key_release)  # Key release handler

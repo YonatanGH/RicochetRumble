@@ -410,7 +410,7 @@ class NonVisualGame:
             self.switch_turn()
 
 class TournamentLeague:
-    def __init__(self, tank1_type, tank2_type, main_window, qmode1="None", qmode2="None", num_games=10):
+    def __init__(self, tank1_type, tank2_type, main_window, qmode1="None", qmode2="None", num_games=10, amount_of_visualizations=0):
         self.results_tracker = ResultsTracker(self)
         self.num_games = num_games
         self.main_window = main_window
@@ -421,6 +421,8 @@ class TournamentLeague:
 
         self.results = []
         self.current_game = 0
+
+        self.visualize_game_count = amount_of_visualizations
 
         # create an updating results window
         self.results_window = tk.Toplevel(self.main_window)
@@ -449,8 +451,12 @@ class TournamentLeague:
 
         if self.current_game < self.num_games:
             self.current_game += 1
-            NonVisualGame(self.tank1_type, self.tank2_type, self.main_window, self.results_tracker, self.qmode1, self.qmode2)
-            # Game(self.tank1_type, self.tank2_type, self.main_window, self.results_tracker, self.qmode1, self.qmode2)
+            if self.visualize_game_count <= 0:
+                NonVisualGame(self.tank1_type, self.tank2_type, self.main_window, self.results_tracker, self.qmode1, self.qmode2)
+            else:
+                self.visualize_game_count -= 1
+                visualizations.Game(self.main_window, True, self.tank1_type, self.tank2_type, result_tracker=self.results_tracker, enable_endscreen=False)
+
         else:
             self.end_tournament()
 
