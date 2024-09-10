@@ -93,6 +93,16 @@ class TankManual:
 
             "Random Tank:\n"
             "- This tank has a chance of 20% to shoot and 80% to move. Its actions are valid, but fully random.\n"
+            
+            "Minimax Tank:\n"
+            "- This AI-controlled tank uses the Minimax algorithm to determine the best action.\n"
+            
+            "Expectimax Tank:\n"
+            "- This AI-controlled tank uses the Expectimax algorithm to determine the best action.\n"
+            
+            "Q-Learning Tank:\n"
+            "- This AI-controlled tank uses the Q-Learning algorithm to learn about the game in advance.\n"
+            "- It uses the learned information to determine the best action in each turn.\n"
         )
 
         manual_label = tk.Label(self.window, text=manual_text, justify="left")
