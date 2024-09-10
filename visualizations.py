@@ -3,6 +3,7 @@
 from game_colors import GameColors
 from maze import generate_spacious_maze
 from tanks import PlayerTank, AStarTank, MinimaxTank, QLearningTank, ExpectimaxTank, PGTank, RandomTank
+from tournament_league import TournamentLeague
 
 DELAY_MS = 1000  # Delay in milliseconds for NPC actions
 BOARD_WIDTH = 10  # Width of the game board
@@ -53,6 +54,10 @@ class MainMenu:
         delay_checkbox = tk.Checkbutton(self.window, text="Enable delay", variable=self.delay_var)  # Delay checkbox
         delay_checkbox.pack(pady=10)
 
+        # Tournament options
+        tournament_button = tk.Button(self.window, text="Tournaments", command=self.tournament_menu)  # Start tournament button
+        tournament_button.pack(pady=10)
+
         quit_button = tk.Button(self.window, text="Quit", command=self.quit_game)  # Quit button
         quit_button.pack(pady=10)
 
@@ -60,6 +65,15 @@ class MainMenu:
         """Start the game with selected options."""
         self.window.pack_forget()
         Game(self.main_window, self.delay_var.get(), self.tank1_var.get(), self.tank2_var.get(), self.qchoice1.get(), self.qchoice2.get())
+
+    def tournament_menu(self):
+        """Start the tournament menu."""
+        self.window.pack_forget()
+        TournamentMenu(self.main_window)
+    def start_tournament(self, tank1, tank2, num_games):
+        """Start the tournament with selected options."""
+        self.window.pack_forget()
+        TournamentLeague(tank1, tank2, self.main_window, num_games=num_games)
 
     def show_tank_manual(self):
         """Show the tank manual."""
@@ -165,6 +179,62 @@ class Settings:
         """Return to the main menu."""
         self.window.pack_forget()
         MainMenu(self.main_window, self.choice1, self.choice2)
+
+    def get_choices(self):
+        return self.choice1, self.choice2
+
+
+# -------------------------------------- Tournament Manual -------------------------------------- #
+class TournamentMenu:
+    def __init__(self, main_window):
+        """
+        Initialize the tank manual screen.
+
+        :param main_window: Reference to the main Tkinter window.
+        """
+        self.main_window = main_window  # Main window reference
+        self.window = tk.Frame(main_window)  # Manual window
+        self.window.pack()
+
+        self.options = ["Player", "A*", "Planning-Graph", "Minimax", "Expectimax", "Q-Learning", "Random"]
+
+        self.choice1 = tk.StringVar(value="None")
+        self.choice2 = tk.StringVar(value="None")
+
+        tank1_label = tk.Label(self.window, text="tank 1:")
+        tank1_label.pack(pady=10)
+        tank1 = tk.OptionMenu(self.window, self.choice1, *self.options)
+        tank1.pack(pady=10)
+
+        tank2_label = tk.Label(self.window, text="Tank 2:")
+        tank2_label.pack(pady=10)
+        tank2 = tk.OptionMenu(self.window, self.choice2, *self.options)
+        tank2.pack(pady=10)
+
+        # number of games
+        self.num_games = tk.StringVar(value="1")
+        num_games_label = tk.Label(self.window, text="Number of games:")
+        num_games_label.pack(pady=10)
+        num_games_options = tk.OptionMenu(self.window, self.num_games, "5", "10", "25", "50", "100")
+        num_games_options.pack(pady=10)
+
+        start_button = tk.Button(self.window, text="Start Tournament", command=self.start_tournament)  # Start game button
+        start_button.pack(pady=10)
+
+        back_button = tk.Button(self.window, text="Back to Menu", command=self.back_to_menu)  # Back to menu button
+        back_button.pack(pady=10)
+
+    def start_tournament(self):
+        """Start the tournament with selected options."""
+        self.window.pack_forget()
+        main_menu = MainMenu(self.main_window)
+        main_menu.start_tournament(self.choice1.get(), self.choice2.get(), int(self.num_games.get()))
+        # TournamentLeague(self.choice1.get(), self.choice2.get(), self.main_window, int(self.num_games.get()))
+
+    def back_to_menu(self):
+        """Return to the main menu."""
+        self.window.pack_forget()
+        MainMenu(self.main_window, self.choice1.get(), self.choice2.get())
 
     def get_choices(self):
         return self.choice1, self.choice2
