@@ -2589,9 +2589,9 @@ class PGTank(Tank):
         self.isplan_uptodate = False
         self.current_plan_index = 0
         self.did_move = False
-        self.num_turns_to_replan = 3  # how many turns to wait before replanning,
+        self.num_turns_to_replan = 1  # how many turns to wait before replanning,
         # for best - do 1, for faster - do more than 1
-        self.decreasing_num_turns_to_replan = True # just a small optimization
+        self.decreasing_num_turns_to_replan = False # just a small optimization
 
     def generate_plan(self, domain_file, problem_file):
         # Generate a plan for the tank
@@ -2622,8 +2622,9 @@ class PGTank(Tank):
         domain_file = open(domain_file_name, 'w')
         domain_file.write("Propositions:\n")
         # propositions: tank_at_x_y, enemy_at_x_y, bullet_at_x_y, wall_at_x_y, empty_at_x_y
-        for x in range(-1, board.width + 1):
-            for y in range(-1, board.height + 1):
+        domain_file.write(f"null ")
+        for x in range(0, board.width):
+            for y in range(0, board.height):
                 domain_file.write(f"tank_at_{x}_{y} ")
                 # domain_file.write(f"enemy_at_{x}_{y} ")
                 domain_file.write(f"bullet_at_{x}_{y} ")
@@ -2635,6 +2636,9 @@ class PGTank(Tank):
 
         for x in range(board.width):
             for y in range(board.height):
+                # if there is a wall at x,y then we can't move there
+                if board.is_wall(x, y):
+                    continue
                 legal_actions = ACTIONS
                 for action in legal_actions:
                     if "MOVE" in action:
@@ -2712,6 +2716,8 @@ class PGTank(Tank):
                             domain_file.write(f"delete: tank_at_{x}_{y}\n")  # empty_at_{x+1}_{y}\n")
         for x in range(board.width):
             for y in range(board.height):
+                if board.is_wall(x, y):
+                    continue
                 legal_actions = ACTIONS
                 for action in legal_actions:
                     # """
@@ -2725,6 +2731,7 @@ class PGTank(Tank):
                             domain_file.write(f"Name: {action}_from_{x}_{y}\n")
                             domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x - 1}_{y - 1}\n")
                             domain_file.write(f"add: bullet_at_{x - 1}_{y - 1}\n")
+                            domain_file.write(f"delete: null\n")
                         elif "UP_RIGHT" in action:
                             if x == board.width - 1 or y == 0:
                                 continue
@@ -2733,6 +2740,7 @@ class PGTank(Tank):
                             domain_file.write(f"Name: {action}_from_{x}_{y}\n")
                             domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x + 1}_{y - 1}\n")
                             domain_file.write(f"add: bullet_at_{x + 1}_{y - 1}\n")
+                            domain_file.write(f"delete: null\n")
                         elif "DOWN_LEFT" in action:
                             if x == 0 or y == board.height - 1:
                                 continue
@@ -2741,6 +2749,7 @@ class PGTank(Tank):
                             domain_file.write(f"Name: {action}_from_{x}_{y}\n")
                             domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x - 1}_{y + 1}\n")
                             domain_file.write(f"add: bullet_at_{x - 1}_{y + 1}\n")
+                            domain_file.write(f"delete: null\n")
                         elif "DOWN_RIGHT" in action:
                             if x == board.width - 1 or y == board.height - 1:
                                 continue
@@ -2749,6 +2758,7 @@ class PGTank(Tank):
                             domain_file.write(f"Name: {action}_from_{x}_{y}\n")
                             domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x + 1}_{y + 1}\n")
                             domain_file.write(f"add: bullet_at_{x + 1}_{y + 1}\n")
+                            domain_file.write(f"delete: null\n")
                         elif "UP" in action:
                             if y == 0:
                                 continue
@@ -2757,6 +2767,7 @@ class PGTank(Tank):
                             domain_file.write(f"Name: {action}_from_{x}_{y}\n")
                             domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x}_{y - 1}\n")
                             domain_file.write(f"add: bullet_at_{x}_{y - 1}\n")
+                            domain_file.write(f"delete: null\n")
                         elif "DOWN" in action:
                             if y == board.height - 1:
                                 continue
@@ -2765,6 +2776,7 @@ class PGTank(Tank):
                             domain_file.write(f"Name: {action}_from_{x}_{y}\n")
                             domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x}_{y + 1}\n")
                             domain_file.write(f"add: bullet_at_{x}_{y + 1}\n")
+                            domain_file.write(f"delete: null\n")
                         elif "LEFT" in action:
                             if x == 0:
                                 continue
@@ -2773,6 +2785,7 @@ class PGTank(Tank):
                             domain_file.write(f"Name: {action}_from_{x}_{y}\n")
                             domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x - 1}_{y}\n")
                             domain_file.write(f"add: bullet_at_{x - 1}_{y}\n")
+                            domain_file.write(f"delete: null\n")
                         elif "RIGHT" in action:
                             if x == board.width - 1:
                                 continue
@@ -2781,6 +2794,7 @@ class PGTank(Tank):
                             domain_file.write(f"Name: {action}_from_{x}_{y}\n")
                             domain_file.write(f"pre: tank_at_{x}_{y} empty_at_{x + 1}_{y}\n")
                             domain_file.write(f"add: bullet_at_{x + 1}_{y}\n")
+                            domain_file.write(f"delete: null\n")
 
                     # """
 
@@ -2809,7 +2823,7 @@ class PGTank(Tank):
                     if my_tank_num == 2:
                         problem_file.write(f"tank_at_{x}_{y} ")
                     else:
-                        problem_file.write(f"enemy_at_{x}_{y} ")
+                        # problem_file.write(f"enemy_at_{x}_{y} ")
                         problem_file.write(f"empty_at_{x}_{y} ")
                 elif board.is_bullet(x, y):
                     problem_file.write(f"bullet_at_{x}_{y} ")
@@ -2822,16 +2836,6 @@ class PGTank(Tank):
         enemy_y = board.tank1.y if my_tank_num == 2 else board.tank2.y
         problem_file.write(f"bullet_at_{enemy_x}_{enemy_y} ")
 
-        # for x in range(board.width):
-        #     for y in range(board.height):
-        #         if my_tank_num == 1:
-        #             if board.tank2.x == x and board.tank2.y == y:
-        #                 problem_file.write(f"enemy_at_{x}_{y} ")
-        #                 problem_file.write(f"bullet_at_{x}_{y} ")
-        #         else:
-        #             if board.tank1.x == x and board.tank1.y == y:
-        #                 problem_file.write(f"enemy_at_{x}_{y} ")
-        #                 problem_file.write(f"bullet_at_{x}_{y} ")
         problem_file.close()
 
     def move(self, _):
