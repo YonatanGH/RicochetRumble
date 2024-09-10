@@ -2,9 +2,11 @@
 
 from game_colors import GameColors
 from maze import generate_spacious_maze
-from tanks import PlayerTank, AStarTank, MinimaxTank, QLearningTank, ExpectimaxTank
+from tanks import PlayerTank, AStarTank, MinimaxTank, QLearningTank, ExpectimaxTank, PGTank
 
-DELAY_MS = 500  # Delay in milliseconds for NPC actions
+DELAY_MS = 1000  # Delay in milliseconds for NPC actions
+BOARD_WIDTH = 10  # Width of the game board
+BOARD_HEIGHT = 10  # Height of the game board
 
 
 # -------------------------------------- Main Menu -------------------------------------- #
@@ -19,8 +21,7 @@ class MainMenu:
         self.window = tk.Frame(main_window)  # Menu window
         self.window.pack()
 
-        self.options = ["Player", "A*", "Turret", "Minimax", "Expectimax",
-                        "Q-Learning"]  # Tank options TODO: add here instead of turret
+        self.options = ["Player", "A*", "Planning-Graph", "Minimax", "Expectimax", "Q-Learning"]  # Tank options
 
         self.tank1_var = tk.StringVar(value="Player")  # Tank 1 type
         self.tank2_var = tk.StringVar(value="A*")  # Tank 2 type
@@ -76,7 +77,7 @@ class TankManual:
         self.window = tk.Frame(main_window)  # Manual window
         self.window.pack()
 
-        # Manual content
+        # Manual content # TODO: add yours!
         manual_text = (
             "Tank Manual:\n\n"
             "PlayerTank:\n"
@@ -416,10 +417,6 @@ class Board:
 
 # -------------------------------------- Game -------------------------------------- #
 
-BOARD_WIDTH = 15  # Width of the game board
-BOARD_HEIGHT = 10  # Height of the game board
-
-
 class Game:
     def __init__(self, main_window, delay, tank1_type, tank2_type):
         """
@@ -463,8 +460,8 @@ class Game:
         elif tank_type == "A*":
             return AStarTank(self.board, x, y, number)
         # Future tank types can be added here
-        elif tank_type == "Turret":  # TODO: Implement a class... and add here instead of turret
-            return AStarTank(self.board, x, y, number)
+        elif tank_type == "Planning-Graph":
+            return PGTank(self.board, x, y, number)
         elif tank_type == "Minimax":
             return MinimaxTank(self.board, x, y, number)
         elif tank_type == "Expectimax":
