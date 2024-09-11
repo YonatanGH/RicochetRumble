@@ -3,7 +3,7 @@
 from game_colors import GameColors
 from maze import generate_spacious_maze
 from tanks import PlayerTank, AStarTank, MinimaxTank, QLearningTank, ExpectimaxTank, PGTank, RandomTank
-from tournament_league import TournamentLeague, ResultsTracker
+from tournament_league import TournamentLeague, ResultsTracker, MegaTournament
 
 DELAY_MS = 1000  # Delay in milliseconds for NPC actions
 BOARD_WIDTH = 10  # Width of the game board
@@ -85,20 +85,7 @@ class MainMenu:
         TournamentLeague(tank1, tank2, self.main_window, self.qchoice1.get(), self.qchoice2.get(), num_games=num_games, amount_of_visualizations=num_visualized)
 
     def start_all_out_tournament(self, num_games):
-        tank_options = ["A*", "Planning-Graph", "Minimax", "Expectimax", "Q-Learning", "Random"]
-        q_learning_options = ["None", "A*", "Planning-Graph", "Minimax", "Expectimax", "Random"]
-        for tank1, tank2 in zip(tank_options, tank_options):
-            if tank1 == "Q-Learning" and tank2 != "Q-Learning":
-                for qmode1 in q_learning_options:
-                    TournamentLeague(tank1, tank2, self.main_window, qmode1=qmode1, num_games=num_games)
-            elif tank2 == "Q-Learning" and tank1 != "Q-Learning":
-                for qmode2 in q_learning_options:
-                    TournamentLeague(tank1, tank2, self.main_window, qmode2=qmode2, num_games=num_games)
-            elif tank1 == "Q-Learning" and tank2 == "Q-Learning":
-                for qmode1, qmode2 in zip(q_learning_options, q_learning_options):
-                    TournamentLeague(tank1, tank2, self.main_window, qmode1=qmode1, qmode2=qmode2, num_games=num_games)
-            else:
-                TournamentLeague(tank1, tank2, self.main_window, num_games=num_games)
+        MegaTournament(["A*", "Planning-Graph", "Minimax", "Expectimax", "Q-Learning", "Random"],self.main_window, num_games)
 
     def show_tank_manual(self):
         """Show the tank manual."""
