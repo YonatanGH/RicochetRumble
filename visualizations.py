@@ -64,6 +64,10 @@ class MainMenu:
     def start_game(self):
         """Start the game with selected options."""
         self.window.pack_forget()
+        if type(self.qchoice1) == str:
+            self.qchoice1 = tk.StringVar(value="None")
+        if type(self.qchoice2) == str:
+            self.qchoice2 = tk.StringVar(value="None")
         Game(self.main_window, self.delay_var.get(), self.tank1_var.get(), self.tank2_var.get(), self.qchoice1.get(), self.qchoice2.get())
 
     def tournament_menu(self):
@@ -73,7 +77,7 @@ class MainMenu:
     def start_tournament(self, tank1, tank2, num_games, num_visualized):
         """Start the tournament with selected options."""
         self.window.pack_forget()
-        TournamentLeague(tank1, tank2, self.main_window, num_games=num_games, amount_of_visualizations=num_visualized)
+        TournamentLeague(tank1, tank2, self.main_window, self.qchoice1.get(), self.qchoice2.get(), num_games=num_games, amount_of_visualizations=num_visualized)
 
     def show_tank_manual(self):
         """Show the tank manual."""
