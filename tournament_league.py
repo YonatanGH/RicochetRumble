@@ -307,6 +307,8 @@ class NonVisualGame:
         """
         if tank_type == "Player":
             return PlayerTank(self.board, x, y, number)
+        elif tank_type == "Random":
+            return RandomTank(self.board, x, y, number)
         elif tank_type == "A*":
             return AStarTank(self.board, x, y, number)
         # Future tank types can be added here
