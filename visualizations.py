@@ -360,6 +360,8 @@ class Board:
         self.quit_button.pack()
         self.delay = delay  # Delay flag
 
+        self.ended = False  # Flag to track game end
+
     def draw_grid(self):
         """Draw the grid on the canvas"""
         for y in range(self.height):
@@ -520,6 +522,7 @@ class Board:
 
         :param result_message: Message to display.
         """
+        self.ended = True
         if self.result_tracker != None and winner != None:
             if winner == 1:
                 self.result_tracker.add_tank1_win()

@@ -13,17 +13,20 @@ class ResultsTracker:
     def add_tank1_win(self):
         self.tank1_wins += 1
         self.tournament.visualize_results()
-        self.tournament.next_game()
+        # self.tournament.next_game()
+        self.tournament.results_update()
 
     def add_tank2_win(self):
         self.tank2_wins += 1
         self.tournament.visualize_results()
-        self.tournament.next_game()
+        # self.tournament.next_game()
+        self.tournament.results_update()
 
     def add_draw(self):
         self.draws += 1
         self.tournament.visualize_results()
-        self.tournament.next_game()
+        # self.tournament.next_game()
+        self.tournament.results_update()
 
 class NonVisualBoard:
     def __init__(self, width, height, main_window, results_tracker):
@@ -51,6 +54,8 @@ class NonVisualBoard:
         self.bullets = []  # List of bullets
         self.mode = 'move'  # Current mode (move or shoot)
         self.turns = 0  # Turn counter
+
+        self.ended = False
 
     def draw_grid(self):
         """Draw the grid on the canvas"""
@@ -204,6 +209,7 @@ class NonVisualBoard:
         :param result_message: Message to display.
         """
         # print(result_message)
+        self.ended = True
         if winner == 1:
             self.results_tracker.add_tank1_win()
         elif winner == 2:
@@ -464,20 +470,33 @@ class TournamentLeague:
 
 
     def begin_tournament(self):
-        self.next_game()
-
-    def next_game(self):
-        if self.current_game < self.num_games:
+        visualized_games = []
+        while self.current_game < self.num_games:
             self.current_game += 1
             if self.visualize_game_count <= 0:
                 NonVisualGame(self.tank1_type, self.tank2_type, self.main_window, self.results_tracker, qmode1=self.qmode1, qmode2=self.qmode2)
             else:
                 self.visualize_game_count -= 1
-                visualizations.Game(self.main_window, True, self.tank1_type, self.tank2_type, result_tracker=self.results_tracker, enable_endscreen=False, qmode1=self.qmode1, qmode2=self.qmode2)
-        else:
+                g = visualizations.Game(self.main_window, True, self.tank1_type, self.tank2_type, result_tracker=self.results_tracker, enable_endscreen=False, qmode1=self.qmode1, qmode2=self.qmode2)
+                visualized_games.append(g)
+            self.visualize_results()
+
+
+    def results_update(self):
+        if self.results_tracker.tank1_wins + self.results_tracker.tank2_wins + self.results_tracker.draws >= self.num_games:
             self.end_tournament()
 
-        self.visualize_results()
+
+    # def next_game(self):
+    #     self.current_game += 1
+    #     if self.current_game < self.num_games:
+    #         if self.visualize_game_count <= 0:
+    #             NonVisualGame(self.tank1_type, self.tank2_type, self.main_window, self.results_tracker, qmode1=self.qmode1, qmode2=self.qmode2)
+    #         else:
+    #             self.visualize_game_count -= 1
+    #             visualizations.Game(self.main_window, True, self.tank1_type, self.tank2_type, result_tracker=self.results_tracker, enable_endscreen=False, qmode1=self.qmode1, qmode2=self.qmode2)
+    #     self.visualize_results()
+
 
     def visualize_results(self):
         if not self.popups:
