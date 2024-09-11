@@ -7,6 +7,7 @@ class ResultsTracker:
     def __init__(self, tournament):
         self.tank1_wins = 0
         self.tank2_wins = 0
+        self.draws = 0
         self.tournament = tournament
 
     def add_tank1_win(self):
@@ -16,6 +17,11 @@ class ResultsTracker:
 
     def add_tank2_win(self):
         self.tank2_wins += 1
+        self.tournament.visualize_results()
+        self.tournament.next_game()
+
+    def add_draw(self):
+        self.draws += 1
         self.tournament.visualize_results()
         self.tournament.next_game()
 
@@ -202,6 +208,8 @@ class NonVisualBoard:
             self.results_tracker.add_tank1_win()
         elif winner == 2:
             self.results_tracker.add_tank2_win()
+        else:
+            self.results_tracker.add_draw()
 
     def quit_game(self):
         """Quit the game."""
@@ -379,6 +387,9 @@ class NonVisualGame:
         else:
             self.current_tank = self.tank1
 
+        if self.turns >= visualizations.MAX_TURNS:
+            self.board.end_game("Game ended in a draw!", -1)
+
         # if isinstance(self.current_tank, AStarTank):
         #     self.board.delay_action(self.npc_act)
         # else:
@@ -438,6 +449,9 @@ class TournamentLeague:
         self.tank2_wins_label = tk.Label(self.results_window, text=f"Tank 2 ({self.tank2_type}) wins: {self.results_tracker.tank2_wins}")
         self.tank2_wins_label.pack()
 
+        self.draws_label = tk.Label(self.results_window, text=f"Draws: {self.results_tracker.draws}")
+        self.draws_label.pack()
+
         self.current_game_label = tk.Label(self.results_window, text=f"Current Game: {self.current_game}")
         self.current_game_label.pack()
 
@@ -452,10 +466,10 @@ class TournamentLeague:
         if self.current_game < self.num_games:
             self.current_game += 1
             if self.visualize_game_count <= 0:
-                NonVisualGame(self.tank1_type, self.tank2_type, self.main_window, self.results_tracker, self.qmode1, self.qmode2)
+                NonVisualGame(self.tank1_type, self.tank2_type, self.main_window, self.results_tracker, qmode1=self.qmode1, qmode2=self.qmode2)
             else:
                 self.visualize_game_count -= 1
-                visualizations.Game(self.main_window, True, self.tank1_type, self.tank2_type, result_tracker=self.results_tracker, enable_endscreen=False)
+                visualizations.Game(self.main_window, True, self.tank1_type, self.tank2_type, result_tracker=self.results_tracker, enable_endscreen=False, qmode1=self.qmode1, qmode2=self.qmode2)
 
         else:
             self.end_tournament()
@@ -465,10 +479,12 @@ class TournamentLeague:
     def visualize_results(self):
         self.tank1_wins_label.config(text=f"Tank 1 ({self.tank1_type}) wins: {self.results_tracker.tank1_wins}")
         self.tank2_wins_label.config(text=f"Tank 2 ({self.tank2_type}) wins: {self.results_tracker.tank2_wins}")
+        self.draws_label.config(text=f"Draws: {self.results_tracker.draws}")
         self.current_game_label.config(text=f"Current Game: {self.current_game}")
 
     def end_tournament(self):
         print(f"Tank 1 ({self.tank1_type}) wins: {self.results_tracker.tank1_wins}")
         print(f"Tank 2 ({self.tank2_type}) wins: {self.results_tracker.tank2_wins}")
+        print(f"Draws: {self.results_tracker.draws}")
 
         visualizations.EndScreen(self.main_window, "end tournament")

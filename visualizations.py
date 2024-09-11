@@ -8,6 +8,7 @@ from tournament_league import TournamentLeague, ResultsTracker
 DELAY_MS = 1000  # Delay in milliseconds for NPC actions
 BOARD_WIDTH = 10  # Width of the game board
 BOARD_HEIGHT = 10  # Height of the game board
+MAX_TURNS = 100  # Maximum number of turns before a draw
 
 
 # -------------------------------------- Main Menu -------------------------------------- #
@@ -83,6 +84,22 @@ class MainMenu:
             self.qchoice2 = tk.StringVar(value="None")
         TournamentLeague(tank1, tank2, self.main_window, self.qchoice1.get(), self.qchoice2.get(), num_games=num_games, amount_of_visualizations=num_visualized)
 
+    def start_all_out_tournament(self, num_games):
+        tank_options = ["A*", "Planning-Graph", "Minimax", "Expectimax", "Q-Learning", "Random"]
+        q_learning_options = ["None", "A*", "Planning-Graph", "Minimax", "Expectimax", "Random"]
+        for tank1, tank2 in zip(tank_options, tank_options):
+            if tank1 == "Q-Learning" and tank2 != "Q-Learning":
+                for qmode1 in q_learning_options:
+                    TournamentLeague(tank1, tank2, self.main_window, qmode1=qmode1, num_games=num_games)
+            elif tank2 == "Q-Learning" and tank1 != "Q-Learning":
+                for qmode2 in q_learning_options:
+                    TournamentLeague(tank1, tank2, self.main_window, qmode2=qmode2, num_games=num_games)
+            elif tank1 == "Q-Learning" and tank2 == "Q-Learning":
+                for qmode1, qmode2 in zip(q_learning_options, q_learning_options):
+                    TournamentLeague(tank1, tank2, self.main_window, qmode1=qmode1, qmode2=qmode2, num_games=num_games)
+            else:
+                TournamentLeague(tank1, tank2, self.main_window, num_games=num_games)
+
     def show_tank_manual(self):
         """Show the tank manual."""
         self.window.pack_forget()
@@ -127,7 +144,10 @@ class TankManual:
 
             "Random Tank:\n"
             "- This tank has a chance of 20% to shoot and 80% to move. Its actions are valid, but fully random.\n"
-
+            
+            "Planning-Graph Tank:\n"
+            "- This AI-controlled tank uses the Planning-Graph algorithm to determine the best action.\n"
+            
             "Minimax Tank:\n"
             "- This AI-controlled tank uses the Minimax algorithm to determine the best action.\n"
 
@@ -186,7 +206,7 @@ class Settings:
     def back_to_menu(self):
         """Return to the main menu."""
         self.window.pack_forget()
-        MainMenu(self.main_window, self.choice1, self.choice2)
+        MainMenu(self.main_window, self.choice1.get(), self.choice2.get())
 
     def get_choices(self):
         return self.choice1, self.choice2
@@ -206,8 +226,8 @@ class TournamentMenu:
 
         self.options = ["Player", "A*", "Planning-Graph", "Minimax", "Expectimax", "Q-Learning", "Random"]
 
-        self.choice1 = tk.StringVar(value="None")
-        self.choice2 = tk.StringVar(value="None")
+        self.choice1 = tk.StringVar(value="A*")
+        self.choice2 = tk.StringVar(value="Random")
 
         tank1_label = tk.Label(self.window, text="tank 1:")
         tank1_label.pack(pady=10)
@@ -227,14 +247,17 @@ class TournamentMenu:
         num_games_options.pack(pady=10)
 
         # number of games to visualize
-        self.num_visualized = tk.StringVar(value="1")
+        self.num_visualized = tk.StringVar(value="0")
         num_games_label = tk.Label(self.window, text="Number of visualized games:")
         num_games_label.pack(pady=10)
-        num_games_options = tk.OptionMenu(self.window, self.num_visualized,"1", "3", "5", "10", "25", "50", "100")
+        num_games_options = tk.OptionMenu(self.window, self.num_visualized,"0","1", "3", "5", "10", "25", "50", "100")
         num_games_options.pack(pady=10)
 
         start_button = tk.Button(self.window, text="Start Tournament", command=self.start_tournament)  # Start game button
         start_button.pack(pady=10)
+
+        all_out_tournament_button = tk.Button(self.window, text="Start All-Out Tournament", command=self.start_all_out_tournament)  # Start game button
+        all_out_tournament_button.pack(pady=10)
 
         back_button = tk.Button(self.window, text="Back to Menu", command=self.back_to_menu)  # Back to menu button
         back_button.pack(pady=10)
@@ -245,6 +268,12 @@ class TournamentMenu:
         main_menu = MainMenu(self.main_window)
         main_menu.start_tournament(self.choice1.get(), self.choice2.get(), int(self.num_games.get()), int(self.num_visualized.get()))
         # TournamentLeague(self.choice1.get(), self.choice2.get(), self.main_window, int(self.num_games.get()))
+
+    def start_all_out_tournament(self):
+        """Start the tournament with selected options."""
+        self.window.pack_forget()
+        main_menu = MainMenu(self.main_window)
+        main_menu.start_all_out_tournament(int(self.num_games.get()))
 
     def back_to_menu(self):
         """Return to the main menu."""
@@ -504,6 +533,8 @@ class Board:
                 self.result_tracker.add_tank1_win()
             elif winner == 2:
                 self.result_tracker.add_tank2_win()
+            else:
+                self.result_tracker.add_draw()
         self.window.destroy()
         if self.enable_endscreen:
             EndScreen(self.main_window, result_message)
@@ -697,6 +728,9 @@ class Game:
             self.current_tank = self.tank2
         else:
             self.current_tank = self.tank1
+
+        if self.turns >= MAX_TURNS:
+            self.board.end_game("Draw!", winner=-1)
 
         # if isinstance(self.current_tank, AStarTank):
         #     self.board.delay_action(self.npc_act)
