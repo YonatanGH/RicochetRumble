@@ -482,7 +482,8 @@ class Board:
             else:
                 bullet.moves += 1
             if bullet.moves >= 10:
-                self.remove_bullet(bullet)
+                if bullet:
+                    self.remove_bullet(bullet)
 
     def end_game(self, result_message, winner=None):
         """
