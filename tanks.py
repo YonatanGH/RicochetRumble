@@ -1391,71 +1391,6 @@ class MinimaxTank(Tank):
                 bullet_directions[i] = (dx, dy)
 
             avoidance_score = 0
-            for i in range(1):
-                remove_bullets = []
-                next_positions = []
-                for i, (bullet_pos, bullet_dir) in enumerate(zip(bullet_positions, bullet_directions)):
-                    distance_to_bullet = chebyshev_distance(pos, bullet_pos)
-                    if bullet_pos == pos:
-                        avoidance_score -= np.exp(-distance_to_bullet * i)  # Exponential penalty for proximity
-
-                    if i in remove_bullets:
-                        continue
-
-                    # count how many times bullet_pos is in next_positions
-                    if next_positions.count(bullet_pos) > 1:
-                        for j, next_pos in enumerate(next_positions):
-                            if next_pos == bullet_pos:
-                                remove_bullets.append(j)
-                        continue
-
-                    dx, dy = bullet_dir
-                    if bullet_pos[0] < 0 or bullet_pos[0] >= self.board.width:
-                        dx = -dx
-                    if bullet_pos[1] < 0 or bullet_pos[1] >= self.board.height:
-                        dy = -dy
-                    bullet_dir = (dx, dy)
-                    bullet_pos = (bullet_pos[0] + bullet_dir[0], bullet_pos[1] + bullet_dir[1])
-                    next_positions.append(bullet_pos)
-
-            return np.exp(avoidance_score)
-
-        def bullet_avoidance_score(pos):
-            """
-            Calculate the bullet avoidance score based on bullets aimed at the new position
-            and their distances.
-            """
-            bullet_positions = []
-            bullet_directions = []
-
-            i = 6
-            while i < len(state):
-                bullet_positions.append((state[i], state[i + 1]))
-                bullet_directions.append(state[i + 2])
-                i += 5
-
-            for i in range(len(bullet_directions)):
-                if bullet_directions[i] == 'up':
-                    dx, dy = 0, -1
-                elif bullet_directions[i] == 'down':
-                    dx, dy = 0, 1
-                elif bullet_directions[i] == 'left':
-                    dx, dy = -1, 0
-                elif bullet_directions[i] == 'right':
-                    dx, dy = 1, 0
-                elif bullet_directions[i] == 'up_left':
-                    dx, dy = -1, -1
-                elif bullet_directions[i] == 'up_right':
-                    dx, dy = 1, -1
-                elif bullet_directions[i] == 'down_left':
-                    dx, dy = -1, 1
-                elif bullet_directions[i] == 'down_right':
-                    dx, dy = 1, 1
-                else:
-                    return float('-inf')
-                bullet_directions[i] = (dx, dy)
-
-            avoidance_score = 0
             for i in range(10):
                 remove_bullets = []
                 next_positions = []
@@ -1553,17 +1488,9 @@ class MinimaxTank(Tank):
         else:
             bullet_management = -10
 
-        bullets_penalty = 0
-
-        for i in range(6, len(state), 5):
-            if state[i] == x and state[i + 1] == y:
-                dist = len(a_star_path(self.board, (x, y), (state[i], state[i + 1])))
-                if dist <= 3:  # Penalize if close to enemy bullets
-                    bullets_penalty -= 10 / dist
-
         bullet_avoidance = bullet_avoidance_score((x, y))
 
-        return distance_score + clear_shot_score + bullet_management + bullets_penalty + bullet_avoidance
+        return distance_score + clear_shot_score + bullet_management + bullet_avoidance
 
     def get_state(self):
         """
@@ -2066,71 +1993,6 @@ class ExpectimaxTank(Tank):
                 bullet_directions[i] = (dx, dy)
 
             avoidance_score = 0
-            for i in range(1):
-                remove_bullets = []
-                next_positions = []
-                for i, (bullet_pos, bullet_dir) in enumerate(zip(bullet_positions, bullet_directions)):
-                    distance_to_bullet = chebyshev_distance(pos, bullet_pos)
-                    if bullet_pos == pos:
-                        avoidance_score -= np.exp(-distance_to_bullet * i)  # Exponential penalty for proximity
-
-                    if i in remove_bullets:
-                        continue
-
-                    # count how many times bullet_pos is in next_positions
-                    if next_positions.count(bullet_pos) > 1:
-                        for j, next_pos in enumerate(next_positions):
-                            if next_pos == bullet_pos:
-                                remove_bullets.append(j)
-                        continue
-
-                    dx, dy = bullet_dir
-                    if bullet_pos[0] < 0 or bullet_pos[0] >= self.board.width:
-                        dx = -dx
-                    if bullet_pos[1] < 0 or bullet_pos[1] >= self.board.height:
-                        dy = -dy
-                    bullet_dir = (dx, dy)
-                    bullet_pos = (bullet_pos[0] + bullet_dir[0], bullet_pos[1] + bullet_dir[1])
-                    next_positions.append(bullet_pos)
-
-            return np.exp(avoidance_score)
-
-        def bullet_avoidance_score(pos):
-            """
-            Calculate the bullet avoidance score based on bullets aimed at the new position
-            and their distances.
-            """
-            bullet_positions = []
-            bullet_directions = []
-
-            i = 6
-            while i < len(state):
-                bullet_positions.append((state[i], state[i + 1]))
-                bullet_directions.append(state[i + 2])
-                i += 5
-
-            for i in range(len(bullet_directions)):
-                if bullet_directions[i] == 'up':
-                    dx, dy = 0, -1
-                elif bullet_directions[i] == 'down':
-                    dx, dy = 0, 1
-                elif bullet_directions[i] == 'left':
-                    dx, dy = -1, 0
-                elif bullet_directions[i] == 'right':
-                    dx, dy = 1, 0
-                elif bullet_directions[i] == 'up_left':
-                    dx, dy = -1, -1
-                elif bullet_directions[i] == 'up_right':
-                    dx, dy = 1, -1
-                elif bullet_directions[i] == 'down_left':
-                    dx, dy = -1, 1
-                elif bullet_directions[i] == 'down_right':
-                    dx, dy = 1, 1
-                else:
-                    return float('-inf')
-                bullet_directions[i] = (dx, dy)
-
-            avoidance_score = 0
             for i in range(10):
                 remove_bullets = []
                 next_positions = []
@@ -2228,17 +2090,9 @@ class ExpectimaxTank(Tank):
         else:
             bullet_management = -10
 
-        bullets_penalty = 0
-
-        for i in range(6, len(state), 5):
-            if state[i] == x and state[i + 1] == y:
-                dist = len(a_star_path(self.board, (x, y), (state[i], state[i + 1])))
-                if dist <= 3:  # Penalize if close to enemy bullets
-                    bullets_penalty -= 10 / dist
-
         bullet_avoidance = bullet_avoidance_score((x, y))
 
-        return distance_score + clear_shot_score + bullet_management + bullets_penalty + bullet_avoidance
+        return distance_score + clear_shot_score + bullet_management + bullet_avoidance
 
     def get_state(self):
         """
