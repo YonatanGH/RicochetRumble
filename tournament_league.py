@@ -325,7 +325,7 @@ class NonVisualGame:
                 return QLearningTank(self.board, x, y, number, pretrained=True, save_file="qlearning_a_star.pkl")
             elif mode == "Planning-Graph":
                 return QLearningTank(self.board, x, y, number, pretrained=True,
-                                     save_file="qlearning_planning_graph.pkl.pkl")
+                                     save_file="qlearning_planning_graph.pkl")
             elif mode == "Minimax":
                 return QLearningTank(self.board, x, y, number, pretrained=True, save_file="qlearning_minimax.pkl")
             elif mode == "Expectimax":
@@ -507,7 +507,7 @@ class MegaTournament: # does tournaments between all duos of tanks
         self.tournament_pairs = []
 
         for i in range(len(self.tank_types)):
-            for j in range(i + 1, len(self.tank_types)):
+            for j in range(len(self.tank_types)): # range(i + 1, len(self.tank_types)):
                 self.tournament_pairs.append((self.tank_types[i], self.tank_types[j]))
 
         self.begin_mega_tournament()
@@ -515,12 +515,20 @@ class MegaTournament: # does tournaments between all duos of tanks
     def begin_mega_tournament(self):
         while self.current_tournament < len(self.tournament_pairs):
             tank1_type, tank2_type = self.tournament_pairs[self.current_tournament]
+            final_tank1_type, final_tank2_type = tank1_type, tank2_type
+            qmode1, qmode2 = "None", "None"
+            if "Q-Learning" in tank1_type:
+                qmode1 = tank1_type.split("|")[1]
+                final_tank1_type = "Q-Learning"
+            if "Q-Learning" in tank2_type:
+                qmode2 = tank2_type.split("|")[1]
+                final_tank2_type = "Q-Learning"
             self.current_tournament += 1
             print(f"Tournament {self.current_tournament} - {tank1_type} vs {tank2_type}")
             try:
-                TournamentLeague(tank1_type, tank2_type, self.main_window, num_games=self.num_games,
+                TournamentLeague(final_tank1_type, final_tank2_type, self.main_window, num_games=self.num_games,
                                  amount_of_visualizations=self.visualize_game_count,
-                                 popups=False)
+                                 popups=False, qmode1=qmode1, qmode2=qmode2)
             except Exception as e:
                 print(f"Error in tournament {self.current_tournament}: {e}")
                 continue

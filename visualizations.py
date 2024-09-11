@@ -85,7 +85,12 @@ class MainMenu:
         TournamentLeague(tank1, tank2, self.main_window, self.qchoice1.get(), self.qchoice2.get(), num_games=num_games, amount_of_visualizations=num_visualized)
 
     def start_all_out_tournament(self, num_games):
-        MegaTournament(["A*", "Planning-Graph", "Minimax", "Expectimax", "Q-Learning", "Random"],self.main_window, num_games)
+        MegaTournament(["A*", "Planning-Graph", "Minimax", "Expectimax",
+                        "Q-Learning|A*",
+                        "Q-Learning|Planning-Graph",
+                        "Q-Learning|Minimax",
+                        "Q-Learning|Expectimax",
+                        "Random"],self.main_window, num_games)
 
     def show_tank_manual(self):
         """Show the tank manual."""
