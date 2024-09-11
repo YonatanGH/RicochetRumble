@@ -289,8 +289,8 @@ class AStarTank(Tank):
         """
 
         def heuristic(a, b):
-            # Manhattan distance
-            return abs(a[0] - b[0]) + abs(a[1] - b[1])
+            # Chebyshev distance
+            return max(abs(a[0] - b[0]), abs(a[1] - b[1]))
 
         open_list = []
         heapq.heappush(open_list, (0, start))
@@ -856,8 +856,8 @@ class QLearningTank(Tank):
             """
 
             def heuristic(a, b):
-                # Manhattan distance
-                return abs(a[0] - b[0]) + abs(a[1] - b[1])
+                # Chebyshev distance
+                return max(abs(a[0] - b[0]), abs(a[1] - b[1]))
 
             open_list = []
             heapq.heappush(open_list, (0, start))
@@ -913,9 +913,6 @@ class QLearningTank(Tank):
 
         if state[2] == 0:
             return float('-inf')  # illegal move
-
-        # Maximum possible distance (considering a maximum Manhattan distance with bounces)
-        max_possible_distance = 2 * (max(self.board.height, self.board.width) - 1)
 
         # Step through each position on the trajectory
         x, y = state[0], state[1]
@@ -1002,39 +999,6 @@ class QLearningTank(Tank):
             if next_bullet_pos == (state[0], state[1]):
                 return -1000
 
-        min_distance = float('inf')
-
-        for _ in range(10):
-            # Calculate Chebyshev distance from current position on trajectory to the opponent
-            distance_to_opponent = chebyshev_distance((x + dx, y + dy), (state[3], state[4]))
-            min_distance = min(min_distance, distance_to_opponent)
-
-            # Move to the next point on the trajectory
-            x += dx
-            y += dy
-
-            # Handle wall bounces
-            if x < 0 or x >= self.board.width:
-                dx = -dx  # Bounce off vertical walls
-                x += 2 * dx
-            if y < 0 or y >= self.board.height:
-                dy = -dy  # Bounce off horizontal walls
-                y += 2 * dy
-
-        # Proximity score for the best point (minimum product of distances)
-        proximity_score = 1 / np.exp(
-            min_distance / (max(self.board.height, self.board.width) - 2)) - 0.35  # Exponential decrease in score
-
-        # Calculate escape difficulty based on the number of bullets in a 3x3 area around the opponent
-        bullets_in_area = count_bullets_in_area((state[3], state[4]))
-        escape_difficulty_score = 1 - np.exp(-bullets_in_area)  # Exponential increase in difficulty
-
-        # Exponential penalty for ammo (less ammo results in a lower score)
-        ammo_penalty_factor = np.exp(state[2]) / np.exp(MAX_SHOTS)
-
-        # Combine scores with weighted factors
-        # score = (proximity_score * 0.6) + (escape_difficulty_score * 0.3) + (ammo_penalty_factor * 0.1)
-
         return shot_score
 
     def calculate_move_reward(self, state, action):
@@ -1101,8 +1065,8 @@ class QLearningTank(Tank):
             """
 
             def heuristic(a, b):
-                # Manhattan distance
-                return abs(a[0] - b[0]) + abs(a[1] - b[1])
+                # Chebyshev distance
+                return max(abs(a[0] - b[0]), abs(a[1] - b[1]))
 
             open_list = []
             heapq.heappush(open_list, (0, start))
@@ -1315,8 +1279,8 @@ class MinimaxTank(Tank):
             """
 
             def heuristic(a, b):
-                # Manhattan distance
-                return abs(a[0] - b[0]) + abs(a[1] - b[1])
+                # Chebyshev distance
+                return max(abs(a[0] - b[0]), abs(a[1] - b[1]))
 
             open_list = []
             heapq.heappush(open_list, (0, start))
@@ -1917,8 +1881,8 @@ class ExpectimaxTank(Tank):
             """
 
             def heuristic(a, b):
-                # Manhattan distance
-                return abs(a[0] - b[0]) + abs(a[1] - b[1])
+                # Chebyshev distance
+                return max(abs(a[0] - b[0]), abs(a[1] - b[1]))
 
             open_list = []
             heapq.heappush(open_list, (0, start))
