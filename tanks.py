@@ -471,6 +471,15 @@ class QLearningTank(Tank):
                     self.board.is_wall(state[0 + prefix] + dx, state[1 + prefix] + dy):
                 continue
 
+            if action.startswith('MOVE'):
+                illegal = False
+                for i in range(6, len(state), 5):
+                    if state[i] == state[0] + dx and state[i + 1] == state[1] + dy:
+                        illegal = True
+                        break
+                if illegal:
+                    continue
+
             if action == 'MOVE_UP' or (action == 'SHOOT_UP' and state[2 + prefix] > 0):
                 if 0 < state[1 + prefix] < self.board.height:
                     if action.startswith('SHOOT'):
@@ -1671,6 +1680,14 @@ class MinimaxTank(Tank):
                     state[1] + dy < 0 or state[1] + dy >= self.board.height or \
                     self.board.is_wall(state[0] + dx, state[1] + dy):
                 continue
+            if action.startswith('MOVE'):
+                illegal = False
+                for i in range(6, len(state), 5):
+                    if state[i] == state[0] + dx and state[i + 1] == state[1] + dy:
+                        illegal = True
+                        break
+                if illegal:
+                    continue
 
             if action == 'MOVE_UP' or (action == 'SHOOT_UP' and state[2] > 0):
                 if 0 < state[1] < self.board.height:
@@ -2338,6 +2355,14 @@ class ExpectimaxTank(Tank):
                     state[1] + dy < 0 or state[1] + dy >= self.board.height or \
                     self.board.is_wall(state[0] + dx, state[1] + dy):
                 continue
+            if action.startswith('MOVE'):
+                illegal = False
+                for i in range(6, len(state), 5):
+                    if state[i] == state[0] + dx and state[i + 1] == state[1] + dy:
+                        illegal = True
+                        break
+                if illegal:
+                    continue
 
             if action == 'MOVE_UP' or (action == 'SHOOT_UP' and state[2] > 0):
                 if 0 < state[1] < self.board.height:
