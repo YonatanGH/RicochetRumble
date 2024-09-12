@@ -132,6 +132,7 @@ class Tank(ABC):
         """
         pass
 
+
 class AdversarialSearchTank(Tank, ABC):
 
     def __init__(self, board, x, y, number):
@@ -605,7 +606,6 @@ class AdversarialSearchTank(Tank, ABC):
             self.move(action)
         else:
             self.shoot(action)
-
 
 
 # ---------------------- RandomTank ---------------------- #
