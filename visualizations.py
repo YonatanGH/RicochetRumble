@@ -396,11 +396,14 @@ class Board:
         :param y: Y coordinate.
         :param color: Color of the object.
         """
-        self.canvas.create_rectangle(
-            x * self.cell_size, y * self.cell_size,
-            (x + 1) * self.cell_size, (y + 1) * self.cell_size,
-            fill=color, outline=GameConstants.OUTLINE
-        )
+        try:
+            self.canvas.create_rectangle(
+                x * self.cell_size, y * self.cell_size,
+                (x + 1) * self.cell_size, (y + 1) * self.cell_size,
+                fill=color, outline=GameConstants.OUTLINE
+            )
+        except:
+            pass
         # Update the grid
         self.grid[y][x] = color
 

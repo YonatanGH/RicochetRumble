@@ -391,14 +391,16 @@ class NonVisualGame:
     def switch_turn(self):
         """Switch turns between tanks."""
         self.turns += 1
+        if self.turns >= GameConstants.MAX_TURNS:
+            self.board.end_game("Game ended in a draw!", -1)
+            return
+
         if self.current_tank == self.tank1:
             self.current_tank = self.tank2
         else:
             self.current_tank = self.tank1
 
-        if self.turns >= GameConstants.MAX_TURNS:
-            self.board.end_game("Game ended in a draw!", -1)
-            return
+
 
         # if isinstance(self.current_tank, AStarTank):
         #     self.board.delay_action(self.npc_act)
