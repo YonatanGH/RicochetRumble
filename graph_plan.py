@@ -7,7 +7,7 @@ from pgparser import PgParser
 
 class GraphPlan(object):
     """
-    A class for initializing and running the graphplan algorithm
+    A class for initializing and running the graphplan algorithm, like we did in ex4
     """
 
     def __init__(self, _domain, _problem):
@@ -19,18 +19,12 @@ class GraphPlan(object):
         self.graph = []
         p = PgParser(_domain, _problem)
         self.actions, self.propositions = p.parse_actions_and_propositions()
-
-
-        # list of all the actions and list of all the propositions
-
         self.initial_state, self.goal = p.parse_problem()
-        # the initial state and the goal state are lists of propositions
 
         self.create_noops()
-        # creates noOps that are used to propagate existing propositions from one layer to the next
 
         self.independent()
-        # creates independent actions set and updates self.independent_actions
+
         PlanGraphLevel.set_independent_actions(self.independent_actions)
         PlanGraphLevel.set_actions(self.actions)
         PlanGraphLevel.set_props(self.propositions)
@@ -38,7 +32,6 @@ class GraphPlan(object):
     def graph_plan(self):
         """
         The graphplan algorithm.
-        The code calls the extract function which you should complete below
         """
         # initialization
         init_state = self.initial_state
@@ -62,10 +55,8 @@ class GraphPlan(object):
 
         while self.goal_state_not_in_prop_layer(self.graph[level].get_proposition_layer().get_propositions()) or \
                 self.goal_state_has_mutex(self.graph[level].get_proposition_layer()):
-            if self.is_fixed(level): # TODO: THIS IS WHERE WE FAIL
+            if self.is_fixed(level):
                 return None
-                # this means we stopped the while loop above because we reached a fixed point in the graph.
-                #  nothing more to do, we failed!
 
             self.no_goods.append([])
             level = level + 1
@@ -149,7 +140,7 @@ class GraphPlan(object):
 
     def goal_state_not_in_prop_layer(self, propositions):
         """
-        Helper function that receives a  list of propositions (propositions) and returns true
+        Helper function that receives a list of propositions (propositions) and returns true
         if not all the goal propositions are in that list
         """
         for goal in self.goal:
@@ -227,16 +218,8 @@ def independent_pair(a1, a2):
     """
     Returns true if the actions are neither have inconsistent effects
     nor they interfere one with the other.
-    You might want to use those functions:
-    a1.get_pre() returns the pre list of a1
-    a1.get_add() returns the add list of a1
-    a1.get_delete() return the del list of a1
-    a1.is_pre_cond(p) returns true is p is in a1.get_add()
-    a1.is_pos_effect(p) returns true is p is in a1.get_add()
-    a1.is_neg_effect(p) returns true is p is in a1.get_delete()
     """
 
-    "*** OUR CODE BELOW FOR Q1 ***"
     # According to the definition in the recitation:
     # Inconsistent effects are actions that add a proposition that is deleted by the other action
     for prop in a1.get_add():
@@ -253,27 +236,3 @@ def independent_pair(a1, a2):
         if prop in a1.get_delete():
             return False
     return True
-
-
-if __name__ == '__main__':
-    import sys
-    import time
-
-    if len(sys.argv) != 1 and len(sys.argv) != 3:
-        print("Usage: graph_plan.py domain_name problem_name")
-        exit()
-    domain = 'dwrDomain.txt'
-    problem = 'dwrProblem.txt'
-    if len(sys.argv) == 3:
-        domain = str(sys.argv[1])
-        problem = str(sys.argv[2])
-
-    gp = GraphPlan(domain, problem)
-    start = time.perf_counter()
-    plan = gp.graph_plan()
-    elapsed = time.perf_counter() - start
-    if plan is not None:
-        print("Plan found with %d actions in %.2f seconds" % (len([act for act in plan if not act.is_noop()]), elapsed))
-    else:
-        print("Could not find a plan in %.2f seconds" % elapsed)
-

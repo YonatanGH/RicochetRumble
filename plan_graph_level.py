@@ -1,13 +1,11 @@
 from action_layer import ActionLayer
 from util import Pair
-from proposition import Proposition
 from proposition_layer import PropositionLayer
 
 
 class PlanGraphLevel(object):
     """
     A class for representing a level in the plan graph.
-    For each level i, the PlanGraphLevel consists of the actionLayer and propositionLayer at this level in this order!
     """
     independent_actions = set()  # updated to the independent_actions of the problem (graph_plan.py line 32)
     actions = []  # updated to the actions of the problem (graph_plan.py line 33 and planning_problem.py line 36)
@@ -58,8 +56,6 @@ class PlanGraphLevel(object):
         self.actionLayer.addAction(action) adds action to the current action layer
         """
         all_actions = PlanGraphLevel.actions
-
-        "*** OUR CODE BELOW FOR Q4 ***"
         # An action is added to the action layer if its preconditions are in the previous proposition layer,
         # and the preconditions are not pairwise mutex.
         for action in all_actions:
@@ -87,15 +83,9 @@ class PlanGraphLevel(object):
         """
         Updates the mutex set in self.action_layer,
         given the mutex proposition from the previous layer.
-        current_layer_actions are the actions in the current action layer
-        You might want to use this function:
-        self.actionLayer.add_mutex_actions(action1, action2)
-        adds the pair (action1, action2) to the mutex set in the current action layer
-        Note that an action is *not* mutex with itself
         """
         current_layer_actions = self.action_layer.get_actions()
 
-        "*** OUR CODE BELOW FOR Q5 ***"
         # Two actions are mutex if they have competing needs or inconsistent support.
         # Competing needs are actions that have preconditions that are mutex at the
         # proposition layer of the previous level.
@@ -113,19 +103,8 @@ class PlanGraphLevel(object):
         """
         Updates the propositions in the current proposition layer,
         given the current action layer.
-        don't forget to update the producers list!
-        Note that same proposition in different layers might have different producers lists,
-        hence you should create two different instances.
-        current_layer_actions is the set of all the actions in the current layer.
-        You might want to use those functions:
-        dict() creates a new dictionary that might help to keep track on the propositions that you've
-               already added to the layer
-        self.proposition_layer.add_proposition(prop) adds the proposition prop to the current layer
-
         """
         current_layer_actions = self.action_layer.get_actions()
-
-        "*** OUR CODE BELOW FOR Q6 ***"
         # A proposition is added to the proposition layer if it is the effect of an action in the current action layer.
         # The producers list of the proposition is updated with the actions that have the proposition on their add list.
         # Create a dictionary to keep track of the propositions that have already been added to the layer
@@ -151,16 +130,10 @@ class PlanGraphLevel(object):
     def update_mutex_proposition(self):
         """
         updates the mutex propositions in the current proposition layer
-        You might want to use those functions:
-        mutex_propositions(prop1, prop2, current_layer_mutex_actions) returns true
-        if prop1 and prop2 are mutex in the current layer
-        self.proposition_layer.add_mutex_prop(prop1, prop2) adds the pair (prop1, prop2)
-        to the mutex set of the current layer
         """
         current_layer_propositions = self.proposition_layer.get_propositions()
         current_layer_mutex_actions = self.action_layer.get_mutex_actions()
 
-        "*** OUR CODE BELOW FOR Q7 ***"
         # Two propositions are mutex if all ways of achieving the propositions (that is, actions at the
         # same level) are pairwise mutex.
         for prop1 in current_layer_propositions:
@@ -172,17 +145,11 @@ class PlanGraphLevel(object):
 
     def expand(self, previous_layer):
         """
-        Your algorithm should work as follows:
-        First, given the propositions and the list of mutex propositions from the previous layer,
-        set the actions in the action layer.
-        Then, set the mutex action in the action layer.
-        Finally, given all the actions in the current layer,
-        set the propositions and their mutex relations in the proposition layer.
+        expand the graph
         """
         previous_proposition_layer = previous_layer.get_proposition_layer()
         previous_layer_mutex_proposition = previous_proposition_layer.get_mutex_props()
 
-        "*** OUR CODE BELOW FOR Q8 ***"
         # Update the action layer given the previous proposition layer
         self.update_action_layer(previous_proposition_layer)
         # Update the mutex set in the action layer given the mutex proposition from the previous layer
@@ -193,13 +160,7 @@ class PlanGraphLevel(object):
         self.update_mutex_proposition()
 
     def expand_without_mutex(self, previous_layer):
-        """
-        Questions 11 and 12
-        You don't have to use this function
-        """
         previous_layer_proposition = previous_layer.get_proposition_layer()
-
-        "*** OUR CODE BELOW FOR Q11,Q12 ***"
         # Update the action layer given the previous proposition layer
         self.update_action_layer(previous_layer_proposition)
         # Update the propositions in the current proposition layer given the current action layer
@@ -209,9 +170,6 @@ class PlanGraphLevel(object):
 def mutex_actions(a1, a2, mutex_props):
     """
     This function returns true if a1 and a2 are mutex actions.
-    We first check whether a1 and a2 are in PlanGraphLevel.independent_actions,
-    this is the list of all the independent pair of actions (according to your implementation in question 1).
-    If not, we check whether a1 and a2 have competing needs
     """
     if Pair(a1, a2) not in PlanGraphLevel.independent_actions:
         return True
@@ -219,16 +177,6 @@ def mutex_actions(a1, a2, mutex_props):
 
 
 def have_competing_needs(a1, a2, mutex_props):
-    """
-    Complete code for deciding whether actions a1 and a2 have competing needs,
-    given the mutex proposition from previous level (list of pairs of propositions).
-    Hint: for propositions p  and q, the command  "Pair(p, q) in mutex_props"
-          returns true if p and q are mutex in the previous level
-    """
-
-    "*** OUR CODE BELOW FOR Q2 ***"
-    # according to the definition of competing needs, seen in the recitation:
-    # Competing needs are actions that have preconditions that are mutex at the proposition layer of the previous level.
     for p1 in a1.get_pre():
         for p2 in a2.get_pre():
             if Pair(p1, p2) in mutex_props:
@@ -237,18 +185,6 @@ def have_competing_needs(a1, a2, mutex_props):
 
 
 def mutex_propositions(prop1, prop2, mutex_actions_list):
-    """
-    complete code for deciding whether two propositions are mutex,
-    given the mutex action from the current level (set of pairs of actions).
-    Your update_mutex_proposition function should call this function
-    You might want to use this function:
-    prop1.get_producers() returns the set of all the possible actions in the layer that have prop1 on their add list
-    """
-
-    "*** OUR CODE BELOW FOR Q3 ***"
-    # according to the definition of mutex, seen in the recitation:
-    # Two propositions are mutex if all ways of achieving the propositions (that is, actions at the
-    # same level) are pairwise mutex.
     for a1 in prop1.get_producers():
         for a2 in prop2.get_producers():
             if Pair(a1, a2) not in mutex_actions_list:

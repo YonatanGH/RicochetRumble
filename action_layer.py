@@ -3,7 +3,7 @@ from util import Pair
 
 class ActionLayer(object):
     """
-    A class for an ActionLayer in a level of the graph.
+    A class for an ActionLayer in a level of the graph. from ex4
     The layer contains a set of actions (action objects) and a set of mutex actions (Pair objects)
     """
 

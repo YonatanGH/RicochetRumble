@@ -3,7 +3,7 @@ from util import Pair
 
 class PropositionLayer(object):
     """
-    A class for an PropositionLayer  in a level of the graph.
+    A class for an PropositionLayer  in a level of the graph. from ex4
     The layer contains a set of propositions (Proposition objects) and a set of mutex propositions (Pair objects)
     """
 
@@ -32,10 +32,6 @@ class PropositionLayer(object):
         # adds the pair(p1,p2) to the mutex propositions set
         self.mutexPropositions.add(Pair(p1, p2))
 
-    """
-    returns true if proposition p1 and proposition p2 are mutex at this layer
-    """
-
     def is_mutex(self, p1, p2):
         return Pair(p1, p2) in self.mutexPropositions
 
@@ -58,7 +54,6 @@ class PropositionLayer(object):
                 pre2 = action_pre[j]
                 if Pair(pre1, pre2) in self.mutexPropositions:
                     return False
-
         return True
 
     def __eq__(self, other):

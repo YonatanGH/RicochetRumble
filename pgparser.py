@@ -4,7 +4,7 @@ from proposition import Proposition
 
 class PgParser:
     """
-    A utility class for parsing the domain and problem.
+    A utility class for parsing the domain and problem, From ex4
     """
 
     def __init__(self, domain_file, problem_file):

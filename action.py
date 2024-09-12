@@ -1,6 +1,6 @@
 class Action(object):
     """
-    The action class is used to define operators.
+    The action class is used to define operators. from ex4
     Each action has a list of preconditions, an "add list" of positive effects,
     a "delete list" for negative effects, and the name of the action.
     Two actions are considered equal if they have the same name.

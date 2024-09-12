@@ -1,6 +1,6 @@
 class Proposition(object):
     """
-    A class for representing propositions.
+    A class for representing propositions. from ex4
     Each proposition object has a name and a list of producers,
     that is the actions that have the proposition on their add set.
     Two propositions are considered equal if they have the same name.
