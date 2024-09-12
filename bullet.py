@@ -1,6 +1,4 @@
-﻿from game_colors import GameColors
-
-MAX_BOUNCES = 4  # Maximum number of bounces for a bullet
+﻿from game_constants import GameConstants
 
 
 class Bullet:
@@ -42,7 +40,7 @@ class Bullet:
         dx, dy = directions[self.direction]
 
         if self.board.is_wall(self.x + dx, self.y + dy):
-            if self.bounces < MAX_BOUNCES:
+            if self.bounces < GameConstants.MAX_BOUNCES:
                 self.bounces += 1
                 bounce_map = {
                     'up': 'down',
@@ -77,7 +75,7 @@ class Bullet:
                     elif self.board.is_wall(self.x + dx, self.y):
                         self.direction = bounce_map[self.direction + '_vertical_wall']
                 # self.direction = bounce_map[self.direction]
-                self.board.update_position(self.x, self.y, GameColors.BOUNCED_BULLET)
+                self.board.update_position(self.x, self.y, GameConstants.BOUNCED_BULLET)
             else:
                 self.board.remove_bullet(self)
         # if bullets collide with each other, remove both bullets
@@ -85,8 +83,8 @@ class Bullet:
             self.board.remove_bullet(self)
             self.board.remove_bullet(self.board.get_bullet(self.x + dx, self.y + dy))
         else:
-            self.board.update_position(self.x, self.y, GameColors.BOARD)
+            self.board.update_position(self.x, self.y, GameConstants.BOARD)
             self.x += dx
             self.y += dy
             self.board.move_bullet(self, self.x, self.y)
-            self.board.update_position(self.x, self.y, GameColors.BULLET)
+            self.board.update_position(self.x, self.y, GameConstants.BULLET)

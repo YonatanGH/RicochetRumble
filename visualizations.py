@@ -1,14 +1,9 @@
 ﻿import tkinter as tk
 
-from game_colors import GameColors
+from game_constants import GameConstants
 from maze import generate_spacious_maze
 from tanks import PlayerTank, AStarTank, MinimaxTank, QLearningTank, ExpectimaxTank, PGTank, RandomTank
 from tournament_league import TournamentLeague, ResultsTracker, MegaTournament
-
-DELAY_MS = 1000  # Delay in milliseconds for NPC actions
-BOARD_WIDTH = 10  # Width of the game board
-BOARD_HEIGHT = 10  # Height of the game board
-MAX_TURNS = 100  # Maximum number of turns before a draw
 
 
 # -------------------------------------- Main Menu -------------------------------------- #
@@ -332,7 +327,7 @@ class Board:
         self.width = width  # Width of the board
         self.height = height  # Height of the board
 
-        self.grid = [[GameColors.BOARD for _ in range(width)] for _ in range(height)]  # Grid of colors
+        self.grid = [[GameConstants.BOARD for _ in range(width)] for _ in range(height)]  # Grid of colors
         self.generate_maze()
 
         self.main_window = main_window  # Main window reference
@@ -359,8 +354,8 @@ class Board:
         self.bullet_label2.pack(side="right")
 
         # Mode indicators
-        self.mode_label1 = tk.Label(self.window, text="Mode: Move", fg=GameColors.TANK1)  # Mode label for Tank 1
-        self.mode_label2 = tk.Label(self.window, text="Mode: Move", fg=GameColors.TANK2)  # Mode label for Tank 2
+        self.mode_label1 = tk.Label(self.window, text="Mode: Move", fg=GameConstants.TANK1)  # Mode label for Tank 1
+        self.mode_label2 = tk.Label(self.window, text="Mode: Move", fg=GameConstants.TANK2)  # Mode label for Tank 2
 
         self.quit_button = tk.Button(self.window, text="Quit", command=self.quit_game)  # Quit button
         self.quit_button.pack()
@@ -375,7 +370,7 @@ class Board:
                 self.canvas.create_rectangle(
                     x * self.cell_size, y * self.cell_size,
                     (x + 1) * self.cell_size, (y + 1) * self.cell_size,
-                    fill=self.grid[y][x], outline=GameColors.OUTLINE
+                    fill=self.grid[y][x], outline=GameConstants.OUTLINE
                 )
 
     def place_tank(self, tank, number):
@@ -387,10 +382,10 @@ class Board:
         """
         if number == 1:
             self.tank1 = tank
-            color = GameColors.TANK1
+            color = GameConstants.TANK1
         else:
             self.tank2 = tank
-            color = GameColors.TANK2
+            color = GameConstants.TANK2
         self.update_position(tank.x, tank.y, color)
 
     def update_position(self, x, y, color):
@@ -404,7 +399,7 @@ class Board:
         self.canvas.create_rectangle(
             x * self.cell_size, y * self.cell_size,
             (x + 1) * self.cell_size, (y + 1) * self.cell_size,
-            fill=color, outline=GameColors.OUTLINE
+            fill=color, outline=GameConstants.OUTLINE
         )
         # Update the grid
         self.grid[y][x] = color
@@ -420,8 +415,8 @@ class Board:
         :return: True if move is valid, False otherwise.
         """
         if self.is_valid_move(new_x, new_y):
-            color = GameColors.TANK1 if number == 1 else GameColors.TANK2
-            self.update_position(tank.x, tank.y, GameColors.BOARD)  # Repaint old position
+            color = GameConstants.TANK1 if number == 1 else GameConstants.TANK2
+            self.update_position(tank.x, tank.y, GameConstants.BOARD)  # Repaint old position
             tank.x, tank.y = new_x, new_y
             self.update_position(new_x, new_y, color)
             return True
@@ -437,7 +432,7 @@ class Board:
         """
         if self.is_valid_move(bullet.x, bullet.y):
             self.bullets.append(bullet)
-            self.update_position(bullet.x, bullet.y, GameColors.BULLET)
+            self.update_position(bullet.x, bullet.y, GameConstants.BULLET)
             return True
         self.show_message("Invalid move!")
         return False
@@ -450,10 +445,10 @@ class Board:
         :param new_x: New X coordinate.
         :param new_y: New Y coordinate.
         """
-        self.update_position(bullet.x, bullet.y, GameColors.BOARD)  # Repaint old position
+        self.update_position(bullet.x, bullet.y, GameConstants.BOARD)  # Repaint old position
         bullet.x, bullet.y = new_x, new_y
         if 0 <= new_x < self.width and 0 <= new_y < self.height:
-            self.update_position(new_x, new_y, GameColors.BULLET)
+            self.update_position(new_x, new_y, GameConstants.BULLET)
 
     def remove_bullet(self, bullet):
         """
@@ -461,7 +456,7 @@ class Board:
 
         :param bullet: Bullet object to remove.
         """
-        self.update_position(bullet.x, bullet.y, GameColors.BOARD)  # Repaint old position with brown
+        self.update_position(bullet.x, bullet.y, GameConstants.BOARD)  # Repaint old position with brown
         self.bullets.remove(bullet)
 
     def check_bullet_collisions(self):
@@ -487,9 +482,9 @@ class Board:
         :param y: Y coordinate.
         :return: True if the move is valid, False otherwise.
         """
-        return 0 <= x < self.width and 0 <= y < self.height and (self.grid[y][x] == GameColors.BOARD or
-                                                                 self.grid[y][x] == GameColors.TANK1 or
-                                                                 self.grid[y][x] == GameColors.TANK2)
+        return 0 <= x < self.width and 0 <= y < self.height and (self.grid[y][x] == GameConstants.BOARD or
+                                                                 self.grid[y][x] == GameConstants.TANK1 or
+                                                                 self.grid[y][x] == GameConstants.TANK2)
 
     def show_message(self, message):
         """
@@ -552,7 +547,7 @@ class Board:
         :param func: Function to execute.
         """
         if self.delay:
-            self.window.after(DELAY_MS, func)
+            self.window.after(GameConstants.DELAY_MS, func)
         else:
             func()
 
@@ -569,9 +564,9 @@ class Board:
         for y in range(self.height):
             for x in range(self.width):
                 if maze[y][x] == 'W':
-                    self.grid[y][x] = GameColors.WALL  # Use wall color for walls
+                    self.grid[y][x] = GameConstants.WALL  # Use wall color for walls
                 else:
-                    self.grid[y][x] = GameColors.BOARD  # Use board color for paths
+                    self.grid[y][x] = GameConstants.BOARD  # Use board color for paths
 
     def is_wall(self, x, y):
         """
@@ -581,7 +576,7 @@ class Board:
         :param y: Y coordinate.
         :return: True if the position is a wall, False otherwise.
         """
-        return x < 0 or x >= self.width or y < 0 or y >= self.height or self.grid[y][x] == GameColors.WALL
+        return x < 0 or x >= self.width or y < 0 or y >= self.height or self.grid[y][x] == GameConstants.WALL
 
     def get_bullet(self, x, y):
         """
@@ -622,7 +617,8 @@ class Game:
         """
         self.result_tracker = result_tracker
         self.enable_endscreen = enable_endscreen
-        self.board = Board(BOARD_WIDTH, BOARD_HEIGHT, main_window, delay, result_tracker=result_tracker,
+        self.board = Board(GameConstants.BOARD_WIDTH, GameConstants.BOARD_HEIGHT, main_window, delay,
+                           result_tracker=result_tracker,
                            enable_endscreen=self.enable_endscreen)  # Game board
         self.board.draw_grid()
         self.main_window = main_window  # Main window reference
@@ -632,7 +628,8 @@ class Game:
         self.player_action_done = False  # Flag to track player action
 
         self.tank1 = self.create_tank(tank1_type, 0, 0, 1, qmode1)  # Tank 1
-        self.tank2 = self.create_tank(tank2_type, BOARD_WIDTH - 1, BOARD_HEIGHT - 1, 2, qmode2)  # Tank 2
+        self.tank2 = self.create_tank(tank2_type, GameConstants.BOARD_WIDTH - 1, GameConstants.BOARD_HEIGHT - 1, 2,
+                                      qmode2)  # Tank 2
 
         self.current_tank = self.tank1  # Current tank
         self.turns = 0  # Turn counter
@@ -735,7 +732,7 @@ class Game:
         else:
             self.current_tank = self.tank1
 
-        if self.turns >= MAX_TURNS:
+        if self.turns >= GameConstants.MAX_TURNS:
             self.board.end_game("Draw!", winner=-1)
 
         # if isinstance(self.current_tank, AStarTank):

@@ -2,7 +2,7 @@
 from bullet import Bullet
 import numpy as np
 import random
-from game_colors import GameColors
+from game_constants import GameConstants
 import heapq
 import pickle
 
@@ -456,9 +456,9 @@ class QLearningTank(Tank):
                         x, y = state[0 + prefix], state[1 + prefix]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
@@ -469,9 +469,9 @@ class QLearningTank(Tank):
                         x, y = state[0 + prefix], state[1 + prefix]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
@@ -482,9 +482,9 @@ class QLearningTank(Tank):
                         x, y = state[0 + prefix], state[1 + prefix]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
@@ -495,9 +495,9 @@ class QLearningTank(Tank):
                         x, y = state[0 + prefix], state[1 + prefix]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
@@ -508,9 +508,9 @@ class QLearningTank(Tank):
                         x, y = state[0 + prefix], state[1 + prefix]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
@@ -521,9 +521,9 @@ class QLearningTank(Tank):
                         x, y = state[0 + prefix], state[1 + prefix]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
@@ -534,9 +534,9 @@ class QLearningTank(Tank):
                         x, y = state[0 + prefix], state[1 + prefix]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
@@ -547,9 +547,9 @@ class QLearningTank(Tank):
                         x, y = state[0 + prefix], state[1 + prefix]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
@@ -1495,9 +1495,9 @@ class MinimaxTank(Tank):
                         x, y = state[0], state[1]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
@@ -1508,9 +1508,9 @@ class MinimaxTank(Tank):
                         x, y = state[0], state[1]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
@@ -1521,9 +1521,9 @@ class MinimaxTank(Tank):
                         x, y = state[0], state[1]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
@@ -1534,9 +1534,9 @@ class MinimaxTank(Tank):
                         x, y = state[0], state[1]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
@@ -1547,9 +1547,9 @@ class MinimaxTank(Tank):
                         x, y = state[0], state[1]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
@@ -1560,9 +1560,9 @@ class MinimaxTank(Tank):
                         x, y = state[0], state[1]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
@@ -1573,9 +1573,9 @@ class MinimaxTank(Tank):
                         x, y = state[0], state[1]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
@@ -1586,9 +1586,9 @@ class MinimaxTank(Tank):
                         x, y = state[0], state[1]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
@@ -2083,9 +2083,9 @@ class ExpectimaxTank(Tank):
                         x, y = state[0], state[1]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
@@ -2096,9 +2096,9 @@ class ExpectimaxTank(Tank):
                         x, y = state[0], state[1]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
@@ -2109,9 +2109,9 @@ class ExpectimaxTank(Tank):
                         x, y = state[0], state[1]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
@@ -2122,9 +2122,9 @@ class ExpectimaxTank(Tank):
                         x, y = state[0], state[1]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
@@ -2135,9 +2135,9 @@ class ExpectimaxTank(Tank):
                         x, y = state[0], state[1]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
@@ -2148,9 +2148,9 @@ class ExpectimaxTank(Tank):
                         x, y = state[0], state[1]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
@@ -2161,9 +2161,9 @@ class ExpectimaxTank(Tank):
                         x, y = state[0], state[1]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):
@@ -2174,9 +2174,9 @@ class ExpectimaxTank(Tank):
                         x, y = state[0], state[1]
                         x += dx
                         y += dy
-                        if (self.board.grid[y][x] == GameColors.BOARD or
-                                self.board.grid[y][x] == GameColors.TANK1 or
-                                self.board.grid[y][x] == GameColors.TANK2):
+                        if (self.board.grid[y][x] == GameConstants.BOARD or
+                                self.board.grid[y][x] == GameConstants.TANK1 or
+                                self.board.grid[y][x] == GameConstants.TANK2):
                             legal_actions.append(action)
                     else:
                         if not (state[3] == (state[0] + dx) and state[4] == (state[1] + dy)):

@@ -45,7 +45,7 @@ class NonVisualBoard:
         self.width = width  # Width of the board
         self.height = height  # Height of the board
 
-        self.grid = [[GameColors.BOARD for _ in range(width)] for _ in range(height)]  # Grid of colors
+        self.grid = [[GameConstants.BOARD for _ in range(width)] for _ in range(height)]  # Grid of colors
         self.generate_maze()
 
         self.main_window = main_window  # Main window reference
@@ -77,10 +77,10 @@ class NonVisualBoard:
         """
         if number == 1:
             self.tank1 = tank
-            color = GameColors.TANK1
+            color = GameConstants.TANK1
         else:
             self.tank2 = tank
-            color = GameColors.TANK2
+            color = GameConstants.TANK2
         self.update_position(tank.x, tank.y, color)
 
     def update_position(self, x, y, color):
@@ -105,8 +105,8 @@ class NonVisualBoard:
         :return: True if move is valid, False otherwise.
         """
         if self.is_valid_move(new_x, new_y):
-            color = GameColors.TANK1 if number == 1 else GameColors.TANK2
-            self.update_position(tank.x, tank.y, GameColors.BOARD)  # Repaint old position
+            color = GameConstants.TANK1 if number == 1 else GameConstants.TANK2
+            self.update_position(tank.x, tank.y, GameConstants.BOARD)  # Repaint old position
             tank.x, tank.y = new_x, new_y
             self.update_position(new_x, new_y, color)
             return True
@@ -122,7 +122,7 @@ class NonVisualBoard:
         """
         if self.is_valid_move(bullet.x, bullet.y):
             self.bullets.append(bullet)
-            self.update_position(bullet.x, bullet.y, GameColors.BULLET)
+            self.update_position(bullet.x, bullet.y, GameConstants.BULLET)
             return True
         return False
 
@@ -134,10 +134,10 @@ class NonVisualBoard:
         :param new_x: New X coordinate.
         :param new_y: New Y coordinate.
         """
-        self.update_position(bullet.x, bullet.y, GameColors.BOARD)  # Repaint old position
+        self.update_position(bullet.x, bullet.y, GameConstants.BOARD)  # Repaint old position
         bullet.x, bullet.y = new_x, new_y
         if 0 <= new_x < self.width and 0 <= new_y < self.height:
-            self.update_position(new_x, new_y, GameColors.BULLET)
+            self.update_position(new_x, new_y, GameConstants.BULLET)
 
     def remove_bullet(self, bullet):
         """
@@ -145,7 +145,7 @@ class NonVisualBoard:
 
         :param bullet: Bullet object to remove.
         """
-        self.update_position(bullet.x, bullet.y, GameColors.BOARD)  # Repaint old position with brown
+        self.update_position(bullet.x, bullet.y, GameConstants.BOARD)  # Repaint old position with brown
         self.bullets.remove(bullet)
 
     def check_bullet_collisions(self):
@@ -171,9 +171,9 @@ class NonVisualBoard:
         :param y: Y coordinate.
         :return: True if the move is valid, False otherwise.
         """
-        return 0 <= x < self.width and 0 <= y < self.height and (self.grid[y][x] == GameColors.BOARD or
-                                                                 self.grid[y][x] == GameColors.TANK1 or
-                                                                 self.grid[y][x] == GameColors.TANK2)
+        return 0 <= x < self.width and 0 <= y < self.height and (self.grid[y][x] == GameConstants.BOARD or
+                                                                 self.grid[y][x] == GameConstants.TANK1 or
+                                                                 self.grid[y][x] == GameConstants.TANK2)
 
     def show_message(self, message):
         """
@@ -236,9 +236,9 @@ class NonVisualBoard:
         for y in range(self.height):
             for x in range(self.width):
                 if maze[y][x] == 'W':
-                    self.grid[y][x] = GameColors.WALL  # Use wall color for walls
+                    self.grid[y][x] = GameConstants.WALL  # Use wall color for walls
                 else:
-                    self.grid[y][x] = GameColors.BOARD  # Use board color for paths
+                    self.grid[y][x] = GameConstants.BOARD  # Use board color for paths
 
     def is_wall(self, x, y):
         """
@@ -248,7 +248,7 @@ class NonVisualBoard:
         :param y: Y coordinate.
         :return: True if the position is a wall, False otherwise.
         """
-        return x < 0 or x >= self.width or y < 0 or y >= self.height or self.grid[y][x] == GameColors.WALL
+        return x < 0 or x >= self.width or y < 0 or y >= self.height or self.grid[y][x] == GameConstants.WALL
 
     def get_bullet(self, x, y):
         """
