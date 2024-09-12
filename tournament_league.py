@@ -281,12 +281,11 @@ class NonVisualGame:
 
         :param main_window: Reference to the main Tkinter window.
         :param delay: Boolean to enable/disable delay for NPC actions.
-        :param tank1_type: Type of tank 1 ('Player' or 'A*').
-        :param tank2_type: Type of tank 2 ('Player' or 'A*').
+        :param tank1_type: Type of tank 1
+        :param tank2_type: Type of tank 2
         """
         self.results_tracker = results_tracker
         self.board = NonVisualBoard(BOARD_WIDTH, BOARD_HEIGHT, main_window, results_tracker)  # Game board
-        # self.board.draw_grid()
         self.main_window = main_window  # Main window reference
         self.main_window.bind('<KeyRelease>', self.handle_key_release)  # Key release handler
         self.main_window.bind('<KeyPress>', self.handle_key_press)  # Key press handler
@@ -397,7 +396,7 @@ class NonVisualGame:
         else:
             self.current_tank = self.tank1
 
-        if self.turns >= visualizations.MAX_TURNS:
+        if self.turns >= GameConstants.MAX_TURNS:
             self.board.end_game("Game ended in a draw!", -1)
             return
 

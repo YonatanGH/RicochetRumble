@@ -64,10 +64,7 @@ class Bullet:
                 # according to the wall it hit. If it is a corner, then use the bounce_map.
                 if dx == 0 or dy == 0:
                     self.direction = bounce_map[self.direction]
-                else:  # diagonal - TODO: there exists an option of a bullet in a 1-width path, that gets stuck
-                    # if (self.board.is_wall(self.x + dx, self.y) and self.board.is_wall(self.x, self.y + dy) or
-                    #         (not self.board.is_wall(self.x + dx, self.y) and not self.board.is_wall(self.x,
-                    #                                                                                 self.y + dy))):
+                else:
                     if not (self.board.is_wall(self.x + dx, self.y) ^ self.board.is_wall(self.x, self.y + dy)):
                         self.direction = bounce_map[self.direction]
                     elif self.board.is_wall(self.x, self.y + dy):
