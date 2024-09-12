@@ -747,20 +747,7 @@ class Game:
     def npc_act(self):
         """Perform action for NPC tank."""
         # check if the current tank is minimax or q-learning
-        if isinstance(self.current_tank, MinimaxTank) or isinstance(self.current_tank, QLearningTank) or isinstance(
-                self.current_tank, AStarTank) or isinstance(self.current_tank, ExpectimaxTank):
-            self.current_tank.update()
-        elif isinstance(self.current_tank, RandomTank):
-            # choose randomly between moving and shooting - below 0.8 move, above 0.8 shoot
-            import random
-            choice = random.random()
-            if choice < 0.8:
-                self.current_tank.move(None)
-            else:
-                self.current_tank.shoot(None)
-        else:
-            self.current_tank.move(None)  # Move towards the target tank
-            self.current_tank.shoot(None)  # Shoot if possible
+        self.current_tank.act()
         self.board.update_bullets()
         if not self.board.check_bullet_collisions():
             self.switch_turn()

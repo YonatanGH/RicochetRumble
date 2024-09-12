@@ -414,7 +414,7 @@ class NonVisualGame:
         # check if the current tank is minimax or q-learning
         if isinstance(self.current_tank, MinimaxTank) or isinstance(self.current_tank, QLearningTank) or isinstance(
                 self.current_tank, AStarTank) or isinstance(self.current_tank, ExpectimaxTank):
-            self.current_tank.update()
+            self.current_tank.act()
         elif isinstance(self.current_tank, RandomTank):
             # choose randomly between moving and shooting - below 0.8 move, above 0.8 shoot
             import random
