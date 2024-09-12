@@ -94,8 +94,6 @@ class Queue:
         return len(self.list) == 0
 
 
-
-
 class PriorityQueue:
     """
     Implements a priority queue data structure. Each inserted item

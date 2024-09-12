@@ -3,6 +3,7 @@ from visualizations import *
 
 BOARD_WIDTH, BOARD_HEIGHT = 10, 10  # Board dimensions
 
+
 class ResultsTracker:
     def __init__(self, tournament):
         self.tank1_wins = 0
@@ -28,6 +29,7 @@ class ResultsTracker:
         # self.tournament.next_game()
         self.tournament.results_update()
 
+
 class NonVisualBoard:
     def __init__(self, width, height, main_window, results_tracker):
         """
@@ -47,7 +49,6 @@ class NonVisualBoard:
         self.generate_maze()
 
         self.main_window = main_window  # Main window reference
-
 
         self.tank1 = None  # Reference to tank 1
         self.tank2 = None  # Reference to tank 2
@@ -110,7 +111,7 @@ class NonVisualBoard:
             self.update_position(new_x, new_y, color)
             return True
         else:
-            #self.show_message("Invalid move!")
+            # self.show_message("Invalid move!")
             return False
 
     def add_bullet(self, bullet):
@@ -272,6 +273,7 @@ class NonVisualBoard:
         """
         return self.get_bullet(x, y) is not None
 
+
 class NonVisualGame:
     def __init__(self, tank1_type, tank2_type, main_window, results_tracker, qmode1="None", qmode2="None"):
         """
@@ -380,7 +382,7 @@ class NonVisualGame:
                 self.board.show_message("Invalid key!")
 
         if valid_action:
-            #self.board.update_bullet_count()  # Update bullet count after action
+            # self.board.update_bullet_count()  # Update bullet count after action
             self.board.update_bullets()  # Update bullet positions
             self.player_action_done = True
             self.last_keys.clear()
@@ -429,8 +431,10 @@ class NonVisualGame:
         if not self.board.check_bullet_collisions():
             self.switch_turn()
 
+
 class TournamentLeague:
-    def __init__(self, tank1_type, tank2_type, main_window, qmode1="None", qmode2="None", num_games=10, amount_of_visualizations=0, popups=True):
+    def __init__(self, tank1_type, tank2_type, main_window, qmode1="None", qmode2="None", num_games=10,
+                 amount_of_visualizations=0, popups=True):
         self.results_tracker = ResultsTracker(self)
         self.popups = popups
         self.num_games = num_games
@@ -454,10 +458,12 @@ class TournamentLeague:
             self.results_label = tk.Label(self.results_window, text="Tournament Results")
             self.results_label.pack()
 
-            self.tank1_wins_label = tk.Label(self.results_window, text=f"Tank 1 ({self.tank1_type}) wins: {self.results_tracker.tank1_wins}")
+            self.tank1_wins_label = tk.Label(self.results_window,
+                                             text=f"Tank 1 ({self.tank1_type}) wins: {self.results_tracker.tank1_wins}")
             self.tank1_wins_label.pack()
 
-            self.tank2_wins_label = tk.Label(self.results_window, text=f"Tank 2 ({self.tank2_type}) wins: {self.results_tracker.tank2_wins}")
+            self.tank2_wins_label = tk.Label(self.results_window,
+                                             text=f"Tank 2 ({self.tank2_type}) wins: {self.results_tracker.tank2_wins}")
             self.tank2_wins_label.pack()
 
             self.draws_label = tk.Label(self.results_window, text=f"Draws: {self.results_tracker.draws}")
@@ -468,24 +474,24 @@ class TournamentLeague:
 
         self.begin_tournament()
 
-
     def begin_tournament(self):
         visualized_games = []
         while self.current_game < self.num_games:
             self.current_game += 1
             if self.visualize_game_count <= 0:
-                NonVisualGame(self.tank1_type, self.tank2_type, self.main_window, self.results_tracker, qmode1=self.qmode1, qmode2=self.qmode2)
+                NonVisualGame(self.tank1_type, self.tank2_type, self.main_window, self.results_tracker,
+                              qmode1=self.qmode1, qmode2=self.qmode2)
             else:
                 self.visualize_game_count -= 1
-                g = visualizations.Game(self.main_window, True, self.tank1_type, self.tank2_type, result_tracker=self.results_tracker, enable_endscreen=False, qmode1=self.qmode1, qmode2=self.qmode2)
+                g = visualizations.Game(self.main_window, True, self.tank1_type, self.tank2_type,
+                                        result_tracker=self.results_tracker, enable_endscreen=False, qmode1=self.qmode1,
+                                        qmode2=self.qmode2)
                 visualized_games.append(g)
             self.visualize_results()
-
 
     def results_update(self):
         if self.results_tracker.tank1_wins + self.results_tracker.tank2_wins + self.results_tracker.draws >= self.num_games:
             self.end_tournament()
-
 
     # def next_game(self):
     #     self.current_game += 1
@@ -496,7 +502,6 @@ class TournamentLeague:
     #             self.visualize_game_count -= 1
     #             visualizations.Game(self.main_window, True, self.tank1_type, self.tank2_type, result_tracker=self.results_tracker, enable_endscreen=False, qmode1=self.qmode1, qmode2=self.qmode2)
     #     self.visualize_results()
-
 
     def visualize_results(self):
         if not self.popups:
@@ -514,7 +519,8 @@ class TournamentLeague:
         if self.popups:
             visualizations.EndScreen(self.main_window, "end tournament")
 
-class MegaTournament: # does tournaments between all duos of tanks
+
+class MegaTournament:  # does tournaments between all duos of tanks
     def __init__(self, tank_types, main_window, num_games=10, amount_of_visualizations=0):
         self.tank_types = tank_types
         self.main_window = main_window
@@ -526,7 +532,7 @@ class MegaTournament: # does tournaments between all duos of tanks
         self.tournament_pairs = []
 
         for i in range(len(self.tank_types)):
-            for j in range(len(self.tank_types)): # range(i + 1, len(self.tank_types)):
+            for j in range(len(self.tank_types)):  # range(i + 1, len(self.tank_types)):
                 self.tournament_pairs.append((self.tank_types[i], self.tank_types[j]))
 
         self.begin_mega_tournament()

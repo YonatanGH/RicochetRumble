@@ -207,18 +207,8 @@ class PlayerTank(Tank):
         :return: True if move is valid, False otherwise.
         """
         super().move(direction)
-        directions = {
-            'up': (0, -1),
-            'down': (0, 1),
-            'left': (-1, 0),
-            'right': (1, 0),
-            'up_left': (-1, -1),
-            'up_right': (1, -1),
-            'down_left': (-1, 1),
-            'down_right': (1, 1)
-        }
-        if direction in directions:
-            dx, dy = directions[direction]
+        if direction in str_to_vals:
+            dx, dy = str_to_vals[direction]
             new_x, new_y = self.x + dx, self.y + dy
             return self.board.move_tank(self, new_x, new_y, self.number)
         return False
@@ -230,21 +220,8 @@ class PlayerTank(Tank):
         :param direction: Direction to shoot ('up', 'down', 'left', 'right', 'up_left', 'up_right', 'down_left', 'down_right').
         """
         if self.shots > 0:
-            directions = {
-                'up': (0, -1),
-                'down': (0, 1),
-                'left': (-1, 0),
-                'right': (1, 0),
-                'up_left': (-1, -1),
-                'up_right': (1, -1),
-                'down_left': (-1, 1),
-                'down_right': (1, 1)
-            }
-            # convert direction to lowercase
-            # direction = direction.lower()
-            # direction = direction[6:]
-            if direction in directions:
-                dx, dy = directions[direction]
+            if direction in str_to_vals:
+                dx, dy = str_to_vals[direction]
                 bullet = Bullet(self.board, self.x + dx, self.y + dy, direction)
                 can_add = self.board.add_bullet(bullet)
                 if can_add:
@@ -255,6 +232,7 @@ class PlayerTank(Tank):
             return False
 
 
+# ---------------------- A*Tank ---------------------- #
 class AStarTank(Tank):
     def __init__(self, board, x, y, number):
         """
@@ -308,7 +286,7 @@ class AStarTank(Tank):
                     current = came_from[current]
                 return path[::-1]
 
-            for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, 1), (-1, 1), (1, -1)]:
+            for dx, dy in vals_to_str.keys():
                 neighbor = (current[0] + dx, current[1] + dy)
                 if 0 <= neighbor[0] < self.board.width and 0 <= neighbor[1] < self.board.height and \
                         not self.board.is_wall(neighbor[0], neighbor[1]):
@@ -355,18 +333,8 @@ class AStarTank(Tank):
                 target_tank = self.board.tank1
             tank_position = (target_tank.x, target_tank.y)
             if abs(self.x - tank_position[0]) <= 1 and abs(self.y - tank_position[1]) <= 1:
-                direction_map = {
-                    (0, -1): 'up',
-                    (0, 1): 'down',
-                    (-1, 0): 'left',
-                    (1, 0): 'right',
-                    (-1, -1): 'up_left',
-                    (1, -1): 'up_right',
-                    (-1, 1): 'down_left',
-                    (1, 1): 'down_right'
-                }
                 dx, dy = tank_position[0] - self.x, tank_position[1] - self.y
-                direction = direction_map.get((dx, dy))
+                direction = vals_to_str.get((dx, dy))
                 if direction:
                     self.board.add_bullet(Bullet(self.board, self.x + dx, self.y + dy, direction))
                     self.shots -= 1
@@ -414,8 +382,10 @@ class AStarTank(Tank):
             self.move(None)
 
 
+# ---------------------- Q-LearningTank ---------------------- #
 class QLearningTank(Tank):
-    def __init__(self, board, x, y, number, lr=0.2, ds=0.99, er=0.1, ed=0.01, epochs=100, pretrained=False, save_file=None):
+    def __init__(self, board, x, y, number, lr=0.2, ds=0.99, er=0.1, ed=0.01, epochs=100, pretrained=False,
+                 save_file=None):
         """
         Initialize an AI-controlled tank using the Q-learning algorithm.
 
@@ -589,8 +559,6 @@ class QLearningTank(Tank):
     def fill_q_table(self):
         """
         Fill the Q-table with the given state.
-
-        :param state: Current state.
         """
 
         def is_terminal_state(state):
@@ -791,8 +759,6 @@ class QLearningTank(Tank):
         :param state: Current state.
         :return: Best action for the state.
         """
-        # if np.random.rand() < self.exploration_rate: TODO is exploration in use after filling the table?
-        #     return np.random.choice(self.state_legal_actions(state))
         q_values = [self.get_q_value(tuple(state), action) for action in self.state_legal_actions(state, 0)]
         action = self.state_legal_actions(state, 0)[np.argmax(q_values)]
         return action
@@ -817,34 +783,6 @@ class QLearningTank(Tank):
         def chebyshev_distance(pos1, pos2):
             """Calculate the Chebyshev distance between two points."""
             return max(abs(pos1[0] - pos2[0]), abs(pos1[1] - pos2[1]))
-
-        def manhattan_distance(pos1, pos2):
-            """Calculate the Manhattan distance between two points."""
-            return abs(pos1[0] - pos2[0]) + abs(pos1[1] - pos2[1])
-
-        def count_bullets_in_area(opponent_pos):
-            """
-            Counts the number of bullets within a 3x3 area around the opponent.
-            """
-
-            bullet_positions = []
-            i = 6
-            while i < len(state):
-                bullet_positions.append((state[i], state[i + 1]))
-                i += 5
-
-            x_min = max(opponent_pos[0] - 1, 0)
-            x_max = min(opponent_pos[0] + 1, self.board.width - 1)
-            y_min = max(opponent_pos[1] - 1, 0)
-            y_max = min(opponent_pos[1] + 1, self.board.height - 1)
-
-            bullets_in_area = 0
-
-            for bullet_pos in bullet_positions:
-                if x_min <= bullet_pos[0] <= x_max and y_min <= bullet_pos[1] <= y_max:
-                    bullets_in_area += 1
-
-            return bullets_in_area
 
         def a_star_path(board, start, goal):
             """
@@ -1230,23 +1168,9 @@ class QLearningTank(Tank):
             self.move(action)
         elif action.startswith('SHOOT'):
             self.shoot(action)
-        # for action_loop in self.state_legal_actions(self.get_state(), 0):
-        #     print(action_loop, end=' ')
-        #     print(self.reward(self.get_state(), action_loop), end=' ')
-        # print(action)
-
-    def state_to_move(self, state):
-        """
-        Get the move corresponding to a state.
-
-        :param state: State to convert.
-        :return: Move corresponding to the state.
-        """
-        q_values = [self.get_q_value(tuple(state), action) for action in self.state_legal_actions(state, 3)]
-        action = self.state_legal_actions(state, 3)[np.argmax(q_values)]
-        return action
 
 
+# --------------------- MinimaxTank --------------------- #
 class MinimaxTank(Tank):
     def __init__(self, board, x, y, number):
         """
@@ -1422,21 +1346,6 @@ class MinimaxTank(Tank):
             distance_score = -100
         elif path > 1:
             distance_score = 100 / path
-
-        # bullets_aimed_at_you = 10 * bullet_avoidance_score((x, y))
-        # bullets_aimed_at_opponent = -10 * bullet_avoidance_score((opponent_x, opponent_y))
-        #
-        # # Reward factors
-        # attacks_reward_factor = 0.2
-        # avoidance_reward_factor = 0.2
-        # proximity_reward_factor = 0.2
-        # ammo_reward_factor = 0.2
-        #
-        # # Calculate the reward
-        # reward = (attacks_reward_factor * bullets_aimed_at_opponent) + (avoidance_reward_factor * bullets_aimed_at_you) \
-        #          + (proximity_reward_factor * distance_score) + (ammo_reward_factor * shots)
-        #
-        # return reward
 
         if clear_shot((x, y), (opponent_x, opponent_y)) and state[2] > 0:
             clear_shot_score = 50
@@ -1849,6 +1758,7 @@ class MinimaxTank(Tank):
         # print(action)
 
 
+# --------------------- ExpectimaxTank --------------------- #
 class ExpectimaxTank(Tank):
     def __init__(self, board, x, y, number):
         """
@@ -2024,21 +1934,6 @@ class ExpectimaxTank(Tank):
             distance_score = -100
         elif path > 1:
             distance_score = 100 / path
-
-        # bullets_aimed_at_you = 10 * bullet_avoidance_score((x, y))
-        # bullets_aimed_at_opponent = -10 * bullet_avoidance_score((opponent_x, opponent_y))
-        #
-        # # Reward factors
-        # attacks_reward_factor = 0.2
-        # avoidance_reward_factor = 0.2
-        # proximity_reward_factor = 0.2
-        # ammo_reward_factor = 0.2
-        #
-        # # Calculate the reward
-        # reward = (attacks_reward_factor * bullets_aimed_at_opponent) + (avoidance_reward_factor * bullets_aimed_at_you) \
-        #          + (proximity_reward_factor * distance_score) + (ammo_reward_factor * shots)
-        #
-        # return reward
 
         if clear_shot((x, y), (opponent_x, opponent_y)) and state[2] > 0:
             clear_shot_score = 50
@@ -2443,7 +2338,7 @@ class ExpectimaxTank(Tank):
         # print(action)
 
 
-# --------------------------------------------------------------------------------------
+# --------------------- Planning-GraphTank --------------------- #
 
 PLAN_DOMAIN_FILE = "plan_domain.txt"
 PLAN_PROBLEM_FILE = "plan_problem.txt"
@@ -2461,7 +2356,7 @@ class PGTank(Tank):
         self.did_move = False
         self.num_turns_to_replan = 1  # how many turns to wait before replanning,
         # for best - do 1, for faster - do more than 1
-        self.decreasing_num_turns_to_replan = False # just a small optimization
+        self.decreasing_num_turns_to_replan = False  # just a small optimization
 
     def generate_plan(self, domain_file, problem_file):
         # Generate a plan for the tank
@@ -2484,7 +2379,7 @@ class PGTank(Tank):
 
             self.plan = [action.name.split("_from")[0] for action in self.plan]
             # print(self.plan)
-        if self.plan is None: # in case of no plan found and also no previous plan
+        if self.plan is None:  # in case of no plan found and also no previous plan
             self.plan = ACTIONS
 
     def create_domain_file(self, domain_file_name, board):
@@ -2722,7 +2617,6 @@ class PGTank(Tank):
                 if self.num_turns_to_replan > 1:
                     self.num_turns_to_replan -= 1
 
-
         if self.isplan_uptodate:
             assert self.current_plan_index == 0
 
@@ -2751,7 +2645,7 @@ class PGTank(Tank):
             action = self.plan[self.current_plan_index]
             if "SHOOT" not in action:
                 return False
-            # get the direction of the action: "UP", "DOWN", "LEFT", "RIGHT", "UP_LEFT", "UP_RIGHT", "DOWN_LEFT", "DOWN_RIGHT"
+            # get the direction of the action:
             action_direction = action[action.index("_") + 1:]
             if action in self.get_legal_actions():
                 d_x, d_y = str_to_vals[action_direction.lower()]

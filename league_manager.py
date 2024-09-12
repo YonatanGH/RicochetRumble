@@ -1,4 +1,4 @@
-from visualizations import MainMenu, TankManual, EndScreen
+from visualizations import MainMenu, TankManual, EndScreen, DELAY_MS
 from tanks import Tank
 import numpy as np
 import random

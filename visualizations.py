@@ -36,7 +36,6 @@ class MainMenu:
         tank1_options = tk.OptionMenu(self.window, self.tank1_var, *self.options)  # Tank 1 options
         tank1_options.pack(pady=10)
 
-
         tank2_label = tk.Label(self.window, text="Tank 2:")  # Tank 2 label
         tank2_label.pack(pady=10)
         tank2_options = tk.OptionMenu(self.window, self.tank2_var, *self.options)  # Tank 2 options
@@ -56,7 +55,8 @@ class MainMenu:
         delay_checkbox.pack(pady=10)
 
         # Tournament options
-        tournament_button = tk.Button(self.window, text="Tournaments", command=self.tournament_menu)  # Start tournament button
+        tournament_button = tk.Button(self.window, text="Tournaments",
+                                      command=self.tournament_menu)  # Start tournament button
         tournament_button.pack(pady=10)
 
         quit_button = tk.Button(self.window, text="Quit", command=self.quit_game)  # Quit button
@@ -69,12 +69,14 @@ class MainMenu:
             self.qchoice1 = tk.StringVar(value="None")
         if type(self.qchoice2) == str:
             self.qchoice2 = tk.StringVar(value="None")
-        Game(self.main_window, self.delay_var.get(), self.tank1_var.get(), self.tank2_var.get(), self.qchoice1.get(), self.qchoice2.get())
+        Game(self.main_window, self.delay_var.get(), self.tank1_var.get(), self.tank2_var.get(), self.qchoice1.get(),
+             self.qchoice2.get())
 
     def tournament_menu(self):
         """Start the tournament menu."""
         self.window.pack_forget()
         TournamentMenu(self.main_window)
+
     def start_tournament(self, tank1, tank2, num_games, num_visualized):
         """Start the tournament with selected options."""
         self.window.pack_forget()
@@ -82,7 +84,8 @@ class MainMenu:
             self.qchoice1 = tk.StringVar(value="None")
         if type(self.qchoice2) == str:
             self.qchoice2 = tk.StringVar(value="None")
-        TournamentLeague(tank1, tank2, self.main_window, self.qchoice1.get(), self.qchoice2.get(), num_games=num_games, amount_of_visualizations=num_visualized)
+        TournamentLeague(tank1, tank2, self.main_window, self.qchoice1.get(), self.qchoice2.get(), num_games=num_games,
+                         amount_of_visualizations=num_visualized)
 
     def start_all_out_tournament(self, num_games):
         MegaTournament(["A*", "Planning-Graph", "Minimax", "Expectimax",
@@ -90,7 +93,7 @@ class MainMenu:
                         "Q-Learning|Planning-Graph",
                         "Q-Learning|Minimax",
                         "Q-Learning|Expectimax",
-                        "Random"],self.main_window, num_games)
+                        "Random"], self.main_window, num_games)
 
     def show_tank_manual(self):
         """Show the tank manual."""
@@ -136,10 +139,10 @@ class TankManual:
 
             "Random Tank:\n"
             "- This tank has a chance of 20% to shoot and 80% to move. Its actions are valid, but fully random.\n"
-            
+
             "Planning-Graph Tank:\n"
             "- This AI-controlled tank uses the Planning-Graph algorithm to determine the best action.\n"
-            
+
             "Minimax Tank:\n"
             "- This AI-controlled tank uses the Minimax algorithm to determine the best action.\n"
 
@@ -235,20 +238,22 @@ class TournamentMenu:
         self.num_games = tk.StringVar(value="1")
         num_games_label = tk.Label(self.window, text="Number of games:")
         num_games_label.pack(pady=10)
-        num_games_options = tk.OptionMenu(self.window, self.num_games,"1", "3", "5", "10", "25", "50", "100")
+        num_games_options = tk.OptionMenu(self.window, self.num_games, "1", "3", "5", "10", "25", "50", "100")
         num_games_options.pack(pady=10)
 
         # number of games to visualize
         self.num_visualized = tk.StringVar(value="0")
         num_games_label = tk.Label(self.window, text="Number of visualized games:")
         num_games_label.pack(pady=10)
-        num_games_options = tk.OptionMenu(self.window, self.num_visualized,"0","1", "3", "5", "10", "25", "50", "100")
+        num_games_options = tk.OptionMenu(self.window, self.num_visualized, "0", "1", "3", "5", "10", "25", "50", "100")
         num_games_options.pack(pady=10)
 
-        start_button = tk.Button(self.window, text="Start Tournament", command=self.start_tournament)  # Start game button
+        start_button = tk.Button(self.window, text="Start Tournament",
+                                 command=self.start_tournament)  # Start game button
         start_button.pack(pady=10)
 
-        all_out_tournament_button = tk.Button(self.window, text="Start All-Out Tournament", command=self.start_all_out_tournament)  # Start game button
+        all_out_tournament_button = tk.Button(self.window, text="Start All-Out Tournament",
+                                              command=self.start_all_out_tournament)  # Start game button
         all_out_tournament_button.pack(pady=10)
 
         back_button = tk.Button(self.window, text="Back to Menu", command=self.back_to_menu)  # Back to menu button
@@ -258,7 +263,8 @@ class TournamentMenu:
         """Start the tournament with selected options."""
         self.window.pack_forget()
         main_menu = MainMenu(self.main_window)
-        main_menu.start_tournament(self.choice1.get(), self.choice2.get(), int(self.num_games.get()), int(self.num_visualized.get()))
+        main_menu.start_tournament(self.choice1.get(), self.choice2.get(), int(self.num_games.get()),
+                                   int(self.num_visualized.get()))
         # TournamentLeague(self.choice1.get(), self.choice2.get(), self.main_window, int(self.num_games.get()))
 
     def start_all_out_tournament(self):
@@ -390,7 +396,7 @@ class Board:
     def update_position(self, x, y, color):
         """
         Update the position of an object on the board.
-        
+
         :param x: X coordinate.
         :param y: Y coordinate.
         :param color: Color of the object.
@@ -406,7 +412,7 @@ class Board:
     def move_tank(self, tank, new_x, new_y, number):
         """
         Move a tank to a new position.
-        
+
         :param tank: Tank object to move.
         :param new_x: New X coordinate.
         :param new_y: New Y coordinate.
@@ -439,7 +445,7 @@ class Board:
     def move_bullet(self, bullet, new_x, new_y):
         """
         Move a bullet to a new position.
-        
+
         :param bullet: Bullet object to move.
         :param new_x: New X coordinate.
         :param new_y: New Y coordinate.
@@ -452,7 +458,7 @@ class Board:
     def remove_bullet(self, bullet):
         """
         Remove a bullet from the board.
-        
+
         :param bullet: Bullet object to remove.
         """
         self.update_position(bullet.x, bullet.y, GameColors.BOARD)  # Repaint old position with brown
@@ -604,7 +610,8 @@ class Board:
 # -------------------------------------- Game -------------------------------------- #
 
 class Game:
-    def __init__(self, main_window, delay, tank1_type, tank2_type, qmode1="None", qmode2="None", result_tracker=None, enable_endscreen=True):
+    def __init__(self, main_window, delay, tank1_type, tank2_type, qmode1="None", qmode2="None", result_tracker=None,
+                 enable_endscreen=True):
         """
         Initialize the game.
         
@@ -615,7 +622,8 @@ class Game:
         """
         self.result_tracker = result_tracker
         self.enable_endscreen = enable_endscreen
-        self.board = Board(BOARD_WIDTH, BOARD_HEIGHT, main_window, delay, result_tracker=result_tracker, enable_endscreen=self.enable_endscreen)  # Game board
+        self.board = Board(BOARD_WIDTH, BOARD_HEIGHT, main_window, delay, result_tracker=result_tracker,
+                           enable_endscreen=self.enable_endscreen)  # Game board
         self.board.draw_grid()
         self.main_window = main_window  # Main window reference
         self.main_window.bind('<KeyRelease>', self.handle_key_release)  # Key release handler
@@ -662,7 +670,8 @@ class Game:
             if mode == "A*":
                 return QLearningTank(self.board, x, y, number, pretrained=True, save_file="qlearning_a_star.pkl")
             elif mode == "Planning-Graph":
-                return QLearningTank(self.board, x, y, number, pretrained=True, save_file="qlearning_planning_graph.pkl.pkl")
+                return QLearningTank(self.board, x, y, number, pretrained=True,
+                                     save_file="qlearning_planning_graph.pkl.pkl")
             elif mode == "Minimax":
                 return QLearningTank(self.board, x, y, number, pretrained=True, save_file="qlearning_minimax.pkl")
             elif mode == "Expectimax":
