@@ -1,22 +1,8 @@
-from util import Pair
-import copy
 from proposition_layer import PropositionLayer
 from plan_graph_level import PlanGraphLevel
 from pgparser import PgParser
 from action import Action
-
-# try:
-from search import SearchProblem
 from search import a_star_search
-
-# except:
-#     try:
-#         from CPF.search import SearchProblem
-#         from CPF.search import a_star_search
-#     except:
-#         from CPF.search_win_34 import SearchProblem
-#         from CPF.search_win_34 import a_star_search
-
 
 class PlanningProblem:
     def __init__(self, domain_file, problem_file):
@@ -41,34 +27,18 @@ class PlanningProblem:
         self.expanded = 0
 
     def get_start_state(self):
-        "*** OUR CODE BELOW FOR Q10 ***"
         return self.initialState
 
     def is_goal_state(self, state):
-        """
-        Hint: you might want to take a look at goal_state_not_in_prop_payer function
-        """
-        "*** OUR CODE BELOW FOR Q10 ***"
         if self.goal_state_not_in_prop_layer(state):
             return False
         return True
 
     def get_successors(self, state):
         """
-        For a given state, this should return a list of triples,
-        (successor, action, step_cost), where 'successor' is a
-        successor to the current state, 'action' is the action
-        required to get there, and 'step_cost' is the incremental
-        cost of expanding to that successor, 1 in our case.
-        You might want to this function:
-        For a list / set of propositions l and action a,
-        a.all_preconds_in_list(l) returns true if the preconditions of a are in l
-
-        Note that a state *must* be hashable!! Therefore, you might want to represent a state as a frozenset
+        get the successors of the given state
         """
         self.expanded += 1
-
-        "*** OUR CODE BELOW FOR Q10 ***"
         successors = []
         for action in self.actions:
             # if action is noop, continue
@@ -87,7 +57,7 @@ class PlanningProblem:
 
     def goal_state_not_in_prop_layer(self, propositions):
         """
-        Helper function that receives a  list of propositions (propositions) and returns true
+        Helper function that receives a list of propositions (propositions) and returns true
         if not all the goal propositions are in that list
         """
         for goal in self.goal:
@@ -112,17 +82,8 @@ class PlanningProblem:
 
 def max_level(state, planning_problem):
     """
-    The heuristic value is the number of layers required to expand all goal propositions.
-    If the goal is not reachable from the state your heuristic should return float('inf')
-    A good place to start would be:
-    prop_layer_init = PropositionLayer()          #create a new proposition layer
-    for prop in state:
-        prop_layer_init.add_proposition(prop)        #update the proposition layer with the propositions of the state
-    pg_init = PlanGraphLevel()                   #create a new plan graph level (level is the action layer and the propositions layer)
-    pg_init.set_proposition_layer(prop_layer_init)   #update the new plan graph level with the the proposition layer
+    max level heuristic
     """
-
-    "*** OUR CODE BELOW FOR Q11 ***"
     # create a new proposition layer
     prop_layer_init = PropositionLayer()
     # update the proposition layer with the propositions of the state
@@ -148,11 +109,8 @@ def max_level(state, planning_problem):
 
 def level_sum(state, planning_problem):
     """
-    The heuristic value is the sum of sub-goals level they first appeared.
-    If the goal is not reachable from the state your heuristic should return float('inf')
+    level sum heuristic
     """
-
-    "*** OUR CODE BELOW FOR Q12 ***"
     prop_layer_init = PropositionLayer()
     for prop in state:
         prop_layer_init.add_proposition(prop)
@@ -184,8 +142,7 @@ def level_sum(state, planning_problem):
 
 def is_fixed(graph, level):
     """
-    Checks if we have reached a fixed point,
-    i.e. each level we'll expand would be the same, thus no point in continuing
+    Checks if we have reached a fixed point, with no effect for expanding the plan graph
     """
     if level == 0:
         return False
@@ -199,36 +156,3 @@ def null_heuristic(*args, **kwargs):
 
 def solve(problem, heuristic=null_heuristic):
     return a_star_search(problem, heuristic)
-
-if __name__ == '__main__':
-    import sys
-    import time
-
-    if len(sys.argv) != 1 and len(sys.argv) != 4:
-        print("Usage: PlanningProblem.py domainName problemName heuristicName(max, sum or zero)")
-        exit()
-    domain = 'dwrDomain.txt'
-    problem = 'dwrProblem.txt'
-    heuristic = null_heuristic
-    if len(sys.argv) == 4:
-        domain = str(sys.argv[1])
-        problem = str(sys.argv[2])
-        if str(sys.argv[3]) == 'max':
-            heuristic = max_level
-        elif str(sys.argv[3]) == 'sum':
-            heuristic = level_sum
-        elif str(sys.argv[3]) == 'zero':
-            heuristic = null_heuristic
-        else:
-            print("Usage: planning_problem.py domain_name problem_name heuristic_name[max, sum, zero]")
-            exit()
-
-    prob = PlanningProblem(domain, problem)
-    start = time.perf_counter()
-    plan = a_star_search(prob, heuristic)
-    elapsed = time.perf_counter() - start
-    if plan is not None:
-        print("Plan found with %d actions in %.2f seconds" % (len(plan), elapsed))
-    else:
-        print("Could not find a plan in %.2f seconds" % elapsed)
-    print("Search nodes expanded: %d" % prob.expanded)

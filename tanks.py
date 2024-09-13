@@ -42,6 +42,11 @@ class Tank(ABC):
         """Shoot a bullet in a specified direction."""
         pass
 
+    @abstractmethod
+    def act(self):
+        """Perform an action."""
+        pass
+
     def __get_legal_actions_shoot(self):
         legal_actions = []
         if self.y > 0:
@@ -560,7 +565,7 @@ class AdversarialSearchTank(Tank, ABC):
             return True
         return False
 
-    def update(self):
+    def act(self):
         game_state = self.get_state()
         action = self.search(game_state)
 
@@ -622,6 +627,15 @@ class RandomTank(Tank):
                 return True
         return False
 
+    def act(self):
+        # choose randomly between moving and shooting - below 0.8 move, above 0.8 shoot
+        import random
+        choice = random.random()
+        if choice < 0.8:
+            self.move(None)
+        else:
+            self.shoot(None)
+
 
 # ---------------------- PlayerTank ---------------------- #
 class PlayerTank(Tank):
@@ -667,6 +681,9 @@ class PlayerTank(Tank):
         else:
             self.board.show_message("You can't shoot yet!")
             return False
+
+    def act(self):
+        pass
 
 
 # ---------------------- A*Tank ---------------------- #
@@ -726,8 +743,8 @@ class AStarTank(Tank):
             for dx, dy in GameConstants.VALS_TO_STR.keys():
                 neighbor = (current[0] + dx, current[1] + dy)
                 if 0 <= neighbor[0] < self.board.width and 0 <= neighbor[1] < self.board.height and \
-                        not self.board.is_wall(neighbor[0], neighbor[1]):
-                    # and not any([bullet.x == neighbor[0] and bullet.y == neighbor[1] for bullet in self.board.bullets]): #TODO uncomment?
+                        not self.board.is_wall(neighbor[0], neighbor[1]) \
+                    and not any([bullet.x == neighbor[0] and bullet.y == neighbor[1] for bullet in self.board.bullets]): #TODO uncomment?
                     tentative_g_score = g_score[current] + 1
                     if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
                         came_from[neighbor] = current
@@ -769,46 +786,13 @@ class AStarTank(Tank):
             else:
                 target_tank = self.board.tank1
             tank_position = (target_tank.x, target_tank.y)
-            if abs(self.x - tank_position[0]) <= 1 and abs(self.y - tank_position[1]) <= 1:
-                dx, dy = tank_position[0] - self.x, tank_position[1] - self.y
-                direction = GameConstants.VALS_TO_STR.get((dx, dy))
-                if direction:
-                    self.board.add_bullet(Bullet(self.board, self.x + dx, self.y + dy, direction))
-                    self.shots -= 1
-
-    def state_to_move(self, state):
-        """
-        Convert the state to a move.
-
-        :param state: State of the game.
-        :return: Move to make.
-        """
-        if self.number == 1:
-            target_tank = self.board.tank2
-            tank_position = (state[2], state[3])
-        else:
-            target_tank = self.board.tank1
-            tank_position = (state[0], state[1])
-        direction_map = {
-            (0, -1): 'SHOOT_UP',
-            (0, 1): 'SHOOT_DOWN',
-            (-1, 0): 'SHOOT_LEFT',
-            (1, 0): 'SHOOT_RIGHT',
-            (-1, -1): 'SHOOT_UP_LEFT',
-            (1, -1): 'SHOOT_UP_RIGHT',
-            (-1, 1): 'SHOOT_DOWN_LEFT',
-            (1, 1): 'SHOOT_DOWN_RIGHT'
-        }
-        if abs(self.x - tank_position[0]) <= 1 and abs(self.y - tank_position[1]) <= 1:
             dx, dy = tank_position[0] - self.x, tank_position[1] - self.y
-            return direction_map.get((dx, dy))
-        else:
-            path = self.a_star_path((self.x, self.y), tank_position)
-            next_step = path[0]
-            dx, dy = next_step[0] - self.x, next_step[1] - self.y
-            return direction_map.get((dx, dy))
+            direction = GameConstants.VALS_TO_STR.get((dx, dy))
+            if direction:
+                self.board.add_bullet(Bullet(self.board, self.x + dx, self.y + dy, direction))
+                self.shots -= 1
 
-    def update(self):
+    def act(self):
         if self.number == 1:
             target_tank = self.board.tank2
         else:
@@ -870,24 +854,24 @@ class QLearningTank(Tank):
             else:
                 simp_action = action[6:].lower()
             dx, dy = GameConstants.STR_TO_VALS[simp_action]
-            if state[0+prefix] + dx < 0 or state[0+prefix] + dx >= self.board.width or \
-                    state[1+prefix] + dy < 0 or state[1+prefix] + dy >= self.board.height or \
-                    self.board.is_wall(state[0+prefix] + dx, state[1+prefix] + dy):
+            if state[0 + prefix] + dx < 0 or state[0 + prefix] + dx >= self.board.width or \
+                    state[1 + prefix] + dy < 0 or state[1 + prefix] + dy >= self.board.height or \
+                    self.board.is_wall(state[0 + prefix] + dx, state[1 + prefix] + dy):
                 continue
             # making sure the tank is not moving into a bullet or another tank
             if action.startswith('MOVE'):
                 illegal = False
                 for i in range(6, len(state), 5):
-                    if state[i] == state[0+prefix] + dx and state[i + 1] == state[1+prefix] + dy:
+                    if state[i] == state[0 + prefix] + dx and state[i + 1] == state[1 + prefix] + dy:
                         illegal = True
                         break
                 if illegal:
                     continue
-                if state[3-prefix] == (state[0+prefix] + dx) and state[4-prefix] == (state[1+prefix] + dy):
+                if state[3 - prefix] == (state[0 + prefix] + dx) and state[4 - prefix] == (state[1 + prefix] + dy):
                     continue
             else:
                 # making sure the bullet's starting position is legal
-                x, y = state[0+prefix], state[1+prefix]
+                x, y = state[0 + prefix], state[1 + prefix]
                 x += dx
                 y += dy
                 if not (self.board.grid[y][x] == GameConstants.BOARD or
@@ -897,28 +881,28 @@ class QLearningTank(Tank):
 
             # checking specific move legality
             if action == 'MOVE_UP' or (action == 'SHOOT_UP' and state[2] > 0):
-                if 0 < state[1+prefix] < self.board.height:
+                if 0 < state[1 + prefix] < self.board.height:
                     legal_actions.append(action)
             elif action == 'MOVE_DOWN' or (action == 'SHOOT_DOWN' and state[2] > 0):
-                if 0 <= state[1+prefix] < self.board.height - 1:
+                if 0 <= state[1 + prefix] < self.board.height - 1:
                     legal_actions.append(action)
             elif action == 'MOVE_LEFT' or (action == 'SHOOT_LEFT' and state[2] > 0):
-                if 0 < state[0+prefix] < self.board.width:
+                if 0 < state[0 + prefix] < self.board.width:
                     legal_actions.append(action)
             elif action == 'MOVE_RIGHT' or (action == 'SHOOT_RIGHT' and state[2] > 0):
-                if 0 <= state[0+prefix] < self.board.width - 1:
+                if 0 <= state[0 + prefix] < self.board.width - 1:
                     legal_actions.append(action)
             elif action == 'MOVE_UP_LEFT' or (action == 'SHOOT_UP_LEFT' and state[2] > 0):
-                if 0 < state[0+prefix] < self.board.width and 0 < state[1+prefix] < self.board.height:
+                if 0 < state[0 + prefix] < self.board.width and 0 < state[1 + prefix] < self.board.height:
                     legal_actions.append(action)
             elif action == 'MOVE_UP_RIGHT' or (action == 'SHOOT_UP_RIGHT' and state[2] > 0):
-                if 0 <= state[0+prefix] < self.board.width - 1 and 0 < state[1+prefix] < self.board.height:
+                if 0 <= state[0 + prefix] < self.board.width - 1 and 0 < state[1 + prefix] < self.board.height:
                     legal_actions.append(action)
             elif action == 'MOVE_DOWN_LEFT' or (action == 'SHOOT_DOWN_LEFT' and state[2] > 0):
-                if 0 < state[0+prefix] < self.board.width - 1 and 0 <= state[1+prefix] < self.board.height - 1:
+                if 0 < state[0 + prefix] < self.board.width - 1 and 0 <= state[1 + prefix] < self.board.height - 1:
                     legal_actions.append(action)
             elif action == 'MOVE_DOWN_RIGHT' or (action == 'SHOOT_DOWN_RIGHT' and state[2] > 0):
-                if 0 <= state[0+prefix] < self.board.width - 1 and 0 <= state[1+prefix] < self.board.height - 1:
+                if 0 <= state[0 + prefix] < self.board.width - 1 and 0 <= state[1 + prefix] < self.board.height - 1:
                     legal_actions.append(action)
         return legal_actions
 
@@ -1006,7 +990,6 @@ class QLearningTank(Tank):
         :return: Next state.
         """
         next_state = state.copy()
-
 
         # update the tank based on the action
         if action == 'MOVE_UP':
@@ -1504,7 +1487,7 @@ class QLearningTank(Tank):
             self.update_q_table(self.get_state(), action, self.reward(self.get_state(), action), next_state)
         return can_add
 
-    def update(self):
+    def act(self):
         """
         Update the tank's state.
         """
@@ -1949,3 +1932,7 @@ class PGTank(Tank):
                 self.board.add_bullet(Bullet(self.board, shot_x, shot_y, action_direction))
 
         self.did_move = False
+
+    def act(self):
+        self.move(None)
+        self.shoot(None)

@@ -391,14 +391,16 @@ class NonVisualGame:
     def switch_turn(self):
         """Switch turns between tanks."""
         self.turns += 1
+        if self.turns >= GameConstants.MAX_TURNS:
+            self.board.end_game("Game ended in a draw!", -1)
+            return
+
         if self.current_tank == self.tank1:
             self.current_tank = self.tank2
         else:
             self.current_tank = self.tank1
 
-        if self.turns >= GameConstants.MAX_TURNS:
-            self.board.end_game("Game ended in a draw!", -1)
-            return
+
 
         # if isinstance(self.current_tank, AStarTank):
         #     self.board.delay_action(self.npc_act)
@@ -414,7 +416,7 @@ class NonVisualGame:
         # check if the current tank is minimax or q-learning
         if isinstance(self.current_tank, MinimaxTank) or isinstance(self.current_tank, QLearningTank) or isinstance(
                 self.current_tank, AStarTank) or isinstance(self.current_tank, ExpectimaxTank):
-            self.current_tank.update()
+            self.current_tank.act()
         elif isinstance(self.current_tank, RandomTank):
             # choose randomly between moving and shooting - below 0.8 move, above 0.8 shoot
             import random
@@ -477,15 +479,19 @@ class TournamentLeague:
         visualized_games = []
         while self.current_game < self.num_games:
             self.current_game += 1
-            if self.visualize_game_count <= 0:
-                NonVisualGame(self.tank1_type, self.tank2_type, self.main_window, self.results_tracker,
-                              qmode1=self.qmode1, qmode2=self.qmode2)
-            else:
-                self.visualize_game_count -= 1
-                g = visualizations.Game(self.main_window, True, self.tank1_type, self.tank2_type,
-                                        result_tracker=self.results_tracker, enable_endscreen=False, qmode1=self.qmode1,
-                                        qmode2=self.qmode2)
-                visualized_games.append(g)
+            try:
+                if self.visualize_game_count <= 0:
+                    NonVisualGame(self.tank1_type, self.tank2_type, self.main_window, self.results_tracker,
+                                  qmode1=self.qmode1, qmode2=self.qmode2)
+                else:
+                    self.visualize_game_count -= 1
+                    g = visualizations.Game(self.main_window, True, self.tank1_type, self.tank2_type,
+                                            result_tracker=self.results_tracker, enable_endscreen=False, qmode1=self.qmode1,
+                                            qmode2=self.qmode2)
+                    visualized_games.append(g)
+            except Exception as e:
+                # if there was an error, count it as a draw
+                self.results_tracker.add_draw()
             self.visualize_results()
 
     def results_update(self):
