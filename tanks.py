@@ -8,6 +8,201 @@ import pickle
 
 from planning_problem import PlanningProblem, solve, null_heuristic, max_level, level_sum
 
+# ---------------------- Utilities ---------------------- #
+
+def a_star_path(board, start, goal):
+    """
+    Compute the A* path from start to goal.
+
+    :param start: Starting position (x, y).
+    :param goal: Goal position (x, y).
+    :return: List of positions (x, y) in the path.
+    """
+
+    def heuristic(a, b):
+        # Chebyshev distance
+        return max(abs(a[0] - b[0]), abs(a[1] - b[1]))
+
+    open_list = []
+    heapq.heappush(open_list, (0, start))
+    came_from = {}
+    g_score = {start: 0}
+    f_score = {start: heuristic(start, goal)}
+
+    while open_list:
+        current = heapq.heappop(open_list)[1]
+
+        if current == goal:
+            path = []
+            while current in came_from:
+                path.append(current)
+                current = came_from[current]
+            return path[::-1]
+
+        for dx, dy in GameConstants.VALS_TO_STR.keys():
+            neighbor = (current[0] + dx, current[1] + dy)
+            if 0 <= neighbor[0] < board.width and 0 <= neighbor[1] < board.height and \
+                    not board.is_wall(neighbor[0], neighbor[1]) \
+                    and not any([bullet.x == neighbor[0] and bullet.y == neighbor[1] for bullet in
+                                 self.board.bullets]):
+                tentative_g_score = g_score[current] + 1
+                if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
+                    came_from[neighbor] = current
+                    g_score[neighbor] = tentative_g_score
+                    f_score[neighbor] = tentative_g_score + heuristic(neighbor, goal)
+                    heapq.heappush(open_list, (f_score[neighbor], neighbor))
+
+    return []
+
+def state_legal_actions(board, state, prefix):
+    """
+    Get the legal actions for a given state.
+
+    :param state: Current state.
+    :return: List of legal actions.
+    """
+    legal_actions = []
+    for action in GameConstants.ACTIONS:
+        # making sure the tank is not moving or shooting into a wall
+        if action.startswith('MOVE'):
+            simp_action = action[5:].lower()
+        else:
+            simp_action = action[6:].lower()
+        dx, dy = GameConstants.STR_TO_VALS[simp_action]
+        if state[0 + prefix] + dx < 0 or state[0 + prefix] + dx >= board.width or \
+                state[1 + prefix] + dy < 0 or state[1 + prefix] + dy >= board.height or \
+                board.is_wall(state[0 + prefix] + dx, state[1 + prefix] + dy):
+            continue
+        # making sure the tank is not moving into a bullet or another tank
+        if action.startswith('MOVE'):
+            illegal = False
+            for i in range(6, len(state), 5):
+                if state[i] == state[0 + prefix] + dx and state[i + 1] == state[1 + prefix] + dy:
+                    illegal = True
+                    break
+            if illegal:
+                continue
+            if state[3 - prefix] == (state[0 + prefix] + dx) and state[4 - prefix] == (state[1 + prefix] + dy):
+                continue
+        else:
+            # making sure the bullet's starting position is legal
+            x, y = state[0 + prefix], state[1 + prefix]
+            x += dx
+            y += dy
+            if not (board.grid[y][x] == GameConstants.BOARD or
+                    board.grid[y][x] == GameConstants.TANK1 or
+                    board.grid[y][x] == GameConstants.TANK2):
+                continue
+
+        # checking specific move legality
+        if action == 'MOVE_UP' or (action == 'SHOOT_UP' and state[2] > 0):
+            if 0 < state[1 + prefix] < board.height:
+                legal_actions.append(action)
+        elif action == 'MOVE_DOWN' or (action == 'SHOOT_DOWN' and state[2] > 0):
+            if 0 <= state[1 + prefix] < board.height - 1:
+                legal_actions.append(action)
+        elif action == 'MOVE_LEFT' or (action == 'SHOOT_LEFT' and state[2] > 0):
+            if 0 < state[0 + prefix] < board.width:
+                legal_actions.append(action)
+        elif action == 'MOVE_RIGHT' or (action == 'SHOOT_RIGHT' and state[2] > 0):
+            if 0 <= state[0 + prefix] < board.width - 1:
+                legal_actions.append(action)
+        elif action == 'MOVE_UP_LEFT' or (action == 'SHOOT_UP_LEFT' and state[2] > 0):
+            if 0 < state[0 + prefix] < board.width and 0 < state[1 + prefix] < board.height:
+                legal_actions.append(action)
+        elif action == 'MOVE_UP_RIGHT' or (action == 'SHOOT_UP_RIGHT' and state[2] > 0):
+            if 0 <= state[0 + prefix] < board.width - 1 and 0 < state[1 + prefix] < board.height:
+                legal_actions.append(action)
+        elif action == 'MOVE_DOWN_LEFT' or (action == 'SHOOT_DOWN_LEFT' and state[2] > 0):
+            if 0 < state[0 + prefix] < board.width - 1 and 0 <= state[1 + prefix] < board.height - 1:
+                legal_actions.append(action)
+        elif action == 'MOVE_DOWN_RIGHT' or (action == 'SHOOT_DOWN_RIGHT' and state[2] > 0):
+            if 0 <= state[0 + prefix] < board.width - 1 and 0 <= state[1 + prefix] < board.height - 1:
+                legal_actions.append(action)
+    return legal_actions
+
+def clear_shot(pos1, pos2):
+    """
+    Check if there is a clear shot between two positions.
+    """
+    dx, dy = pos2[0] - pos1[0], pos2[1] - pos1[1]
+    if dx == 0:
+        for i in range(1, abs(dy)):
+            if self.board.is_wall(pos1[0], pos1[1] + i * dy // abs(dy)):
+                return False
+    elif dy == 0:
+        for i in range(1, abs(dx)):
+            if self.board.is_wall(pos1[0] + i * dx // abs(dx), pos1[1]):
+                return False
+    else:
+        if dx != dy:
+            return False
+        for i in range(1, abs(dx)):
+            if self.board.is_wall(pos1[0] + i * dx // abs(dx), pos1[1] + i * dy // abs(dy)):
+                return False
+    return True
+
+def get_bullet_info(state):
+    """
+    Get the bullet information from the state.
+    """
+    bullet_positions = []
+    bullet_directions = []
+
+    i = 6
+    while i < len(state):
+        bullet_positions.append((state[i], state[i + 1]))
+        bullet_directions.append(state[i + 2])
+        i += 5
+
+    for i in range(len(bullet_directions)):
+        if bullet_directions[i] == 'up':
+            dx, dy = 0, -1
+        elif bullet_directions[i] == 'down':
+            dx, dy = 0, 1
+        elif bullet_directions[i] == 'left':
+            dx, dy = -1, 0
+        elif bullet_directions[i] == 'right':
+            dx, dy = 1, 0
+        elif bullet_directions[i] == 'up_left':
+            dx, dy = -1, -1
+        elif bullet_directions[i] == 'up_right':
+            dx, dy = 1, -1
+        elif bullet_directions[i] == 'down_left':
+            dx, dy = -1, 1
+        elif bullet_directions[i] == 'down_right':
+            dx, dy = 1, 1
+        else:
+            return float('-inf')
+        bullet_directions[i] = (dx, dy)
+
+    return bullet_positions, bullet_directions
+
+
+
+def bullet_avoidance_score(state, new_pos):
+    """
+    Calculate the bullet avoidance score based on bullets aimed at the new position
+    and their distances.
+    """
+    bullet_positions, bullet_directions = get_bullet_info(state)
+
+    avoidance_score = 0
+    for bullet_pos, bullet_dir in zip(bullet_positions, bullet_directions):
+        # Predict the next position of the bullet
+        next_bullet_pos = (bullet_pos[0] + bullet_dir[0], bullet_pos[1] + bullet_dir[1])
+
+        # Check if the bullet is aimed at the new position
+        if next_bullet_pos == new_pos:
+            return -500
+
+        distance_to_bullet = chebyshev_distance(new_pos, bullet_pos)
+        avoidance_score -= 100 * np.exp(-distance_to_bullet)  # Exponential penalty for proximity
+
+    return np.exp(avoidance_score)
+
+
+
 
 class Tank(ABC):
     def __init__(self, board, x, y, number):
@@ -123,141 +318,11 @@ class AdversarialSearchTank(Tank, ABC):
         :return: Reward for the state-action pair.
         """
 
-        def a_star_path(board, start, goal):
-            """
-            Compute the A* path from start to goal.
-
-            :param start: Starting position (x, y).
-            :param goal: Goal position (x, y).
-            :return: List of positions (x, y) in the path.
-            """
-
-            def heuristic(a, b):
-                # Chebyshev distance
-                return max(abs(a[0] - b[0]), abs(a[1] - b[1]))
-
-            open_list = []
-            heapq.heappush(open_list, (0, start))
-            came_from = {}
-            g_score = {start: 0}
-            f_score = {start: heuristic(start, goal)}
-
-            while open_list:
-                current = heapq.heappop(open_list)[1]
-
-                if current == goal:
-                    path = []
-                    while current in came_from:
-                        path.append(current)
-                        current = came_from[current]
-                    return path[::-1]
-
-                for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, 1), (-1, 1), (1, -1)]:
-                    neighbor = (current[0] + dx, current[1] + dy)
-                    if 0 <= neighbor[0] < board.width and 0 <= neighbor[1] < board.height and \
-                            not board.is_wall(neighbor[0], neighbor[1]) and \
-                            not any(
-                                [bullet.x == neighbor[0] and bullet.y == neighbor[1] for bullet in board.bullets]):
-                        tentative_g_score = g_score[current] + 1
-                        if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
-                            came_from[neighbor] = current
-                            g_score[neighbor] = tentative_g_score
-                            f_score[neighbor] = tentative_g_score + heuristic(neighbor, goal)
-                            heapq.heappush(open_list, (f_score[neighbor], neighbor))
-
-            return []
-
         def chebyshev_distance(pos1, pos2):
             """
             Calculate the Chebyshev distance between two positions.
             """
             return max(abs(pos1[0] - pos2[0]), abs(pos1[1] - pos2[1]))
-
-        def bullet_avoidance_score(pos):
-            """
-            Calculate the bullet avoidance score based on bullets aimed at the new position
-            and their distances.
-            """
-            bullet_positions = []
-            bullet_directions = []
-
-            i = 6
-            while i < len(state):
-                bullet_positions.append((state[i], state[i + 1]))
-                bullet_directions.append(state[i + 2])
-                i += 5
-
-            for i in range(len(bullet_directions)):
-                if bullet_directions[i] == 'up':
-                    dx, dy = 0, -1
-                elif bullet_directions[i] == 'down':
-                    dx, dy = 0, 1
-                elif bullet_directions[i] == 'left':
-                    dx, dy = -1, 0
-                elif bullet_directions[i] == 'right':
-                    dx, dy = 1, 0
-                elif bullet_directions[i] == 'up_left':
-                    dx, dy = -1, -1
-                elif bullet_directions[i] == 'up_right':
-                    dx, dy = 1, -1
-                elif bullet_directions[i] == 'down_left':
-                    dx, dy = -1, 1
-                elif bullet_directions[i] == 'down_right':
-                    dx, dy = 1, 1
-                else:
-                    return float('-inf')
-                bullet_directions[i] = (dx, dy)
-
-            avoidance_score = 0
-            for i in range(10):
-                remove_bullets = []
-                next_positions = []
-                for i, (bullet_pos, bullet_dir) in enumerate(zip(bullet_positions, bullet_directions)):
-                    distance_to_bullet = chebyshev_distance(pos, bullet_pos)
-                    if bullet_pos == pos:
-                        avoidance_score += 11 - i
-
-                    if i in remove_bullets:
-                        continue
-
-                    # count how many times bullet_pos is in next_positions
-                    if next_positions.count(bullet_pos) > 1:
-                        for j, next_pos in enumerate(next_positions):
-                            if next_pos == bullet_pos:
-                                remove_bullets.append(j)
-                        continue
-
-                    dx, dy = bullet_dir
-                    if bullet_pos[0] < 0 or bullet_pos[0] >= self.board.width or self.board.is_wall(pos[0], pos[1]):
-                        dx = -dx
-                    if bullet_pos[1] < 0 or bullet_pos[1] >= self.board.height or self.board.is_wall(pos[0], pos[1]):
-                        dy = -dy
-                    bullet_dir = (dx, dy)
-                    bullet_pos = (bullet_pos[0] + bullet_dir[0], bullet_pos[1] + bullet_dir[1])
-                    next_positions.append(bullet_pos)
-
-            return avoidance_score
-
-        def clear_shot(pos1, pos2):
-            """
-            Check if there is a clear shot between two positions.
-            """
-            dx, dy = pos2[0] - pos1[0], pos2[1] - pos1[1]
-            if dx == 0:
-                for i in range(1, abs(dy)):
-                    if self.board.is_wall(pos1[0], pos1[1] + i * dy // abs(dy)):
-                        return False
-            elif dy == 0:
-                for i in range(1, abs(dx)):
-                    if self.board.is_wall(pos1[0] + i * dx // abs(dx), pos1[1]):
-                        return False
-            else:
-                if dx != dy:
-                    return False
-                for i in range(1, abs(dx)):
-                    if self.board.is_wall(pos1[0] + i * dx // abs(dx), pos1[1] + i * dy // abs(dy)):
-                        return False
-            return True
 
         # Unpack the state
         x, y, shots, opponent_x, opponent_y, opponent_shots = state[0], state[1], state[2], state[3], state[4], state[5]
@@ -295,7 +360,7 @@ class AdversarialSearchTank(Tank, ABC):
             bullet_management = -10
 
         # bullet avoidance
-        bullet_avoidance = bullet_avoidance_score((x, y))
+        bullet_avoidance = bullet_avoidance_score(state, (x, y))
 
         return distance_score + clear_shot_score + bullet_management + bullet_avoidance
 
@@ -405,73 +470,6 @@ class AdversarialSearchTank(Tank, ABC):
             next_state[2] = max(0, next_state[2] - 1)
             next_state.extend([next_state[0] + 1, next_state[1] + 1, 'down_right', 0, 0])
         return next_state
-
-    def state_legal_actions(self, state):
-        """
-        Get the legal actions for a given state.
-
-        :param state: Current state.
-        :return: List of legal actions.
-        """
-        legal_actions = []
-        for action in GameConstants.ACTIONS:
-            # making sure the tank is not moving or shooting into a wall
-            if action.startswith('MOVE'):
-                simp_action = action[5:].lower()
-            else:
-                simp_action = action[6:].lower()
-            dx, dy = GameConstants.STR_TO_VALS[simp_action]
-            if state[0] + dx < 0 or state[0] + dx >= self.board.width or \
-                    state[1] + dy < 0 or state[1] + dy >= self.board.height or \
-                    self.board.is_wall(state[0] + dx, state[1] + dy):
-                continue
-            # making sure the tank is not moving into a bullet or another tank
-            if action.startswith('MOVE'):
-                illegal = False
-                for i in range(6, len(state), 5):
-                    if state[i] == state[0] + dx and state[i + 1] == state[1] + dy:
-                        illegal = True
-                        break
-                if illegal:
-                    continue
-                if state[3] == (state[0] + dx) and state[4] == (state[1] + dy):
-                    continue
-            else:
-                # making sure the bullet's starting position is legal
-                x, y = state[0], state[1]
-                x += dx
-                y += dy
-                if not (self.board.grid[y][x] == GameConstants.BOARD or
-                        self.board.grid[y][x] == GameConstants.TANK1 or
-                        self.board.grid[y][x] == GameConstants.TANK2):
-                    continue
-
-            # checking specific move legality
-            if action == 'MOVE_UP' or (action == 'SHOOT_UP' and state[2] > 0):
-                if 0 < state[1] < self.board.height:
-                    legal_actions.append(action)
-            elif action == 'MOVE_DOWN' or (action == 'SHOOT_DOWN' and state[2] > 0):
-                if 0 <= state[1] < self.board.height - 1:
-                    legal_actions.append(action)
-            elif action == 'MOVE_LEFT' or (action == 'SHOOT_LEFT' and state[2] > 0):
-                if 0 < state[0] < self.board.width:
-                    legal_actions.append(action)
-            elif action == 'MOVE_RIGHT' or (action == 'SHOOT_RIGHT' and state[2] > 0):
-                if 0 <= state[0] < self.board.width - 1:
-                    legal_actions.append(action)
-            elif action == 'MOVE_UP_LEFT' or (action == 'SHOOT_UP_LEFT' and state[2] > 0):
-                if 0 < state[0] < self.board.width and 0 < state[1] < self.board.height:
-                    legal_actions.append(action)
-            elif action == 'MOVE_UP_RIGHT' or (action == 'SHOOT_UP_RIGHT' and state[2] > 0):
-                if 0 <= state[0] < self.board.width - 1 and 0 < state[1] < self.board.height:
-                    legal_actions.append(action)
-            elif action == 'MOVE_DOWN_LEFT' or (action == 'SHOOT_DOWN_LEFT' and state[2] > 0):
-                if 0 < state[0] < self.board.width - 1 and 0 <= state[1] < self.board.height - 1:
-                    legal_actions.append(action)
-            elif action == 'MOVE_DOWN_RIGHT' or (action == 'SHOOT_DOWN_RIGHT' and state[2] > 0):
-                if 0 <= state[0] < self.board.width - 1 and 0 <= state[1] < self.board.height - 1:
-                    legal_actions.append(action)
-        return legal_actions
 
     def is_terminal_state(self, state):
         """
@@ -700,60 +698,6 @@ class AStarTank(Tank):
         super().__init__(board, x, y, number)
         self.turns = 0  # Turn counter
 
-    def set_data(self, x, y, number):
-        """
-        Set the tank's position.
-
-        :param x: X coordinate.
-        :param y: Y coordinate.
-        """
-        self.x = x
-        self.y = y
-        self.number = number
-
-    def a_star_path(self, start, goal):
-        """
-        Compute the A* path from start to goal.
-
-        :param start: Starting position (x, y).
-        :param goal: Goal position (x, y).
-        :return: List of positions (x, y) in the path.
-        """
-
-        def heuristic(a, b):
-            # Chebyshev distance
-            return max(abs(a[0] - b[0]), abs(a[1] - b[1]))
-
-        open_list = []
-        heapq.heappush(open_list, (0, start))
-        came_from = {}
-        g_score = {start: 0}
-        f_score = {start: heuristic(start, goal)}
-
-        while open_list:
-            current = heapq.heappop(open_list)[1]
-
-            if current == goal:
-                path = []
-                while current in came_from:
-                    path.append(current)
-                    current = came_from[current]
-                return path[::-1]
-
-            for dx, dy in GameConstants.VALS_TO_STR.keys():
-                neighbor = (current[0] + dx, current[1] + dy)
-                if 0 <= neighbor[0] < self.board.width and 0 <= neighbor[1] < self.board.height and \
-                        not self.board.is_wall(neighbor[0], neighbor[1]) \
-                    and not any([bullet.x == neighbor[0] and bullet.y == neighbor[1] for bullet in self.board.bullets]): #TODO uncomment?
-                    tentative_g_score = g_score[current] + 1
-                    if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
-                        came_from[neighbor] = current
-                        g_score[neighbor] = tentative_g_score
-                        f_score[neighbor] = tentative_g_score + heuristic(neighbor, goal)
-                        heapq.heappush(open_list, (f_score[neighbor], neighbor))
-
-        return []
-
     def move(self, _):
         """
         Move the tank using A* algorithm to reach the goal.
@@ -768,7 +712,7 @@ class AStarTank(Tank):
             target_tank = self.board.tank1
 
         tank_position = (target_tank.x, target_tank.y)
-        path = self.a_star_path((self.x, self.y), tank_position)
+        path = a_star_path(self.board, (self.x, self.y), tank_position)
         if path:
             next_step = path[0]
             return self.board.move_tank(self, next_step[0], next_step[1], self.number)
@@ -839,73 +783,6 @@ class QLearningTank(Tank):
         else:
             self.fill_q_table()
 
-    def state_legal_actions(self, state, prefix):
-        """
-        Get the legal actions for a given state.
-
-        :param state: Current state.
-        :return: List of legal actions.
-        """
-        legal_actions = []
-        for action in GameConstants.ACTIONS:
-            # making sure the tank is not moving or shooting into a wall
-            if action.startswith('MOVE'):
-                simp_action = action[5:].lower()
-            else:
-                simp_action = action[6:].lower()
-            dx, dy = GameConstants.STR_TO_VALS[simp_action]
-            if state[0 + prefix] + dx < 0 or state[0 + prefix] + dx >= self.board.width or \
-                    state[1 + prefix] + dy < 0 or state[1 + prefix] + dy >= self.board.height or \
-                    self.board.is_wall(state[0 + prefix] + dx, state[1 + prefix] + dy):
-                continue
-            # making sure the tank is not moving into a bullet or another tank
-            if action.startswith('MOVE'):
-                illegal = False
-                for i in range(6, len(state), 5):
-                    if state[i] == state[0 + prefix] + dx and state[i + 1] == state[1 + prefix] + dy:
-                        illegal = True
-                        break
-                if illegal:
-                    continue
-                if state[3 - prefix] == (state[0 + prefix] + dx) and state[4 - prefix] == (state[1 + prefix] + dy):
-                    continue
-            else:
-                # making sure the bullet's starting position is legal
-                x, y = state[0 + prefix], state[1 + prefix]
-                x += dx
-                y += dy
-                if not (self.board.grid[y][x] == GameConstants.BOARD or
-                        self.board.grid[y][x] == GameConstants.TANK1 or
-                        self.board.grid[y][x] == GameConstants.TANK2):
-                    continue
-
-            # checking specific move legality
-            if action == 'MOVE_UP' or (action == 'SHOOT_UP' and state[2] > 0):
-                if 0 < state[1 + prefix] < self.board.height:
-                    legal_actions.append(action)
-            elif action == 'MOVE_DOWN' or (action == 'SHOOT_DOWN' and state[2] > 0):
-                if 0 <= state[1 + prefix] < self.board.height - 1:
-                    legal_actions.append(action)
-            elif action == 'MOVE_LEFT' or (action == 'SHOOT_LEFT' and state[2] > 0):
-                if 0 < state[0 + prefix] < self.board.width:
-                    legal_actions.append(action)
-            elif action == 'MOVE_RIGHT' or (action == 'SHOOT_RIGHT' and state[2] > 0):
-                if 0 <= state[0 + prefix] < self.board.width - 1:
-                    legal_actions.append(action)
-            elif action == 'MOVE_UP_LEFT' or (action == 'SHOOT_UP_LEFT' and state[2] > 0):
-                if 0 < state[0 + prefix] < self.board.width and 0 < state[1 + prefix] < self.board.height:
-                    legal_actions.append(action)
-            elif action == 'MOVE_UP_RIGHT' or (action == 'SHOOT_UP_RIGHT' and state[2] > 0):
-                if 0 <= state[0 + prefix] < self.board.width - 1 and 0 < state[1 + prefix] < self.board.height:
-                    legal_actions.append(action)
-            elif action == 'MOVE_DOWN_LEFT' or (action == 'SHOOT_DOWN_LEFT' and state[2] > 0):
-                if 0 < state[0 + prefix] < self.board.width - 1 and 0 <= state[1 + prefix] < self.board.height - 1:
-                    legal_actions.append(action)
-            elif action == 'MOVE_DOWN_RIGHT' or (action == 'SHOOT_DOWN_RIGHT' and state[2] > 0):
-                if 0 <= state[0 + prefix] < self.board.width - 1 and 0 <= state[1 + prefix] < self.board.height - 1:
-                    legal_actions.append(action)
-        return legal_actions
-
     def fill_q_table(self):
         """
         Fill the Q-table with the given state.
@@ -936,7 +813,7 @@ class QLearningTank(Tank):
         for i in range(self.epochs):
             state = self.get_random_state()
             while not is_terminal_state(state):
-                legal_actions = self.state_legal_actions(state, 0)
+                legal_actions = state_legal_actions(self.board, state, 0)
                 if np.random.rand() < self.exploration_rate:
                     action = np.random.choice(legal_actions)
                 else:
@@ -1093,8 +970,8 @@ class QLearningTank(Tank):
         :param state: State to convert.
         :return: Move corresponding to the state.
         """
-        q_values = [self.get_q_value(tuple(state), action) for action in self.state_legal_actions(state, 3)]
-        action = self.state_legal_actions(state, 3)[np.argmax(q_values)]
+        q_values = [self.get_q_value(tuple(state), action) for action in state_legal_actions(self.board, state, 3)]
+        action = state_legal_actions(self.board, state, 3)[np.argmax(q_values)]
         return action
 
     def get_q_value(self, state, action):
@@ -1114,8 +991,8 @@ class QLearningTank(Tank):
         :param state: Current state.
         :return: Best action for the state.
         """
-        q_values = [self.get_q_value(tuple(state), action) for action in self.state_legal_actions(state, 0)]
-        action = self.state_legal_actions(state, 0)[np.argmax(q_values)]
+        q_values = [self.get_q_value(tuple(state), action) for action in state_legal_actions(self.board, state, 0)]
+        action = state_legal_actions(self.board, state, 0)[np.argmax(q_values)]
         return action
 
     def update_q_table(self, state, action, reward, next_state):
@@ -1138,71 +1015,6 @@ class QLearningTank(Tank):
         def chebyshev_distance(pos1, pos2):
             """Calculate the Chebyshev distance between two points."""
             return max(abs(pos1[0] - pos2[0]), abs(pos1[1] - pos2[1]))
-
-        def a_star_path(board, start, goal):
-            """
-            Compute the A* path from start to goal.
-
-            :param start: Starting position (x, y).
-            :param goal: Goal position (x, y).
-            :return: List of positions (x, y) in the path.
-            """
-
-            def heuristic(a, b):
-                # Chebyshev distance
-                return max(abs(a[0] - b[0]), abs(a[1] - b[1]))
-
-            open_list = []
-            heapq.heappush(open_list, (0, start))
-            came_from = {}
-            g_score = {start: 0}
-            f_score = {start: heuristic(start, goal)}
-
-            while open_list:
-                current = heapq.heappop(open_list)[1]
-
-                if current == goal:
-                    path = []
-                    while current in came_from:
-                        path.append(current)
-                        current = came_from[current]
-                    return path[::-1]
-
-                for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, 1), (-1, 1), (1, -1)]:
-                    neighbor = (current[0] + dx, current[1] + dy)
-                    if 0 <= neighbor[0] < board.width and 0 <= neighbor[1] < board.height and \
-                            not board.is_wall(neighbor[0], neighbor[1]) and \
-                            not any(
-                                [bullet.x == neighbor[0] and bullet.y == neighbor[1] for bullet in board.bullets]):
-                        tentative_g_score = g_score[current] + 1
-                        if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
-                            came_from[neighbor] = current
-                            g_score[neighbor] = tentative_g_score
-                            f_score[neighbor] = tentative_g_score + heuristic(neighbor, goal)
-                            heapq.heappush(open_list, (f_score[neighbor], neighbor))
-
-            return []
-
-        def clear_shot(pos1, pos2):
-            """
-            Check if there is a clear shot between two positions.
-            """
-            dx, dy = pos2[0] - pos1[0], pos2[1] - pos1[1]
-            if dx == 0:
-                for i in range(1, abs(dy)):
-                    if self.board.is_wall(pos1[0], pos1[1] + i * dy // abs(dy)):
-                        return False
-            elif dy == 0:
-                for i in range(1, abs(dx)):
-                    if self.board.is_wall(pos1[0] + i * dx // abs(dx), pos1[1]):
-                        return False
-            else:
-                if dx != dy:
-                    return False
-                for i in range(1, abs(dx)):
-                    if self.board.is_wall(pos1[0] + i * dx // abs(dx), pos1[1] + i * dy // abs(dy)):
-                        return False
-            return True
 
         if state[2] == 0:
             return float('-inf')  # illegal move
@@ -1241,35 +1053,7 @@ class QLearningTank(Tank):
             shot_score = -20
 
         # check if there is a bullet aimed at the tank
-        bullet_positions = []
-        bullet_directions = []
-
-        i = 6
-        while i < len(state):
-            bullet_positions.append((state[i], state[i + 1]))
-            bullet_directions.append(state[i + 2])
-            i += 5
-
-        for i in range(len(bullet_directions)):
-            if bullet_directions[i] == 'up':
-                dx, dy = 0, -1
-            elif bullet_directions[i] == 'down':
-                dx, dy = 0, 1
-            elif bullet_directions[i] == 'left':
-                dx, dy = -1, 0
-            elif bullet_directions[i] == 'right':
-                dx, dy = 1, 0
-            elif bullet_directions[i] == 'up_left':
-                dx, dy = -1, -1
-            elif bullet_directions[i] == 'up_right':
-                dx, dy = 1, -1
-            elif bullet_directions[i] == 'down_left':
-                dx, dy = -1, 1
-            elif bullet_directions[i] == 'down_right':
-                dx, dy = 1, 1
-            else:
-                return float('-inf')
-            bullet_directions[i] = (dx, dy)
+        bullet_positions, bullet_directions = get_bullet_info(state)
 
         avoidance_score = 0
         for bullet_pos, bullet_dir in zip(bullet_positions, bullet_directions):
@@ -1298,98 +1082,7 @@ class QLearningTank(Tank):
             """Calculate the Chebyshev distance between two points."""
             return max(abs(pos1[0] - pos2[0]), abs(pos1[1] - pos2[1]))
 
-        def bullet_avoidance_score(new_pos):
-            """
-            Calculate the bullet avoidance score based on bullets aimed at the new position
-            and their distances.
-            """
-            bullet_positions = []
-            bullet_directions = []
 
-            i = 6
-            while i < len(state):
-                bullet_positions.append((state[i], state[i + 1]))
-                bullet_directions.append(state[i + 2])
-                i += 5
-
-            for i in range(len(bullet_directions)):
-                if bullet_directions[i] == 'up':
-                    dx, dy = 0, -1
-                elif bullet_directions[i] == 'down':
-                    dx, dy = 0, 1
-                elif bullet_directions[i] == 'left':
-                    dx, dy = -1, 0
-                elif bullet_directions[i] == 'right':
-                    dx, dy = 1, 0
-                elif bullet_directions[i] == 'up_left':
-                    dx, dy = -1, -1
-                elif bullet_directions[i] == 'up_right':
-                    dx, dy = 1, -1
-                elif bullet_directions[i] == 'down_left':
-                    dx, dy = -1, 1
-                elif bullet_directions[i] == 'down_right':
-                    dx, dy = 1, 1
-                else:
-                    return float('-inf')
-                bullet_directions[i] = (dx, dy)
-
-            avoidance_score = 0
-            for bullet_pos, bullet_dir in zip(bullet_positions, bullet_directions):
-                # Predict the next position of the bullet
-                next_bullet_pos = (bullet_pos[0] + bullet_dir[0], bullet_pos[1] + bullet_dir[1])
-
-                # Check if the bullet is aimed at the new position
-                if next_bullet_pos == new_pos:
-                    return -500
-
-                distance_to_bullet = chebyshev_distance(new_pos, bullet_pos)
-                avoidance_score -= 100 * np.exp(-distance_to_bullet)  # Exponential penalty for proximity
-
-            return np.exp(avoidance_score)
-
-        def a_star_path(board, start, goal):
-            """
-            Compute the A* path from start to goal.
-
-            :param start: Starting position (x, y).
-            :param goal: Goal position (x, y).
-            :return: List of positions (x, y) in the path.
-            """
-
-            def heuristic(a, b):
-                # Chebyshev distance
-                return max(abs(a[0] - b[0]), abs(a[1] - b[1]))
-
-            open_list = []
-            heapq.heappush(open_list, (0, start))
-            came_from = {}
-            g_score = {start: 0}
-            f_score = {start: heuristic(start, goal)}
-
-            while open_list:
-                current = heapq.heappop(open_list)[1]
-
-                if current == goal:
-                    path = []
-                    while current in came_from:
-                        path.append(current)
-                        current = came_from[current]
-                    return path[::-1]
-
-                for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, 1), (-1, 1), (1, -1)]:
-                    neighbor = (current[0] + dx, current[1] + dy)
-                    if 0 <= neighbor[0] < board.width and 0 <= neighbor[1] < board.height and \
-                            not board.is_wall(neighbor[0], neighbor[1]) and \
-                            not any(
-                                [bullet.x == neighbor[0] and bullet.y == neighbor[1] for bullet in board.bullets]):
-                        tentative_g_score = g_score[current] + 1
-                        if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
-                            came_from[neighbor] = current
-                            g_score[neighbor] = tentative_g_score
-                            f_score[neighbor] = tentative_g_score + heuristic(neighbor, goal)
-                            heapq.heappush(open_list, (f_score[neighbor], neighbor))
-
-            return []
 
         # Ammo management score (higher reward for lower ammo count)=
         ammo_reward_factor = 1 - (state[2] / MAX_SHOTS)  # Linearly scale from 1 (min ammo) to 0 (max ammo)
@@ -1428,7 +1121,7 @@ class QLearningTank(Tank):
             proximity_score = 1 * (distance_to_opponent_old / distance_to_opponent_new) - 1
 
         # Bullet avoidance score
-        avoidance_score = bullet_avoidance_score((x, y)) - bullet_avoidance_score((state[0], state[1]))
+        avoidance_score = bullet_avoidance_score(state, (x, y)) - bullet_avoidance_score(state, (state[0], state[1]))
 
         # Combine scores with weighted factors
         avoidance_coef = 0.3 * len(self.board.bullets)
@@ -1517,7 +1210,7 @@ class MinimaxTank(AdversarialSearchTank):
             if depth == 0 or self.is_terminal_state(state):
                 return self.evaluate_game_state(state)
             v = float('-inf')
-            for action in self.state_legal_actions(state):
+            for action in state_legal_actions(self.board, state, 0):
                 v = max(v, min_value(self.next_state(state, action), depth, alpha, beta))
                 if v >= beta:
                     # print(f'max: {v} with depth {depth} and action {action}')
@@ -1533,7 +1226,7 @@ class MinimaxTank(AdversarialSearchTank):
             state[1], state[4] = state[4], state[1]
             state[2], state[5] = state[5], state[2]
             v = float('inf')
-            for action in self.state_legal_actions(state):
+            for action in state_legal_actions(self.board, state, 0):
                 v = min(v, max_value(self.next_state(state, action), depth - 1, alpha, beta))
                 if v <= alpha:
                     # print(f'min: {v} with depth {depth} and action {action}')
@@ -1547,7 +1240,7 @@ class MinimaxTank(AdversarialSearchTank):
         alpha = float('-inf')
         beta = float('inf')
         scores = {}
-        for action in self.state_legal_actions(state):
+        for action in state_legal_actions(self.board, state, 0):
             state = self.get_state()
             state = self.next_state(state, action)
             score = min_value(state, self.depth, alpha, beta)
@@ -1579,7 +1272,7 @@ class ExpectimaxTank(AdversarialSearchTank):
             if depth == 0 or self.is_terminal_state(state):
                 return self.evaluate_game_state(state)
             v = float('-inf')
-            actions = self.state_legal_actions(state)
+            actions = sstate_legal_actions(self.board, state, 0)
             for action in actions:
                 v = max(v, exp_value(self.next_state(state, action), depth))
             return v
@@ -1591,7 +1284,7 @@ class ExpectimaxTank(AdversarialSearchTank):
             state[1], state[4] = state[4], state[1]
             state[2], state[5] = state[5], state[2]
             v = 0
-            actions = self.state_legal_actions(state)
+            actions = state_legal_actions(self.board, state, 0)
             for action in actions:
                 v += max_value(self.next_state(state, action), depth - 1)
             return v / len(actions)
@@ -1601,7 +1294,7 @@ class ExpectimaxTank(AdversarialSearchTank):
         alpha = float('-inf')
         beta = float('inf')
         scores = {}
-        for action in self.state_legal_actions(state):
+        for action in state_legal_actions(self.board, state, 0):
             state = self.get_state()
             state = self.next_state(state, action)
             score = exp_value(state, self.depth)
