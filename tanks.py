@@ -1157,7 +1157,7 @@ class MinimaxTank(AdversarialSearchTank):
                 best_score = score
                 best_action = action
             scores[action] = score
-        print(scores)
+        # print(scores)
         return best_action
 
 
