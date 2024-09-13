@@ -912,6 +912,8 @@ class QLearningTank(Tank):
         :return: Best action for the state.
         """
         q_values = [self.get_q_value(tuple(state), action) for action in state_legal_actions(self.board, state, 0)]
+        if len(q_values) == 0:
+            return "IDLE"
         action = state_legal_actions(self.board, state, 0)[np.argmax(q_values)]
         return action
 
@@ -1086,7 +1088,7 @@ class QLearningTank(Tank):
         state = self.get_state()
         next_state = self.next_state_wrapper(state, action)
 
-        bullet = Bullet(self.board, self.x + dx, self.y + dy, action)
+        bullet = Bullet(self.board, self.x + dx, self.y + dy, simp_action)
         can_add = self.board.add_bullet(bullet)
         self.bullets.append(bullet)
         if can_add:
