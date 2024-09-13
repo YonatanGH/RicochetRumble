@@ -415,9 +415,9 @@ class AdversarialSearchTank(Tank, ABC):
         i = 6
         while i < len(state):
             if state[i] == x and state[i + 1] == y:
-                return -200
+                return -1000
             if state[i] == opponent_x and state[i + 1] == opponent_y:
-                return 200
+                return 1000
             i += 5
 
         # Calculate the A* distance to the opponent
@@ -438,7 +438,7 @@ class AdversarialSearchTank(Tank, ABC):
             clear_shot_score = 0
 
         # bullet management
-        if state[2] > 0:
+        if shots > 0:
             bullet_management = 5 * state[2]
         else:
             bullet_management = -10
@@ -1120,9 +1120,6 @@ class MinimaxTank(AdversarialSearchTank):
         """
 
         def max_value(state, depth, alpha, beta):
-            state[0], state[3] = state[3], state[0]
-            state[1], state[4] = state[4], state[1]
-            state[2], state[5] = state[5], state[2]
             if depth == 0 or self.is_terminal_state(state):
                 return self.evaluate_game_state(state)
             v = float('-inf')
@@ -1130,27 +1127,20 @@ class MinimaxTank(AdversarialSearchTank):
             for action in actions:
                 v = max(v, min_value(next_state_finder(self.board, state, action, 0), depth, alpha, beta))
                 if v >= beta:
-                    # print(f'max: {v} with depth {depth} and action {action}')
                     return v
                 alpha = max(alpha, v)
-                # print(f'max: {v} with depth {depth} and action {action}')
             return v
 
         def min_value(state, depth, alpha, beta):
             if depth == 0 or self.is_terminal_state(state):
                 return self.evaluate_game_state(state)
-            state[0], state[3] = state[3], state[0]
-            state[1], state[4] = state[4], state[1]
-            state[2], state[5] = state[5], state[2]
             v = float('inf')
-            actions = state_legal_actions(self.board, state, 0)
+            actions = state_legal_actions(self.board, state, 3)
             for action in actions:
-                v = min(v, max_value(next_state_finder(self.board, state, action, 0), depth - 1, alpha, beta))
+                v = min(v, max_value(next_state_finder(self.board, state, action, 3), depth - 1, alpha, beta))
                 if v <= alpha:
-                    # print(f'min: {v} with depth {depth} and action {action}')
                     return v
                 beta = min(beta, v)
-            # print(f'min: {v} with depth {depth} and action {action}')
             return v
 
         best_action = None
@@ -1167,7 +1157,7 @@ class MinimaxTank(AdversarialSearchTank):
                 best_score = score
                 best_action = action
             scores[action] = score
-        # print(scores)
+        print(scores)
         return best_action
 
 
@@ -1184,9 +1174,6 @@ class ExpectimaxTank(AdversarialSearchTank):
         """
 
         def max_value(state, depth):
-            state[0], state[3] = state[3], state[0]
-            state[1], state[4] = state[4], state[1]
-            state[2], state[5] = state[5], state[2]
             if depth == 0 or self.is_terminal_state(state):
                 return self.evaluate_game_state(state)
             v = float('-inf')
@@ -1198,13 +1185,10 @@ class ExpectimaxTank(AdversarialSearchTank):
         def exp_value(state, depth):
             if depth == 0 or self.is_terminal_state(state):
                 return self.evaluate_game_state(state)
-            state[0], state[3] = state[3], state[0]
-            state[1], state[4] = state[4], state[1]
-            state[2], state[5] = state[5], state[2]
             v = 0
-            actions = state_legal_actions(self.board, state, 0)
+            actions = state_legal_actions(self.board, state, 3)
             for action in actions:
-                v += max_value(next_state_finder(self.board, state, action, 0), depth - 1)
+                v += max_value(next_state_finder(self.board, state, action, 3), depth - 1)
             return v / len(actions)
 
         best_action = None
