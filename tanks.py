@@ -1126,7 +1126,8 @@ class MinimaxTank(AdversarialSearchTank):
             if depth == 0 or self.is_terminal_state(state):
                 return self.evaluate_game_state(state)
             v = float('-inf')
-            for action in state_legal_actions(self.board, state, 0):
+            actions = state_legal_actions(self.board, state, 0)
+            for action in actions:
                 v = max(v, min_value(next_state_finder(self.board, state, action, 0), depth, alpha, beta))
                 if v >= beta:
                     # print(f'max: {v} with depth {depth} and action {action}')
@@ -1142,7 +1143,8 @@ class MinimaxTank(AdversarialSearchTank):
             state[1], state[4] = state[4], state[1]
             state[2], state[5] = state[5], state[2]
             v = float('inf')
-            for action in state_legal_actions(self.board, state, 0):
+            actions = state_legal_actions(self.board, state, 0)
+            for action in actions:
                 v = min(v, max_value(next_state_finder(self.board, state, action, 0), depth - 1, alpha, beta))
                 if v <= alpha:
                     # print(f'min: {v} with depth {depth} and action {action}')
@@ -1188,7 +1190,7 @@ class ExpectimaxTank(AdversarialSearchTank):
             if depth == 0 or self.is_terminal_state(state):
                 return self.evaluate_game_state(state)
             v = float('-inf')
-            actions = sstate_legal_actions(self.board, state, 0)
+            actions = state_legal_actions(self.board, state, 0)
             for action in actions:
                 v = max(v, exp_value(next_state_finder(self.board, state, action, 0), depth))
             return v
