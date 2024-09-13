@@ -204,6 +204,38 @@ def next_state_finder(board, state, action, prefix):
         """
         next_state = state.copy()
 
+        # update bullets
+        i = 6
+        while i < len(next_state):
+            simp_action = next_state[i + 2]
+            if simp_action.startswith('SHOOT'):
+                simp_action = simp_action[6:]
+                simp_action = simp_action.lower()
+            dx, dy = GameConstants.STR_TO_VALS[simp_action]
+            next_state[i] += dx
+            next_state[i + 1] += dy
+            # Handle wall bounces
+            if next_state[i] < 0 or next_state[i] >= board.width:
+                dx = -dx  # Bounce off vertical walls
+                next_state[i] += 2 * dx
+                next_state[i + 2] = GameConstants.VALS_TO_STR[-dx, dy]
+                next_state[i + 3] += 1
+                if next_state[i + 3] >= 3:
+                    next_state = next_state[:i] + next_state[i + 5:]
+                    continue
+            if next_state[i + 1] < 0 or next_state[i + 1] >= board.height:
+                dy = -dy  # Bounce off horizontal walls
+                next_state[i + 1] += 2 * dy
+                next_state[i + 2] = GameConstants.VALS_TO_STR[dx, -dy]
+                next_state[i + 3] += 1
+                if next_state[i + 3] >= 3:
+                    next_state = next_state[:i] + next_state[i + 5:]
+                    continue
+            next_state[i + 4] += 1
+            if next_state[i + 4] >= 10:
+                next_state = next_state[:i] + next_state[i + 5:]
+            i += 5
+
         # update the tank based on the action
         if action == 'MOVE_UP':
             next_state[1 + prefix] -= 1
@@ -260,37 +292,6 @@ def next_state_finder(board, state, action, prefix):
         elif action == 'IDLE':
             next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
 
-        # update bullets
-        i = 6
-        while i < len(next_state):
-            simp_action = next_state[i + 2]
-            if simp_action.startswith('SHOOT'):
-                simp_action = simp_action[6:]
-                simp_action = simp_action.lower()
-            dx, dy = GameConstants.STR_TO_VALS[simp_action]
-            next_state[i] += dx
-            next_state[i + 1] += dy
-            # Handle wall bounces
-            if next_state[i] < 0 or next_state[i] >= board.width:
-                dx = -dx  # Bounce off vertical walls
-                next_state[i] += 2 * dx
-                next_state[i + 2] = GameConstants.VALS_TO_STR[-dx, dy]
-                next_state[i + 3] += 1
-                if next_state[i + 3] >= 3:
-                    next_state = next_state[:i] + next_state[i + 5:]
-                    continue
-            if next_state[i + 1] < 0 or next_state[i + 1] >= board.height:
-                dy = -dy  # Bounce off horizontal walls
-                next_state[i + 1] += 2 * dy
-                next_state[i + 2] = GameConstants.VALS_TO_STR[dx, -dy]
-                next_state[i + 3] += 1
-                if next_state[i + 3] >= 3:
-                    next_state = next_state[:i] + next_state[i + 5:]
-                    continue
-            next_state[i + 4] += 1
-            if next_state[i + 4] >= 10:
-                next_state = next_state[:i] + next_state[i + 5:]
-            i += 5
         return next_state
 
 
