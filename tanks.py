@@ -8,35 +8,6 @@ import pickle
 
 from planning_problem import PlanningProblem, solve, null_heuristic, max_level, level_sum
 
-ACTIONS = ['MOVE_UP', 'MOVE_DOWN', 'MOVE_LEFT', 'MOVE_RIGHT', 'MOVE_UP_LEFT', 'MOVE_UP_RIGHT', 'MOVE_DOWN_LEFT',
-           'MOVE_DOWN_RIGHT', 'SHOOT_UP', 'SHOOT_DOWN', 'SHOOT_LEFT', 'SHOOT_RIGHT', 'SHOOT_UP_LEFT', 'SHOOT_UP_RIGHT',
-           'SHOOT_DOWN_LEFT', 'SHOOT_DOWN_RIGHT']
-
-vals_to_str = {
-    (0, -1): 'up',
-    (0, 1): 'down',
-    (-1, 0): 'left',
-    (1, 0): 'right',
-    (-1, -1): 'up_left',
-    (1, -1): 'up_right',
-    (-1, 1): 'down_left',
-    (1, 1): 'down_right'
-}
-
-str_to_vals = {
-    'up': (0, -1),
-    'down': (0, 1),
-    'left': (-1, 0),
-    'right': (1, 0),
-    'up_left': (-1, -1),
-    'up_right': (1, -1),
-    'down_left': (-1, 1),
-    'down_right': (1, 1),
-}
-
-BEGINNING_SHOTS = 3
-MAX_SHOTS = 5
-
 
 class Tank(ABC):
     def __init__(self, board, x, y, number):
@@ -122,15 +93,6 @@ class Tank(ABC):
             legal_actions += self.__get_legal_actions_shoot()
         legal_actions += self.__get_legal_actions_move()
         return legal_actions
-
-    def state_to_move(self, state):
-        """
-        Get the move that corresponds to the given state.
-
-        :param state: The state to convert.
-        :return: The move that corresponds to the given state.
-        """
-        pass
 
 
 class AdversarialSearchTank(Tank, ABC):
@@ -359,14 +321,14 @@ class AdversarialSearchTank(Tank, ABC):
         # Update the bullets
         i = 6
         while i < len(next_state):
-            dx, dy = str_to_vals[next_state[i + 2]]
+            dx, dy = GameConstants.STR_TO_VALS[next_state[i + 2]]
             next_state[i] += dx
             next_state[i + 1] += dy
             # Handle wall bounces
             if next_state[i] < 0 or next_state[i] >= self.board.width:
                 dx = -dx  # Bounce off vertical walls
                 next_state[i] += 2 * dx
-                next_state[i + 2] = vals_to_str[-dx, dy]
+                next_state[i + 2] = GameConstants.VALS_TO_STR[-dx, dy]
                 next_state[i + 3] += 1
                 if next_state[i + 3] >= 3:
                     next_state = next_state[:i] + next_state[i + 5:]
@@ -374,7 +336,7 @@ class AdversarialSearchTank(Tank, ABC):
             if next_state[i + 1] < 0 or next_state[i + 1] >= self.board.height:
                 dy = -dy  # Bounce off horizontal walls
                 next_state[i + 1] += 2 * dy
-                next_state[i + 2] = vals_to_str[dx, -dy]
+                next_state[i + 2] = GameConstants.VALS_TO_STR[dx, -dy]
                 next_state[i + 3] += 1
                 if next_state[i + 3] >= 3:
                     next_state = next_state[:i] + next_state[i + 5:]
@@ -447,13 +409,13 @@ class AdversarialSearchTank(Tank, ABC):
         :return: List of legal actions.
         """
         legal_actions = []
-        for action in ACTIONS:
+        for action in GameConstants.ACTIONS:
             # making sure the tank is not moving or shooting into a wall
             if action.startswith('MOVE'):
                 simp_action = action[5:].lower()
             else:
                 simp_action = action[6:].lower()
-            dx, dy = str_to_vals[simp_action]
+            dx, dy = GameConstants.STR_TO_VALS[simp_action]
             if state[0] + dx < 0 or state[0] + dx >= self.board.width or \
                     state[1] + dy < 0 or state[1] + dy >= self.board.height or \
                     self.board.is_wall(state[0] + dx, state[1] + dy):
@@ -592,7 +554,7 @@ class AdversarialSearchTank(Tank, ABC):
             dx, dy = 1, 1
         else:
             return False
-        direction = vals_to_str.get((dx, dy))
+        direction = GameConstants.VALS_TO_STR.get((dx, dy))
         if direction:
             self.board.add_bullet(Bullet(self.board, self.x + dx, self.y + dy, direction))
             return True
@@ -632,7 +594,7 @@ class RandomTank(Tank):
         valid_actions = [action for action in legal_actions if action.startswith('MOVE')]
         while valid_actions:
             action = np.random.choice(valid_actions)
-            dx, dy = str_to_vals[action[5:].lower()]
+            dx, dy = GameConstants.STR_TO_VALS[action[5:].lower()]
             if self.board.is_valid_move(self.x + dx, self.y + dy):
                 self.board.move_tank(self, self.x + dx, self.y + dy, self.number)
                 return True
@@ -651,7 +613,7 @@ class RandomTank(Tank):
         while valid_actions:
             action = np.random.choice(valid_actions)
             direction = action[6:].lower()
-            dx, dy = str_to_vals[direction]
+            dx, dy = GameConstants.STR_TO_VALS[direction]
             bullet = Bullet(self.board, self.x + dx, self.y + dy, direction)
             can_add = self.board.is_valid_move(bullet.x, bullet.y)
             if can_add:
@@ -682,8 +644,8 @@ class PlayerTank(Tank):
         :return: True if move is valid, False otherwise.
         """
         super().move(direction)
-        if direction in str_to_vals:
-            dx, dy = str_to_vals[direction]
+        if direction in GameConstants.STR_TO_VALS:
+            dx, dy = GameConstants.STR_TO_VALS[direction]
             new_x, new_y = self.x + dx, self.y + dy
             return self.board.move_tank(self, new_x, new_y, self.number)
         return False
@@ -695,8 +657,8 @@ class PlayerTank(Tank):
         :param direction: Direction to shoot ('up', 'down', 'left', 'right', 'up_left', 'up_right', 'down_left', 'down_right').
         """
         if self.shots > 0:
-            if direction in str_to_vals:
-                dx, dy = str_to_vals[direction]
+            if direction in GameConstants.STR_TO_VALS:
+                dx, dy = GameConstants.STR_TO_VALS[direction]
                 bullet = Bullet(self.board, self.x + dx, self.y + dy, direction)
                 can_add = self.board.add_bullet(bullet)
                 if can_add:
@@ -761,7 +723,7 @@ class AStarTank(Tank):
                     current = came_from[current]
                 return path[::-1]
 
-            for dx, dy in vals_to_str.keys():
+            for dx, dy in GameConstants.VALS_TO_STR.keys():
                 neighbor = (current[0] + dx, current[1] + dy)
                 if 0 <= neighbor[0] < self.board.width and 0 <= neighbor[1] < self.board.height and \
                         not self.board.is_wall(neighbor[0], neighbor[1]):
@@ -809,7 +771,7 @@ class AStarTank(Tank):
             tank_position = (target_tank.x, target_tank.y)
             if abs(self.x - tank_position[0]) <= 1 and abs(self.y - tank_position[1]) <= 1:
                 dx, dy = tank_position[0] - self.x, tank_position[1] - self.y
-                direction = vals_to_str.get((dx, dy))
+                direction = GameConstants.VALS_TO_STR.get((dx, dy))
                 if direction:
                     self.board.add_bullet(Bullet(self.board, self.x + dx, self.y + dy, direction))
                     self.shots -= 1
@@ -901,13 +863,13 @@ class QLearningTank(Tank):
         :return: List of legal actions.
         """
         legal_actions = []
-        for action in ACTIONS:
+        for action in GameConstants.ACTIONS:
             # making sure the tank is not moving or shooting into a wall
             if action.startswith('MOVE'):
                 simp_action = action[5:].lower()
             else:
                 simp_action = action[6:].lower()
-            dx, dy = str_to_vals[simp_action]
+            dx, dy = GameConstants.STR_TO_VALS[simp_action]
             if state[0+prefix] + dx < 0 or state[0+prefix] + dx >= self.board.width or \
                     state[1+prefix] + dy < 0 or state[1+prefix] + dy >= self.board.height or \
                     self.board.is_wall(state[0+prefix] + dx, state[1+prefix] + dy):
@@ -1103,14 +1065,14 @@ class QLearningTank(Tank):
         # update bullets
         i = 6
         while i < len(next_state):
-            dx, dy = str_to_vals[next_state[i + 2]]
+            dx, dy = GameConstants.STR_TO_VALS[next_state[i + 2]]
             next_state[i] += dx
             next_state[i + 1] += dy
             # Handle wall bounces
             if next_state[i] < 0 or next_state[i] >= self.board.width:
                 dx = -dx  # Bounce off vertical walls
                 next_state[i] += 2 * dx
-                next_state[i + 2] = vals_to_str[-dx, dy]
+                next_state[i + 2] = GameConstants.VALS_TO_STR[-dx, dy]
                 next_state[i + 3] += 1
                 if next_state[i + 3] >= 3:
                     next_state = next_state[:i] + next_state[i + 5:]
@@ -1118,7 +1080,7 @@ class QLearningTank(Tank):
             if next_state[i + 1] < 0 or next_state[i + 1] >= self.board.height:
                 dy = -dy  # Bounce off horizontal walls
                 next_state[i + 1] += 2 * dy
-                next_state[i + 2] = vals_to_str[dx, -dy]
+                next_state[i + 2] = GameConstants.VALS_TO_STR[dx, -dy]
                 next_state[i + 3] += 1
                 if next_state[i + 3] >= 3:
                     next_state = next_state[:i] + next_state[i + 5:]
@@ -1184,7 +1146,7 @@ class QLearningTank(Tank):
         """
         state = tuple(state)
         q_value = self.get_q_value(state, action)
-        next_q_values = [self.get_q_value(next_state, next_action) for next_action in ACTIONS]
+        next_q_values = [self.get_q_value(next_state, next_action) for next_action in GameConstants.ACTIONS]
         max_q_value = np.max(next_q_values)
         new_q_value = q_value + self.learning_rate * (reward + self.discount_factor * max_q_value - q_value)
         self.q_table[(state, action)] = new_q_value
@@ -1529,7 +1491,7 @@ class QLearningTank(Tank):
 
         simp_action = action[6:]
         simp_action = simp_action.lower()
-        dx, dy = str_to_vals[simp_action]
+        dx, dy = GameConstants.STR_TO_VALS[simp_action]
 
         state = self.get_state()
         next_state = self.next_state(state, action)
@@ -1711,7 +1673,7 @@ class PGTank(Tank):
             self.plan = [action.name.split("_from")[0] for action in self.plan]
             # print(self.plan)
         if self.plan is None:  # in case of no plan found and also no previous plan
-            self.plan = ACTIONS
+            self.plan = GameConstants.ACTIONS
 
     def create_domain_file(self, domain_file_name, board):
         # Create the domain file for the planning graph
@@ -1735,7 +1697,7 @@ class PGTank(Tank):
                 # if there is a wall at x,y then we can't move there
                 if board.is_wall(x, y):
                     continue
-                legal_actions = ACTIONS
+                legal_actions = GameConstants.ACTIONS
                 for action in legal_actions:
                     if "MOVE" in action:
                         if "UP_LEFT" in action:
@@ -1814,7 +1776,7 @@ class PGTank(Tank):
             for y in range(board.height):
                 if board.is_wall(x, y):
                     continue
-                legal_actions = ACTIONS
+                legal_actions = GameConstants.ACTIONS
                 for action in legal_actions:
                     # """
 
@@ -1962,7 +1924,7 @@ class PGTank(Tank):
             self.current_plan_index += 1
             self.did_move = True
             self.isplan_uptodate = False
-            d_x, d_y = str_to_vals[action_direction.lower()]
+            d_x, d_y = GameConstants.STR_TO_VALS[action_direction.lower()]
             new_x, new_y = self.x + d_x, self.y + d_y
             return self.board.move_tank(self, new_x, new_y, self.number)
 
@@ -1979,7 +1941,7 @@ class PGTank(Tank):
             # get the direction of the action:
             action_direction = action[action.index("_") + 1:]
             if action in self.get_legal_actions():
-                d_x, d_y = str_to_vals[action_direction.lower()]
+                d_x, d_y = GameConstants.STR_TO_VALS[action_direction.lower()]
                 shot_x, shot_y = self.x + d_x, self.y + d_y
                 self.shots -= 1
                 self.current_plan_index += 1
