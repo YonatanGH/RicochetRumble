@@ -729,15 +729,42 @@ class AStarTank(Tank):
                 self.board.add_bullet(Bullet(self.board, self.x + dx, self.y + dy, direction))
                 self.shots -= 1
 
+    def legal(self, action):
+        if action.startswith('MOVE'):
+            action = action[5:]
+        else:
+            action = action[6:]
+        action = action.lower()
+        dx, dy = GameConstants.STR_TO_VALS[action]
+        new_x, new_y = self.x + dx, self.y + dy
+        return self.board.is_valid_move(new_x, new_y)
+
     def act(self):
         if self.number == 1:
             target_tank = self.board.tank2
         else:
             target_tank = self.board.tank1
-        if abs(self.x - target_tank.x) <= 1 and abs(self.y - target_tank.y) <= 1:
+        if chebyshev_distance((self.x, self.y), (target_tank.x, target_tank.y)) == 1:
             self.shoot(None)
-        else:
-            self.move(None)
+            return
+        moved = self.move(None)
+        if not moved: # if there is no path to the target tank
+            import random
+            action = random.choice(GameConstants.ACTIONS)
+            while not self.legal(action):
+                action = random.choice(GameConstants.ACTIONS)
+            if action.startswith('MOVE'):
+                action = action[5:]
+                action = action.lower()
+                dx, dy = GameConstants.STR_TO_VALS[action]
+                self.board.move_tank(self, self.x + dx, self.y + dy, self.number)
+            else:
+                action = action[6:]
+                action = action.lower()
+                dx, dy = GameConstants.STR_TO_VALS[action]
+                self.board.add_bullet(Bullet(self.board, self.x + dx, self.y + dy, direction))
+                self.shots -= 1
+
 
 
 # ---------------------- Q-LearningTank ---------------------- #
