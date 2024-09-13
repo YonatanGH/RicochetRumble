@@ -10,6 +10,13 @@ from planning_problem import PlanningProblem, solve, null_heuristic, max_level, 
 
 # ---------------------- Utilities ---------------------- #
 
+
+def chebyshev_distance(pos1, pos2):
+    """
+    Calculate the Chebyshev distance between two positions.
+    """
+    return max(abs(pos1[0] - pos2[0]), abs(pos1[1] - pos2[1]))
+
 def a_star_path(board, start, goal):
     """
     Compute the A* path from start to goal.
@@ -21,7 +28,7 @@ def a_star_path(board, start, goal):
 
     def heuristic(a, b):
         # Chebyshev distance
-        return max(abs(a[0] - b[0]), abs(a[1] - b[1]))
+        return chebyshev_distance(a, b)
 
     open_list = []
     heapq.heappush(open_list, (0, start))
@@ -44,7 +51,7 @@ def a_star_path(board, start, goal):
             if 0 <= neighbor[0] < board.width and 0 <= neighbor[1] < board.height and \
                     not board.is_wall(neighbor[0], neighbor[1]) \
                     and not any([bullet.x == neighbor[0] and bullet.y == neighbor[1] for bullet in
-                                 self.board.bullets]):
+                                 board.bullets]):
                 tentative_g_score = g_score[current] + 1
                 if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
                     came_from[neighbor] = current
@@ -95,50 +102,50 @@ def state_legal_actions(board, state, prefix):
                 continue
 
         # checking specific move legality
-        if action == 'MOVE_UP' or (action == 'SHOOT_UP' and state[2] > 0):
+        if action == 'MOVE_UP' or (action == 'SHOOT_UP' and state[2 + prefix] > 0):
             if 0 < state[1 + prefix] < board.height:
                 legal_actions.append(action)
-        elif action == 'MOVE_DOWN' or (action == 'SHOOT_DOWN' and state[2] > 0):
+        elif action == 'MOVE_DOWN' or (action == 'SHOOT_DOWN' and state[2 + prefix] > 0):
             if 0 <= state[1 + prefix] < board.height - 1:
                 legal_actions.append(action)
-        elif action == 'MOVE_LEFT' or (action == 'SHOOT_LEFT' and state[2] > 0):
+        elif action == 'MOVE_LEFT' or (action == 'SHOOT_LEFT' and state[2 + prefix] > 0):
             if 0 < state[0 + prefix] < board.width:
                 legal_actions.append(action)
-        elif action == 'MOVE_RIGHT' or (action == 'SHOOT_RIGHT' and state[2] > 0):
+        elif action == 'MOVE_RIGHT' or (action == 'SHOOT_RIGHT' and state[2 + prefix] > 0):
             if 0 <= state[0 + prefix] < board.width - 1:
                 legal_actions.append(action)
-        elif action == 'MOVE_UP_LEFT' or (action == 'SHOOT_UP_LEFT' and state[2] > 0):
+        elif action == 'MOVE_UP_LEFT' or (action == 'SHOOT_UP_LEFT' and state[2 + prefix] > 0):
             if 0 < state[0 + prefix] < board.width and 0 < state[1 + prefix] < board.height:
                 legal_actions.append(action)
-        elif action == 'MOVE_UP_RIGHT' or (action == 'SHOOT_UP_RIGHT' and state[2] > 0):
+        elif action == 'MOVE_UP_RIGHT' or (action == 'SHOOT_UP_RIGHT' and state[2 + prefix] > 0):
             if 0 <= state[0 + prefix] < board.width - 1 and 0 < state[1 + prefix] < board.height:
                 legal_actions.append(action)
-        elif action == 'MOVE_DOWN_LEFT' or (action == 'SHOOT_DOWN_LEFT' and state[2] > 0):
+        elif action == 'MOVE_DOWN_LEFT' or (action == 'SHOOT_DOWN_LEFT' and state[2 + prefix] > 0):
             if 0 < state[0 + prefix] < board.width - 1 and 0 <= state[1 + prefix] < board.height - 1:
                 legal_actions.append(action)
-        elif action == 'MOVE_DOWN_RIGHT' or (action == 'SHOOT_DOWN_RIGHT' and state[2] > 0):
+        elif action == 'MOVE_DOWN_RIGHT' or (action == 'SHOOT_DOWN_RIGHT' and state[2 + prefix] > 0):
             if 0 <= state[0 + prefix] < board.width - 1 and 0 <= state[1 + prefix] < board.height - 1:
                 legal_actions.append(action)
     return legal_actions
 
-def clear_shot(pos1, pos2):
+def clear_shot(board, pos1, pos2):
     """
     Check if there is a clear shot between two positions.
     """
     dx, dy = pos2[0] - pos1[0], pos2[1] - pos1[1]
     if dx == 0:
         for i in range(1, abs(dy)):
-            if self.board.is_wall(pos1[0], pos1[1] + i * dy // abs(dy)):
+            if board.is_wall(pos1[0], pos1[1] + i * dy // abs(dy)):
                 return False
     elif dy == 0:
         for i in range(1, abs(dx)):
-            if self.board.is_wall(pos1[0] + i * dx // abs(dx), pos1[1]):
+            if board.is_wall(pos1[0] + i * dx // abs(dx), pos1[1]):
                 return False
     else:
         if dx != dy:
             return False
         for i in range(1, abs(dx)):
-            if self.board.is_wall(pos1[0] + i * dx // abs(dx), pos1[1] + i * dy // abs(dy)):
+            if board.is_wall(pos1[0] + i * dx // abs(dx), pos1[1] + i * dy // abs(dy)):
                 return False
     return True
 
@@ -152,33 +159,18 @@ def get_bullet_info(state):
     i = 6
     while i < len(state):
         bullet_positions.append((state[i], state[i + 1]))
-        bullet_directions.append(state[i + 2])
+        direction = state[i + 2]
+        if direction.startswith('SHOOT'):
+            direction = direction[6:]
+            direction = direction.lower()
+        bullet_directions.append(direction)
         i += 5
 
     for i in range(len(bullet_directions)):
-        if bullet_directions[i] == 'up':
-            dx, dy = 0, -1
-        elif bullet_directions[i] == 'down':
-            dx, dy = 0, 1
-        elif bullet_directions[i] == 'left':
-            dx, dy = -1, 0
-        elif bullet_directions[i] == 'right':
-            dx, dy = 1, 0
-        elif bullet_directions[i] == 'up_left':
-            dx, dy = -1, -1
-        elif bullet_directions[i] == 'up_right':
-            dx, dy = 1, -1
-        elif bullet_directions[i] == 'down_left':
-            dx, dy = -1, 1
-        elif bullet_directions[i] == 'down_right':
-            dx, dy = 1, 1
-        else:
-            return float('-inf')
+        dx, dy = GameConstants.STR_TO_VALS[bullet_directions[i]]
         bullet_directions[i] = (dx, dy)
 
     return bullet_positions, bullet_directions
-
-
 
 def bullet_avoidance_score(state, new_pos):
     """
@@ -201,7 +193,105 @@ def bullet_avoidance_score(state, new_pos):
 
     return np.exp(avoidance_score)
 
+def next_state_finder(board, state, action, prefix):
+        """
+        Get the next state after taking an action.
 
+        :param state: Current state.
+        :param action: Action taken.
+        :param prefix: Prefix for the state, which means which tank is being moved.
+        :return: Next state.
+        """
+        next_state = state.copy()
+
+        # update the tank based on the action
+        if action == 'MOVE_UP':
+            next_state[1 + prefix] -= 1
+            next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
+        elif action == 'MOVE_DOWN':
+            next_state[1 + prefix] += 1
+            next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
+        elif action == 'MOVE_LEFT':
+            next_state[0 + prefix] -= 1
+            next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
+        elif action == 'MOVE_RIGHT':
+            next_state[0 + prefix] += 1
+            next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
+        elif action == 'MOVE_UP_LEFT':
+            next_state[0 + prefix] -= 1
+            next_state[1 + prefix] -= 1
+            next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
+        elif action == 'MOVE_UP_RIGHT':
+            next_state[0 + prefix] += 1
+            next_state[1 + prefix] -= 1
+            next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
+        elif action == 'MOVE_DOWN_LEFT':
+            next_state[0 + prefix] -= 1
+            next_state[1 + prefix] += 1
+            next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
+        elif action == 'MOVE_DOWN_RIGHT':
+            next_state[0 + prefix] += 1
+            next_state[1 + prefix] += 1
+            next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
+        elif action == 'SHOOT_UP':
+            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
+            next_state.extend([next_state[0 + prefix], next_state[1 + prefix] - 1, 'up', 0, 0])
+        elif action == 'SHOOT_DOWN':
+            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
+            next_state.extend([next_state[0 + prefix], next_state[1 + prefix] + 1, 'down', 0, 0])
+        elif action == 'SHOOT_LEFT':
+            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
+            next_state.extend([next_state[0 + prefix] - 1, next_state[1 + prefix], 'left', 0, 0])
+        elif action == 'SHOOT_RIGHT':
+            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
+            next_state.extend([next_state[0 + prefix] + 1, next_state[1 + prefix], 'right', 0, 0])
+        elif action == 'SHOOT_UP_LEFT':
+            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
+            next_state.extend([next_state[0 + prefix] - 1, next_state[1 + prefix] - 1, 'up_left', 0, 0])
+        elif action == 'SHOOT_UP_RIGHT':
+            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
+            next_state.extend([next_state[0 + prefix] + 1, next_state[1 + prefix] - 1, 'up_right', 0, 0])
+        elif action == 'SHOOT_DOWN_LEFT':
+            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
+            next_state.extend([next_state[0 + prefix] - 1, next_state[1 + prefix] + 1, 'down_left', 0, 0])
+        elif action == 'SHOOT_DOWN_RIGHT':
+            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
+            next_state.extend([next_state[0 + prefix] + 1, next_state[1 + prefix] + 1, 'down_right', 0, 0])
+        elif action == 'IDLE':
+            next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
+
+        # update bullets
+        i = 6
+        while i < len(next_state):
+            simp_action = next_state[i + 2]
+            if simp_action.startswith('SHOOT'):
+                simp_action = simp_action[6:]
+                simp_action = simp_action.lower()
+            dx, dy = GameConstants.STR_TO_VALS[simp_action]
+            next_state[i] += dx
+            next_state[i + 1] += dy
+            # Handle wall bounces
+            if next_state[i] < 0 or next_state[i] >= board.width:
+                dx = -dx  # Bounce off vertical walls
+                next_state[i] += 2 * dx
+                next_state[i + 2] = GameConstants.VALS_TO_STR[-dx, dy]
+                next_state[i + 3] += 1
+                if next_state[i + 3] >= 3:
+                    next_state = next_state[:i] + next_state[i + 5:]
+                    continue
+            if next_state[i + 1] < 0 or next_state[i + 1] >= board.height:
+                dy = -dy  # Bounce off horizontal walls
+                next_state[i + 1] += 2 * dy
+                next_state[i + 2] = GameConstants.VALS_TO_STR[dx, -dy]
+                next_state[i + 3] += 1
+                if next_state[i + 3] >= 3:
+                    next_state = next_state[:i] + next_state[i + 5:]
+                    continue
+            next_state[i + 4] += 1
+            if next_state[i + 4] >= 10:
+                next_state = next_state[:i] + next_state[i + 5:]
+            i += 5
+        return next_state
 
 
 class Tank(ABC):
@@ -217,14 +307,14 @@ class Tank(ABC):
         self.board = board  # Reference to the board
         self.x = x  # X coordinate
         self.y = y  # Y coordinate
-        self.shots = BEGINNING_SHOTS  # Shot counter
+        self.shots = GameConstants.BEGINNING_SHOTS  # Shot counter
         self.number = number  # Tank number
         self.bullets = []  # List of bullets
         board.place_tank(self, number)
 
     def add_bullet(self):
         """ Add a bullet to the tank's shot counter. """
-        self.shots += 1 if self.shots < MAX_SHOTS else 0
+        self.shots += 1 if self.shots < GameConstants.MAX_SHOTS else 0
 
     @abstractmethod
     def move(self, direction):
@@ -318,12 +408,6 @@ class AdversarialSearchTank(Tank, ABC):
         :return: Reward for the state-action pair.
         """
 
-        def chebyshev_distance(pos1, pos2):
-            """
-            Calculate the Chebyshev distance between two positions.
-            """
-            return max(abs(pos1[0] - pos2[0]), abs(pos1[1] - pos2[1]))
-
         # Unpack the state
         x, y, shots, opponent_x, opponent_y, opponent_shots = state[0], state[1], state[2], state[3], state[4], state[5]
 
@@ -344,7 +428,7 @@ class AdversarialSearchTank(Tank, ABC):
             distance_score = 100 / path
 
         # checking if there is a clean shot
-        if clear_shot((x, y), (opponent_x, opponent_y)) and state[2] > 0:
+        if clear_shot(self.board, (x, y), (opponent_x, opponent_y)) and state[2] > 0:
             clear_shot_score = 50
             path = a_star_path(self.board, (x, y), (opponent_x, opponent_y))
             for i in range(6, len(state), 5):
@@ -378,98 +462,6 @@ class AdversarialSearchTank(Tank, ABC):
         for bullet in self.board.bullets:
             state.extend([bullet.x, bullet.y, bullet.direction, bullet.bounces, bullet.moves])
         return state
-
-    def next_state(self, state, action):
-        """
-        Get the next state of the tank given the current state and action.
-        :param state: the current state of the tank
-        :param action: the action to take
-        :return: the next state of the tank
-        """
-        next_state = state.copy()
-
-        # Update the bullets
-        i = 6
-        while i < len(next_state):
-            dx, dy = GameConstants.STR_TO_VALS[next_state[i + 2]]
-            next_state[i] += dx
-            next_state[i + 1] += dy
-            # Handle wall bounces
-            if next_state[i] < 0 or next_state[i] >= self.board.width:
-                dx = -dx  # Bounce off vertical walls
-                next_state[i] += 2 * dx
-                next_state[i + 2] = GameConstants.VALS_TO_STR[-dx, dy]
-                next_state[i + 3] += 1
-                if next_state[i + 3] >= 3:
-                    next_state = next_state[:i] + next_state[i + 5:]
-                    continue
-            if next_state[i + 1] < 0 or next_state[i + 1] >= self.board.height:
-                dy = -dy  # Bounce off horizontal walls
-                next_state[i + 1] += 2 * dy
-                next_state[i + 2] = GameConstants.VALS_TO_STR[dx, -dy]
-                next_state[i + 3] += 1
-                if next_state[i + 3] >= 3:
-                    next_state = next_state[:i] + next_state[i + 5:]
-                    continue
-            next_state[i + 4] += 1
-            if next_state[i + 4] >= 10:
-                next_state = next_state[:i] + next_state[i + 5:]
-            i += 5
-
-        # Update the tank
-        if action == 'MOVE_UP':
-            next_state[1] -= 1
-            next_state[2] = min(MAX_SHOTS, next_state[2] + 1)
-        elif action == 'MOVE_DOWN':
-            next_state[1] += 1
-            next_state[2] = min(MAX_SHOTS, next_state[2] + 1)
-        elif action == 'MOVE_LEFT':
-            next_state[0] -= 1
-            next_state[2] = min(MAX_SHOTS, next_state[2] + 1)
-        elif action == 'MOVE_RIGHT':
-            next_state[0] += 1
-            next_state[2] = min(MAX_SHOTS, next_state[2] + 1)
-        elif action == 'MOVE_UP_LEFT':
-            next_state[0] -= 1
-            next_state[1] -= 1
-            next_state[2] = min(MAX_SHOTS, next_state[2] + 1)
-        elif action == 'MOVE_UP_RIGHT':
-            next_state[0] += 1
-            next_state[1] -= 1
-            next_state[2] = min(MAX_SHOTS, next_state[2] + 1)
-        elif action == 'MOVE_DOWN_LEFT':
-            next_state[0] -= 1
-            next_state[1] += 1
-            next_state[2] = min(MAX_SHOTS, next_state[2] + 1)
-        elif action == 'MOVE_DOWN_RIGHT':
-            next_state[0] += 1
-            next_state[1] += 1
-            next_state[2] = min(MAX_SHOTS, next_state[2] + 1)
-        elif action == 'SHOOT_UP':
-            next_state[2] = max(0, next_state[2] - 1)
-            next_state.extend([next_state[0], next_state[1] - 1, 'up', 0, 0])
-        elif action == 'SHOOT_DOWN':
-            next_state[2] = max(0, next_state[2] - 1)
-            next_state.extend([next_state[0], next_state[1] + 1, 'down', 0, 0])
-        elif action == 'SHOOT_LEFT':
-            next_state[2] = max(0, next_state[2] - 1)
-            next_state.extend([next_state[0] - 1, next_state[1], 'left', 0, 0])
-        elif action == 'SHOOT_RIGHT':
-            next_state[2] = max(0, next_state[2] - 1)
-            next_state.extend([next_state[0] + 1, next_state[1], 'right', 0, 0])
-        elif action == 'SHOOT_UP_LEFT':
-            next_state[2] = max(0, next_state[2] - 1)
-            next_state.extend([next_state[0] - 1, next_state[1] - 1, 'up_left', 0, 0])
-        elif action == 'SHOOT_UP_RIGHT':
-            next_state[2] = max(0, next_state[2] - 1)
-            next_state.extend([next_state[0] + 1, next_state[1] - 1, 'up_right', 0, 0])
-        elif action == 'SHOOT_DOWN_LEFT':
-            next_state[2] = max(0, next_state[2] - 1)
-            next_state.extend([next_state[0] - 1, next_state[1] + 1, 'down_left', 0, 0])
-        elif action == 'SHOOT_DOWN_RIGHT':
-            next_state[2] = max(0, next_state[2] - 1)
-            next_state.extend([next_state[0] + 1, next_state[1] + 1, 'down_right', 0, 0])
-        return next_state
 
     def is_terminal_state(self, state):
         """
@@ -818,9 +810,12 @@ class QLearningTank(Tank):
                     action = np.random.choice(legal_actions)
                 else:
                     q_values = [self.get_q_value(tuple(state), action) for action in legal_actions]
-                    action = legal_actions[np.argmax(q_values)]
+                    if len(legal_actions) == 0:
+                        action = "IDLE"
+                    else:
+                        action = legal_actions[np.argmax(q_values)]
                 reward = self.reward(state, action)
-                next_state = self.next_state(list(state), action)
+                next_state = self.next_state_wrapper(list(state), action)
                 self.update_q_table(state, action, reward, next_state)
                 state = next_state
             self.exploration_rate *= (1 - self.exploration_decay)
@@ -830,6 +825,20 @@ class QLearningTank(Tank):
             with open(self.save_file, 'wb') as f:
                 pickle.dump(self.q_table, f)
 
+    def illegal_state(self, tank1, tank2):
+        """
+        Check if the given state is illegal.
+
+        :param tank1: Tank 1 position.
+        :param tank2: Tank 2 position.
+        :return: True if illegal, False otherwise.
+        """
+        if tank1[0] == tank2[0] and tank1[1] == tank2[1]:
+            return True
+        if self.board.is_wall(tank1[0], tank1[1]) or self.board.is_wall(tank2[0], tank2[1]):
+            return True
+        return False
+
     def get_random_state(self):
         """
         Get a random state for the Q-table.
@@ -838,8 +847,11 @@ class QLearningTank(Tank):
         """
         tank1 = (random.randint(0, self.board.width - 1), random.randint(0, self.board.height - 1))
         tank2 = (random.randint(0, self.board.width - 1), random.randint(0, self.board.height - 1))
-        shots1 = random.randint(0, MAX_SHOTS)
-        shots2 = random.randint(0, MAX_SHOTS)
+        shots1 = random.randint(0, GameConstants.MAX_SHOTS)
+        shots2 = random.randint(0, GameConstants.MAX_SHOTS)
+        while self.illegal_state(tank1, tank2):
+            tank1 = (random.randint(0, self.board.width - 1), random.randint(0, self.board.height - 1))
+            tank2 = (random.randint(0, self.board.width - 1), random.randint(0, self.board.height - 1))
         return [tank1[0], tank1[1], shots1, tank2[0], tank2[1], shots2]
 
     def get_state(self):
@@ -857,101 +869,7 @@ class QLearningTank(Tank):
             state.extend([bullet.x, bullet.y, bullet.direction, bullet.bounces, bullet.moves])
         return state
 
-    def next_state_helper(self, state, action, prefix):
-        """
-        Get the next state after taking an action.
-
-        :param state: Current state.
-        :param action: Action taken.
-        :param prefix: Prefix for the state, which means which tank is being moved.
-        :return: Next state.
-        """
-        next_state = state.copy()
-
-        # update the tank based on the action
-        if action == 'MOVE_UP':
-            next_state[1 + prefix] -= 1
-            next_state[2 + prefix] = min(MAX_SHOTS, next_state[2 + prefix] + 1)
-        elif action == 'MOVE_DOWN':
-            next_state[1 + prefix] += 1
-            next_state[2 + prefix] = min(MAX_SHOTS, next_state[2 + prefix] + 1)
-        elif action == 'MOVE_LEFT':
-            next_state[0 + prefix] -= 1
-            next_state[2 + prefix] = min(MAX_SHOTS, next_state[2 + prefix] + 1)
-        elif action == 'MOVE_RIGHT':
-            next_state[0 + prefix] += 1
-            next_state[2 + prefix] = min(MAX_SHOTS, next_state[2 + prefix] + 1)
-        elif action == 'MOVE_UP_LEFT':
-            next_state[0 + prefix] -= 1
-            next_state[1 + prefix] -= 1
-            next_state[2 + prefix] = min(MAX_SHOTS, next_state[2 + prefix] + 1)
-        elif action == 'MOVE_UP_RIGHT':
-            next_state[0 + prefix] += 1
-            next_state[1 + prefix] -= 1
-            next_state[2 + prefix] = min(MAX_SHOTS, next_state[2 + prefix] + 1)
-        elif action == 'MOVE_DOWN_LEFT':
-            next_state[0 + prefix] -= 1
-            next_state[1 + prefix] += 1
-            next_state[2 + prefix] = min(MAX_SHOTS, next_state[2 + prefix] + 1)
-        elif action == 'MOVE_DOWN_RIGHT':
-            next_state[0 + prefix] += 1
-            next_state[1 + prefix] += 1
-            next_state[2 + prefix] = min(MAX_SHOTS, next_state[2 + prefix] + 1)
-        elif action == 'SHOOT_UP':
-            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
-            next_state.extend([next_state[0 + prefix], next_state[1 + prefix] - 1, 'up', 0, 0])
-        elif action == 'SHOOT_DOWN':
-            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
-            next_state.extend([next_state[0 + prefix], next_state[1 + prefix] + 1, 'down', 0, 0])
-        elif action == 'SHOOT_LEFT':
-            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
-            next_state.extend([next_state[0 + prefix] - 1, next_state[1 + prefix], 'left', 0, 0])
-        elif action == 'SHOOT_RIGHT':
-            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
-            next_state.extend([next_state[0 + prefix] + 1, next_state[1 + prefix], 'right', 0, 0])
-        elif action == 'SHOOT_UP_LEFT':
-            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
-            next_state.extend([next_state[0 + prefix] - 1, next_state[1 + prefix] - 1, 'up_left', 0, 0])
-        elif action == 'SHOOT_UP_RIGHT':
-            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
-            next_state.extend([next_state[0 + prefix] + 1, next_state[1 + prefix] - 1, 'up_right', 0, 0])
-        elif action == 'SHOOT_DOWN_LEFT':
-            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
-            next_state.extend([next_state[0 + prefix] - 1, next_state[1 + prefix] + 1, 'down_left', 0, 0])
-        elif action == 'SHOOT_DOWN_RIGHT':
-            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
-            next_state.extend([next_state[0 + prefix] + 1, next_state[1 + prefix] + 1, 'down_right', 0, 0])
-
-        # update bullets
-        i = 6
-        while i < len(next_state):
-            dx, dy = GameConstants.STR_TO_VALS[next_state[i + 2]]
-            next_state[i] += dx
-            next_state[i + 1] += dy
-            # Handle wall bounces
-            if next_state[i] < 0 or next_state[i] >= self.board.width:
-                dx = -dx  # Bounce off vertical walls
-                next_state[i] += 2 * dx
-                next_state[i + 2] = GameConstants.VALS_TO_STR[-dx, dy]
-                next_state[i + 3] += 1
-                if next_state[i + 3] >= 3:
-                    next_state = next_state[:i] + next_state[i + 5:]
-                    continue
-            if next_state[i + 1] < 0 or next_state[i + 1] >= self.board.height:
-                dy = -dy  # Bounce off horizontal walls
-                next_state[i + 1] += 2 * dy
-                next_state[i + 2] = GameConstants.VALS_TO_STR[dx, -dy]
-                next_state[i + 3] += 1
-                if next_state[i + 3] >= 3:
-                    next_state = next_state[:i] + next_state[i + 5:]
-                    continue
-            next_state[i + 4] += 1
-            if next_state[i + 4] >= 10:
-                next_state = next_state[:i] + next_state[i + 5:]
-            i += 5
-        return next_state
-
-    def next_state(self, state, action):
+    def next_state_wrapper(self, state, action):
         """
         Get the next state after taking an action and the opponent's move.
 
@@ -959,8 +877,8 @@ class QLearningTank(Tank):
         :param action: Action taken.
         :return: Next state.
         """
-        next_state = self.next_state_helper(state, action, 0)
-        next_state = self.next_state_helper(next_state, self.state_to_move(next_state), 3)
+        next_state = next_state_finder(self.board, state, action, 0)
+        next_state = next_state_finder(self.board, next_state, self.state_to_move(next_state), 3)
         return tuple(next_state)
 
     def state_to_move(self, state):
@@ -971,6 +889,8 @@ class QLearningTank(Tank):
         :return: Move corresponding to the state.
         """
         q_values = [self.get_q_value(tuple(state), action) for action in state_legal_actions(self.board, state, 3)]
+        if len(q_values) == 0:
+            return "IDLE"
         action = state_legal_actions(self.board, state, 3)[np.argmax(q_values)]
         return action
 
@@ -1012,9 +932,6 @@ class QLearningTank(Tank):
         self.q_table[(state, action)] = new_q_value
 
     def calculate_shoot_reward(self, state, action):
-        def chebyshev_distance(pos1, pos2):
-            """Calculate the Chebyshev distance between two points."""
-            return max(abs(pos1[0] - pos2[0]), abs(pos1[1] - pos2[1]))
 
         if state[2] == 0:
             return float('-inf')  # illegal move
@@ -1047,7 +964,7 @@ class QLearningTank(Tank):
                 return 1000
             return -1000
 
-        if clear_shot((state[0], state[1]), (state[3], state[4])):
+        if clear_shot(self.board, (state[0], state[1]), (state[3], state[4])):
             shot_score = (14 - len(a_star_path(self.board, (state[0], state[1]), (state[3], state[4])))) * 10
         else:
             shot_score = -20
@@ -1078,14 +995,9 @@ class QLearningTank(Tank):
         return shot_score
 
     def calculate_move_reward(self, state, action):
-        def chebyshev_distance(pos1, pos2):
-            """Calculate the Chebyshev distance between two points."""
-            return max(abs(pos1[0] - pos2[0]), abs(pos1[1] - pos2[1]))
-
-
 
         # Ammo management score (higher reward for lower ammo count)=
-        ammo_reward_factor = 1 - (state[2] / MAX_SHOTS)  # Linearly scale from 1 (min ammo) to 0 (max ammo)
+        ammo_reward_factor = 1 - (state[2] / GameConstants.MAX_SHOTS)  # Linearly scale from 1 (min ammo) to 0 (max ammo)
 
         # calculate the new position after the move
         x, y = state[0], state[1]
@@ -1125,7 +1037,7 @@ class QLearningTank(Tank):
 
         # Combine scores with weighted factors
         avoidance_coef = 0.3 * len(self.board.bullets)
-        other_coef = 0.3 * MAX_SHOTS - len(self.board.bullets)
+        other_coef = 0.3 * GameConstants.MAX_SHOTS - len(self.board.bullets)
         score = (ammo_reward_factor * (0.3 + other_coef)) + (proximity_score * (0.4 + other_coef)) + (
                 avoidance_score * avoidance_coef)
 
@@ -1141,7 +1053,9 @@ class QLearningTank(Tank):
         """
         if action.startswith('SHOOT'):
             return self.calculate_shoot_reward(state, action)
-        return self.calculate_move_reward(state, action)
+        elif action.startswith('MOVE'):
+            return self.calculate_move_reward(state, action)
+        return 0 # only if there are no legal moves
 
     def move(self, action):
         """
@@ -1152,7 +1066,7 @@ class QLearningTank(Tank):
         super(QLearningTank, self).move(action)
 
         state = self.get_state()
-        next_state = self.next_state(state, action)
+        next_state = self.next_state_wrapper(state, action)
         self.update_q_table(self.get_state(), action, self.reward(self.get_state(), action), next_state)
         return self.board.move_tank(self, next_state[0], next_state[1], self.number)
 
@@ -1170,7 +1084,7 @@ class QLearningTank(Tank):
         dx, dy = GameConstants.STR_TO_VALS[simp_action]
 
         state = self.get_state()
-        next_state = self.next_state(state, action)
+        next_state = self.next_state_wrapper(state, action)
 
         bullet = Bullet(self.board, self.x + dx, self.y + dy, action)
         can_add = self.board.add_bullet(bullet)
@@ -1211,7 +1125,7 @@ class MinimaxTank(AdversarialSearchTank):
                 return self.evaluate_game_state(state)
             v = float('-inf')
             for action in state_legal_actions(self.board, state, 0):
-                v = max(v, min_value(self.next_state(state, action), depth, alpha, beta))
+                v = max(v, min_value(next_state_finder(self.board, state, action, 0), depth, alpha, beta))
                 if v >= beta:
                     # print(f'max: {v} with depth {depth} and action {action}')
                     return v
@@ -1227,7 +1141,7 @@ class MinimaxTank(AdversarialSearchTank):
             state[2], state[5] = state[5], state[2]
             v = float('inf')
             for action in state_legal_actions(self.board, state, 0):
-                v = min(v, max_value(self.next_state(state, action), depth - 1, alpha, beta))
+                v = min(v, max_value(next_state_finder(self.board, state, action, 0), depth - 1, alpha, beta))
                 if v <= alpha:
                     # print(f'min: {v} with depth {depth} and action {action}')
                     return v
@@ -1242,7 +1156,7 @@ class MinimaxTank(AdversarialSearchTank):
         scores = {}
         for action in state_legal_actions(self.board, state, 0):
             state = self.get_state()
-            state = self.next_state(state, action)
+            state = next_state_finder(self.board, state, action, 0)
             score = min_value(state, self.depth, alpha, beta)
             # restore the data of each tank
             if score > best_score:
@@ -1274,7 +1188,7 @@ class ExpectimaxTank(AdversarialSearchTank):
             v = float('-inf')
             actions = sstate_legal_actions(self.board, state, 0)
             for action in actions:
-                v = max(v, exp_value(self.next_state(state, action), depth))
+                v = max(v, exp_value(next_state_finder(self.board, state, action, 0), depth))
             return v
 
         def exp_value(state, depth):
@@ -1286,7 +1200,7 @@ class ExpectimaxTank(AdversarialSearchTank):
             v = 0
             actions = state_legal_actions(self.board, state, 0)
             for action in actions:
-                v += max_value(self.next_state(state, action), depth - 1)
+                v += max_value(next_state_finder(self.board, state, action, 0), depth - 1)
             return v / len(actions)
 
         best_action = None
@@ -1296,7 +1210,7 @@ class ExpectimaxTank(AdversarialSearchTank):
         scores = {}
         for action in state_legal_actions(self.board, state, 0):
             state = self.get_state()
-            state = self.next_state(state, action)
+            state = next_state_finder(self.board, state, action, 0)
             score = exp_value(state, self.depth)
             # restore the data of each tank
             if score > best_score:
