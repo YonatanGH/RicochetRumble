@@ -578,6 +578,4 @@ class MegaTournament:  # does tournaments between all duos of tanks
 
     def end_mega_tournament(self):
         print("Mega Tournament Ended")
-        print(self.tournament_results)
-        self.main_window.pack_forget()
         visualizations.EndScreen(self.main_window, "end mega tournament")
