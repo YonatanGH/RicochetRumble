@@ -214,7 +214,7 @@ class TournamentMenu:
         self.window = tk.Frame(main_window)  # Manual window
         self.window.pack()
 
-        self.options = ["Player", "A*", "Planning-Graph", "Minimax", "Expectimax", "Q-Learning", "Random"]
+        self.options = ["A*", "Planning-Graph", "Minimax", "Expectimax", "Q-Learning", "Random"]
 
         self.choice1 = tk.StringVar(value="A*")
         self.choice2 = tk.StringVar(value="Random")
