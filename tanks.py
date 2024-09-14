@@ -8,6 +8,7 @@ import pickle
 
 from planning_problem import PlanningProblem, solve, null_heuristic, max_level, level_sum
 
+
 # ---------------------- Utilities ---------------------- #
 
 
@@ -16,6 +17,7 @@ def chebyshev_distance(pos1, pos2):
     Calculate the Chebyshev distance between two positions.
     """
     return max(abs(pos1[0] - pos2[0]), abs(pos1[1] - pos2[1]))
+
 
 def a_star_path(board, start, goal):
     """
@@ -60,6 +62,7 @@ def a_star_path(board, start, goal):
                     heapq.heappush(open_list, (f_score[neighbor], neighbor))
 
     return []
+
 
 def state_legal_actions(board, state, prefix):
     """
@@ -128,6 +131,7 @@ def state_legal_actions(board, state, prefix):
                 legal_actions.append(action)
     return legal_actions
 
+
 def clear_shot(board, pos1, pos2):
     """
     Check if there is a clear shot between two positions.
@@ -148,6 +152,7 @@ def clear_shot(board, pos1, pos2):
             if board.is_wall(pos1[0] + i * dx // abs(dx), pos1[1] + i * dy // abs(dy)):
                 return False
     return True
+
 
 def get_bullet_info(state):
     """
@@ -172,6 +177,7 @@ def get_bullet_info(state):
 
     return bullet_positions, bullet_directions
 
+
 def bullet_avoidance_score(state, new_pos):
     """
     Calculate the bullet avoidance score based on bullets aimed at the new position
@@ -193,106 +199,107 @@ def bullet_avoidance_score(state, new_pos):
 
     return np.exp(avoidance_score)
 
+
 def next_state_finder(board, state, action, prefix):
-        """
-        Get the next state after taking an action.
+    """
+    Get the next state after taking an action.
 
-        :param state: Current state.
-        :param action: Action taken.
-        :param prefix: Prefix for the state, which means which tank is being moved.
-        :return: Next state.
-        """
-        next_state = state.copy()
+    :param state: Current state.
+    :param action: Action taken.
+    :param prefix: Prefix for the state, which means which tank is being moved.
+    :return: Next state.
+    """
+    next_state = state.copy()
 
-        # update bullets
-        i = 6
-        while i < len(next_state):
-            simp_action = next_state[i + 2]
-            if simp_action.startswith('SHOOT'):
-                simp_action = simp_action[6:]
-                simp_action = simp_action.lower()
-            dx, dy = GameConstants.STR_TO_VALS[simp_action]
-            next_state[i] += dx
-            next_state[i + 1] += dy
-            # Handle wall bounces
-            if next_state[i] < 0 or next_state[i] >= board.width:
-                dx = -dx  # Bounce off vertical walls
-                next_state[i] += 2 * dx
-                next_state[i + 2] = GameConstants.VALS_TO_STR[-dx, dy]
-                next_state[i + 3] += 1
-                if next_state[i + 3] >= 3:
-                    next_state = next_state[:i] + next_state[i + 5:]
-                    continue
-            if next_state[i + 1] < 0 or next_state[i + 1] >= board.height:
-                dy = -dy  # Bounce off horizontal walls
-                next_state[i + 1] += 2 * dy
-                next_state[i + 2] = GameConstants.VALS_TO_STR[dx, -dy]
-                next_state[i + 3] += 1
-                if next_state[i + 3] >= 3:
-                    next_state = next_state[:i] + next_state[i + 5:]
-                    continue
-            next_state[i + 4] += 1
-            if next_state[i + 4] >= 10:
+    # update bullets
+    i = 6
+    while i < len(next_state):
+        simp_action = next_state[i + 2]
+        if simp_action.startswith('SHOOT'):
+            simp_action = simp_action[6:]
+            simp_action = simp_action.lower()
+        dx, dy = GameConstants.STR_TO_VALS[simp_action]
+        next_state[i] += dx
+        next_state[i + 1] += dy
+        # Handle wall bounces
+        if next_state[i] < 0 or next_state[i] >= board.width:
+            dx = -dx  # Bounce off vertical walls
+            next_state[i] += 2 * dx
+            next_state[i + 2] = GameConstants.VALS_TO_STR[-dx, dy]
+            next_state[i + 3] += 1
+            if next_state[i + 3] >= 3:
                 next_state = next_state[:i] + next_state[i + 5:]
-            i += 5
+                continue
+        if next_state[i + 1] < 0 or next_state[i + 1] >= board.height:
+            dy = -dy  # Bounce off horizontal walls
+            next_state[i + 1] += 2 * dy
+            next_state[i + 2] = GameConstants.VALS_TO_STR[dx, -dy]
+            next_state[i + 3] += 1
+            if next_state[i + 3] >= 3:
+                next_state = next_state[:i] + next_state[i + 5:]
+                continue
+        next_state[i + 4] += 1
+        if next_state[i + 4] >= 10:
+            next_state = next_state[:i] + next_state[i + 5:]
+        i += 5
 
-        # update the tank based on the action
-        if action == 'MOVE_UP':
-            next_state[1 + prefix] -= 1
-            next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
-        elif action == 'MOVE_DOWN':
-            next_state[1 + prefix] += 1
-            next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
-        elif action == 'MOVE_LEFT':
-            next_state[0 + prefix] -= 1
-            next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
-        elif action == 'MOVE_RIGHT':
-            next_state[0 + prefix] += 1
-            next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
-        elif action == 'MOVE_UP_LEFT':
-            next_state[0 + prefix] -= 1
-            next_state[1 + prefix] -= 1
-            next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
-        elif action == 'MOVE_UP_RIGHT':
-            next_state[0 + prefix] += 1
-            next_state[1 + prefix] -= 1
-            next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
-        elif action == 'MOVE_DOWN_LEFT':
-            next_state[0 + prefix] -= 1
-            next_state[1 + prefix] += 1
-            next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
-        elif action == 'MOVE_DOWN_RIGHT':
-            next_state[0 + prefix] += 1
-            next_state[1 + prefix] += 1
-            next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
-        elif action == 'SHOOT_UP':
-            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
-            next_state.extend([next_state[0 + prefix], next_state[1 + prefix] - 1, 'up', 0, 0])
-        elif action == 'SHOOT_DOWN':
-            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
-            next_state.extend([next_state[0 + prefix], next_state[1 + prefix] + 1, 'down', 0, 0])
-        elif action == 'SHOOT_LEFT':
-            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
-            next_state.extend([next_state[0 + prefix] - 1, next_state[1 + prefix], 'left', 0, 0])
-        elif action == 'SHOOT_RIGHT':
-            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
-            next_state.extend([next_state[0 + prefix] + 1, next_state[1 + prefix], 'right', 0, 0])
-        elif action == 'SHOOT_UP_LEFT':
-            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
-            next_state.extend([next_state[0 + prefix] - 1, next_state[1 + prefix] - 1, 'up_left', 0, 0])
-        elif action == 'SHOOT_UP_RIGHT':
-            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
-            next_state.extend([next_state[0 + prefix] + 1, next_state[1 + prefix] - 1, 'up_right', 0, 0])
-        elif action == 'SHOOT_DOWN_LEFT':
-            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
-            next_state.extend([next_state[0 + prefix] - 1, next_state[1 + prefix] + 1, 'down_left', 0, 0])
-        elif action == 'SHOOT_DOWN_RIGHT':
-            next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
-            next_state.extend([next_state[0 + prefix] + 1, next_state[1 + prefix] + 1, 'down_right', 0, 0])
-        elif action == 'IDLE':
-            next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
+    # update the tank based on the action
+    if action == 'MOVE_UP':
+        next_state[1 + prefix] -= 1
+        next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
+    elif action == 'MOVE_DOWN':
+        next_state[1 + prefix] += 1
+        next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
+    elif action == 'MOVE_LEFT':
+        next_state[0 + prefix] -= 1
+        next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
+    elif action == 'MOVE_RIGHT':
+        next_state[0 + prefix] += 1
+        next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
+    elif action == 'MOVE_UP_LEFT':
+        next_state[0 + prefix] -= 1
+        next_state[1 + prefix] -= 1
+        next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
+    elif action == 'MOVE_UP_RIGHT':
+        next_state[0 + prefix] += 1
+        next_state[1 + prefix] -= 1
+        next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
+    elif action == 'MOVE_DOWN_LEFT':
+        next_state[0 + prefix] -= 1
+        next_state[1 + prefix] += 1
+        next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
+    elif action == 'MOVE_DOWN_RIGHT':
+        next_state[0 + prefix] += 1
+        next_state[1 + prefix] += 1
+        next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
+    elif action == 'SHOOT_UP':
+        next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
+        next_state.extend([next_state[0 + prefix], next_state[1 + prefix] - 1, 'up', 0, 0])
+    elif action == 'SHOOT_DOWN':
+        next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
+        next_state.extend([next_state[0 + prefix], next_state[1 + prefix] + 1, 'down', 0, 0])
+    elif action == 'SHOOT_LEFT':
+        next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
+        next_state.extend([next_state[0 + prefix] - 1, next_state[1 + prefix], 'left', 0, 0])
+    elif action == 'SHOOT_RIGHT':
+        next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
+        next_state.extend([next_state[0 + prefix] + 1, next_state[1 + prefix], 'right', 0, 0])
+    elif action == 'SHOOT_UP_LEFT':
+        next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
+        next_state.extend([next_state[0 + prefix] - 1, next_state[1 + prefix] - 1, 'up_left', 0, 0])
+    elif action == 'SHOOT_UP_RIGHT':
+        next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
+        next_state.extend([next_state[0 + prefix] + 1, next_state[1 + prefix] - 1, 'up_right', 0, 0])
+    elif action == 'SHOOT_DOWN_LEFT':
+        next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
+        next_state.extend([next_state[0 + prefix] - 1, next_state[1 + prefix] + 1, 'down_left', 0, 0])
+    elif action == 'SHOOT_DOWN_RIGHT':
+        next_state[2 + prefix] = max(0, next_state[2 + prefix] - 1)
+        next_state.extend([next_state[0 + prefix] + 1, next_state[1 + prefix] + 1, 'down_right', 0, 0])
+    elif action == 'IDLE':
+        next_state[2 + prefix] = min(GameConstants.MAX_SHOTS, next_state[2 + prefix] + 1)
 
-        return next_state
+    return next_state
 
 
 class Tank(ABC):
@@ -748,7 +755,7 @@ class AStarTank(Tank):
             self.shoot(None)
             return
         moved = self.move(None)
-        if not moved: # if there is no path to the target tank
+        if not moved:  # if there is no path to the target tank
             import random
             action = random.choice(GameConstants.ACTIONS)
             while not self.legal(action):
@@ -762,9 +769,8 @@ class AStarTank(Tank):
                 action = action[6:]
                 action = action.lower()
                 dx, dy = GameConstants.STR_TO_VALS[action]
-                self.board.add_bullet(Bullet(self.board, self.x + dx, self.y + dy, direction))
+                self.board.add_bullet(Bullet(self.board, self.x + dx, self.y + dy, action))
                 self.shots -= 1
-
 
 
 # ---------------------- Q-LearningTank ---------------------- #
@@ -1027,7 +1033,8 @@ class QLearningTank(Tank):
     def calculate_move_reward(self, state, action):
 
         # Ammo management score (higher reward for lower ammo count)=
-        ammo_reward_factor = 1 - (state[2] / GameConstants.MAX_SHOTS)  # Linearly scale from 1 (min ammo) to 0 (max ammo)
+        ammo_reward_factor = 1 - (
+                state[2] / GameConstants.MAX_SHOTS)  # Linearly scale from 1 (min ammo) to 0 (max ammo)
 
         # calculate the new position after the move
         x, y = state[0], state[1]
@@ -1085,7 +1092,7 @@ class QLearningTank(Tank):
             return self.calculate_shoot_reward(state, action)
         elif action.startswith('MOVE'):
             return self.calculate_move_reward(state, action)
-        return 0 # only if there are no legal moves
+        return 0  # only if there are no legal moves
 
     def move(self, action):
         """

@@ -460,7 +460,8 @@ class Board:
         :param bullet: Bullet object to remove.
         """
         self.update_position(bullet.x, bullet.y, GameConstants.BOARD)  # Repaint old position with brown
-        self.bullets.remove(bullet)
+        if bullet in self.bullets:  # needed because it might have been removed already by a collision
+            self.bullets.remove(bullet)
 
     def check_bullet_collisions(self):
         """

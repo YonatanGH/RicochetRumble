@@ -146,7 +146,8 @@ class NonVisualBoard:
         :param bullet: Bullet object to remove.
         """
         self.update_position(bullet.x, bullet.y, GameConstants.BOARD)  # Repaint old position with brown
-        self.bullets.remove(bullet)
+        if bullet in self.bullets:
+            self.bullets.remove(bullet)
 
     def check_bullet_collisions(self):
         """
@@ -400,8 +401,6 @@ class NonVisualGame:
         else:
             self.current_tank = self.tank1
 
-
-
         # if isinstance(self.current_tank, AStarTank):
         #     self.board.delay_action(self.npc_act)
         # else:
@@ -486,11 +485,13 @@ class TournamentLeague:
                 else:
                     self.visualize_game_count -= 1
                     g = visualizations.Game(self.main_window, True, self.tank1_type, self.tank2_type,
-                                            result_tracker=self.results_tracker, enable_endscreen=False, qmode1=self.qmode1,
+                                            result_tracker=self.results_tracker, enable_endscreen=False,
+                                            qmode1=self.qmode1,
                                             qmode2=self.qmode2)
                     visualized_games.append(g)
             except Exception as e:
                 # if there was an error, count it as a draw
+                print(f"Error in game {self.current_game}: {e}")
                 self.results_tracker.add_draw()
             self.visualize_results()
 
