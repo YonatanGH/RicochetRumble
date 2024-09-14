@@ -1505,7 +1505,7 @@ class PGTank(Tank):
 
         enemy_x = board.tank1.x if my_tank_num == 2 else board.tank2.x
         enemy_y = board.tank1.y if my_tank_num == 2 else board.tank2.y
-        problem_file.write(f"bullet_at_{enemy_x}_{enemy_y} ")
+        problem_file.write(f"bullet_at_{enemy_x}_{enemy_y} ")  # TODO: also that the bullet is not near him
 
         problem_file.close()
 
