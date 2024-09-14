@@ -598,7 +598,7 @@ class RandomTank(Tank):
         while valid_actions:
             action = np.random.choice(valid_actions)
             dx, dy = GameConstants.STR_TO_VALS[action[5:].lower()]
-            if self.board.is_valid_move(self.x + dx, self.y + dy):
+            if self.board.is_valid_move(self.x + dx, self.y + dy) and not self.board.is_tank(self.x + dx, self.y + dy):
                 self.board.move_tank(self, self.x + dx, self.y + dy, self.number)
                 return True
             valid_actions.remove(action)
@@ -1505,7 +1505,7 @@ class PGTank(Tank):
 
         enemy_x = board.tank1.x if my_tank_num == 2 else board.tank2.x
         enemy_y = board.tank1.y if my_tank_num == 2 else board.tank2.y
-        problem_file.write(f"bullet_at_{enemy_x}_{enemy_y} ")  # TODO: also that the bullet is not near him
+        problem_file.write(f"bullet_at_{enemy_x}_{enemy_y} ")
 
         problem_file.close()
 
@@ -1525,8 +1525,6 @@ class PGTank(Tank):
 
         if self.isplan_uptodate:
             assert self.current_plan_index == 0
-
-        # print(self.plan, "\n", self.current_plan_index, "\n", self.isplan_uptodate) #TODO: REMOVE
 
         action = self.plan[self.current_plan_index]
         if "MOVE" not in action:

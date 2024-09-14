@@ -487,8 +487,7 @@ class Board:
         :return: True if the move is valid, False otherwise.
         """
         return 0 <= x < self.width and 0 <= y < self.height and (self.grid[y][x] == GameConstants.BOARD or
-                                                                 self.grid[y][x] == GameConstants.TANK1 or
-                                                                 self.grid[y][x] == GameConstants.TANK2)
+                                                                 self.is_tank(x, y))
 
     def show_message(self, message):
         """
@@ -581,6 +580,16 @@ class Board:
         :return: True if the position is a wall, False otherwise.
         """
         return x < 0 or x >= self.width or y < 0 or y >= self.height or self.grid[y][x] == GameConstants.WALL
+
+    def is_tank(self, x, y):
+        """
+        Check if a position has a tank.
+
+        :param x: X coordinate.
+        :param y: Y coordinate.
+        :return: True if the position has a tank, False otherwise.
+        """
+        return (self.tank1.x == x and self.tank1.y == y) or (self.tank2.x == x and self.tank2.y == y)
 
     def get_bullet(self, x, y):
         """
