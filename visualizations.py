@@ -79,8 +79,7 @@ class MainMenu:
                         "Q-Learning|A*",
                         "Q-Learning|Planning-Graph",
                         "Q-Learning|Minimax",
-                        "Q-Learning|Expectimax",
-                        "Random"], self.main_window, num_games)
+                        "Q-Learning|Expectimax"], self.main_window, num_games)
 
     def show_tank_manual(self):
         """Show the tank manual."""
