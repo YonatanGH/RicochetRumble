@@ -1340,7 +1340,8 @@ class PGTank(Tank):
         self.create_domain_file(domain_file, self.board)
         if state is None:
             self.create_problem_file(problem_file, self.board)
-        self.create_state_problem_file(problem_file, self.board, state)
+        else:
+            self.create_state_problem_file(problem_file, self.board, state)
         # gp = GraphPlan(domain_file, problem_file)
         # plan = gp.graph_plan()
         heuristics = [null_heuristic, max_level, level_sum]
