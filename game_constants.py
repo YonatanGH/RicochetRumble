@@ -12,7 +12,7 @@
     DELAY_MS = 1000  # Delay in milliseconds for NPC actions
     BOARD_WIDTH = 10  # Width of the game board
     BOARD_HEIGHT = 10  # Height of the game board
-    MAX_TURNS = 50  # Maximum number of turns before a draw
+    MAX_TURNS = 100  # Maximum number of turns before a draw
     BEGINNING_SHOTS = 3  # Number of shots each tank starts with
     MAX_SHOTS = 5  # Maximum number of shots a tank can have
     MAX_BOUNCES = 4  # Maximum number of bounces for a bullet
