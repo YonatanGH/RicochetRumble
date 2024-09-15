@@ -4,7 +4,7 @@
     TANK1 = 'RoyalBlue1'
     TANK2 = 'maroon'
     BULLET = 'black'
-    BOUNCED_BULLET = 'gray'
+    BOUNCED_BULLET = BULLET  # Color of a bullet that has bounced off a wall. May change if desired
     OUTLINE = 'seashell2'
     WALL = 'saddle brown'
 
