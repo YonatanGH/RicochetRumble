@@ -569,6 +569,7 @@ class AdversarialSearchTank(Tank, ABC):
             return False
         direction = GameConstants.VALS_TO_STR.get((dx, dy))
         if direction:
+            self.shots -= 1
             self.board.add_bullet(Bullet(self.board, self.x + dx, self.y + dy, direction))
             return True
         return False
