@@ -662,7 +662,6 @@ class RandomTank(Tank):
         else:
             self.shoot(None)
 
-
     def state_to_move(self, state):
         """
         Convert a state to a move.
@@ -684,7 +683,6 @@ class RandomTank(Tank):
         valid_actions = [action for action in legal_actions if action.startswith('SHOOT')]
         action = np.random.choice(valid_actions)
         return action
-
 
 
 # ---------------------- PlayerTank ---------------------- #
@@ -733,6 +731,9 @@ class PlayerTank(Tank):
             return False
 
     def act(self):
+        pass
+
+    def state_to_move(self, state):
         pass
 
 
@@ -1675,4 +1676,3 @@ class PGTank(Tank):
     def state_to_move(self, state):
         self.generate_plan(PLAN_DOMAIN_FILE, PLAN_PROBLEM_FILE, state)
         action = self.plan[self.current_plan_index]
-
