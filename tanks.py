@@ -1079,24 +1079,36 @@ class QLearningTank(Tank):
         if clear_shot(self.board, (state[0], state[1]), (state[3], state[4])):
             # check if the action is in the correct direction
             if state[3] - state[0] == 0:
-                if dy != 0:
+                if dx != 0:
                     shot_score = -50
                 else:
                     if state[4] - state[1] == 0:
-                        if dx != 0:
-                            shot_score = -50
+                        if dy == 0:
+                            shot_score = (14 - len(a_star_path(self.board, (state[0], state[1]), (state[3], state[4])))) * 10
                         else:
-                            if dx == (state[4] - state[1])/abs(state[4] - state[1]):
-                                shot_score = (14 - len(a_star_path(self.board, (state[0], state[1]), (state[3], state[4])))) * 10
+                            shot_score = -50
+                    else:
+                        if dy == (state[4] - state[1])/abs(state[4] - state[1]):
+                            shot_score = (14 - len(a_star_path(self.board, (state[0], state[1]), (state[3], state[4])))) * 10
+                        else:
+                            shot_score = -50
             elif state[4] - state[1] == 0:
-                if dx != 0:
+                if dy != 0:
                     shot_score = -50
-            elif (dx, dy) == ((state[3] - state[0])/abs(state[3] - state[0]), (state[4] - state[1])/abs(state[4] - state[1])):
+                else:
+                    if state[3] - state[0] == 0:
+                        if dx == 0:
+                            shot_score = (14 - len(a_star_path(self.board, (state[0], state[1]), (state[3], state[4])))) * 10
+                        else:
+                            shot_score = -50
+                    else:
+                        if dx == (state[3] - state[0])/abs(state[3] - state[0]):
+                            shot_score = (14 - len(a_star_path(self.board, (state[0], state[1]), (state[3], state[4])))) * 10
+                        else:
+                            shot_score = -50
+            if shot_score == -20 and\
+                    (dx, dy) == ((state[3] - state[0])/abs(state[3] - state[0]), (state[4] - state[1])/abs(state[4] - state[1])):
                 shot_score = (14 - len(a_star_path(self.board, (state[0], state[1]), (state[3], state[4])))) * 10
-            else:
-                shot_score = -50
-        else:
-            shot_score = -20
 
         # check if there is a bullet aimed at the tank
         bullet_positions, bullet_directions = get_bullet_info(state)

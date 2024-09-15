@@ -674,16 +674,16 @@ class Game:
             if mode == "None":
                 return QLearningTank(self.board, x, y, number)
             if mode == "A*":
-                return QLearningTank(self.board, x, y, number, pretrained=True, save_file="qlearning_a_star.pkl")
+                return QLearningTank(self.board, x, y, number, pretrained=False, save_file="qlearning_planning_graph.pkl")
             elif mode == "Planning-Graph":
-                return QLearningTank(self.board, x, y, number, pretrained=True,
+                return QLearningTank(self.board, x, y, number, pretrained=False,
                                      save_file="qlearning_planning_graph.pkl")
             elif mode == "Minimax":
-                return QLearningTank(self.board, x, y, number, pretrained=True, save_file="qlearning_minimax.pkl")
+                return QLearningTank(self.board, x, y, number, pretrained=False, save_file="qlearning_minimax.pkl")
             elif mode == "Expectimax":
-                return QLearningTank(self.board, x, y, number, pretrained=True, save_file="qlearning_expectimax.pkl")
+                return QLearningTank(self.board, x, y, number, pretrained=False, save_file="qlearning_expectimax.pkl")
             elif mode == "Random":
-                return QLearningTank(self.board, x, y, number, pretrained=True, save_file="qlearning_random.pkl")
+                return QLearningTank(self.board, x, y, number, pretrained=False, save_file="qlearning_random.pkl")
 
     def handle_key_press(self, event):
         """
