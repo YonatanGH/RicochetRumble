@@ -135,6 +135,7 @@ def state_legal_actions(board, state, prefix):
 def clear_shot(board, pos1, pos2):
     """
     Check if there is a clear shot between two positions.
+    if so, return the path between the two positions.
     """
     dx, dy = pos2[0] - pos1[0], pos2[1] - pos1[1]
     if dx == 0:
@@ -1072,7 +1073,11 @@ class QLearningTank(Tank):
             return -1000
 
         if clear_shot(self.board, (state[0], state[1]), (state[3], state[4])):
-            shot_score = (14 - len(a_star_path(self.board, (state[0], state[1]), (state[3], state[4])))) * 10
+            # check if the action is in the correct direction
+            if (dx, dy) == (state[3] - state[0], state[4] - state[1]):
+                shot_score = (14 - len(a_star_path(self.board, (state[0], state[1]), (state[3], state[4])))) * 10
+            else:
+                shot_score = -50
         else:
             shot_score = -20
 
