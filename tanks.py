@@ -624,7 +624,7 @@ class RandomTank(Tank):
         while valid_actions:
             action = np.random.choice(valid_actions)
             dx, dy = GameConstants.STR_TO_VALS[action[5:].lower()]
-            if self.board.is_valid_move(self.x + dx, self.y + dy):
+            if self.board.is_valid_move(self.x + dx, self.y + dy) and not self.board.is_tank(self.x + dx, self.y + dy):
                 self.board.move_tank(self, self.x + dx, self.y + dy, self.number)
                 return True
             valid_actions.remove(action)
@@ -1597,8 +1597,6 @@ class PGTank(Tank):
 
         if self.isplan_uptodate:
             assert self.current_plan_index == 0
-
-        # print(self.plan, "\n", self.current_plan_index, "\n", self.isplan_uptodate) #TODO: REMOVE
 
         action = self.plan[self.current_plan_index]
         if "MOVE" not in action:
