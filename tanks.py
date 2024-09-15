@@ -325,6 +325,16 @@ class Tank(ABC):
         self.shots += 1 if self.shots < GameConstants.MAX_SHOTS else 0
 
     @abstractmethod
+    def state_to_move(self, state):
+        """
+        Get the move corresponding to a state.
+
+        :param state: State to convert.
+        :return: Move corresponding to the state.
+        """
+        pass
+
+    @abstractmethod
     def move(self, direction):
         """Move the tank in a specified direction."""
         self.add_bullet()  # add one bullet each time the tank moves
@@ -572,6 +582,22 @@ class AdversarialSearchTank(Tank, ABC):
         else:
             self.shoot(action)
 
+    def state_to_move(self, state):
+        """
+        Convert the state to a move.
+
+        :param state: Current state.
+        :return: Move to make.
+        """
+        state[0], state[3] = state[3], state[0]
+        state[1], state[4] = state[4], state[1]
+        state[2], state[5] = state[5], state[2]
+        action = self.search(state)
+        state[0], state[3] = state[3], state[0]
+        state[1], state[4] = state[4], state[1]
+        state[2], state[5] = state[5], state[2]
+        return action
+
 
 # ---------------------- RandomTank ---------------------- #
 class RandomTank(Tank):
@@ -629,10 +655,34 @@ class RandomTank(Tank):
         # choose randomly between moving and shooting - below 0.8 move, above 0.8 shoot
         import random
         choice = random.random()
-        if choice < 0.8:
+        if choice < 0.8 or self.shots == 0:
             self.move(None)
         else:
             self.shoot(None)
+
+
+    def state_to_move(self, state):
+        """
+        Convert a state to a move.
+        :param state: State to convert.
+        :return: Move corresponding to the state.
+        """
+        import random
+        choice = random.random()
+        legal_actions = state_legal_actions(self.board, state, 3)
+        if len(legal_actions) == 0:
+            return "IDLE"
+        move_actions = [action for action in legal_actions if action.startswith('MOVE')]
+        shoot_actions = [action for action in legal_actions if action.startswith('SHOOT')]
+        if (choice < 0.8 or state[5] == 0) and len(move_actions) > 0:
+            valid_actions = [action for action in legal_actions if action.startswith('MOVE')]
+            action = np.random.choice(valid_actions)
+            dx, dy = GameConstants.STR_TO_VALS[action[5:].lower()]
+            return action
+        valid_actions = [action for action in legal_actions if action.startswith('SHOOT')]
+        action = np.random.choice(valid_actions)
+        return action
+
 
 
 # ---------------------- PlayerTank ---------------------- #
@@ -772,8 +822,26 @@ class AStarTank(Tank):
                 self.board.add_bullet(Bullet(self.board, self.x + dx, self.y + dy, action))
                 self.shots -= 1
 
+    def state_to_move(self, state):
+        if chebyshev_distance((state[0], state[1]), (state[3], state[4])) == 1 and state[5] > 0:
+            tank_position = (state[0], state[1])
+            dx, dy = tank_position[0] - state[3], tank_position[1] - state[4]
+            direction = GameConstants.VALS_TO_STR.get((dx, dy))
+            return 'SHOOT_' + direction.upper()
+        path = a_star_path(self.board, (state[3], state[4]), (state[0], state[1]))
+        if path:
+            next_step = path[0]
+            dx, dy = next_step[0] - state[3], next_step[1] - state[4]
+            direction = GameConstants.VALS_TO_STR.get((dx, dy))
+            return 'MOVE_' + direction.upper()
+        import random
+        action = random.choice(state_legal_actions(self.board, state, 3))
+        return action
+
 
 # ---------------------- Q-LearningTank ---------------------- #
+
+
 class QLearningTank(Tank):
     def __init__(self, board, x, y, number, lr=0.2, ds=0.99, er=0.1, ed=0.01, epochs=100, pretrained=False,
                  save_file=None):
@@ -802,13 +870,6 @@ class QLearningTank(Tank):
         self.save_file = save_file
         self.pretrained = pretrained
 
-        if self.pretrained:
-            # load from pickle file
-            with open(self.save_file, 'rb') as f:
-                self.q_table = pickle.load(f)
-        else:
-            self.fill_q_table()
-
     def fill_q_table(self):
         """
         Fill the Q-table with the given state.
@@ -834,6 +895,9 @@ class QLearningTank(Tank):
             return False
 
         if self.pretrained:
+            # load from pickle file
+            with open(self.save_file, 'rb') as f:
+                self.q_table = pickle.load(f)
             return
 
         for i in range(self.epochs):
@@ -912,7 +976,13 @@ class QLearningTank(Tank):
         :return: Next state.
         """
         next_state = next_state_finder(self.board, state, action, 0)
-        next_state = next_state_finder(self.board, next_state, self.state_to_move(next_state), 3)
+        if self.number == 1:
+            other_tank = self.board.tank2
+        else:
+            other_tank = self.board.tank1
+        if isinstance(other_tank, PlayerTank):
+            next_state = next_state_finder(self.board, next_state, self.state_to_move(next_state), 3)
+        next_state = next_state_finder(self.board, next_state, other_tank.state_to_move(next_state), 3)
         return tuple(next_state)
 
     def state_to_move(self, state):
@@ -1264,10 +1334,12 @@ class PGTank(Tank):
         # for best - do 1, for faster - do more than 1
         self.decreasing_num_turns_to_replan = False  # just a small optimization
 
-    def generate_plan(self, domain_file, problem_file):
+    def generate_plan(self, domain_file, problem_file, state=None):
         # Generate a plan for the tank
         self.create_domain_file(domain_file, self.board)
-        self.create_problem_file(problem_file, self.board)
+        if state is None:
+            self.create_problem_file(problem_file, self.board)
+        self.create_state_problem_file(problem_file, self.board, state)
         # gp = GraphPlan(domain_file, problem_file)
         # plan = gp.graph_plan()
         heuristics = [null_heuristic, max_level, level_sum]
@@ -1566,3 +1638,34 @@ class PGTank(Tank):
     def act(self):
         self.move(None)
         self.shoot(None)
+
+    def create_state_problem_file(self, problem_file_name, board, state):
+        # Create the problem file for the planning graph
+        problem_file = open(problem_file_name, 'w')
+        problem_file.write("Initial state: ")
+        for x in range(0, board.width):
+            for y in range(0, board.height):
+                if x == -1 or y == -1 or x == board.width or y == board.height:
+                    problem_file.write(f"wall_at_{x}_{y} ")
+                elif board.is_wall(x, y):
+                    problem_file.write(f"wall_at_{x}_{y} ")
+                elif state[3] == x and state[4] == y:
+                    problem_file.write(f"tank_at_{x}_{y} ")
+                    problem_file.write(f"empty_at_{x}_{y} ")
+                elif board.is_bullet(x, y):
+                    problem_file.write(f"bullet_at_{x}_{y} ")
+                    problem_file.write(f"empty_at_{x}_{y} ")
+                else:
+                    problem_file.write(f"empty_at_{x}_{y} ")
+        problem_file.write("\nGoal state: ")
+
+        enemy_x = state[3]
+        enemy_y = state[4]
+        problem_file.write(f"bullet_at_{enemy_x}_{enemy_y} ")
+
+        problem_file.close()
+
+    def state_to_move(self, state):
+        self.generate_plan(PLAN_DOMAIN_FILE, PLAN_PROBLEM_FILE, state)
+        action = self.plan[self.current_plan_index]
+

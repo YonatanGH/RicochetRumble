@@ -60,12 +60,8 @@ class MainMenu:
     def start_game(self):
         """Start the game with selected options."""
         self.window.pack_forget()
-        if type(self.qchoice1) == str:
-            self.qchoice1 = tk.StringVar(value="None")
-        if type(self.qchoice2) == str:
-            self.qchoice2 = tk.StringVar(value="None")
-        Game(self.main_window, self.delay_var.get(), self.tank1_var.get(), self.tank2_var.get(), self.qchoice1.get(),
-             self.qchoice2.get())
+        Game(self.main_window, self.delay_var.get(), self.tank1_var.get(), self.tank2_var.get(), self.qchoice1,
+             self.qchoice2)
 
     def tournament_menu(self):
         """Start the tournament menu."""
@@ -634,6 +630,10 @@ class Game:
         self.tank1 = self.create_tank(tank1_type, 0, 0, 1, qmode1)  # Tank 1
         self.tank2 = self.create_tank(tank2_type, GameConstants.BOARD_WIDTH - 1, GameConstants.BOARD_HEIGHT - 1, 2,
                                       qmode2)  # Tank 2
+        if tank1_type == "Q-Learning":
+            self.tank1.fill_q_table()
+        if tank2_type == "Q-Learning":
+            self.tank2.fill_q_table()
 
         self.current_tank = self.tank1  # Current tank
         self.turns = 0  # Turn counter
@@ -672,7 +672,7 @@ class Game:
                 return QLearningTank(self.board, x, y, number, pretrained=True, save_file="qlearning_a_star.pkl")
             elif mode == "Planning-Graph":
                 return QLearningTank(self.board, x, y, number, pretrained=True,
-                                     save_file="qlearning_planning_graph.pkl.pkl")
+                                     save_file="qlearning_planning_graph.pkl")
             elif mode == "Minimax":
                 return QLearningTank(self.board, x, y, number, pretrained=True, save_file="qlearning_minimax.pkl")
             elif mode == "Expectimax":
