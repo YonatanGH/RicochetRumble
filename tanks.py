@@ -1021,8 +1021,8 @@ class QLearningTank(Tank):
         q_values = [self.get_q_value(tuple(state), action) for action in state_legal_actions(self.board, state, 0)]
         if len(q_values) == 0:
             return "IDLE"
-        for action in state_legal_actions(self.board, state, 0):
-            print(self.number, action, self.get_q_value(tuple(state), action))
+        # for action in state_legal_actions(self.board, state, 0):
+        #     print(self.number, action, self.get_q_value(tuple(state), action))
         action = state_legal_actions(self.board, state, 0)[np.argmax(q_values)]
         return action
 
@@ -1075,9 +1075,23 @@ class QLearningTank(Tank):
                 return 1000
             return -1000
 
+        shot_score = -20
         if clear_shot(self.board, (state[0], state[1]), (state[3], state[4])):
             # check if the action is in the correct direction
-            if (dx, dy) == ((state[3] - state[0])/abs(state[3] - state[0]), (state[4] - state[1])/abs(state[4] - state[1])):
+            if state[3] - state[0] == 0:
+                if dy != 0:
+                    shot_score = -50
+                else:
+                    if state[4] - state[1] == 0:
+                        if dx != 0:
+                            shot_score = -50
+                        else:
+                            if dx == (state[4] - state[1])/abs(state[4] - state[1]):
+                                shot_score = (14 - len(a_star_path(self.board, (state[0], state[1]), (state[3], state[4])))) * 10
+            elif state[4] - state[1] == 0:
+                if dx != 0:
+                    shot_score = -50
+            elif (dx, dy) == ((state[3] - state[0])/abs(state[3] - state[0]), (state[4] - state[1])/abs(state[4] - state[1])):
                 shot_score = (14 - len(a_star_path(self.board, (state[0], state[1]), (state[3], state[4])))) * 10
             else:
                 shot_score = -50
